@@ -35,7 +35,7 @@ struct HomeView: View {
         .toastOverlay(state.toast)
         .onChange(of: state.pendingJoinCode) { _, code in if code != nil { showJoin = true } }
         .task { await state.loadRooms() }
-        .accessibilityIdentifier("screen.home")
+        .screen("screen.home")
     }
 
     private var header: some View {

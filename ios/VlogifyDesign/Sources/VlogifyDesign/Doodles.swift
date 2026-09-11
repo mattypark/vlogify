@@ -125,11 +125,11 @@ struct DoodlePlaceholder: View {
             case .mascot:
                 MascotShape().fill(doodle.placeholderColor)
                     .overlay(MascotShape().stroke(Color.soot, lineWidth: max(2, w * 0.018)))
-                    .overlay(Face(eyeSize: w * 0.13).offset(y: -h * 0.04))
+                    .overlay(Face(eyeSize: w * 0.13).offset(y: h * 0.02))
             case .shutterSmile:
                 Circle().fill(doodle.placeholderColor)
                     .overlay(Circle().stroke(Color(OKLCH(0.45, 0.2, 265)), lineWidth: max(3, w * 0.05)))
-                    .overlay(Face(eyeSize: w * 0.09).offset(y: -h * 0.02))
+                    .overlay(Face(eyeSize: w * 0.17).offset(y: -h * 0.03))
             case .starHappy, .starSurprised, .sparkleSmall, .sparkleLarge:
                 StarShape(points: doodle == .sparkleSmall || doodle == .sparkleLarge ? 4 : 5)
                     .fill(doodle.placeholderColor)
@@ -147,10 +147,12 @@ struct DoodlePlaceholder: View {
             case .glyphVlog:
                 glyphClip(width: w * 0.8, height: h * 0.34).frame(width: w, height: h)
             default:
+                // A dashed footprint, not a block: it reads as "art goes here" rather
+                // than as a design decision.
                 RoundedRectangle(cornerRadius: min(w, h) * 0.3, style: .continuous)
-                    .fill(doodle.placeholderColor)
+                    .fill(doodle.placeholderColor.opacity(0.25))
                     .overlay(RoundedRectangle(cornerRadius: min(w, h) * 0.3, style: .continuous)
-                        .stroke(Color.soot.opacity(0.7), lineWidth: 2))
+                        .stroke(doodle.placeholderColor, style: StrokeStyle(lineWidth: 2, dash: [6, 5])))
             }
         }
     }
@@ -190,17 +192,20 @@ public struct MascotShape: Shape {
     public init() {}
 
     public func path(in rect: CGRect) -> Path {
-        // A cloud: five overlapping circles inside a rounded base.
-        var path = Path()
+        // A cloud: one closed outline of bumps, so fill and stroke agree.
         let w = rect.width, h = rect.height
-        let bumps: [(CGFloat, CGFloat, CGFloat)] = [
-            (0.30, 0.55, 0.30), (0.52, 0.38, 0.34), (0.74, 0.55, 0.28),
-            (0.42, 0.68, 0.30), (0.62, 0.72, 0.26),
-        ]
-        for (cx, cy, r) in bumps {
-            path.addEllipse(in: CGRect(x: w * (cx - r / 2), y: h * (cy - r / 2 * (w / h)),
-                                       width: w * r, height: w * r))
-        }
+        func p(_ x: CGFloat, _ y: CGFloat) -> CGPoint { CGPoint(x: rect.minX + w * x, y: rect.minY + h * y) }
+        var path = Path()
+        path.move(to: p(0.18, 0.78))
+        path.addQuadCurve(to: p(0.10, 0.52), control: p(0.00, 0.72))
+        path.addQuadCurve(to: p(0.30, 0.34), control: p(0.10, 0.30))
+        path.addQuadCurve(to: p(0.55, 0.16), control: p(0.34, 0.06))
+        path.addQuadCurve(to: p(0.80, 0.34), control: p(0.78, 0.08))
+        path.addQuadCurve(to: p(0.92, 0.60), control: p(1.02, 0.36))
+        path.addQuadCurve(to: p(0.74, 0.86), control: p(1.00, 0.86))
+        path.addQuadCurve(to: p(0.48, 0.90), control: p(0.62, 1.02))
+        path.addQuadCurve(to: p(0.18, 0.78), control: p(0.32, 1.00))
+        path.closeSubpath()
         return path
     }
 }

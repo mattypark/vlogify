@@ -43,7 +43,7 @@ struct ProfileSetupView: View {
             name = state.profile?.displayName ?? ""
             focused = true
         }
-        .accessibilityIdentifier("screen.profile")
+        .screen("screen.profile")
     }
 
     private var trimmed: String { name.trimmingCharacters(in: .whitespaces) }

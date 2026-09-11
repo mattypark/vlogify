@@ -50,7 +50,7 @@ struct DayPlayerView: View {
         }
         .task { await compose() }
         .onDisappear { player?.pause() }
-        .accessibilityIdentifier("screen.dayPlayer")
+        .screen("screen.dayPlayer")
     }
 
     @ViewBuilder

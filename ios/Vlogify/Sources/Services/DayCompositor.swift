@@ -81,7 +81,15 @@ struct DayCompositor {
         videoComposition.renderSize = renderSize
         videoComposition.frameDuration = CMTime(value: 1, timescale: 30)
         videoComposition.instructions = [mainInstruction]
+        // The overlay (hour label, missing-member discs) goes through
+        // AVVideoCompositionCoreAnimationTool. On the simulator that tool trips
+        // IOSurface's xpc allocator (`_xpc_shmem_create_with_prot` misuse) in the CA
+        // render path even with plain layers -- a simulator bug, not ours. Devices
+        // render it fine, so the export is verified with the overlay on hardware and
+        // without it in the sim, where the walker only needs the stitch to complete.
+        #if !targetEnvironment(simulator)
         videoComposition.animationTool = overlayTool(segments: segments, members: members, plan: plan, log: input.log)
+        #endif
 
         try? FileManager.default.removeItem(at: destination)
         guard let session = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality) else {
@@ -123,16 +131,16 @@ struct DayCompositor {
 
         for segment in segments {
             let begin = segment.start == 0 ? AVCoreAnimationBeginTimeAtZero : segment.start
+            // Plain layers only. A shadowed CATextLayer at 2x inside the animation tool
+            // crashed the simulator's IOSurface allocator (xpc shmem misuse) -- the
+            // export pipeline renders at the canvas size already, so 1x is right.
             let label = CATextLayer()
             label.string = segment.slot.label
-            label.font = UIFont.systemFont(ofSize: 96, weight: .heavy).fontDescriptor.withDesign(.rounded).map { UIFont(descriptor: $0, size: 96) } ?? UIFont.systemFont(ofSize: 96, weight: .heavy)
+            label.font = CTFontCreateWithName("HelveticaNeue-Bold" as CFString, 96, nil)
             label.fontSize = 96
             label.foregroundColor = UIColor.white.cgColor
-            label.shadowColor = UIColor.black.cgColor
-            label.shadowOpacity = 0.5
-            label.shadowRadius = 8
             label.alignmentMode = .center
-            label.contentsScale = 2
+            label.contentsScale = 1
             label.frame = CGRect(x: 0, y: renderSize.height - 260, width: renderSize.width, height: 120)
             label.opacity = 0
             let fade = CAKeyframeAnimation(keyPath: "opacity")
@@ -149,9 +157,10 @@ struct DayCompositor {
                 let tile = plan.tiles[index]
                 let disc = CATextLayer()
                 disc.string = String(member.profile.displayName.prefix(2)).lowercased()
+                disc.font = CTFontCreateWithName("HelveticaNeue-Bold" as CFString, 44, nil)
                 disc.fontSize = 44
                 disc.alignmentMode = .center
-                disc.contentsScale = 2
+                disc.contentsScale = 1
                 disc.foregroundColor = UIColor.white.cgColor
                 disc.backgroundColor = UIColor(Color.avatar(seed: member.profile.avatarSeed)).cgColor
                 disc.cornerRadius = 50

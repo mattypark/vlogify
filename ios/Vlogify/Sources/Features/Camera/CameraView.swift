@@ -19,10 +19,10 @@ struct CameraView: View {
     var body: some View {
         VStack(spacing: Space.sm) {
             ZStack {
-                if state.permissions.canRecord || camera.isSimulated {
-                    CameraPreview(camera: camera)
-                } else {
+                if state.permissions.isDenied {
                     deniedView
+                } else {
+                    CameraPreview(camera: camera)
                 }
                 overlay
             }
@@ -43,7 +43,7 @@ struct CameraView: View {
                 Button(room.name ?? String(localized: room.isSolo ? "just me" : "untitled log")) { target = room }
             }
         }
-        .accessibilityIdentifier("screen.camera")
+        .screen("screen.camera")
     }
 
     private var slot: Slot { state.clock.currentSlot }
@@ -118,7 +118,7 @@ struct CameraView: View {
             .frame(width: Metrics.shutter, height: Metrics.shutter)
         }
         .buttonStyle(.plain)
-        .disabled(posting || state.rooms.isEmpty || alreadyPosted || (!state.permissions.canRecord && !camera.isSimulated))
+        .disabled(posting || state.rooms.isEmpty || alreadyPosted || state.permissions.isDenied)
         .opacity(alreadyPosted ? 0.4 : 1)
         .accessibilityLabel(Text(camera.isRecording ? "recording" : "record"))
         .accessibilityIdentifier("camera.shutter")
@@ -138,7 +138,7 @@ struct CameraView: View {
         .padding(Space.xl)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.surface)
-        .accessibilityIdentifier("camera.denied")
+        .screen("camera.denied")
     }
 
     private func capture() {

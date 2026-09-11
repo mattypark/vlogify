@@ -68,12 +68,12 @@ struct WelcomeView: View {
             DoodleSticker(.sparkleLarge).position(x: w * 0.9, y: h * 0.2)
             DoodleSticker(.envelope).position(x: w * 0.13, y: h * 0.3)
             DoodleSticker(.moon).position(x: w * 0.86, y: h * 0.3)
-            DoodleSticker(.pizza).position(x: w * 0.17, y: h * 0.52)
-            DoodleSticker(.orange).position(x: w * 0.45, y: h * 0.56)
-            DoodleSticker(.plant, scale: 0.8).position(x: w * 0.8, y: h * 0.53)
-            DoodleSticker(.tea, scale: 0.8).position(x: w * 0.2, y: h * 0.92)
+            DoodleSticker(.pizza, scale: 0.8).position(x: w * 0.16, y: h * 0.56)
+            DoodleSticker(.orange).position(x: w * 0.44, y: h * 0.60)
+            DoodleSticker(.plant, scale: 0.65).position(x: w * 0.8, y: h * 0.58)
+            DoodleSticker(.tea, scale: 0.7).position(x: w * 0.18, y: h * 0.93)
             DoodleSticker(.flames, scale: 0.8).position(x: w * 0.53, y: h * 0.93)
-            DoodleSticker(.sundae, scale: 0.8).position(x: w * 0.84, y: h * 0.9)
+            DoodleSticker(.sundae, scale: 0.7).position(x: w * 0.85, y: h * 0.92)
         }
     }
 

@@ -48,6 +48,6 @@ struct HistoryView: View {
             days = (try? await state.backend.clips.history(roomID: room.id)) ?? []
             loaded = true
         }
-        .accessibilityIdentifier("screen.history")
+        .screen("screen.history")
     }
 }

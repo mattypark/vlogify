@@ -23,7 +23,10 @@ enum BackendRoot {
         let scenarioDir = LaunchArguments.usesTemporaryStore
             ? FileManager.default.temporaryDirectory.appendingPathComponent("vlogify-mock-\(ProcessInfo.processInfo.processIdentifier)")
             : cache.root.appendingPathComponent("mock", isDirectory: true)
-        let mock = MockBackend(now: { Date() }, timeZone: clock.timeZone,
+        // With -vlogifyHour the whole app pretends it is that hour; the mock has to
+        // seed against the same instant or "today" has clips only up to real time.
+        let frozen = LaunchArguments.hour == nil ? nil : clock.now
+        let mock = MockBackend(now: { frozen ?? Date() }, timeZone: clock.timeZone,
                                clipsDirectory: scenarioDir, sampleClip: SampleClip.url)
         if let scenario = LaunchArguments.demo {
             await mock.seed(scenario)

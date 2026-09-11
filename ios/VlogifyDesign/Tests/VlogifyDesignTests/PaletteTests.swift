@@ -42,7 +42,7 @@ struct PaletteTests {
 
     @Test("Every palette role is in sRGB gamut after mapping")
     func gamut() {
-        for color in [Palette.ink, Palette.paper, Palette.orchid, Palette.mint, Palette.sky, Palette.butter, Palette.ember] {
+        for color in [Palette.ink, Palette.paper, Palette.orchid, Palette.spearmint, Palette.sky, Palette.butter, Palette.ember] {
             #expect(color.gamutMapped().isInGamut)
         }
     }

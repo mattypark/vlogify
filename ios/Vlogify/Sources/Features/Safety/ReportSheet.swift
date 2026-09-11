@@ -52,7 +52,7 @@ struct ReportSheet: View {
         .tint(Color.chalk)
         .presentationDetents([.medium, .large])
         .presentationBackground(Color.ink)
-        .accessibilityIdentifier("screen.report")
+        .screen("screen.report")
     }
 
     private func label(_ reason: ReportReason) -> LocalizedStringKey {

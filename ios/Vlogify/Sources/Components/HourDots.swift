@@ -31,6 +31,6 @@ struct HourDots: View {
         if let log, let userID, log.clip(from: userID, in: slot) != nil { return .chalk }
         if slot == currentSlot { return .orchid }
         if slot < currentSlot { return .surfaceRaised }
-        return .surface
+        return .line.opacity(0.5)
     }
 }

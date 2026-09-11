@@ -45,6 +45,6 @@ struct NotificationsView: View {
         }
         .presentationDetents([.medium])
         .presentationBackground(Color.ink)
-        .accessibilityIdentifier("screen.notifications")
+        .screen("screen.notifications")
     }
 }

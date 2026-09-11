@@ -79,7 +79,7 @@ struct NewRoomSheet: View {
                 created(room)
             }
         }
-        .accessibilityIdentifier("screen.newRoom")
+        .screen("screen.newRoom")
     }
 
     private var caption: LocalizedStringKey {

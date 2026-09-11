@@ -87,7 +87,7 @@ struct ProfileView: View {
         } message: {
             Text("your clips, your rooms, and your sign-in are removed from vlogify's servers. friends keep their own clips.")
         }
-        .accessibilityIdentifier("screen.profile")
+        .screen("screen.profile")
     }
 
     private func row(_ title: LocalizedStringKey, value: String) -> some View {

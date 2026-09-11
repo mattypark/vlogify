@@ -23,6 +23,55 @@ struct RoomView: View {
     private var isToday: Bool { shownDay == state.clock.today }
 
     var body: some View {
+        // ZStack rather than the reader as the root: an accessibility container has to
+        // be a real view for the walker to find `screen.room`.
+        ZStack { timeline }
+            .background(Color.ink.ignoresSafeArea())
+            .navigationTitle(room.name ?? String(localized: room.isSolo ? "just me" : "untitled log"))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color.ink, for: .navigationBar)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Menu {
+                        Button { showPlayer = true } label: { Label("play the day", systemImage: "play.rectangle") }
+                            .disabled(log?.clips.isEmpty ?? true)
+                        Button { showHistory = true } label: { Label("history", systemImage: "calendar") }
+                        if !room.isSolo {
+                            Button { showInvite = true } label: { Label("invite", systemImage: "person.badge.plus") }
+                        }
+                        Divider()
+                        Button(role: .destructive) { confirmLeave = true } label: {
+                            Label(room.isSolo ? "delete this vlog" : "leave room", systemImage: "rectangle.portrait.and.arrow.right")
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis.circle").foregroundStyle(Color.chalk)
+                    }
+                    .accessibilityIdentifier("room.menu")
+                }
+            }
+            .task(id: shownDay) { await load() }
+            .sheet(isPresented: $showInvite) { InviteView(room: room) }
+            .sheet(isPresented: $showHistory) {
+                HistoryView(room: room) { picked in day = picked; showHistory = false }
+            }
+            .fullScreenCover(isPresented: $showPlayer) {
+                if let log { DayPlayerView(room: room, log: log) }
+            }
+            .fullScreenCover(item: $playing) { clip in ClipPlayerView(clip: clip) }
+            .sheet(item: $reporting) { clip in ReportSheet(clip: clip, member: log?.members.first { $0.userID == clip.memberID }) }
+            .confirmationDialog(room.isSolo ? "delete this vlog?" : "leave this room?", isPresented: $confirmLeave, titleVisibility: .visible) {
+                Button(room.isSolo ? "delete" : "leave", role: .destructive) {
+                    Task { await state.leaveRoom(room); dismiss() }
+                }
+            } message: {
+                Text(room.isSolo ? "your clips in it go too." : "you'll need a new code to come back.")
+            }
+            .environment(thumbnails ?? Thumbnails(media: state.backend.media, local: state.cache))
+            .onAppear { if thumbnails == nil { thumbnails = Thumbnails(media: state.backend.media, local: state.cache) } }
+            .screen("screen.room")
+    }
+
+    private var timeline: some View {
         ScrollViewReader { proxy in
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: Space.lg) {
@@ -43,49 +92,6 @@ struct RoomView: View {
                 if isToday { withAnimation { proxy.scrollTo(state.clock.currentSlot.hour, anchor: .center) } }
             }
         }
-        .background(Color.ink.ignoresSafeArea())
-        .navigationTitle(room.name ?? String(localized: room.isSolo ? "just me" : "untitled log"))
-        .navigationBarTitleDisplayMode(.inline)
-        .toolbarBackground(Color.ink, for: .navigationBar)
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Menu {
-                    Button { showPlayer = true } label: { Label("play the day", systemImage: "play.rectangle") }
-                        .disabled(log?.clips.isEmpty ?? true)
-                    Button { showHistory = true } label: { Label("history", systemImage: "calendar") }
-                    if !room.isSolo {
-                        Button { showInvite = true } label: { Label("invite", systemImage: "person.badge.plus") }
-                    }
-                    Divider()
-                    Button(role: .destructive) { confirmLeave = true } label: {
-                        Label(room.isSolo ? "delete this vlog" : "leave room", systemImage: "rectangle.portrait.and.arrow.right")
-                    }
-                } label: {
-                    Image(systemName: "ellipsis.circle").foregroundStyle(Color.chalk)
-                }
-                .accessibilityIdentifier("room.menu")
-            }
-        }
-        .task(id: shownDay) { await load() }
-        .sheet(isPresented: $showInvite) { InviteView(room: room) }
-        .sheet(isPresented: $showHistory) {
-            HistoryView(room: room) { picked in day = picked; showHistory = false }
-        }
-        .fullScreenCover(isPresented: $showPlayer) {
-            if let log { DayPlayerView(room: room, log: log) }
-        }
-        .fullScreenCover(item: $playing) { clip in ClipPlayerView(clip: clip) }
-        .sheet(item: $reporting) { clip in ReportSheet(clip: clip, member: log?.members.first { $0.userID == clip.memberID }) }
-        .confirmationDialog(room.isSolo ? "delete this vlog?" : "leave this room?", isPresented: $confirmLeave, titleVisibility: .visible) {
-            Button(room.isSolo ? "delete" : "leave", role: .destructive) {
-                Task { await state.leaveRoom(room); dismiss() }
-            }
-        } message: {
-            Text(room.isSolo ? "your clips in it go too." : "you'll need a new code to come back.")
-        }
-        .environment(thumbnails ?? Thumbnails(media: state.backend.media, local: state.cache))
-        .onAppear { if thumbnails == nil { thumbnails = Thumbnails(media: state.backend.media, local: state.cache) } }
-        .accessibilityIdentifier("screen.room")
     }
 
     private var membersRow: some View {
@@ -204,7 +210,7 @@ struct RoomView: View {
                 }
             }
         }
-        .accessibilityIdentifier("room.hour.\(row.slot.hour)")
+        .screen("room.hour.\(row.slot.hour)")
     }
 
     private func deleteButton(_ clip: Clip) -> some View {

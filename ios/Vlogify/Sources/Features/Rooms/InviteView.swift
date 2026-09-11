@@ -56,6 +56,6 @@ struct InviteView: View {
         .background(Color.ink.ignoresSafeArea())
         .presentationDetents([.medium, .large])
         .presentationBackground(Color.ink)
-        .accessibilityIdentifier("screen.invite")
+        .screen("screen.invite")
     }
 }

@@ -44,6 +44,6 @@ struct ClipPlayerView: View {
             self.player = player
         }
         .onDisappear { player?.pause() }
-        .accessibilityIdentifier("screen.clipPlayer")
+        .screen("screen.clipPlayer")
     }
 }

@@ -39,6 +39,6 @@ struct BlockedUsersView: View {
         }
         .presentationBackground(Color.ink)
         .task { people = (try? await state.backend.safety.blocked()) ?? [] }
-        .accessibilityIdentifier("screen.blocked")
+        .screen("screen.blocked")
     }
 }

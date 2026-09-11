@@ -53,6 +53,8 @@ final class Permissions {
     }
 
     var canRecord: Bool { camera == .granted && microphone == .granted }
+    /// Explicitly refused, as opposed to not asked yet. Only this shows the wall.
+    var isDenied: Bool { camera == .denied || microphone == .denied }
 
     private static func status(_ raw: AVAuthorizationStatus) -> Status {
         switch raw {

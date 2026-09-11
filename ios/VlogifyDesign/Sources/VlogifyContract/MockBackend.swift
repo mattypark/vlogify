@@ -93,7 +93,10 @@ public actor MockBackend {
         let days = [today.day, previousDay(today.day, by: 1), previousDay(today.day, by: 2)]
         for (dayIndex, day) in days.enumerated() {
             for slot in DayClock.slots(of: day) {
-                if dayIndex == 0, slot.hour > today.hour { break }
+                // Today stops one hour short of now: the demo opens on "it's 5:00. add
+                // your clip.", which is the state worth looking at, and the walker
+                // can actually press the shutter.
+                if dayIndex == 0, slot.hour >= today.hour { break }
                 if slot.hour > 25 { continue }
                 for (memberIndex, profile) in [me, jiwoo, sam].enumerated() {
                     // Everyone posts most hours; each member skips a different one.

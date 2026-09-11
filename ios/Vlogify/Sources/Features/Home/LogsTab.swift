@@ -22,7 +22,7 @@ struct LogsTab: View {
                 .padding(.bottom, Space.md)
             }
             .refreshable { await state.loadRooms() }
-            .accessibilityIdentifier("home.rooms")
+            .screen("home.rooms")
         }
     }
 }
@@ -74,7 +74,7 @@ struct EmptyHomeView: View {
             .padding(.bottom, Space.xs)
         }
         .padding(.horizontal, Space.gutter)
-        .accessibilityIdentifier("home.empty")
+        .screen("home.empty")
     }
 
     private func step<Content: View>(_ number: Int, @ViewBuilder content: () -> Content) -> some View {

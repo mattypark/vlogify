@@ -56,7 +56,7 @@ struct JoinRoomSheet: View {
                 }
                 .padding(Space.md)
                 .background(Color.surface, in: RoundedRectangle(cornerRadius: Radius.row, style: .continuous))
-                .accessibilityIdentifier("join.preview")
+                .screen("join.preview")
             }
             Spacer()
             PillButton(title: "join", style: .accent, isLoading: busy) { join() }
@@ -75,7 +75,7 @@ struct JoinRoomSheet: View {
             }
             focused = true
         }
-        .accessibilityIdentifier("screen.join")
+        .screen("screen.join")
     }
 
     private func lookup() {

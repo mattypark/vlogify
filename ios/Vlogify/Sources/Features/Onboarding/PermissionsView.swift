@@ -56,7 +56,7 @@ struct PermissionsView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background(Color.ink.ignoresSafeArea())
         .task { await permissions.refresh() }
-        .accessibilityIdentifier("screen.permissions")
+        .screen("screen.permissions")
     }
 
     private func row(index: Int, name: String, status: Permissions.Status, detail: String) -> some View {
