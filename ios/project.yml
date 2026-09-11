@@ -1,0 +1,144 @@
+name: Vlogify
+options:
+  bundleIdPrefix: com.matthewpark
+  deploymentTarget:
+    iOS: "18.0"
+  createIntermediateGroups: true
+
+packages:
+  VlogifyDesign:
+    path: VlogifyDesign
+
+targets:
+  Vlogify:
+    type: application
+    platform: iOS
+    sources:
+      - path: Vlogify
+      # Excluded from the bundle: it documents the real Secrets.xcconfig, which is
+      # gitignored, and has no business shipping inside the app.
+      - path: Vlogify/Secrets.xcconfig.example
+        buildPhase: none
+    dependencies:
+      - package: VlogifyDesign
+      - package: VlogifyDesign
+        product: VlogifyEngine
+      - package: VlogifyDesign
+        product: VlogifyContract
+    configFiles:
+      Debug: Vlogify/Base.xcconfig
+      Release: Vlogify/Base.xcconfig
+    info:
+      path: Vlogify/Info.plist
+      properties:
+        CFBundleDisplayName: vlogify
+        # Wired to the build settings on purpose. XcodeGen writes a default 1.0 / 1 into
+        # the plist otherwise, and MARKETING_VERSION then does nothing -- you bump the
+        # version, upload, and App Store Connect rejects the build as a duplicate.
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        # Six localisations. Listing them here is what makes iOS show the per-app
+        # language picker in Settings, which is where the app's Language row points.
+        CFBundleLocalizations: [en, ko, ja, zh-Hant, vi, ru]
+        CFBundleDevelopmentRegion: en
+        UILaunchScreen:
+          UIColorName: LaunchBackground
+        # Portrait chrome, but the camera reads the device orientation to stamp the
+        # hour along the long edge and to record landscape when the phone is turned --
+        # the app itself never rotates.
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+        # Without this, ProMotion caps the app at 60fps and the two-second recording
+        # ring stutters, which is the one animation people stare at.
+        CADisableMinimumFrameDurationOnPhone: true
+        # Declaring this false skips the export-compliance questionnaire on every
+        # TestFlight upload. Correct for v1: every byte goes over HTTPS through
+        # URLSession, which is encryption provided by iOS and is exempt. Flips to true
+        # the day the backend session ships client-side clip encryption.
+        ITSAppUsesNonExemptEncryption: false
+        # Every string says what the app does with the thing, because "we need your
+        # camera" is a cited rejection. Localised in InfoPlist.xcstrings.
+        NSCameraUsageDescription: "vlogify uses the camera to record the two-second clip you add to your room every hour."
+        NSMicrophoneUsageDescription: "vlogify records sound with each clip so your friends hear the moment, not just see it."
+        NSPhotoLibraryAddUsageDescription: "vlogify saves the finished day-vlog to your Photos when you tap export. It never reads your library."
+        # Populated from Secrets.xcconfig, which is gitignored. Absent means the app
+        # runs on the on-device mock backend, which is what this session ships.
+        SUPABASE_URL: $(SUPABASE_URL)
+        SUPABASE_ANON_KEY: $(SUPABASE_ANON_KEY)
+        MEDIA_BASE_URL: $(MEDIA_BASE_URL)
+        # vlogify://join/<code> opens the join sheet with the code filled in.
+        CFBundleURLTypes:
+          - CFBundleURLSchemes:
+              - vlogify
+        UIBackgroundModes:
+          - remote-notification
+    entitlements:
+      path: Vlogify/Vlogify.entitlements
+      properties:
+        com.apple.developer.applesignin:
+          - Default
+        # Push arrives once the backend session registers the APNs key. Declared now
+        # so the capability is on the App ID from the first TestFlight build.
+        aps-environment: development
+        # A widget showing today's hour-dots is the obvious v1.1. Declared now so the
+        # clip cache is created in the group container from the first launch --
+        # moving it later would strand everyone's existing clips.
+        com.apple.security.application-groups:
+          - group.com.matthewpark.vlogify
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.matthewpark.vlogify
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        SWIFT_VERSION: "6.0"
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        ENABLE_USER_SCRIPT_SANDBOXING: YES
+        SWIFT_UPCOMING_FEATURE_CONCURRENCY: YES
+        # Xcode extracts the string keys from `Text("...")` and `String(localized:)`
+        # into Localizable.xcstrings on build, so a new string is never silently
+        # untranslated -- it shows up as a missing row.
+        SWIFT_EMIT_LOC_STRINGS: YES
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: R43H5332KH
+        GENERATE_INFOPLIST_FILE: NO
+
+  # The overnight walker. Separate bundle so `xcodebuild test` on a simulator drives
+  # the real app; the package's Swift Testing suites stay on the command line.
+  VlogifyUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: VlogifyUITests
+    dependencies:
+      - target: Vlogify
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.matthewpark.vlogify.uitests
+        SWIFT_VERSION: "6.0"
+        TEST_TARGET_NAME: Vlogify
+        GENERATE_INFOPLIST_FILE: YES
+        CODE_SIGN_STYLE: Automatic
+        DEVELOPMENT_TEAM: R43H5332KH
+
+# XcodeGen does not emit a shared scheme unless one is declared, and xcodebuild refuses
+# to build without one ("Found no destinations for the scheme").
+schemes:
+  Vlogify:
+    build:
+      targets:
+        Vlogify: all
+        VlogifyUITests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - VlogifyUITests
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release

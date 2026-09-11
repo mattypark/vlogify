@@ -1,0 +1,37 @@
+# Xcode project is generated from ios/project.yml by xcodegen. Never edit it by hand,
+# never commit it -- the spec is the source of truth.
+*.xcodeproj
+*.xcworkspace
+xcuserdata/
+DerivedData/
+build/
+.swiftpm/
+Package.resolved
+*.xcarchive
+*.ipa
+*.xcresult
+
+# Secrets. Base.xcconfig and Secrets.xcconfig.example ARE committed; this is not.
+ios/Vlogify/Secrets.xcconfig
+.env
+.env.*
+!.env.example
+
+# Overnight QA output. The harness, its matrix and its templates ARE committed; the
+# nightly screenshots, result bundles and audit logs are not -- they are gigabytes
+# and they are the morning's reading, not the repo's.
+qa/reports/
+
+# Supabase CLI scratch, for when the backend session adds supabase/.
+supabase/.branches/
+supabase/.temp/
+
+# Node / web
+node_modules/
+.next/
+out/
+.vercel/
+*.tsbuildinfo
+
+# macOS
+.DS_Store
