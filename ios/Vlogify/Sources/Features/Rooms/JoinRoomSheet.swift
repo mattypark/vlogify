@@ -18,7 +18,7 @@ struct JoinRoomSheet: View {
     var body: some View {
         VStack(alignment: .leading, spacing: Space.md) {
             HStack {
-                Text("join with code").font(.vlogTitle).foregroundStyle(Color.chalk)
+                Text("join with code").font(.vlogTitle).foregroundStyle(Color.text)
                 Spacer()
                 RoundButton(systemImage: "xmark", label: "close", size: Metrics.hitTarget + 4) { dismiss() }
                     .accessibilityIdentifier("join.close")
@@ -28,10 +28,10 @@ struct JoinRoomSheet: View {
                 .autocorrectionDisabled()
                 .font(Font.system(size: 32, weight: .heavy, design: .rounded))
                 .tracking(3)
-                .foregroundStyle(Color.chalk)
+                .foregroundStyle(Color.text)
                 .multilineTextAlignment(.center)
                 .padding(Space.md)
-                .background(Color.surface, in: RoundedRectangle(cornerRadius: Radius.sheet, style: .continuous))
+                .background(Color.card, in: RoundedRectangle(cornerRadius: Radius.sheet, style: .continuous))
                 .focused($focused)
                 .onChange(of: input) { _, new in
                     let normalized = InviteCode.normalize(new)
@@ -47,15 +47,15 @@ struct JoinRoomSheet: View {
                 HStack {
                     VStack(alignment: .leading, spacing: 2) {
                         Text(verbatim: preview.room.name ?? String(localized: "untitled log", bundle: .app))
-                            .font(.vlogCardTitle).foregroundStyle(Color.chalk)
+                            .font(.vlogCardTitle).foregroundStyle(Color.text)
                         Text("\(preview.memberCount) of \(preview.room.capacity) in")
-                            .font(.vlogCaption).foregroundStyle(Color.chalkSoft)
+                            .font(.vlogCaption).foregroundStyle(Color.textSoft)
                     }
                     Spacer()
-                    Text(verbatim: preview.room.type.rawValue).font(.vlogCaption).foregroundStyle(Color.chalkSoft)
+                    Text(verbatim: preview.room.type.rawValue).font(.vlogCaption).foregroundStyle(Color.textSoft)
                 }
                 .padding(Space.md)
-                .background(Color.surface, in: RoundedRectangle(cornerRadius: Radius.row, style: .continuous))
+                .background(Color.card, in: RoundedRectangle(cornerRadius: Radius.row, style: .continuous))
                 .screen("join.preview")
             }
             Spacer()
@@ -65,9 +65,9 @@ struct JoinRoomSheet: View {
                 .accessibilityIdentifier("join.submit")
         }
         .padding(Space.gutter)
-        .background(Color.ink.ignoresSafeArea())
+        .background(Color.ground.ignoresSafeArea())
         .presentationDetents([.medium])
-        .presentationBackground(Color.ink)
+        .presentationBackground(Color.ground)
         .onAppear {
             if let pending = state.pendingJoinCode {
                 input = pending.value

@@ -20,16 +20,16 @@ struct EmailSignInSheet: View {
             VStack(alignment: .leading, spacing: Space.md) {
                 Text(sent ? "check your email" : "your email")
                     .font(.vlogTitle)
-                    .foregroundStyle(Color.chalk)
+                    .foregroundStyle(Color.text)
                 if sent {
                     Text("we sent a 6-digit code to \(email).")
                         .font(.vlogBody)
-                        .foregroundStyle(Color.chalkSoft)
+                        .foregroundStyle(Color.textSoft)
                     TextField("000000", text: $code)
                         .keyboardType(.numberPad)
                         .textContentType(.oneTimeCode)
                         .font(Font.system(size: 32, weight: .heavy, design: .rounded))
-                        .foregroundStyle(Color.chalk)
+                        .foregroundStyle(Color.text)
                         .focused($focus, equals: .code)
                         .onChange(of: code) { _, new in code = String(new.filter(\.isNumber).prefix(6)) }
                         .accessibilityIdentifier("email.code")
@@ -40,9 +40,9 @@ struct EmailSignInSheet: View {
                         .textInputAutocapitalization(.never)
                         .autocorrectionDisabled()
                         .font(.vlogBody)
-                        .foregroundStyle(Color.chalk)
+                        .foregroundStyle(Color.text)
                         .padding(Space.md)
-                        .background(Color.surface, in: RoundedRectangle(cornerRadius: Radius.row, style: .continuous))
+                        .background(Color.card, in: RoundedRectangle(cornerRadius: Radius.row, style: .continuous))
                         .focused($focus, equals: .email)
                         .accessibilityIdentifier("email.address")
                 }
@@ -60,22 +60,22 @@ struct EmailSignInSheet: View {
                 if sent {
                     Button("use a different email") { sent = false; code = ""; problem = nil; focus = .email }
                         .font(.vlogCaption)
-                        .foregroundStyle(Color.chalkSoft)
+                        .foregroundStyle(Color.textSoft)
                         .frame(maxWidth: .infinity)
                         .frame(height: Metrics.hitTarget)
                 }
             }
             .padding(Space.gutter)
-            .background(Color.ink.ignoresSafeArea())
+            .background(Color.ground.ignoresSafeArea())
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("cancel") { dismiss() }.foregroundStyle(Color.chalk)
+                    Button("cancel") { dismiss() }.foregroundStyle(Color.text)
                 }
             }
             .onAppear { focus = .email }
         }
         .presentationDetents([.medium])
-        .presentationBackground(Color.ink)
+        .presentationBackground(Color.ground)
     }
 
     private var isValidEmail: Bool {

@@ -20,7 +20,7 @@ struct BottomBar<Leading: View, Trailing: View>: View {
         .padding(.horizontal, Space.gutter)
         .padding(.top, Space.sm)
         .padding(.bottom, Space.xs)
-        .background(Color.ink)
+        .background(Color.ground)
     }
 }
 
@@ -40,9 +40,10 @@ struct PlusMenu: View {
         } label: {
             Image(systemName: "plus")
                 .font(Font.system(size: 22, weight: .semibold))
-                .foregroundStyle(Color.chalk)
+                .foregroundStyle(Color.text)
                 .frame(width: Metrics.barButton, height: Metrics.barButton)
-                .background(Color.surface, in: Circle())
+                .background(Color.card, in: Circle())
+                .overlay(Circle().stroke(Color.hairline, lineWidth: 1))
         }
         .accessibilityLabel(Text("new"))
         .accessibilityIdentifier("bar.plus")

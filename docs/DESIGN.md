@@ -1,26 +1,26 @@
 # Design
 
-Same idea as Setlog — a light doodle welcome page, then an ink-black app where the
-clips are the only colour — cleaned up: two type families, one accent, a closed
-spacing set, radius that tracks size, four named springs.
+Same idea as Setlog's welcome page, carried through the whole app: warm paper, black
+type, doodles, one orchid accent. No dark mode — the only dark surface is video
+itself. Cleaned up: two type families, one accent, a closed spacing set, radius that
+tracks size, four named springs.
 
 ## Tokens
 
 All in `ios/VlogifyDesign/Sources/VlogifyDesign/`.
 
-**Palette** (OKLCH; text variants are *derived*, never hand-picked)
-- `ink` ~#0C0C0E — the app. Not #000: pure black makes raised surfaces read as holes.
-- `paper` ~#F5F5F3 — the welcome page only.
-- `surface` / `surfaceRaised` — cards, sheets, the pill bar; a selected pill.
-- `chalk` ~#EFEFED — every word on ink. `chalkSoft` = the dimmest chalk that clears AA.
-- `soot` — every word on paper. `sootSoft` likewise.
+**Palette** (OKLCH; text variants are *derived*, never hand-picked). Views use the
+semantic names: `ground`, `card`, `cardRaised`, `hairline`, `text`, `textSoft`.
+- `paper` ~#F5F5F3 — the ground, everywhere. Never pure white: cards would vanish.
+- `card` ~#FEFEFD (+ a hairline) — cards, sheets, fields, the pill bar. `cardRaised` — a selected pill.
+- `soot` ~#1A1A1D — every word, and the wordmark. `sootSoft` = the lightest soot that clears AA.
+- `ink` / `chalk` — video chrome only: behind a playing clip, the pills drawn over the camera.
 - `orchid` ~#E58BE8 — the single live action: selection, the create check, the recording ring.
-- `spearmint` ~#6FE0C6 — the wordmark. Only the wordmark, so the logo never reads as a button.
-- `sky` — the shutter. `butter` — the mascot and doodles. `ember` — a missed slot, a denial.
+- `sky` — the shutter. `butter` — the mascot and doodles. `ember` — a missed slot, a denial. `spearmint` — "saved".
 - `avatar(seed:)` — twelve evenly spaced hues at one lightness for member discs.
 
-Contrast is tested (`PaletteTests`): body AAA on both grounds, every accent's text
-variant AA on ink. A tweak that breaks that fails the build's test step.
+Contrast is tested (`PaletteTests`): body AAA on paper and over video, every accent's
+text variant AA on paper. A tweak that breaks that fails the build's test step.
 
 **Typography** — SF Pro Rounded (black/heavy) for the wordmark, the hour numerals and
 sheet titles; SF Pro for reading; SF Mono on exactly one screen, the permissions
@@ -37,7 +37,8 @@ it is a clock). Reduce Motion returns `nil`, not a faster spring.
 
 - **Welcome** (paper): mascot centre, thirteen doodle slots scattered by fraction of
   the screen, wordmark, tagline, Apple / Google / email.
-- **Permissions** (ink, mono): types itself in, one permission at a time, ✓ per grant,
+- **Language**: asked once, right after sign-in — six rows in their own scripts.
+- **Permissions** (mono): types itself in, one permission at a time, ✓ per grant,
   `continue →` / `done →`. Runs once; denial is handled where it matters.
 - **Home**: wordmark + profile; room cards with 24 hour-dots (chalk = posted, orchid =
   now, dim = to come) and a status line; the pill bar bell · camera|logs · +.

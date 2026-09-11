@@ -27,8 +27,10 @@ ISO-8601. `DayKey` is the string `2026-09-11`; `InviteCode` is its six character
 
 - `AuthService` — Apple (identity token + raw nonce; verify with Apple), Google via an
   authorize URL the app opens in `ASWebAuthenticationSession` with callback scheme
-  `vlogify://auth/google`, email one-time code, `signOut`, **`deleteAccount`** (must
-  revoke the SIWA token server-side — 5.1.1(v)).
+  `vlogify://auth/google`, email one-time code (**sent via Resend** from
+  `hello@vlogify.app`; six digits, 10-minute expiry, `review@vlogify.app` pinned to
+  `000000`), `signOut`, **`deleteAccount`** (must revoke the SIWA token server-side —
+  5.1.1(v)).
 - `ProfileService` — `me`, `update(displayName:)`.
 - `RoomService` — `rooms`, `room(id:)`, `create`, `preview(code:)` (no join), `join(code:)`,
   `leave`, `members`, `removeMember` (owner only), `regenerateInvite` (owner only).

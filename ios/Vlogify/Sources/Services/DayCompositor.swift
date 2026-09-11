@@ -16,6 +16,7 @@ struct DayCompositor {
         /// Local file for each clip. Missing entries are treated as not posted.
         let files: [ClipID: URL]
         let clipDuration: Double
+        var orientation: StitchPlan.Orientation = .landscape
     }
 
     enum Failure: Error { case noClips, exportFailed }
@@ -24,7 +25,7 @@ struct DayCompositor {
 
     func export(_ input: Input, to destination: URL) async throws -> URL {
         let members = input.log.members
-        let plan = StitchPlan(memberCount: max(1, members.count))
+        let plan = StitchPlan(memberCount: max(1, members.count), orientation: input.orientation)
         let segments = StitchPlan.segments(for: input.log.postedSlots, clipDuration: input.clipDuration)
         guard !segments.isEmpty else { throw Failure.noClips }
 

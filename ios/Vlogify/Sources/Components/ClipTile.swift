@@ -14,13 +14,13 @@ struct ClipTile: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: Radius.tile, style: .continuous)
-                .fill(clip == nil ? Color.surface : Color.surfaceRaised)
+                .fill(clip == nil ? Color.card : Color.cardRaised)
             if let clip {
                 ClipThumbnail(clip: clip)
                     .clipShape(RoundedRectangle(cornerRadius: Radius.tile, style: .continuous))
                 Image(systemName: "play.fill")
                     .font(Font.system(size: 18, weight: .bold))
-                    .foregroundStyle(Color.paper)
+                    .foregroundStyle(Color.chalk)
                     .shadow(radius: 4)
             } else {
                 AvatarDisc(profile: member.profile, size: 36).opacity(0.5)
@@ -30,7 +30,7 @@ struct ClipTile: View {
                 HStack {
                     Text(verbatim: isMe ? String(localized: "you", bundle: .app) : member.profile.displayName)
                         .font(.vlogCaption)
-                        .foregroundStyle(Color.chalk)
+                        .foregroundStyle(Color.text)
                         .padding(.horizontal, Space.xs)
                         .padding(.vertical, 3)
                         .background(Color.ink.opacity(0.6), in: Capsule())
@@ -59,7 +59,7 @@ struct ClipThumbnail: View {
             if let image {
                 Image(uiImage: image).resizable().scaledToFill()
             } else {
-                Color.surfaceRaised
+                Color.cardRaised
             }
         }
         .task(id: clip.id) { image = await thumbnails.image(for: clip) }

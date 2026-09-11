@@ -10,7 +10,7 @@ final class AppState {
     enum Tab: String { case camera, logs }
 
     enum Gate: Equatable {
-        case language, welcome, permissions, profile, home
+        case welcome, language, permissions, profile, home
     }
 
     let backend: Backend
@@ -18,6 +18,7 @@ final class AppState {
     let permissions: Permissions
     let scheduler: HourlyScheduler
     let cache: LocalMediaCache
+    let capture = CapturePreferences()
 
     var session: Session?
     var profile: Profile?
@@ -50,8 +51,11 @@ final class AppState {
     }
 
     var gate: Gate {
-        guard languageChosen else { return .language }
         guard session != nil else { return .welcome }
+        // Asked once, right after sign-in: the welcome page has to work in every
+        // language at once anyway, and a person who has not signed in has nothing
+        // else to set up yet.
+        guard languageChosen else { return .language }
         guard permissionsIntroDone else { return .permissions }
         guard let profile, !profile.displayName.isEmpty else { return .profile }
         return .home

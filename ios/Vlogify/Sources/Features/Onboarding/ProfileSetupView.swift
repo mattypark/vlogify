@@ -13,23 +13,23 @@ struct ProfileSetupView: View {
         VStack(alignment: .leading, spacing: Space.md) {
             Text("what do friends call you?")
                 .font(.vlogTitle)
-                .foregroundStyle(Color.chalk)
+                .foregroundStyle(Color.text)
             Text("this is the name on your tiles.")
                 .font(.vlogBody)
-                .foregroundStyle(Color.chalkSoft)
+                .foregroundStyle(Color.textSoft)
             HStack(spacing: Space.sm) {
                 AvatarDisc(profile: preview, size: 44)
                 TextField("your name", text: $name)
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled()
                     .font(.vlogBody)
-                    .foregroundStyle(Color.chalk)
+                    .foregroundStyle(Color.text)
                     .focused($focused)
                     .onChange(of: name) { _, new in name = String(new.prefix(20)) }
                     .accessibilityIdentifier("profile.name")
             }
             .padding(Space.md)
-            .background(Color.surface, in: RoundedRectangle(cornerRadius: Radius.row, style: .continuous))
+            .background(Color.card, in: RoundedRectangle(cornerRadius: Radius.row, style: .continuous))
             Spacer()
             PillButton(title: "let's go", style: .accent, isLoading: busy) { save() }
                 .disabled(trimmed.isEmpty)
@@ -38,7 +38,7 @@ struct ProfileSetupView: View {
         }
         .padding(Space.gutter)
         .padding(.top, Space.xxl)
-        .background(Color.ink.ignoresSafeArea())
+        .background(Color.ground.ignoresSafeArea())
         .onAppear {
             name = state.profile?.displayName ?? ""
             focused = true

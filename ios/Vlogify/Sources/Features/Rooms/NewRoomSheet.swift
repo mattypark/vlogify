@@ -27,7 +27,7 @@ struct NewRoomSheet: View {
                 RoundButton(systemImage: "xmark", label: "close", size: Metrics.hitTarget + 4) { dismiss() }
                     .accessibilityIdentifier("newRoom.close")
                 Spacer()
-                Text("new room").font(.vlogTitle).foregroundStyle(Color.chalk)
+                Text("new room").font(.vlogTitle).foregroundStyle(Color.text)
                 Spacer()
                 RoundButton(systemImage: "checkmark", label: "create", size: Metrics.hitTarget + 4,
                             tint: .ink, fill: .orchid) { create() }
@@ -40,13 +40,13 @@ struct NewRoomSheet: View {
                 .submitLabel(.done)
                 .textInputAutocapitalization(.never)
                 .font(.vlogBody)
-                .foregroundStyle(Color.chalk)
+                .foregroundStyle(Color.text)
                 .padding(Space.md)
-                .background(Color.surface, in: Capsule())
+                .background(Color.card, in: Capsule())
                 .onChange(of: name) { _, new in name = String(new.prefix(RoomRules.maxNameLength)) }
                 .accessibilityIdentifier("newRoom.name")
 
-            Text("room type").font(.vlogCardTitle).foregroundStyle(Color.chalk)
+            Text("room type").font(.vlogCardTitle).foregroundStyle(Color.text)
             HStack(spacing: Space.sm) {
                 ForEach(types, id: \.self) { candidate in
                     RoomTypeCard(type: candidate, selected: type == candidate) {
@@ -58,16 +58,16 @@ struct NewRoomSheet: View {
             }
             Text(caption)
                 .font(.vlogCaption)
-                .foregroundStyle(Color.chalkSoft)
+                .foregroundStyle(Color.textSoft)
                 .frame(maxWidth: .infinity)
 
             if RoomRules.capacityOptions(for: type).count > 1 {
-                Divider().overlay(Color.line)
-                Text("room size").font(.vlogCardTitle).foregroundStyle(Color.chalk)
+                Divider().overlay(Color.hairline)
+                Text("room size").font(.vlogCardTitle).foregroundStyle(Color.text)
                 SizePicker(type: type, capacity: $capacity)
                 Text(capacity == 20 ? "you + up to 19 friends" : "you + \(capacity - 1) friends")
                     .font(.vlogCaption)
-                    .foregroundStyle(Color.chalkSoft)
+                    .foregroundStyle(Color.textSoft)
                     .frame(maxWidth: .infinity)
             }
             }
@@ -75,9 +75,9 @@ struct NewRoomSheet: View {
             .scrollDismissesKeyboard(.interactively)
         }
         .padding(Space.gutter)
-        .background(Color.ink.ignoresSafeArea())
+        .background(Color.ground.ignoresSafeArea())
         .presentationDetents([.large])
-        .presentationBackground(Color.ink)
+        .presentationBackground(Color.ground)
         .presentationCornerRadius(Radius.frame)
         .sheet(item: $invite) { room in
             InviteView(room: room) {

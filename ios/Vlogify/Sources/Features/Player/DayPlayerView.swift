@@ -41,7 +41,7 @@ struct DayPlayerView: View {
                                 .font(.vlogCaption).foregroundStyle(Color.chalkSoft)
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(Color.surface, in: RoundedRectangle(cornerRadius: Radius.frame, style: .continuous))
+                        .background(Color.cardRaised, in: RoundedRectangle(cornerRadius: Radius.frame, style: .continuous))
                     }
                 }
                 .padding(.horizontal, Space.xs)
@@ -68,7 +68,7 @@ struct DayPlayerView: View {
                     ShareLink(item: output) {
                         Image(systemName: "square.and.arrow.up").font(Font.system(size: 18, weight: .semibold))
                             .foregroundStyle(Color.chalk).frame(width: 56, height: 56)
-                            .background(Color.surface, in: Circle())
+                            .background(Color.cardRaised, in: Circle())
                     }
                     .accessibilityIdentifier("dayPlayer.share")
                 }
@@ -94,7 +94,8 @@ struct DayPlayerView: View {
         let destination = FileManager.default.temporaryDirectory
             .appendingPathComponent("vlogify-\(room.id)-\(log.day).mp4")
         do {
-            let input = DayCompositor.Input(log: log, files: files, clipDuration: RoomRules.clipLimit(for: room.type) ?? 2)
+            let input = DayCompositor.Input(log: log, files: files, clipDuration: RoomRules.clipLimit(for: room.type) ?? 2,
+                                            orientation: state.capture.orientation)
             let url = try await DayCompositor().export(input, to: destination)
             output = url
             let player = AVPlayer(url: url)

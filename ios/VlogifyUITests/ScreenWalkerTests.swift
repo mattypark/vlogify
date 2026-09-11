@@ -13,18 +13,21 @@ final class ScreenWalkerTests: XCTestCase {
 
     // MARK: Onboarding
 
-    func testLanguageIsAskedFirst() {
+    func testLanguageIsAskedAfterSignIn() {
         let app = XCUIApplication()
         app.launchArguments += ["-vlogifyUITest", "-vlogifyDemo", "empty", "-vlogifyPermissions", "unasked"]
         app.launch()
-        wait(for: app.any("screen.language"))
+        wait(for: app.buttons["welcome.skip"])
+        snap(app, "00-welcome")
+        app.buttons["welcome.skip"].tap()
+        wait(for: app.any("screen.language"), 8)
         snap(app, "00-language")
         app.buttons["language.ko"].tap()
         snap(app, "00-language-ko")
         app.buttons["language.continue"].tap()
-        wait(for: app.buttons["welcome.apple"])
-        XCTAssertTrue(app.buttons["welcome.email"].label.contains("이메일"), "welcome must be in Korean after choosing 한국어, got \(app.buttons["welcome.email"].label)")
-        snap(app, "00-welcome-after-ko")
+        wait(for: app.buttons["permissions.continue"], 8)
+        XCTAssertTrue(app.buttons["permissions.continue"].label.contains("계속"), "permissions must be in Korean after choosing 한국어, got \(app.buttons["permissions.continue"].label)")
+        snap(app, "00-permissions-after-ko")
     }
 
     func testWelcomeAndEmailSignIn() {

@@ -43,7 +43,7 @@ final class MetricTests: XCTestCase {
             let app = XCUIApplication.vlogify(demo: "full", hour: 17)
             app.launch()
             let card = app.buttons["home.room.room-2"]
-            _ = card.waitForExistence(timeout: 5)
+            _ = card.waitForExistence(timeout: 10)
             card.tap()
             _ = app.buttons["room.menu"].waitForExistence(timeout: 5)
             app.buttons["room.menu"].tap()

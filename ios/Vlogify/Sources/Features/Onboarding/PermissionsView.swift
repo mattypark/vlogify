@@ -16,7 +16,7 @@ struct PermissionsView: View {
         VStack(alignment: .leading, spacing: Space.md) {
             DoodleSticker(.mascot, scale: 0.28)
                 .padding(.bottom, Space.xs)
-            TypewriterText(text: "→ permissions", bold: true, color: .chalk)
+            TypewriterText(text: "→ permissions", bold: true, color: .text)
             TypewriterText(text: String(localized: "we need a few things first…", bundle: .app))
                 .padding(.bottom, Space.sm)
 
@@ -42,7 +42,7 @@ struct PermissionsView: View {
                 } label: {
                     Text(step >= 3 ? "done →" : "continue →")
                         .font(.vlogMonoBold)
-                        .foregroundStyle(Color.chalk)
+                        .foregroundStyle(Color.text)
                         .underline()
                         .frame(height: Metrics.hitTarget)
                 }
@@ -54,7 +54,7 @@ struct PermissionsView: View {
         .padding(Space.gutter)
         .padding(.top, Space.xl)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .background(Color.ink.ignoresSafeArea())
+        .background(Color.ground.ignoresSafeArea())
         .task { await permissions.refresh() }
         .screen("screen.permissions")
     }
@@ -74,11 +74,11 @@ struct PermissionsView: View {
             .frame(width: 16)
             VStack(alignment: .leading, spacing: 2) {
                 if step == index {
-                    (Text(verbatim: name).font(.vlogMonoBold).foregroundStyle(Color.chalk)
+                    (Text(verbatim: name).font(.vlogMonoBold).foregroundStyle(Color.text)
                      + Text(verbatim: " ").font(.vlogMono))
                     TypewriterText(text: detail, onDone: { lineDone = true })
                 } else {
-                    Text(verbatim: name).font(.vlogMonoBold).foregroundStyle(status == .granted ? Color.chalkSoft : Color.chalk)
+                    Text(verbatim: name).font(.vlogMonoBold).foregroundStyle(status == .granted ? Color.textSoft : Color.text)
                     if status == .denied {
                         Button("open settings") { openSettings() }
                             .font(.vlogMono).foregroundStyle(Color.emberInk).underline()

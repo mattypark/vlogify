@@ -34,35 +34,35 @@ struct EmptyHomeView: View {
             Spacer()
             Text("your day, side by side.")
                 .font(.vlogTitle)
-                .foregroundStyle(Color.chalk)
+                .foregroundStyle(Color.text)
                 .padding(.bottom, Space.xs)
             step(1) {
                 HStack(spacing: Space.xs) {
-                    Text("tap").font(.vlogBody).foregroundStyle(Color.chalk)
-                    Image(systemName: "plus.circle").foregroundStyle(Color.chalk)
-                    Text("to start").font(.vlogBody).foregroundStyle(Color.chalk)
+                    Text("tap").font(.vlogBody).foregroundStyle(Color.text)
+                    Image(systemName: "plus.circle").foregroundStyle(Color.text)
+                    Text("to start").font(.vlogBody).foregroundStyle(Color.text)
                 }
                 HStack(spacing: Space.xs) {
                     Chip(text: String(localized: "create log", bundle: .app))
-                    Text("(new group)").font(.vlogBody).foregroundStyle(Color.chalkSoft)
+                    Text("(new group)").font(.vlogBody).foregroundStyle(Color.textSoft)
                 }
                 HStack(spacing: Space.xs) {
                     Chip(text: String(localized: "join log", bundle: .app))
-                    Text("(with a code)").font(.vlogBody).foregroundStyle(Color.chalkSoft)
+                    Text("(with a code)").font(.vlogBody).foregroundStyle(Color.textSoft)
                 }
             }
             step(2) {
-                Text("add a 2s clip every hour.").font(.vlogBody).foregroundStyle(Color.chalk)
-                Text("see everyone's day\ncome together.").font(.vlogBody).foregroundStyle(Color.chalk)
-                Text("solo logs don't have limits.").font(.vlogBody).foregroundStyle(Color.chalk)
+                Text("add a 2s clip every hour.").font(.vlogBody).foregroundStyle(Color.text)
+                Text("see everyone's day\ncome together.").font(.vlogBody).foregroundStyle(Color.text)
+                Text("solo logs don't have limits.").font(.vlogBody).foregroundStyle(Color.text)
             }
             Text("day resets at 4AM.\nfind past days in history.")
                 .font(.vlogCaption)
-                .foregroundStyle(Color.chalk)
+                .foregroundStyle(Color.text)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, Space.md)
-                .background(Color.surface, in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
+                .background(Color.card, in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
                 .padding(.top, Space.sm)
             Spacer()
             HStack(alignment: .bottom) {
@@ -70,7 +70,7 @@ struct EmptyHomeView: View {
                 Spacer()
                 DoodleSticker(.ufo).padding(.trailing, Space.md)
             }
-            .overlay(alignment: .bottom) { Rectangle().fill(Color.line).frame(height: 1) }
+            .overlay(alignment: .bottom) { Rectangle().fill(Color.hairline).frame(height: 1) }
             .padding(.bottom, Space.xs)
         }
         .padding(.horizontal, Space.gutter)
@@ -81,9 +81,9 @@ struct EmptyHomeView: View {
         HStack(alignment: .top, spacing: Space.sm) {
             Text(verbatim: "\(number)")
                 .font(Font.system(size: 13, weight: .bold, design: .rounded))
-                .foregroundStyle(Color.ink)
+                .foregroundStyle(Color.paper)
                 .frame(width: 24, height: 24)
-                .background(Color.chalk, in: Circle())
+                .background(Color.soot, in: Circle())
             VStack(alignment: .leading, spacing: Space.xs, content: content)
         }
     }
@@ -102,15 +102,15 @@ struct RoomCard: View {
                 HStack {
                     Text(verbatim: room.name ?? (room.isSolo ? String(localized: "just me", bundle: .app) : String(localized: "untitled log", bundle: .app)))
                         .font(.vlogCardTitle)
-                        .foregroundStyle(Color.chalk)
+                        .foregroundStyle(Color.text)
                     Spacer()
                     if room.isSolo {
-                        Text("vlog").font(.vlogCaption).foregroundStyle(Color.chalkSoft)
+                        Text("vlog").font(.vlogCaption).foregroundStyle(Color.textSoft)
                     } else {
                         HStack(spacing: -8) {
                             ForEach((log?.members ?? []).prefix(5)) { member in
                                 AvatarDisc(profile: member.profile, size: 24)
-                                    .overlay(Circle().stroke(Color.surface, lineWidth: 2))
+                                    .overlay(Circle().stroke(Color.card, lineWidth: 2))
                             }
                         }
                     }
@@ -119,13 +119,14 @@ struct RoomCard: View {
                 HStack {
                     Text(verbatim: statusLine)
                         .font(.vlogCaption)
-                        .foregroundStyle(Color.chalkSoft)
+                        .foregroundStyle(Color.textSoft)
                     Spacer()
-                    Image(systemName: "chevron.right").font(.vlogCaption).foregroundStyle(Color.chalkSoft)
+                    Image(systemName: "chevron.right").font(.vlogCaption).foregroundStyle(Color.textSoft)
                 }
             }
             .padding(Space.md)
-            .background(Color.surface, in: RoundedRectangle(cornerRadius: Radius.sheet, style: .continuous))
+            .background(Color.card, in: RoundedRectangle(cornerRadius: Radius.sheet, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: Radius.sheet, style: .continuous).stroke(Color.hairline, lineWidth: 1))
         }
         .buttonStyle(.plain)
         .accessibilityIdentifier("home.room.\(room.id)")

@@ -6,6 +6,13 @@ import Foundation
 /// SwiftUI player and the AVFoundation compositor from one source. Rects are
 /// normalised (0...1) so the same plan serves a 1080x1920 export and a thumbnail.
 public struct StitchPlan: Equatable, Sendable {
+    /// Which way the clips were shot. Landscape is the default: most people turn the
+    /// phone, and landscape clips stack into rows on a vertical canvas -- which is
+    /// what "side by side" looks like when it is posted to Reels or Shorts.
+    public enum Orientation: String, Codable, Sendable {
+        case landscape, portrait
+    }
+
     /// One member's tile.
     public struct Tile: Equatable, Sendable {
         public let memberIndex: Int
@@ -27,33 +34,56 @@ public struct StitchPlan: Equatable, Sendable {
     public static let exportHeight = 1920
 
     public let memberCount: Int
+    public let orientation: Orientation
     public let tiles: [Tile]
 
-    public init(memberCount: Int) {
+    public init(memberCount: Int, orientation: Orientation = .landscape) {
         let count = max(1, min(memberCount, 20))
         self.memberCount = count
-        self.tiles = StitchPlan.layout(for: count)
+        self.orientation = orientation
+        self.tiles = StitchPlan.layout(for: count, orientation: orientation)
     }
 
-    /// Columns and rows for a member count. Every tile is portrait or square -- these
-    /// are phone clips, and a landscape tile of a portrait clip is mostly letterbox.
-    /// Two or three people are vertical strips, side by side: the tagline, literally.
-    public static func grid(for count: Int) -> (columns: Int, rows: Int) {
-        switch count {
-        case ...1: return (1, 1)
-        case 2: return (2, 1)
-        case 3: return (3, 1)
-        case 4: return (2, 2)
-        case 5...6: return (2, 3)
-        case 7...9: return (3, 3)
-        case 10...12: return (3, 4)
-        case 13...16: return (4, 4)
-        default: return (4, 5)
+    /// Columns and rows for a member count.
+    ///
+    /// Landscape clips stack as full-width rows for up to four people, then two
+    /// columns; a tile never gets taller than it is wide until there are five in the
+    /// room. Portrait clips do the opposite: vertical strips side by side, never a
+    /// landscape tile. Either way the canvas stays 1080x1920 so the export is ready
+    /// for a vertical feed.
+    public static func grid(for count: Int, orientation: Orientation = .landscape) -> (columns: Int, rows: Int) {
+        switch orientation {
+        case .landscape:
+            switch count {
+            case ...1: return (1, 1)
+            case 2: return (1, 2)
+            case 3: return (1, 3)
+            case 4: return (1, 4)
+            case 5...6: return (2, 3)
+            case 7...8: return (2, 4)
+            case 9...10: return (2, 5)
+            case 11...12: return (2, 6)
+            case 13...15: return (3, 5)
+            case 16...18: return (3, 6)
+            default: return (4, 5)
+            }
+        case .portrait:
+            switch count {
+            case ...1: return (1, 1)
+            case 2: return (2, 1)
+            case 3: return (3, 1)
+            case 4: return (2, 2)
+            case 5...6: return (2, 3)
+            case 7...9: return (3, 3)
+            case 10...12: return (3, 4)
+            case 13...16: return (4, 4)
+            default: return (4, 5)
+            }
         }
     }
 
-    static func layout(for count: Int) -> [Tile] {
-        let (columns, rows) = grid(for: count)
+    static func layout(for count: Int, orientation: Orientation) -> [Tile] {
+        let (columns, rows) = grid(for: count, orientation: orientation)
         let width = 1.0 / Double(columns)
         let height = 1.0 / Double(rows)
         return (0..<count).map { index in

@@ -8,10 +8,11 @@ struct ToastView: View {
     var body: some View {
         Text(verbatim: toast.text)
             .font(.vlogLabel)
-            .foregroundStyle(toast.kind == .error ? Color.emberInk : Color.chalk)
+            .foregroundStyle(toast.kind == .error ? Color.emberInk : Color.text)
             .padding(.horizontal, Space.md)
             .padding(.vertical, Space.sm)
-            .background(Color.surfaceRaised, in: Capsule())
+            .background(Color.card, in: Capsule())
+            .overlay(Capsule().stroke(Color.hairline, lineWidth: 1))
             .transition(.move(edge: .top).combined(with: .opacity))
             .accessibilityIdentifier("toast")
     }

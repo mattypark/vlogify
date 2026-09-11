@@ -76,7 +76,7 @@ public enum Doodle: String, CaseIterable, Sendable {
         case .plant, .turtle: return Color(OKLCH(0.75, 0.13, 145))
         case .pizza, .orange, .flames: return .ember
         case .tea, .ufo, .envelope: return Color(OKLCH(0.72, 0.14, 300))
-        case .glyphLog, .glyphStack, .glyphVlog: return .surfaceRaised
+        case .glyphLog, .glyphStack, .glyphVlog: return .cardRaised
         }
     }
 }
@@ -159,8 +159,8 @@ struct DoodlePlaceholder: View {
 
     func glyphClip(width: CGFloat, height: CGFloat) -> some View {
         RoundedRectangle(cornerRadius: Radius.tile, style: .continuous)
-            .fill(Color.surfaceRaised)
-            .overlay(Text("12:00").font(.system(size: 9, weight: .heavy, design: .rounded)).foregroundStyle(Color.chalk))
+            .fill(Color.cardRaised)
+            .overlay(Text("12:00").font(.system(size: 9, weight: .heavy, design: .rounded)).foregroundStyle(Color.soot))
             .frame(width: width, height: height)
     }
 }

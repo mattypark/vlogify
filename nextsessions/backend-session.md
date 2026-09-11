@@ -16,7 +16,10 @@ Build, in stages, committing after each (never push):
    from SlotPing — splitmix-finalised FNV-1a 64 of "room|day/hour" mod 51; reference
    FNV-1a("a") = 0xaf63dc4c8601ec8c; verify against the Swift tests).
 3. Auth: Apple (verify identity token + nonce), Google via Supabase OAuth with
-   redirect_to vlogify://auth/google, email OTP with review@vlogify.app pinned to 000000.
+   redirect_to vlogify://auth/google, email OTP sent through Resend (the Resend MCP is
+   connected to this account; domain vlogify.app, from hello@vlogify.app, 6 digits,
+   10-minute expiry) with review@vlogify.app pinned to 000000. Ask Matthew before
+   creating the Resend domain or API key — that is an external write.
 4. SupabaseBackend.swift conforming to every protocol in Services.swift, using
    URLSession only (no vendor SDK unless you ask Matthew first). Wire it in BackendRoot.make.
 5. Realtime: PresenceService via Supabase Realtime on clips + memberships.

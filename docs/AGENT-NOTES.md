@@ -16,6 +16,8 @@ may append here; a person prunes it.
   proxy); use `.matching(identifier:).firstMatch`.
 - The mock backend seeds relative to *its* `now`; when the app runs with `-vlogifyHour`
   the mock must be given the same frozen instant or "today" stops at real time.
+- Views use semantic colours (`ground`, `card`, `text`…). `ink`/`chalk` are for chrome
+  drawn over video only; anything else on ink is a bug now that the app is paper.
 - `Color.mint` exists in SwiftUI. Palette tokens must not collide with system colours.
 - `-quiet xcodebuild` prints nothing on success; check the product, not the output.
 - In-app language: `Text` follows `.environment(\.locale)`, `String(localized:)` does NOT —

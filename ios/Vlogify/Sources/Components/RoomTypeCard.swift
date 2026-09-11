@@ -16,7 +16,7 @@ struct RoomTypeCard: View {
                     .padding(.top, Space.sm)
                 Text(title)
                     .font(.vlogLabel)
-                    .foregroundStyle(Color.chalk)
+                    .foregroundStyle(Color.text)
                     .padding(.bottom, Space.sm)
             }
             .frame(maxWidth: .infinity)
@@ -64,12 +64,12 @@ struct SizePicker: View {
                 } label: {
                     Text(verbatim: RoomRules.capacityLabel(option, for: type))
                         .font(Font.system(size: 20, weight: .medium, design: .rounded))
-                        .foregroundStyle(Color.chalk)
+                        .foregroundStyle(Color.text)
                         .frame(minWidth: 52)
                         .frame(height: 52)
                         .padding(.horizontal, option == 20 ? Space.sm : 0)
                         .background(capacity == option ? Color.orchid.opacity(0.35) : Color.clear, in: Capsule())
-                        .overlay(Capsule().stroke(capacity == option ? Color.orchid : Color.line, lineWidth: 1.5))
+                        .overlay(Capsule().stroke(capacity == option ? Color.orchid : Color.hairline, lineWidth: 1.5))
                 }
                 .buttonStyle(.plain)
                 .accessibilityIdentifier("newRoom.size.\(option)")

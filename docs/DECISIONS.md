@@ -25,10 +25,14 @@ could never match it).
 the client and mock both enforce it; the real backend must too. Rejected: letting
 people pick from the library (kills the candid).
 
-## Side-by-side strips for 2–3, portrait tiles always
-`StitchPlan.grid` never produces a landscape tile. Two people are two vertical strips —
-the tagline, literally. Rejected: stacking two clips top/bottom (each becomes a
-letterboxed near-square).
+## Landscape by default; the stamp, the hint and the stitch move together
+Most people turn the phone. `CapturePreferences.orientation` defaults to landscape,
+which rotates the hour stamp along the long edge, shows "rotate to capture" until the
+phone is turned, and makes `StitchPlan` stack clips as full-width rows (up to four
+people, one column) on the 1080x1920 canvas — landscape clips stack; portrait clips
+stand side by side. Tap the stamp (or Profile → recording) to flip; nothing else has to
+be told. Rejected: portrait-only strips (the original design) — a room of four
+landscape clips became four letterboxed slivers.
 
 ## Local first, upload second
 A recording is moved into the app-group container before any network call. The tile
@@ -54,12 +58,30 @@ of which need a decision, not a default. `ITSAppUsesNonExemptEncryption` flips t
 No client secret in the app, no third-party SDK carrying a privacy manifest. Rejected:
 GoogleSignIn-iOS SPM package.
 
+## "skip for now" exists only while the mock is the backend
+`WelcomeView` shows it when `BackendRoot.config == nil`, so the whole onboarding can be
+walked without an email in the loop. It disappears the day `Secrets.xcconfig` points at
+a real backend; a real guest mode would be `signInAnonymously` on `AuthService`, which
+is a contract change and has not been made.
+
+## Email codes go out through Resend
+The backend session sends the six-digit code with Resend (connected to this account),
+from `hello@vlogify.app`; the app never sees the provider. `review@vlogify.app` stays
+pinned to `000000` for App Review.
+
 ## No passkey in v1
 Setlog offers it; Matthew asked for Apple + Google + email. The `AuthService` protocol
 is where it would go.
 
+## Paper everywhere, no dark mode
+Setlog's welcome page is light and its app is black; Matthew wanted the welcome look
+carried through. The one dark surface is video. `preferredColorScheme(.light)` is set
+at the root; the palette has no dark variant to drift. Rejected: supporting both (twice
+the screenshots, twice the contrast tests, for a look he did not want).
+
 ## Six languages, chosen in the app, not in Settings
-First launch asks (`LanguageView`); the choice persists in `UserDefaults` and drives
+Asked once right after sign-in (`LanguageView`) — before that there is nothing to set
+up, and the welcome page has to work in every language at once anyway; the choice persists in `UserDefaults` and drives
 both the SwiftUI environment locale (for `Text`) and `Bundle.app` (for every
 `String(localized:bundle:)`), so nothing mixes. `AppleLanguages` is written too so
 system-drawn UI (the Apple button, alerts, keyboard) follows on the next launch.

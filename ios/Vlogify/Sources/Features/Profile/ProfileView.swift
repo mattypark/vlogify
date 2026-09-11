@@ -21,12 +21,12 @@ struct ProfileView: View {
                         if let profile = state.profile { AvatarDisc(profile: profile, size: 44) }
                         TextField("your name", text: $name)
                             .textInputAutocapitalization(.never)
-                            .font(.vlogBody).foregroundStyle(Color.chalk)
+                            .font(.vlogBody).foregroundStyle(Color.text)
                             .onSubmit { save() }
                             .accessibilityIdentifier("profile.nameField")
                     }
                 } header: { Text("you") }
-                .listRowBackground(Color.surface)
+                .listRowBackground(Color.card)
 
                 Section {
                     Button { showLanguage = true } label: {
@@ -39,11 +39,15 @@ struct ProfileView: View {
                         row("hourly pings", value: state.permissions.notifications == .granted ? String(localized: "on", bundle: .app) : String(localized: "off", bundle: .app))
                     }
                     .accessibilityIdentifier("settings.pings")
+                    Button { state.capture.toggle() } label: {
+                        row("recording", value: state.capture.isLandscape ? String(localized: "horizontal", bundle: .app) : String(localized: "vertical", bundle: .app))
+                    }
+                    .accessibilityIdentifier("settings.orientation")
                     Button { showBlocked = true } label: { row("blocked people", value: "") }
                         .accessibilityIdentifier("settings.blocked")
                     row("clips on this phone", value: ByteCountFormatter.string(fromByteCount: state.cache.sizeOnDisk, countStyle: .file))
                 } header: { Text("settings") }
-                .listRowBackground(Color.surface)
+                .listRowBackground(Color.card)
 
                 Section {
                     Link(destination: Legal.privacy) { row("privacy policy", value: "") }
@@ -54,30 +58,30 @@ struct ProfileView: View {
                         .accessibilityIdentifier("legal.support")
                     row("version", value: Legal.version)
                 } header: { Text("about") }
-                .listRowBackground(Color.surface)
+                .listRowBackground(Color.card)
 
                 Section {
                     Button("sign out") { confirmSignOut = true }
-                        .foregroundStyle(Color.chalk)
+                        .foregroundStyle(Color.text)
                         .accessibilityIdentifier("account.signOut")
                     Button("delete account", role: .destructive) { confirmDelete = true }
                         .accessibilityIdentifier("account.delete")
                 } header: { Text("account") } footer: {
                     Text("deleting removes your account, your clips, and the rooms you own. it cannot be undone.")
                 }
-                .listRowBackground(Color.surface)
+                .listRowBackground(Color.card)
             }
             .scrollContentBackground(.hidden)
-            .background(Color.ink.ignoresSafeArea())
+            .background(Color.ground.ignoresSafeArea())
             .navigationTitle("profile")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar { ToolbarItem(placement: .confirmationAction) { Button("done") { save(); dismiss() }.foregroundStyle(Color.chalk) } }
+            .toolbar { ToolbarItem(placement: .confirmationAction) { Button("done") { save(); dismiss() }.foregroundStyle(Color.text) } }
         }
-        .tint(Color.chalk)
-        .presentationBackground(Color.ink)
+        .tint(Color.text)
+        .presentationBackground(Color.ground)
         .onAppear { name = state.profile?.displayName ?? "" }
         .sheet(isPresented: $showBlocked) { BlockedUsersView() }
-        .sheet(isPresented: $showLanguage) { LanguageView(isChanging: true).presentationBackground(Color.ink) }
+        .sheet(isPresented: $showLanguage) { LanguageView(isChanging: true).presentationBackground(Color.ground) }
         .confirmationDialog("sign out?", isPresented: $confirmSignOut, titleVisibility: .visible) {
             Button("sign out", role: .destructive) { Task { await state.signOut(); MockSessionStore.save(nil); dismiss() } }
         }
@@ -92,9 +96,9 @@ struct ProfileView: View {
 
     private func row(_ title: LocalizedStringKey, value: String) -> some View {
         HStack {
-            Text(title).font(.vlogBody).foregroundStyle(Color.chalk)
+            Text(title).font(.vlogBody).foregroundStyle(Color.text)
             Spacer()
-            Text(verbatim: value).font(.vlogCaption).foregroundStyle(Color.chalkSoft)
+            Text(verbatim: value).font(.vlogCaption).foregroundStyle(Color.textSoft)
         }
     }
 

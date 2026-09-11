@@ -57,10 +57,22 @@ struct CameraView: View {
             HStack {
                 roomPicker
                 Spacer()
+                orientationButton
             }
             .padding(Space.md)
             Spacer()
-            HourStamp(label: slot.label, rotated: camera.isLandscape)
+            // The stamp reads along the long edge of the *recording*. Tap it to flip
+            // between horizontal and vertical; the hint and the stitch follow.
+            Button {
+                Haptics.tap()
+                state.capture.toggle()
+                hintDismissed = false
+            } label: {
+                HourStamp(label: slot.label, rotated: state.capture.isLandscape)
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel(Text(state.capture.isLandscape ? "horizontal. tap for vertical" : "vertical. tap for horizontal"))
+            .accessibilityIdentifier("camera.stamp")
             Spacer()
             if state.rooms.isEmpty {
                 Text("make or join a room first.")
@@ -73,7 +85,7 @@ struct CameraView: View {
                     .padding(.horizontal, Space.md).padding(.vertical, Space.xs)
                     .background(Color.ink.opacity(0.7), in: Capsule())
                     .accessibilityIdentifier("camera.posted")
-            } else if !camera.isLandscape, !hintDismissed, target?.type == .log {
+            } else if state.capture.isLandscape, !camera.isLandscape, !hintDismissed {
                 Button { hintDismissed = true } label: {
                     Text("rotate to capture")
                         .font(.vlogCaption).foregroundStyle(Color.paper)
@@ -103,6 +115,25 @@ struct CameraView: View {
         .accessibilityIdentifier("camera.room")
     }
 
+    /// `horizontal` / `vertical`, top-right of the preview.
+    private var orientationButton: some View {
+        Button {
+            Haptics.tap()
+            state.capture.toggle()
+            hintDismissed = false
+        } label: {
+            HStack(spacing: Space.xxs) {
+                Image(systemName: state.capture.isLandscape ? "rectangle" : "rectangle.portrait")
+                Text(state.capture.isLandscape ? "horizontal" : "vertical")
+            }
+            .font(.vlogCaption).foregroundStyle(Color.paper)
+            .padding(.horizontal, Space.sm).padding(.vertical, Space.xs)
+            .background(Color.ink.opacity(0.6), in: Capsule())
+        }
+        .buttonStyle(.plain)
+        .accessibilityIdentifier("camera.orientation")
+    }
+
     private var shutter: some View {
         Button { capture() } label: {
             ZStack {
@@ -126,9 +157,9 @@ struct CameraView: View {
 
     private var deniedView: some View {
         VStack(spacing: Space.md) {
-            Image(systemName: "camera.fill").font(Font.system(size: 36)).foregroundStyle(Color.chalkSoft)
+            Image(systemName: "camera.fill").font(Font.system(size: 36)).foregroundStyle(Color.textSoft)
             Text("vlogify needs the camera and microphone to record a clip.")
-                .font(.vlogBody).foregroundStyle(Color.chalk).multilineTextAlignment(.center)
+                .font(.vlogBody).foregroundStyle(Color.text).multilineTextAlignment(.center)
             Button("open settings") {
                 if let url = URL(string: UIApplication.openSettingsURLString) { UIApplication.shared.open(url) }
             }
@@ -137,7 +168,7 @@ struct CameraView: View {
         }
         .padding(Space.xl)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.surface)
+        .background(Color.card)
         .screen("camera.denied")
     }
 

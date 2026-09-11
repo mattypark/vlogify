@@ -25,7 +25,7 @@ struct PillButton: View {
             .frame(maxWidth: .infinity)
             .frame(height: 56)
             .background(background, in: Capsule())
-            .overlay(Capsule().stroke(style == .outlined ? Color.line : .clear, lineWidth: 1))
+            .overlay(Capsule().stroke(style == .outlined ? Color.hairline : .clear, lineWidth: 1))
         }
         .buttonStyle(.plain)
         .disabled(isLoading)
@@ -34,7 +34,7 @@ struct PillButton: View {
     private var foreground: Color {
         switch style {
         case .filled: return .paper
-        case .outlined: return .chalk
+        case .outlined: return .text
         case .accent: return .ink
         }
     }
@@ -42,7 +42,7 @@ struct PillButton: View {
     private var background: Color {
         switch style {
         case .filled: return .soot
-        case .outlined: return .surface
+        case .outlined: return .card
         case .accent: return .orchid
         }
     }
@@ -57,10 +57,10 @@ struct Chip: View {
     var body: some View {
         Text(verbatim: text)
             .font(.vlogLabel)
-            .foregroundStyle(selected ? Color.chalk : (onPaper ? Color.soot : Color.chalk))
+            .foregroundStyle(selected ? Color.text : (onPaper ? Color.soot : Color.text))
             .padding(.horizontal, Space.md)
             .padding(.vertical, Space.xs)
-            .background(selected ? Color.orchid.opacity(0.35) : (onPaper ? Color.soot.opacity(0.08) : Color.surfaceRaised), in: Capsule())
+            .background(selected ? Color.orchid.opacity(0.35) : (onPaper ? Color.soot.opacity(0.08) : Color.cardRaised), in: Capsule())
     }
 }
 
@@ -69,8 +69,8 @@ struct RoundButton: View {
     let systemImage: String
     let label: LocalizedStringKey
     var size: CGFloat = Metrics.barButton
-    var tint: Color = .chalk
-    var fill: Color = .surface
+    var tint: Color = .text
+    var fill: Color = .card
     let action: () -> Void
 
     var body: some View {
@@ -80,6 +80,7 @@ struct RoundButton: View {
                 .foregroundStyle(tint)
                 .frame(width: size, height: size)
                 .background(fill, in: Circle())
+                .overlay(Circle().stroke(Color.hairline, lineWidth: 1))
         }
         .buttonStyle(.plain)
         .accessibilityLabel(Text(label))

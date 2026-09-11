@@ -11,12 +11,12 @@ struct BlockedUsersView: View {
         NavigationStack {
             Group {
                 if people.isEmpty {
-                    Text("nobody blocked.").font(.vlogBody).foregroundStyle(Color.chalkSoft)
+                    Text("nobody blocked.").font(.vlogBody).foregroundStyle(Color.textSoft)
                 } else {
                     List(people) { person in
                         HStack {
                             AvatarDisc(profile: person, size: 28)
-                            Text(verbatim: person.displayName).font(.vlogBody).foregroundStyle(Color.chalk)
+                            Text(verbatim: person.displayName).font(.vlogBody).foregroundStyle(Color.text)
                             Spacer()
                             Button("unblock") {
                                 Task {
@@ -26,18 +26,18 @@ struct BlockedUsersView: View {
                             }
                             .font(.vlogCaption).foregroundStyle(Color.orchidInk)
                         }
-                        .listRowBackground(Color.surface)
+                        .listRowBackground(Color.card)
                     }
                     .scrollContentBackground(.hidden)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.ink.ignoresSafeArea())
+            .background(Color.ground.ignoresSafeArea())
             .navigationTitle("blocked people")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("close") { dismiss() }.foregroundStyle(Color.chalk) } }
+            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("close") { dismiss() }.foregroundStyle(Color.text) } }
         }
-        .presentationBackground(Color.ink)
+        .presentationBackground(Color.ground)
         .task { people = (try? await state.backend.safety.blocked()) ?? [] }
         .screen("screen.blocked")
     }

@@ -24,10 +24,10 @@ struct HomeView: View {
                 }
                 bar
             }
-            .background(Color.ink.ignoresSafeArea())
+            .background(Color.ground.ignoresSafeArea())
             .navigationDestination(item: $openRoom) { room in RoomView(room: room) }
         }
-        .tint(Color.chalk)
+        .tint(Color.text)
         .sheet(isPresented: $showNewRoom) { NewRoomSheet(created: { openRoom = $0 }) }
         .sheet(isPresented: $showJoin) { JoinRoomSheet(joined: { openRoom = $0 }) }
         .sheet(isPresented: $showProfile) { ProfileView() }

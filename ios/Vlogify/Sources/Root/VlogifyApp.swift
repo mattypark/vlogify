@@ -15,7 +15,7 @@ struct VlogifyApp: App {
                 } else {
                     // The ink launch colour, held until the backend is chosen. A few
                     // milliseconds; the launch metric test measures it.
-                    Color.ink.ignoresSafeArea()
+                    Color.ground.ignoresSafeArea()
                 }
             }
             .task {

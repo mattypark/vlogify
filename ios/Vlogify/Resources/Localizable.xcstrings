@@ -2562,6 +2562,86 @@
         }
       }
     },
+    "horizontal": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "horizontal"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "가로"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "横"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "橫向"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ngang"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "горизонтально"
+          }
+        }
+      }
+    },
+    "horizontal. tap for vertical": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "horizontal. tap for vertical"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "가로. 눌러서 세로로"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "横。タップで縦に"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "橫向。點按改為直向"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ngang. nhấn để chuyển dọc"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "горизонтально. нажми для вертикали"
+          }
+        }
+      }
+    },
     "hourly pings": {
       "localizations": {
         "en": {
@@ -4533,31 +4613,31 @@
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "녹화 중"
+            "value": "촬영 방향"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "録画中"
+            "value": "撮影の向き"
           }
         },
         "zh-Hant": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "錄製中"
+            "value": "錄製方向"
           }
         },
         "vi": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "đang quay"
+            "value": "hướng quay"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "запись"
+            "value": "ориентация съёмки"
           }
         }
       }
@@ -5238,6 +5318,46 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "выйти из аккаунта?"
+          }
+        }
+      }
+    },
+    "skip for now": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "skip for now"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "일단 건너뛰기"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "今はスキップ"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "暫時略過"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "bỏ qua tạm thời"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "пока пропустить"
           }
         }
       }
@@ -6038,6 +6158,86 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "версия"
+          }
+        }
+      }
+    },
+    "vertical": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vertical"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "세로"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "縦"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "直向"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "dọc"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "вертикально"
+          }
+        }
+      }
+    },
+    "vertical. tap for horizontal": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vertical. tap for horizontal"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "세로. 눌러서 가로로"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "縦。タップで横に"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "直向。點按改為橫向"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "dọc. nhấn để chuyển ngang"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "вертикально. нажми для горизонтали"
           }
         }
       }

@@ -5,7 +5,7 @@ import VlogifyDesign
 struct TypewriterText: View {
     let text: String
     var bold = false
-    var color: Color = .chalkSoft
+    var color: Color = .textSoft
     var speed: Double = 0.018
     var onDone: (() -> Void)? = nil
 

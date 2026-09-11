@@ -26,10 +26,10 @@ struct RoomView: View {
         // ZStack rather than the reader as the root: an accessibility container has to
         // be a real view for the walker to find `screen.room`.
         ZStack { timeline }
-            .background(Color.ink.ignoresSafeArea())
+            .background(Color.ground.ignoresSafeArea())
             .navigationTitle(room.name ?? (room.isSolo ? String(localized: "just me", bundle: .app) : String(localized: "untitled log", bundle: .app)))
             .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(Color.ink, for: .navigationBar)
+            .toolbarBackground(Color.ground, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
@@ -44,7 +44,7 @@ struct RoomView: View {
                             Label(room.isSolo ? "delete this vlog" : "leave room", systemImage: "rectangle.portrait.and.arrow.right")
                         }
                     } label: {
-                        Image(systemName: "ellipsis.circle").foregroundStyle(Color.chalk)
+                        Image(systemName: "ellipsis.circle").foregroundStyle(Color.text)
                     }
                     .accessibilityIdentifier("room.menu")
                 }
@@ -82,7 +82,7 @@ struct RoomView: View {
                                 .id(row.slot.hour)
                         }
                     } else {
-                        ProgressView().tint(Color.chalk).frame(maxWidth: .infinity).padding(.top, Space.xxl)
+                        ProgressView().tint(Color.text).frame(maxWidth: .infinity).padding(.top, Space.xxl)
                     }
                 }
                 .padding(.horizontal, Space.gutter)
@@ -122,9 +122,9 @@ struct RoomView: View {
                 .accessibilityIdentifier("room.today")
             } else if !room.isSolo {
                 Button { showInvite = true } label: {
-                    Label("invite", systemImage: "plus").font(.vlogCaption).foregroundStyle(Color.chalk)
+                    Label("invite", systemImage: "plus").font(.vlogCaption).foregroundStyle(Color.text)
                         .padding(.horizontal, Space.sm).frame(height: 32)
-                        .background(Color.surface, in: Capsule())
+                        .background(Color.card, in: Capsule())
                 }
                 .buttonStyle(.plain)
                 .accessibilityIdentifier("room.invite")
@@ -133,7 +133,7 @@ struct RoomView: View {
         .padding(.top, Space.sm)
         .overlay(alignment: .bottomLeading) {
             Text(verbatim: isToday ? String(localized: "today", bundle: .app) : state.clock.formatted(shownDay))
-                .font(.vlogCaption).foregroundStyle(Color.chalkSoft)
+                .font(.vlogCaption).foregroundStyle(Color.textSoft)
                 .offset(y: Space.lg)
         }
         .padding(.bottom, Space.md)
@@ -159,7 +159,7 @@ struct RoomView: View {
             HStack {
                 Text(verbatim: row.slot.label)
                     .font(Font.system(size: 20, weight: .heavy, design: .rounded))
-                    .foregroundStyle(row.isCurrent ? Color.orchidInk : Color.chalk)
+                    .foregroundStyle(row.isCurrent ? Color.orchidInk : Color.text)
                 if row.isCurrent {
                     Text("now").font(.vlogCaption).foregroundStyle(Color.orchidInk)
                 }
@@ -178,7 +178,7 @@ struct RoomView: View {
             let clips = log.clips(in: row.slot)
             if room.isSolo {
                 if clips.isEmpty {
-                    Text("nothing this hour").font(.vlogCaption).foregroundStyle(Color.chalkSoft)
+                    Text("nothing this hour").font(.vlogCaption).foregroundStyle(Color.textSoft)
                 } else {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: Space.xs) {

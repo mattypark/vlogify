@@ -47,9 +47,22 @@ struct WelcomeView: View {
                     }
                     .buttonStyle(.plain)
                     .accessibilityIdentifier("welcome.email")
+                    if BackendRoot.config == nil {
+                        // Only while the app runs on the mock: walks the whole
+                        // onboarding without an email in the loop. Disappears the day
+                        // a Secrets.xcconfig points at a real backend.
+                        Button { skip() } label: {
+                            Text("skip for now")
+                                .font(.vlogCaption)
+                                .foregroundStyle(Color.sootSoft)
+                                .frame(height: Metrics.hitTarget)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityIdentifier("welcome.skip")
+                    }
                 }
                 .padding(.horizontal, Space.xl)
-                .padding(.bottom, Space.xxl + Space.xl)
+                .padding(.bottom, Space.xxl)
             }
         }
         .sheet(isPresented: $showEmail) { EmailSignInSheet() }
@@ -68,12 +81,12 @@ struct WelcomeView: View {
             DoodleSticker(.sparkleLarge).position(x: w * 0.9, y: h * 0.2)
             DoodleSticker(.envelope).position(x: w * 0.13, y: h * 0.3)
             DoodleSticker(.moon).position(x: w * 0.86, y: h * 0.3)
-            DoodleSticker(.pizza, scale: 0.8).position(x: w * 0.16, y: h * 0.56)
-            DoodleSticker(.orange).position(x: w * 0.44, y: h * 0.60)
-            DoodleSticker(.plant, scale: 0.65).position(x: w * 0.8, y: h * 0.58)
-            DoodleSticker(.tea, scale: 0.7).position(x: w * 0.18, y: h * 0.93)
-            DoodleSticker(.flames, scale: 0.8).position(x: w * 0.53, y: h * 0.93)
-            DoodleSticker(.sundae, scale: 0.7).position(x: w * 0.85, y: h * 0.92)
+            DoodleSticker(.pizza, scale: 0.7).position(x: w * 0.15, y: h * 0.51)
+            DoodleSticker(.orange, scale: 0.9).position(x: w * 0.44, y: h * 0.54)
+            DoodleSticker(.plant, scale: 0.55).position(x: w * 0.82, y: h * 0.52)
+            DoodleSticker(.tea, scale: 0.6).position(x: w * 0.14, y: h * 0.95)
+            DoodleSticker(.flames, scale: 0.7).position(x: w * 0.5, y: h * 0.965)
+            DoodleSticker(.sundae, scale: 0.6).position(x: w * 0.86, y: h * 0.95)
         }
     }
 
@@ -101,6 +114,16 @@ struct WelcomeView: View {
             } catch {
                 state.show(.error(String(localized: "couldn't sign in. try again.", bundle: .app)))
             }
+        }
+    }
+
+    private func skip() {
+        guard busy == nil else { return }
+        Task {
+            let session = try? await state.backend.auth.signInWithApple(identityToken: "skip", nonce: "skip", fullName: nil)
+            guard let session else { return }
+            MockSessionStore.save(.solo)
+            await state.didSignIn(session)
         }
     }
 

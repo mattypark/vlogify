@@ -16,34 +16,34 @@ struct HistoryView: View {
         NavigationStack {
             Group {
                 if !loaded {
-                    ProgressView().tint(Color.chalk)
+                    ProgressView().tint(Color.text)
                 } else if days.isEmpty {
                     Text("no past days yet. tomorrow, today will be here.")
-                        .font(.vlogBody).foregroundStyle(Color.chalkSoft)
+                        .font(.vlogBody).foregroundStyle(Color.textSoft)
                         .multilineTextAlignment(.center).padding(Space.xl)
                 } else {
                     List(days, id: \.description) { day in
                         Button { pick(day) } label: {
                             HStack {
-                                Text(verbatim: state.clock.formatted(day)).font(.vlogBody).foregroundStyle(Color.chalk)
+                                Text(verbatim: state.clock.formatted(day)).font(.vlogBody).foregroundStyle(Color.text)
                                 Spacer()
                                 if day == state.clock.today { Text("today").font(.vlogCaption).foregroundStyle(Color.orchidInk) }
-                                Image(systemName: "chevron.right").font(.vlogCaption).foregroundStyle(Color.chalkSoft)
+                                Image(systemName: "chevron.right").font(.vlogCaption).foregroundStyle(Color.textSoft)
                             }
                         }
-                        .listRowBackground(Color.surface)
+                        .listRowBackground(Color.card)
                         .accessibilityIdentifier("history.day.\(day)")
                     }
                     .scrollContentBackground(.hidden)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.ink.ignoresSafeArea())
+            .background(Color.ground.ignoresSafeArea())
             .navigationTitle("history")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("close") { dismiss() }.foregroundStyle(Color.chalk) } }
+            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("close") { dismiss() }.foregroundStyle(Color.text) } }
         }
-        .presentationBackground(Color.ink)
+        .presentationBackground(Color.ground)
         .task {
             days = (try? await state.backend.clips.history(roomID: room.id)) ?? []
             loaded = true

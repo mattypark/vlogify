@@ -3,7 +3,7 @@
 UI session, 2026-09-11. Each stage is a commit.
 
 - [x] **0 — Scaffold** — repo, remote `mattypark/vlogify` (no push), `.gitignore`, `.env.example`, XcodeGen spec, privacy manifest, config switch, sample clip, icon renderer
-- [x] **1 — Design system** — OKLCH palette with derived text roles, type, spacing, motion, art slots; `PaletteTests`
+- [x] **1 — Design system** — paper-only OKLCH palette with derived text roles, type, spacing, motion, art slots; `PaletteTests`
 - [x] **2 — Engine** — `DayClock` (4 AM), `SlotPing`, `RoomRules`, `InviteCode`, `StitchPlan`; 20+ Swift Testing cases incl. DST
 - [x] **3 — Contract + mock** — wire types, eight service protocols, `MockBackend` that says no, `BackendConfig` switch
 - [x] **4 — Onboarding** — welcome, Apple (native sheet, mock exchange), Google (system browser), email code, permissions typewriter, profile
@@ -13,7 +13,7 @@ UI session, 2026-09-11. Each stage is a commit.
 - [x] **8 — Compositor + export** — `DayCompositor`, save to Photos, share
 - [x] **9 — Profile / safety / legal** — name, in-app language picker, blocked list, report/block, delete account, legal links
 - [x] **10 — Notifications** — `HourlyScheduler` plans the day's pings on foreground
-- [x] **11 — Localization** — language asked on first launch (`LanguageView`), `Localizable.xcstrings` + `InfoPlist.xcstrings`, 172 keys × 6 languages (EN/KO hand-written; JA/zh-Hant/VI/RU drafted, marked needs_review)
+- [x] **11 — Localization** — language asked right after sign-in (`LanguageView`), `Localizable.xcstrings` + `InfoPlist.xcstrings`, 172 keys × 6 languages (EN/KO hand-written; JA/zh-Hant/VI/RU drafted, marked needs_review)
 - [x] **12 — App Store hardening** — `pre-submit.sh`, `testflight.sh`, `docs/TESTFLIGHT.md`, `docs/APP-STORE-CHECKLIST.md`
 - [x] **13 — Companion web** — privacy, terms, support (with form), 404, OG, sitemap, robots, security headers
 - [x] **14 — Overnight QA** — `VlogifyUITests` walker + metrics, `qa-matrix.sh`, `overnight.sh`, global rule + guard/audit hooks

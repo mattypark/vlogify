@@ -13,7 +13,7 @@ struct SegmentToggle: View {
             segment(.logs, "logs")
         }
         .padding(Space.xxs)
-        .background(Color.surface, in: Capsule())
+        .background(Color.card, in: Capsule())
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("bar.segment")
     }
@@ -25,12 +25,12 @@ struct SegmentToggle: View {
         } label: {
             Text(title)
                 .font(.vlogLabel)
-                .foregroundStyle(tab == value ? Color.chalk : Color.chalkSoft)
+                .foregroundStyle(tab == value ? Color.text : Color.textSoft)
                 .padding(.horizontal, Space.gutter)
                 .frame(height: Metrics.hitTarget)
                 .background {
                     if tab == value {
-                        Capsule().fill(Color.surfaceRaised)
+                        Capsule().fill(Color.cardRaised)
                             .matchedGeometryEffect(id: "segment", in: namespace)
                     }
                 }

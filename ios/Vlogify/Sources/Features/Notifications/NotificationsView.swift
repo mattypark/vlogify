@@ -16,35 +16,35 @@ struct NotificationsView: View {
             Group {
                 if pinged.isEmpty {
                     VStack(spacing: Space.sm) {
-                        Image(systemName: "bell.slash").font(Font.system(size: 32)).foregroundStyle(Color.chalkSoft)
+                        Image(systemName: "bell.slash").font(Font.system(size: 32)).foregroundStyle(Color.textSoft)
                         Text("no pings yet. logs with friends ping every hour.")
-                            .font(.vlogBody).foregroundStyle(Color.chalkSoft).multilineTextAlignment(.center)
+                            .font(.vlogBody).foregroundStyle(Color.textSoft).multilineTextAlignment(.center)
                     }
                     .padding(Space.xl)
                 } else {
                     List(pinged) { room in
                         HStack {
                             VStack(alignment: .leading, spacing: 2) {
-                                Text(verbatim: room.name ?? String(localized: "untitled log", bundle: .app)).font(.vlogBody).foregroundStyle(Color.chalk)
+                                Text(verbatim: room.name ?? String(localized: "untitled log", bundle: .app)).font(.vlogBody).foregroundStyle(Color.text)
                                 Text("next ping in \(Clock.countdown(state.clock.secondsUntilPing(room: room.id)))")
-                                    .font(.vlogCaption).foregroundStyle(Color.chalkSoft)
+                                    .font(.vlogCaption).foregroundStyle(Color.textSoft)
                             }
                             Spacer()
                             Image(systemName: "bell").foregroundStyle(Color.orchidInk)
                         }
-                        .listRowBackground(Color.surface)
+                        .listRowBackground(Color.card)
                     }
                     .scrollContentBackground(.hidden)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.ink.ignoresSafeArea())
+            .background(Color.ground.ignoresSafeArea())
             .navigationTitle("pings")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("close") { dismiss() }.foregroundStyle(Color.chalk) } }
+            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("close") { dismiss() }.foregroundStyle(Color.text) } }
         }
         .presentationDetents([.medium])
-        .presentationBackground(Color.ink)
+        .presentationBackground(Color.ground)
         .screen("screen.notifications")
     }
 }

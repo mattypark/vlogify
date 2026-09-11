@@ -25,7 +25,7 @@ struct ReportSheet: View {
                     .labelsHidden()
                     .accessibilityIdentifier("report.reason")
                 } header: { Text("what's wrong with this clip?") }
-                .listRowBackground(Color.surface)
+                .listRowBackground(Color.card)
                 Section {
                     TextField("anything else (optional)", text: $note, axis: .vertical)
                         .lineLimit(3...5)
@@ -35,23 +35,23 @@ struct ReportSheet: View {
                             .accessibilityIdentifier("report.block")
                     }
                 }
-                .listRowBackground(Color.surface)
+                .listRowBackground(Color.card)
             }
             .scrollContentBackground(.hidden)
-            .background(Color.ink.ignoresSafeArea())
+            .background(Color.ground.ignoresSafeArea())
             .navigationTitle("report")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) { Button("cancel") { dismiss() }.foregroundStyle(Color.chalk) }
+                ToolbarItem(placement: .cancellationAction) { Button("cancel") { dismiss() }.foregroundStyle(Color.text) }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("send") { send() }.disabled(busy).foregroundStyle(Color.orchidInk)
                         .accessibilityIdentifier("report.send")
                 }
             }
         }
-        .tint(Color.chalk)
+        .tint(Color.text)
         .presentationDetents([.medium, .large])
-        .presentationBackground(Color.ink)
+        .presentationBackground(Color.ground)
         .screen("screen.report")
     }
 

@@ -21,7 +21,9 @@ struct LanguageView: View {
                 }
             }
             Text(verbatim: "choose your language")
-                .font(.vlogTitle).foregroundStyle(Color.chalk)
+                .font(.vlogTitle).foregroundStyle(Color.text)
+            Text(verbatim: "언어 · 言語 · 語言 · ngôn ngữ · язык")
+                .font(.vlogCaption).foregroundStyle(Color.textSoft)
             VStack(spacing: Space.xs) {
                 ForEach(AppLanguage.allCases) { language in
                     Button {
@@ -32,7 +34,7 @@ struct LanguageView: View {
                         HStack {
                             Text(verbatim: language.nativeName)
                                 .font(.vlogLabel)
-                                .foregroundStyle(Color.chalk)
+                                .foregroundStyle(Color.text)
                             Spacer()
                             if picked == language {
                                 Image(systemName: "checkmark").foregroundStyle(Color.orchidInk)
@@ -40,7 +42,7 @@ struct LanguageView: View {
                         }
                         .padding(.horizontal, Space.md)
                         .frame(height: 56)
-                        .background(picked == language ? Color.orchid.opacity(0.25) : Color.surface,
+                        .background(picked == language ? Color.orchid.opacity(0.25) : Color.card,
                                     in: RoundedRectangle(cornerRadius: Radius.row, style: .continuous))
                         .overlay(RoundedRectangle(cornerRadius: Radius.row, style: .continuous)
                             .stroke(picked == language ? Color.orchid : Color.clear, lineWidth: 1.5))
@@ -61,7 +63,7 @@ struct LanguageView: View {
         }
         .padding(Space.gutter)
         .padding(.top, Space.md)
-        .background(Color.ink.ignoresSafeArea())
+        .background(Color.ground.ignoresSafeArea())
         .screen("screen.language")
     }
 }

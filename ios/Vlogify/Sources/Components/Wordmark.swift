@@ -8,7 +8,7 @@ struct Wordmark: View {
 
     var body: some View {
         styled
-            .foregroundStyle(onPaper ? Color.soot : Color.spearmint)
+            .foregroundStyle(Color.text)
             .accessibilityLabel("vlogify")
     }
 
