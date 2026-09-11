@@ -19,6 +19,11 @@ UI session, 2026-09-11. Each stage is a commit.
 - [x] **14 — Overnight QA** — `VlogifyUITests` walker + metrics, `qa-matrix.sh`, `overnight.sh`, global rule + guard/audit hooks
 - [x] **15 — Handoff** — session docs, paste-ready prompts, this file
 
+- [x] **16 — Alive** — sticker buttons everywhere, seven playful fills, Bagel/Gloria voices, tap bursts on onboarding, paint-blob placeholders
+- [x] **17 — Pages** — local-only Notion-style day page (title, blocks, rooms as blocks, clip strip) + room notes
+- [x] **18 — Camera extras** — centred stamp, `Aa` font shuffle (burned into export), outline colour = profile colour (rings on tiles, frame, export)
+- [ ] **19 — App Store Connect record** — bundle id + app record (browser, with Matthew's OK before Create), then metadata via MCP
+
 ## Open before launch (not this session)
 
 - [ ] Artist replaces the 19 art slots (`docs/ART-SLOTS.md`); mascot through `ip-as-logo`

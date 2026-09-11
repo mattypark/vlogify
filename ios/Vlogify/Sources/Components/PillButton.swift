@@ -1,7 +1,7 @@
 import SwiftUI
 import VlogifyDesign
 
-/// The big full-width button on the welcome page and in sheets.
+/// The big full-width button. A sticker with a shout on it.
 struct PillButton: View {
     enum Style { case filled, outlined, accent }
 
@@ -12,43 +12,26 @@ struct PillButton: View {
     let action: () -> Void
 
     var body: some View {
-        Button(action: action) {
-            HStack(spacing: Space.sm) {
-                if isLoading {
-                    ProgressView().tint(foreground)
-                } else if let icon {
-                    Image(systemName: icon).font(Font.system(size: 18, weight: .semibold))
-                }
-                Text(title).font(.vlogLabel)
-            }
-            .foregroundStyle(foreground)
-            .frame(maxWidth: .infinity)
-            .frame(height: 56)
-            .background(background, in: Capsule())
-            .overlay(Capsule().stroke(style == .outlined ? Color.hairline : .clear, lineWidth: 1))
-        }
-        .buttonStyle(.plain)
-        .disabled(isLoading)
+        ChunkyButton(title: title, icon: icon, fill: fill, ink: ink, isLoading: isLoading, action: action)
     }
 
-    private var foreground: Color {
-        switch style {
-        case .filled: return .paper
-        case .outlined: return .text
-        case .accent: return .ink
-        }
-    }
-
-    private var background: Color {
+    private var fill: Color {
         switch style {
         case .filled: return .soot
         case .outlined: return .card
         case .accent: return .orchid
         }
     }
+
+    private var ink: Color {
+        switch style {
+        case .filled: return .paper
+        case .outlined, .accent: return .soot
+        }
+    }
 }
 
-/// A small pill: `create log`, a capacity number, the camera/logs segment.
+/// A small pill that is not pressable on its own: a label inside a sentence.
 struct Chip: View {
     let text: String
     var selected = false
@@ -57,32 +40,24 @@ struct Chip: View {
     var body: some View {
         Text(verbatim: text)
             .font(.vlogLabel)
-            .foregroundStyle(selected ? Color.text : (onPaper ? Color.soot : Color.text))
+            .foregroundStyle(Color.soot)
             .padding(.horizontal, Space.md)
             .padding(.vertical, Space.xs)
-            .background(selected ? Color.orchid.opacity(0.35) : (onPaper ? Color.soot.opacity(0.08) : Color.cardRaised), in: Capsule())
+            .sticker(fill: selected ? .orchid : .card, radius: Radius.pill)
+            .stickerRoom()
     }
 }
 
-/// The round bar buttons: bell, plus, flip, timer.
+/// The round bar buttons. Kept as an alias so older call sites read the same.
 struct RoundButton: View {
     let systemImage: String
     let label: LocalizedStringKey
     var size: CGFloat = Metrics.barButton
-    var tint: Color = .text
+    var tint: Color = .soot
     var fill: Color = .card
     let action: () -> Void
 
     var body: some View {
-        Button(action: action) {
-            Image(systemName: systemImage)
-                .font(Font.system(size: size * 0.36, weight: .semibold))
-                .foregroundStyle(tint)
-                .frame(width: size, height: size)
-                .background(fill, in: Circle())
-                .overlay(Circle().stroke(Color.hairline, lineWidth: 1))
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel(Text(label))
+        ChunkyRound(systemImage: systemImage, label: label, size: size, fill: fill, ink: tint, action: action)
     }
 }

@@ -18,7 +18,7 @@ struct HomeView: View {
             VStack(spacing: 0) {
                 if state.tab == .logs {
                     header
-                    LogsTab(openRoom: $openRoom)
+                    DayPageView(openRoom: $openRoom)
                 } else {
                     CameraView(camera: camera)
                 }
@@ -42,7 +42,7 @@ struct HomeView: View {
         HStack {
             Wordmark()
             Spacer()
-            RoundButton(systemImage: "person", label: "profile", size: Metrics.hitTarget + 4) { showProfile = true }
+            ChunkyRound(systemImage: "person.fill", label: "profile", size: Metrics.hitTarget + 4) { showProfile = true }
                 .accessibilityIdentifier("home.profile")
         }
         .padding(.horizontal, Space.gutter)
@@ -53,17 +53,17 @@ struct HomeView: View {
         @Bindable var state = state
         return BottomBar(tab: $state.tab) {
             if state.tab == .logs {
-                RoundButton(systemImage: "bell", label: "notifications") { showNotifications = true }
+                ChunkyRound(systemImage: "bell.fill", label: "notifications", fill: .butter) { showNotifications = true }
                     .accessibilityIdentifier("bar.bell")
             } else {
-                RoundButton(systemImage: camera.isTorchOn ? "bolt.fill" : "bolt.slash", label: "flash") { camera.toggleTorch() }
+                ChunkyRound(systemImage: camera.isTorchOn ? "bolt.fill" : "bolt.slash", label: "flash", fill: .butter) { camera.toggleTorch() }
                     .accessibilityIdentifier("bar.flash")
             }
         } trailing: {
             if state.tab == .logs {
                 PlusMenu(onCreate: { showNewRoom = true }, onJoin: { showJoin = true })
             } else {
-                RoundButton(systemImage: "arrow.triangle.2.circlepath.camera", label: "flip camera") { camera.flip() }
+                ChunkyRound(systemImage: "arrow.triangle.2.circlepath.camera", label: "flip camera", fill: .sky) { camera.flip() }
                     .accessibilityIdentifier("bar.flip")
             }
         }

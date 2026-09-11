@@ -39,6 +39,19 @@ struct ProfileView: View {
                         row("hourly pings", value: state.permissions.notifications == .granted ? String(localized: "on", bundle: .app) : String(localized: "off", bundle: .app))
                     }
                     .accessibilityIdentifier("settings.pings")
+                    Button { state.capture.shuffleFont() } label: {
+                        HStack {
+                            Text("time font").font(.vlogBody).foregroundStyle(Color.text)
+                            Spacer()
+                            Text(verbatim: "5:00").font(state.capture.stampFont.font(size: 18)).foregroundStyle(Color.text)
+                        }
+                    }
+                    .accessibilityIdentifier("settings.font")
+                    VStack(alignment: .leading, spacing: Space.xs) {
+                        Text("your colour").font(.vlogBody).foregroundStyle(Color.text)
+                        ColorRingPicker()
+                    }
+                    .accessibilityIdentifier("settings.colour")
                     Button { state.capture.toggle() } label: {
                         row("recording", value: state.capture.isLandscape ? String(localized: "horizontal", bundle: .app) : String(localized: "vertical", bundle: .app))
                     }

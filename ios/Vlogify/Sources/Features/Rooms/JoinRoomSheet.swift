@@ -31,7 +31,8 @@ struct JoinRoomSheet: View {
                 .foregroundStyle(Color.text)
                 .multilineTextAlignment(.center)
                 .padding(Space.md)
-                .background(Color.card, in: RoundedRectangle(cornerRadius: Radius.sheet, style: .continuous))
+                .sticker(fill: .card, radius: Radius.sheet)
+                .stickerRoom()
                 .focused($focused)
                 .onChange(of: input) { _, new in
                     let normalized = InviteCode.normalize(new)

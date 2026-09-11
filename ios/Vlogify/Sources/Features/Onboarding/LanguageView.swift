@@ -34,20 +34,17 @@ struct LanguageView: View {
                         HStack {
                             Text(verbatim: language.nativeName)
                                 .font(.vlogLabel)
-                                .foregroundStyle(Color.text)
+                                .foregroundStyle(Color.soot)
                             Spacer()
                             if picked == language {
-                                Image(systemName: "checkmark").foregroundStyle(Color.orchidInk)
+                                Image(systemName: "checkmark").font(Font.system(size: 16, weight: .black)).foregroundStyle(Color.soot)
                             }
                         }
                         .padding(.horizontal, Space.md)
-                        .frame(height: 56)
-                        .background(picked == language ? Color.orchid.opacity(0.25) : Color.card,
-                                    in: RoundedRectangle(cornerRadius: Radius.row, style: .continuous))
-                        .overlay(RoundedRectangle(cornerRadius: Radius.row, style: .continuous)
-                            .stroke(picked == language ? Color.orchid : Color.clear, lineWidth: 1.5))
+                        .frame(height: 52)
                     }
-                    .buttonStyle(.plain)
+                    .buttonStyle(StickerButtonStyle(fill: picked == language ? Color(Palette.playful(index: AppLanguage.allCases.firstIndex(of: language) ?? 0).color) : .card, radius: Radius.row))
+                    .stickerRoom()
                     .accessibilityIdentifier("language.\(language.rawValue)")
                     .accessibilityAddTraits(picked == language ? .isSelected : [])
                 }
@@ -64,6 +61,7 @@ struct LanguageView: View {
         .padding(Space.gutter)
         .padding(.top, Space.md)
         .background(Color.ground.ignoresSafeArea())
+        .tapBursts()
         .screen("screen.language")
     }
 }

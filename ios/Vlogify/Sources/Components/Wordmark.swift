@@ -16,7 +16,7 @@ struct Wordmark: View {
     /// resolves before the view modifiers do.
     private var styled: Text {
         Text(verbatim: "vlogify")
-            .font(Font.system(size: size, weight: .black, design: .rounded))
-            .tracking(-1)
+            .font(.custom(Typeface.bagel, size: size, relativeTo: .largeTitle))
+            .tracking(-0.5)
     }
 }

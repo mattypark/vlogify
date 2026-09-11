@@ -55,6 +55,7 @@ struct PermissionsView: View {
         .padding(.top, Space.xl)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background(Color.ground.ignoresSafeArea())
+        .tapBursts()
         .task { await permissions.refresh() }
         .screen("screen.permissions")
     }

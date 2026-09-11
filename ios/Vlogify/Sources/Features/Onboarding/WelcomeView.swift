@@ -30,13 +30,19 @@ struct WelcomeView: View {
                 Spacer()
                 Spacer()
                 VStack(spacing: Space.sm) {
+                    // Apple's own button (4.8 requires it), wearing the sticker outline
+                    // and shadow so it belongs to the page.
                     SignInWithAppleButton(.continue) { _ in } onCompletion: { _ in }
                         .signInWithAppleButtonStyle(.black)
                         .frame(height: 56)
                         .clipShape(Capsule())
+                        .overlay(Capsule().strokeBorder(Color.soot, lineWidth: Sticker.line))
+                        .compositingGroup()
+                        .shadow(color: Color.soot, radius: 0, x: Sticker.drop, y: Sticker.drop)
                         .overlay(Capsule().fill(Color.black.opacity(0.001)).onTapGesture { signInWithApple() })
+                        .stickerRoom()
                         .accessibilityIdentifier("welcome.apple")
-                    PillButton(title: "Continue with Google", icon: "g.circle.fill", isLoading: busy == .google) { signInWithGoogle() }
+                    ChunkyButton(title: "Continue with Google", icon: "g.circle.fill", fill: .card, isLoading: busy == .google) { signInWithGoogle() }
                         .accessibilityIdentifier("welcome.google")
                     Button { showEmail = true } label: {
                         Text("Continue with email")
@@ -65,6 +71,7 @@ struct WelcomeView: View {
                 .padding(.bottom, Space.xxl)
             }
         }
+        .tapBursts()
         .sheet(isPresented: $showEmail) { EmailSignInSheet() }
         .toastOverlay(state.toast)
     }

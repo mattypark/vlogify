@@ -1,9 +1,9 @@
 # Design
 
-Same idea as Setlog's welcome page, carried through the whole app: warm paper, black
-type, doodles, one orchid accent. No dark mode — the only dark surface is video
-itself. Cleaned up: two type families, one accent, a closed spacing set, radius that
-tracks size, four named springs.
+Warm paper, black type, doodles — and every button a **sticker**: flat fill, 3 pt soot
+outline, hard 4 pt shadow, press sinks into the shadow. Seven playful fills so nothing
+repeats. Three type voices (Bagel shouts, SF Rounded reading, Gloria notes). No dark mode —
+the only dark surface is video itself. The home is a page you type on.
 
 ## Tokens
 

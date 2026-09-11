@@ -29,7 +29,10 @@ struct ProfileSetupView: View {
                     .accessibilityIdentifier("profile.name")
             }
             .padding(Space.md)
-            .background(Color.card, in: RoundedRectangle(cornerRadius: Radius.row, style: .continuous))
+            .sticker(fill: .card, radius: Radius.row)
+            .stickerRoom()
+            Text("pick your colour").font(.vlogHandSmall).foregroundStyle(Color.textSoft).padding(.top, Space.sm)
+            ColorRingPicker()
             Spacer()
             PillButton(title: "let's go", style: .accent, isLoading: busy) { save() }
                 .disabled(trimmed.isEmpty)
@@ -39,6 +42,7 @@ struct ProfileSetupView: View {
         .padding(Space.gutter)
         .padding(.top, Space.xxl)
         .background(Color.ground.ignoresSafeArea())
+        .tapBursts()
         .onAppear {
             name = state.profile?.displayName ?? ""
             focused = true

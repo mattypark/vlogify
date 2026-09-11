@@ -30,7 +30,7 @@ struct NewRoomSheet: View {
                 Text("new room").font(.vlogTitle).foregroundStyle(Color.text)
                 Spacer()
                 RoundButton(systemImage: "checkmark", label: "create", size: Metrics.hitTarget + 4,
-                            tint: .ink, fill: .orchid) { create() }
+                            tint: .soot, fill: .orchid) { create() }
                     .disabled(busy)
                     .accessibilityIdentifier("newRoom.create")
             }
@@ -42,7 +42,8 @@ struct NewRoomSheet: View {
                 .font(.vlogBody)
                 .foregroundStyle(Color.text)
                 .padding(Space.md)
-                .background(Color.card, in: Capsule())
+                .sticker(fill: .card, radius: Radius.pill)
+                .stickerRoom()
                 .onChange(of: name) { _, new in name = String(new.prefix(RoomRules.maxNameLength)) }
                 .accessibilityIdentifier("newRoom.name")
 

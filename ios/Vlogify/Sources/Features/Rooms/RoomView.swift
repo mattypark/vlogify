@@ -76,6 +76,9 @@ struct RoomView: View {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: Space.lg) {
                     membersRow
+                    // The room's own page, local to this phone.
+                    NotesBlockList(scope: .room(room.id), placeholder: "write something about this room…")
+                        .padding(.bottom, Space.xs)
                     if let log {
                         ForEach(rows(for: log), id: \.slot.hour) { row in
                             hourRow(row, log: log)

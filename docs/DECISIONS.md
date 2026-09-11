@@ -108,3 +108,39 @@ long edge and record landscape when the phone is turned.
 `MockBackend` refuses a full room, a second clip in a slot, a clip over two seconds, a
 bad checksum, a wrong email code. Rejected: a stub that returns success (tests would
 pass against a backend that does not exist).
+
+## The sticker language, from chingo
+Every pressable thing is a sticker: flat fill, 3 pt soot outline, zero-blur hard shadow
+offset 4 pt, and pressing moves the block *into* its shadow (`Sticker.swift`, copied from
+chingo with the palette swapped). Never scale a sticker — the shadow slides out from
+under it. Bare glyphs inside something else use `SquashButtonStyle`. Seven playful fills
+(`Palette.playful`) so a row of chips never repeats a colour; each fill's ink is chosen
+by contrast and tested. Rejected: soft blurred elevation on buttons (reads as a pane).
+
+## Three type voices
+Bagel Fat One for shouts and numbers, SF Pro Rounded for reading, Gloria Hallelujah for
+notes and empty states. Both bundled faces are OFL and asserted at launch in debug.
+Rejected: one face for everything (either generated-looking or unreadable).
+
+## Notes are local, full stop
+`NotesStore` writes JSON to the app-group container and never touches `Backend`. No sync,
+no sharing, no server copy — Matthew asked for "no one else can see your text", and the
+simplest way to guarantee it is for the bytes to never leave. Deleting the account wipes
+them. Rejected: syncing notes as private rows (a server copy is a copy).
+
+## The home is a page
+`DayPageView` is a Notion-style page per day: typed title, tap-to-type blocks, rooms as
+blocks, your clips along the foot. The first day's explainer is real blocks, which is why
+it looks typed. Rooms also carry their own notes above the timeline. Rejected: a room
+list with a notes tab (two places to look).
+
+## Tap bursts, random colour
+`TapBurstLayer` on the onboarding screens only: a circle pops and stripes fly out at the
+touch point, colour drawn from `Palette.playful` at random each tap. Garnish, never a
+gate (`simultaneousGesture`). Reduce Motion gets a single soft circle.
+
+## Your colour is on the wire; the stamp font is not
+The outline colour has to differentiate *you* from friends, so it rides on `Profile.avatarSeed`
+(already in the contract); `ProfileService.update(avatarSeed:)` was added — additive, the
+backend session implements it as a column update. The stamp font is burned into the video
+you export and needs no server.

@@ -42,7 +42,8 @@ struct EmailSignInSheet: View {
                         .font(.vlogBody)
                         .foregroundStyle(Color.text)
                         .padding(Space.md)
-                        .background(Color.card, in: RoundedRectangle(cornerRadius: Radius.row, style: .continuous))
+                        .sticker(fill: .card, radius: Radius.row)
+                        .stickerRoom()
                         .focused($focus, equals: .email)
                         .accessibilityIdentifier("email.address")
                 }

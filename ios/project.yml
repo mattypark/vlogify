@@ -72,6 +72,10 @@ targets:
               - vlogify
         UIBackgroundModes:
           - remote-notification
+        # Bare filenames. Both OFL; the game voice and the human voice.
+        UIAppFonts:
+          - BagelFatOne-Regular.ttf
+          - GloriaHallelujah-Regular.ttf
     entitlements:
       path: Vlogify/Vlogify.entitlements
       properties:

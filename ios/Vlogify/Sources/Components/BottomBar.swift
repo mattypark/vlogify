@@ -28,23 +28,28 @@ struct BottomBar<Leading: View, Trailing: View>: View {
 struct PlusMenu: View {
     let onCreate: () -> Void
     let onJoin: () -> Void
+    var onNote: () -> Void = {}
 
     var body: some View {
         Menu {
             Button(action: onCreate) { Label("create a room", systemImage: "plus.square") }
             Button(action: onJoin) { Label("join with code", systemImage: "number") }
+            Button(action: onNote) { Label("add a note", systemImage: "pencil.line") }
             if FeatureFlags.zipPhotos {
                 Divider()
                 Button {} label: { Label("start a zip", systemImage: "bolt") }
             }
         } label: {
             Image(systemName: "plus")
-                .font(Font.system(size: 22, weight: .semibold))
-                .foregroundStyle(Color.text)
+                .font(Font.system(size: 24, weight: .black))
+                .foregroundStyle(Color.soot)
                 .frame(width: Metrics.barButton, height: Metrics.barButton)
-                .background(Color.card, in: Circle())
-                .overlay(Circle().stroke(Color.hairline, lineWidth: 1))
+                .background { Circle().fill(Color.orchid) }
+                .overlay { Circle().strokeBorder(Color.soot, lineWidth: Sticker.line) }
+                .compositingGroup()
+                .shadow(color: Color.soot, radius: 0, x: Sticker.drop, y: Sticker.drop)
         }
+        .stickerRoom()
         .accessibilityLabel(Text("new"))
         .accessibilityIdentifier("bar.plus")
     }

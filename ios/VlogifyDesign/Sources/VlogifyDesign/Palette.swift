@@ -57,6 +57,9 @@ public enum Palette {
     public static let ember = OKLCH(0.7000, 0.1500, 35)          // ~#F08A5B
     /// Posted hour-dots and the "saved" line. Calm, not a button.
     public static let spearmint = OKLCH(0.8500, 0.1100, 175)     // ~#6FE0C6
+    /// Two more so a row of chips never repeats a colour.
+    public static let grape = OKLCH(0.6800, 0.1700, 300)         // ~#A276E0
+    public static let tangerine = OKLCH(0.8000, 0.1500, 65)      // ~#F5A64A
 
     // MARK: Accent text
 
@@ -70,6 +73,34 @@ public enum Palette {
     public static let accentInks: [(name: String, color: OKLCH)] = [
         ("orchid", orchidInk), ("sky", skyInk), ("ember", emberInk), ("spearmint", spearmintInk),
     ]
+
+    // MARK: Playful fills
+
+    /// A sticker fill and the colour of the words printed on it. Soot on anything light
+    /// enough, paper otherwise -- decided by contrast, not by eye, and tested.
+    public struct Fill: Sendable, Identifiable {
+        public let name: String
+        public let color: OKLCH
+        public var id: String { name }
+
+        public var ink: OKLCH {
+            Palette.soot.contrastRatio(against: color) >= Palette.paper.contrastRatio(against: color)
+                ? Palette.soot : Palette.paper
+        }
+    }
+
+    /// The pool every playful thing draws from: chips, the tap burst, the outline picker.
+    public static let playful: [Fill] = [
+        Fill(name: "orchid", color: orchid), Fill(name: "sky", color: sky),
+        Fill(name: "butter", color: butter), Fill(name: "spearmint", color: spearmint),
+        Fill(name: "ember", color: ember), Fill(name: "grape", color: grape),
+        Fill(name: "tangerine", color: tangerine),
+    ]
+
+    /// Deterministic pick, so a chip keeps its colour across launches.
+    public static func playful(index: Int) -> Fill {
+        playful[((index % playful.count) + playful.count) % playful.count]
+    }
 
     /// Twelve avatar discs, one per `avatarSeed % 12`. Evenly spaced hues at one
     /// lightness so no member's disc is louder than another's.
@@ -102,6 +133,8 @@ public extension Color {
     static let emberInk = Color(Palette.emberInk)
     static let spearmint = Color(Palette.spearmint)
     static let spearmintInk = Color(Palette.spearmintInk)
+    static let grape = Color(Palette.grape)
+    static let tangerine = Color(Palette.tangerine)
 
     static func avatar(seed: Int) -> Color { Color(Palette.avatar(seed: seed)) }
 }

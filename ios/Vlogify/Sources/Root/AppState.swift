@@ -19,6 +19,8 @@ final class AppState {
     let scheduler: HourlyScheduler
     let cache: LocalMediaCache
     let capture = CapturePreferences()
+    /// Local-only pages. Never touches `backend`.
+    let notes = NotesStore()
 
     var session: Session?
     var profile: Profile?
@@ -99,6 +101,7 @@ final class AppState {
         try await backend.auth.deleteAccount()
         scheduler.cancelAll()
         cache.wipe()
+        notes.wipe()
         session = nil
         profile = nil
         rooms = []
@@ -108,6 +111,16 @@ final class AppState {
 
     func saveDisplayName(_ name: String) async throws {
         profile = try await backend.profile.update(displayName: name)
+    }
+
+    /// Your colour. `avatarSeed` already crosses the wire on `Profile`; this asks the
+    /// backend to change it through the same profile update so friends see it.
+    func setAvatarSeed(_ seed: Int) async {
+        guard var profile else { return }
+        profile.avatarSeed = seed
+        self.profile = profile
+        try? await backend.profile.update(avatarSeed: seed)
+        await loadRooms()
     }
 
     // MARK: Rooms

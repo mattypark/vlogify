@@ -28,6 +28,8 @@ public protocol AuthService: Sendable {
 public protocol ProfileService: Sendable {
     func me() async throws -> Profile
     func update(displayName: String) async throws -> Profile
+    /// The user's colour (avatar disc, tile outline, recording frame). 0...11.
+    func update(avatarSeed: Int) async throws -> Profile
 }
 
 public protocol RoomService: Sendable {

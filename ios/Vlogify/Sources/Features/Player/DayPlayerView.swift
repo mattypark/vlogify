@@ -95,7 +95,7 @@ struct DayPlayerView: View {
             .appendingPathComponent("vlogify-\(room.id)-\(log.day).mp4")
         do {
             let input = DayCompositor.Input(log: log, files: files, clipDuration: RoomRules.clipLimit(for: room.type) ?? 2,
-                                            orientation: state.capture.orientation)
+                                            orientation: state.capture.orientation, stampFont: state.capture.stampFont)
             let url = try await DayCompositor().export(input, to: destination)
             output = url
             let player = AVPlayer(url: url)

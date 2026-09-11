@@ -17,6 +17,7 @@ struct DayCompositor {
         let files: [ClipID: URL]
         let clipDuration: Double
         var orientation: StitchPlan.Orientation = .landscape
+        var stampFont: StampFont = .bagel
     }
 
     enum Failure: Error { case noClips, exportFailed }
@@ -89,7 +90,7 @@ struct DayCompositor {
         // render it fine, so the export is verified with the overlay on hardware and
         // without it in the sim, where the walker only needs the stitch to complete.
         #if !targetEnvironment(simulator)
-        videoComposition.animationTool = overlayTool(segments: segments, members: members, plan: plan, log: input.log)
+        videoComposition.animationTool = overlayTool(segments: segments, members: members, plan: plan, log: input.log, stampFont: input.stampFont)
         #endif
 
         try? FileManager.default.removeItem(at: destination)
@@ -121,7 +122,7 @@ struct DayCompositor {
     }
 
     /// Hour labels and missing-member discs, as CoreAnimation over the video.
-    func overlayTool(segments: [StitchPlan.Segment], members: [Membership], plan: StitchPlan, log: DayLog) -> AVVideoCompositionCoreAnimationTool {
+    func overlayTool(segments: [StitchPlan.Segment], members: [Membership], plan: StitchPlan, log: DayLog, stampFont: StampFont) -> AVVideoCompositionCoreAnimationTool {
         let parent = CALayer()
         parent.frame = CGRect(origin: .zero, size: renderSize)
         let videoLayer = CALayer()
@@ -130,6 +131,18 @@ struct DayCompositor {
         // CoreAnimation's y axis is flipped relative to the video's.
         parent.isGeometryFlipped = true
 
+        // Each member's tile gets a border in their colour, for the whole day.
+        for (index, member) in members.enumerated() {
+            let tile = plan.tiles[index]
+            let ring = CALayer()
+            ring.frame = CGRect(x: tile.x * renderSize.width, y: tile.y * renderSize.height,
+                                width: tile.width * renderSize.width, height: tile.height * renderSize.height).insetBy(dx: 3, dy: 3)
+            ring.borderWidth = 6
+            ring.borderColor = UIColor(Color.avatar(seed: member.profile.avatarSeed)).cgColor
+            ring.cornerRadius = 12
+            parent.addSublayer(ring)
+        }
+
         for segment in segments {
             let begin = segment.start == 0 ? AVCoreAnimationBeginTimeAtZero : segment.start
             // Plain layers only. A shadowed CATextLayer at 2x inside the animation tool
@@ -137,7 +150,7 @@ struct DayCompositor {
             // export pipeline renders at the canvas size already, so 1x is right.
             let label = CATextLayer()
             label.string = segment.slot.label
-            label.font = CTFontCreateWithName("HelveticaNeue-Bold" as CFString, 96, nil)
+            label.font = stampFont.ctFont(size: 96)
             label.fontSize = 96
             label.foregroundColor = UIColor.white.cgColor
             label.alignmentMode = .center

@@ -40,6 +40,10 @@ struct ClipTile: View {
             }
         }
         .frame(height: Metrics.tileHeight)
+        // The member's colour, as the outline. Yours is thicker: that is how you find
+        // yourself in a room of six.
+        .overlay(RoundedRectangle(cornerRadius: Radius.tile, style: .continuous)
+            .strokeBorder(clip == nil ? Color.hairline : Color.avatar(seed: member.profile.avatarSeed), lineWidth: isMe ? 4 : 2.5))
         .contentShape(RoundedRectangle(cornerRadius: Radius.tile, style: .continuous))
         .onTapGesture { if let clip { onPlay(clip) } }
         .accessibilityElement(children: .ignore)

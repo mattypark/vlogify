@@ -34,6 +34,19 @@ struct PaletteTests {
         #expect(Palette.hairline.lightness < Palette.cardRaised.lightness)
     }
 
+    @Test("Every playful fill's ink clears AA on that fill", arguments: Palette.playful)
+    func fillInks(fill: Palette.Fill) {
+        let ratio = fill.ink.contrastRatio(against: fill.color)
+        #expect(ratio >= 4.5, "\(fill.name): \(ratio)")
+    }
+
+    @Test("Seven fills, no two the same hue")
+    func fillsDistinct() {
+        #expect(Palette.playful.count == 7)
+        #expect(Set(Palette.playful.map { Int($0.color.hue) }).count == 7)
+        #expect(Palette.playful(index: -1).name == Palette.playful.last?.name)
+    }
+
     @Test("The twelve avatar hues are distinct and in gamut")
     func avatars() {
         let hues = (0..<12).map { Palette.avatar(seed: $0).hue }

@@ -1,7 +1,7 @@
 import SwiftUI
 import VlogifyDesign
 
-/// `camera | logs`. The pill in the middle of the bottom bar.
+/// `camera | logs`. A sticker with the selected half filled.
 struct SegmentToggle: View {
     @Binding var tab: AppState.Tab
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -9,33 +9,35 @@ struct SegmentToggle: View {
 
     var body: some View {
         HStack(spacing: 0) {
-            segment(.camera, "camera")
-            segment(.logs, "logs")
+            segment(.camera, "camera", fill: .sky)
+            segment(.logs, "logs", fill: .butter)
         }
         .padding(Space.xxs)
-        .background(Color.card, in: Capsule())
+        .sticker(fill: .card, radius: Radius.pill)
+        .stickerRoom()
         .accessibilityElement(children: .contain)
         .accessibilityIdentifier("bar.segment")
     }
 
-    private func segment(_ value: AppState.Tab, _ title: LocalizedStringKey) -> some View {
+    private func segment(_ value: AppState.Tab, _ title: LocalizedStringKey, fill: Color) -> some View {
         Button {
             Haptics.tap()
             withAnimation(Motion.respecting(Motion.shift, reduceMotion: reduceMotion)) { tab = value }
         } label: {
             Text(title)
-                .font(.vlogLabel)
-                .foregroundStyle(tab == value ? Color.text : Color.textSoft)
+                .font(.vlogShout)
+                .foregroundStyle(Color.soot)
                 .padding(.horizontal, Space.gutter)
                 .frame(height: Metrics.hitTarget)
                 .background {
                     if tab == value {
-                        Capsule().fill(Color.cardRaised)
+                        Capsule().fill(fill)
+                            .overlay(Capsule().strokeBorder(Color.soot, lineWidth: 2))
                             .matchedGeometryEffect(id: "segment", in: namespace)
                     }
                 }
         }
-        .buttonStyle(.plain)
+        .buttonStyle(SquashButtonStyle())
         .accessibilityIdentifier("bar.segment.\(value.rawValue)")
         .accessibilityAddTraits(tab == value ? .isSelected : [])
     }

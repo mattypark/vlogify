@@ -223,6 +223,26 @@ extension MockBackend: ProfileService {
         return profile
     }
 
+    public func update(avatarSeed: Int) async throws -> Profile {
+        let session = try requireSession()
+        guard var profile = profiles[session.userID] else { throw ContractError.notSignedIn }
+        profile.avatarSeed = ((avatarSeed % 12) + 12) % 12
+        profiles[session.userID] = profile
+        propagate(profile, for: session.userID)
+        return profile
+    }
+
+    func propagate(_ profile: Profile, for userID: UserID) {
+        for roomID in memberships.keys {
+            memberships[roomID] = memberships[roomID]?.map { membership in
+                guard membership.userID == userID else { return membership }
+                var updated = membership
+                updated.profile = profile
+                return updated
+            }
+        }
+    }
+
     public func update(displayName: String) async throws -> Profile {
         let session = try requireSession()
         guard var profile = profiles[session.userID] else { throw ContractError.notSignedIn }

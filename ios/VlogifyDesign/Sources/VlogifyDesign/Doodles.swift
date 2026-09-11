@@ -147,12 +147,9 @@ struct DoodlePlaceholder: View {
             case .glyphVlog:
                 glyphClip(width: w * 0.8, height: h * 0.34).frame(width: w, height: h)
             default:
-                // A dashed footprint, not a block: it reads as "art goes here" rather
-                // than as a design decision.
-                RoundedRectangle(cornerRadius: min(w, h) * 0.3, style: .continuous)
-                    .fill(doodle.placeholderColor.opacity(0.25))
-                    .overlay(RoundedRectangle(cornerRadius: min(w, h) * 0.3, style: .continuous)
-                        .stroke(doodle.placeholderColor, style: StrokeStyle(lineWidth: 2, dash: [6, 5])))
+                // A drop of paint, seeded by the slot name so it never reshuffles: the
+                // layout can be judged with something that looks like art in it.
+                PaintBlob(color: doodle.placeholderColor, seed: doodle.rawValue)
             }
         }
     }

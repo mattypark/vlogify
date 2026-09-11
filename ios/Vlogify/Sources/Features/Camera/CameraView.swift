@@ -14,7 +14,10 @@ struct CameraView: View {
     @State private var progress: Double = 0
     @State private var hintDismissed = false
     @State private var posting = false
+    @State private var posted = 0
     @State private var showPicker = false
+    /// The colour picker shows until the first clip is posted from this phone.
+    @State private var showRing = !UserDefaults.standard.bool(forKey: "pickedRing")
 
     var body: some View {
         VStack(spacing: Space.sm) {
@@ -28,7 +31,7 @@ struct CameraView: View {
             }
             .clipShape(RoundedRectangle(cornerRadius: Radius.frame, style: .continuous))
             .overlay(RoundedRectangle(cornerRadius: Radius.frame, style: .continuous)
-                .stroke(camera.isRecording ? Color.orchid : Color.clear, lineWidth: 3))
+                .stroke(camera.isRecording ? Color.avatar(seed: state.profile?.avatarSeed ?? 0) : Color.clear, lineWidth: 5))
             .padding(.horizontal, Space.xs)
             .padding(.top, Space.xs)
         }
@@ -54,12 +57,23 @@ struct CameraView: View {
 
     private var overlay: some View {
         VStack {
-            HStack {
+            HStack(spacing: Space.xs) {
                 roomPicker
                 Spacer()
+                fontButton
                 orientationButton
             }
             .padding(Space.md)
+            if showRing {
+                VStack(spacing: Space.xs) {
+                    Text("pick your outline colour").font(.vlogCaption).foregroundStyle(Color.paper)
+                    ColorRingPicker(compact: true)
+                }
+                .padding(Space.sm)
+                .background(Color.ink.opacity(0.6), in: RoundedRectangle(cornerRadius: Radius.row, style: .continuous))
+                .padding(.horizontal, Space.md)
+                .transition(.opacity)
+            }
             Spacer()
             // The stamp reads along the long edge of the *recording*. Tap it to flip
             // between horizontal and vertical; the hint and the stitch follow.
@@ -68,7 +82,7 @@ struct CameraView: View {
                 state.capture.toggle()
                 hintDismissed = false
             } label: {
-                HourStamp(label: slot.label, rotated: state.capture.isLandscape)
+                HourStamp(label: slot.label, rotated: state.capture.isLandscape, font: state.capture.stampFont)
             }
             .buttonStyle(.plain)
             .accessibilityLabel(Text(state.capture.isLandscape ? "horizontal. tap for vertical" : "vertical. tap for horizontal"))
@@ -115,6 +129,23 @@ struct CameraView: View {
         .accessibilityIdentifier("camera.room")
     }
 
+    /// Cycles the stamp's face. The label is the face itself, so it previews.
+    private var fontButton: some View {
+        Button {
+            Haptics.tap()
+            state.capture.shuffleFont()
+        } label: {
+            Text(verbatim: "Aa")
+                .font(state.capture.stampFont.font(size: 15))
+                .foregroundStyle(Color.paper)
+                .padding(.horizontal, Space.sm).padding(.vertical, Space.xs)
+                .background(Color.ink.opacity(0.6), in: Capsule())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(Text("change the time's font"))
+        .accessibilityIdentifier("camera.font")
+    }
+
     /// `horizontal` / `vertical`, top-right of the preview.
     private var orientationButton: some View {
         Button {
@@ -138,17 +169,16 @@ struct CameraView: View {
         Button { capture() } label: {
             ZStack {
                 Circle()
-                    .stroke(Color.paper.opacity(0.35), lineWidth: 5)
-                Circle()
                     .trim(from: 0, to: progress)
-                    .stroke(Color.orchid, style: StrokeStyle(lineWidth: 5, lineCap: .round))
+                    .stroke(Color.avatar(seed: state.profile?.avatarSeed ?? 0), style: StrokeStyle(lineWidth: 5, lineCap: .round))
                     .rotationEffect(.degrees(-90))
-                DoodleSticker(.shutterSmile, scale: 0.82)
-                    .scaleEffect(camera.isRecording ? 0.92 : 1)
+                    .padding(-6)
+                DoodleSticker(.shutterSmile, scale: 0.78)
             }
             .frame(width: Metrics.shutter, height: Metrics.shutter)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(StickerCircleStyle(fill: .sky))
+        .rewardBeat(on: posted)
         .disabled(posting || state.rooms.isEmpty || alreadyPosted || state.permissions.isDenied)
         .opacity(alreadyPosted ? 0.4 : 1)
         .accessibilityLabel(Text(camera.isRecording ? "recording" : "record"))
@@ -183,7 +213,10 @@ struct CameraView: View {
             do {
                 let file = try await camera.record(maxSeconds: limit ?? 30)
                 try await post(file, to: target)
+                UserDefaults.standard.set(true, forKey: "pickedRing")
+                withAnimation(Motion.dismiss) { showRing = false }
                 Haptics.success()
+                posted += 1
                 state.show(.success(String(localized: "posted \(slot.label).", bundle: .app)))
             } catch ContractError.slotAlreadyPosted {
                 state.show(.error(String(localized: "you already posted this hour.", bundle: .app)))

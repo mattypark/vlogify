@@ -31,7 +31,7 @@ ISO-8601. `DayKey` is the string `2026-09-11`; `InviteCode` is its six character
   `hello@vlogify.app`; six digits, 10-minute expiry, `review@vlogify.app` pinned to
   `000000`), `signOut`, **`deleteAccount`** (must revoke the SIWA token server-side —
   5.1.1(v)).
-- `ProfileService` — `me`, `update(displayName:)`.
+- `ProfileService` — `me`, `update(displayName:)`, `update(avatarSeed:)` (0…11; the user's colour, shown to rooms).
 - `RoomService` — `rooms`, `room(id:)`, `create`, `preview(code:)` (no join), `join(code:)`,
   `leave`, `members`, `removeMember` (owner only), `regenerateInvite` (owner only).
 - `ClipService` — `post` (metadata after bytes are stored; **server re-enforces** 2 s

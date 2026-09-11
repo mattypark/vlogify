@@ -20,16 +20,19 @@ struct RoomTypeCard: View {
                     .padding(.bottom, Space.sm)
             }
             .frame(maxWidth: .infinity)
-            .background(selected ? Color.orchid.opacity(0.35) : Color.clear,
-                        in: RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: Radius.card, style: .continuous)
-                .stroke(selected ? Color.orchid : Color.clear, lineWidth: 2))
-            .scaleEffect(selected ? 1.0 : 0.96)
-            .animation(Motion.respecting(Motion.tap, reduceMotion: reduceMotion), value: selected)
         }
-        .buttonStyle(.plain)
+        .buttonStyle(StickerButtonStyle(fill: selected ? fill : .card, radius: Radius.card))
+        .stickerRoom()
         .accessibilityIdentifier("newRoom.type.\(type.rawValue)")
         .accessibilityAddTraits(selected ? .isSelected : [])
+    }
+
+    private var fill: Color {
+        switch type {
+        case .log: return .orchid
+        case .stack: return .tangerine
+        default: return .sky
+        }
     }
 
     private var glyph: Doodle {
@@ -63,15 +66,14 @@ struct SizePicker: View {
                     capacity = option
                 } label: {
                     Text(verbatim: RoomRules.capacityLabel(option, for: type))
-                        .font(Font.system(size: 20, weight: .medium, design: .rounded))
-                        .foregroundStyle(Color.text)
-                        .frame(minWidth: 52)
-                        .frame(height: 52)
+                        .font(.vlogShout)
+                        .foregroundStyle(Color.soot)
+                        .frame(minWidth: 48)
+                        .frame(height: 48)
                         .padding(.horizontal, option == 20 ? Space.sm : 0)
-                        .background(capacity == option ? Color.orchid.opacity(0.35) : Color.clear, in: Capsule())
-                        .overlay(Capsule().stroke(capacity == option ? Color.orchid : Color.hairline, lineWidth: 1.5))
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(StickerButtonStyle(fill: capacity == option ? .butter : .card, radius: Radius.pill))
+                .stickerRoom()
                 .accessibilityIdentifier("newRoom.size.\(option)")
                 .accessibilityAddTraits(capacity == option ? .isSelected : [])
             }

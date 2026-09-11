@@ -18,12 +18,13 @@ struct InviteView: View {
             Text("anyone with this code can join \(room.name ?? String(localized: "your room", bundle: .app)).")
                 .font(.vlogBody).foregroundStyle(Color.textSoft).multilineTextAlignment(.center)
             Text(verbatim: room.inviteCode.formatted)
-                .font(Font.system(size: 44, weight: .heavy, design: .rounded))
-                .tracking(4)
-                .foregroundStyle(Color.text)
+                .font(.vlogNumeral)
+                .tracking(3)
+                .foregroundStyle(Color.soot)
                 .padding(.vertical, Space.lg)
                 .frame(maxWidth: .infinity)
-                .background(Color.card, in: RoundedRectangle(cornerRadius: Radius.sheet, style: .continuous))
+                .sticker(fill: .butter, radius: Radius.sheet)
+                .stickerRoom()
                 .accessibilityIdentifier("invite.code")
                 .accessibilityLabel(Text("invite code \(room.inviteCode.value)"))
             HStack(spacing: Space.sm) {
@@ -35,14 +36,15 @@ struct InviteView: View {
                 .accessibilityIdentifier("invite.copy")
                 ShareLink(item: link, message: Text("join my vlogify room: \(room.inviteCode.formatted)")) {
                     HStack(spacing: Space.sm) {
-                        Image(systemName: "square.and.arrow.up").font(Font.system(size: 18, weight: .semibold))
-                        Text("share").font(.vlogLabel)
+                        Image(systemName: "square.and.arrow.up").font(Font.system(size: 18, weight: .bold))
+                        Text("share").font(.vlogShout)
                     }
-                    .foregroundStyle(Color.ink)
+                    .foregroundStyle(Color.soot)
                     .frame(maxWidth: .infinity)
                     .frame(height: 56)
-                    .background(Color.orchid, in: Capsule())
                 }
+                .buttonStyle(StickerButtonStyle(fill: .orchid, radius: Radius.pill))
+                .stickerRoom()
                 .accessibilityIdentifier("invite.share")
             }
             Spacer()

@@ -1,6 +1,7 @@
 # Paste-ready prompt — backend session
 
-You are the backend session for vlogify at ~/Downloads/current-projects/appscurrent/vlogify.
+Superseded: paste `docs/BACKEND-README.md` instead. Kept for history.
+
 Read docs/CONTRACT.md, docs/DECISIONS.md, docs/SESSION-BACKEND.md and
 ios/VlogifyDesign/Sources/VlogifyContract/*.swift first. The contract is frozen; the mock
 (MockBackend.swift) is the behavioural spec.
