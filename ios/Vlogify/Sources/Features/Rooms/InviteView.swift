@@ -15,7 +15,7 @@ struct InviteView: View {
     var body: some View {
         VStack(spacing: Space.lg) {
             Text("invite friends").font(.vlogTitle).foregroundStyle(Color.chalk)
-            Text("anyone with this code can join \(room.name ?? String(localized: "your room")).")
+            Text("anyone with this code can join \(room.name ?? String(localized: "your room", bundle: .app)).")
                 .font(.vlogBody).foregroundStyle(Color.chalkSoft).multilineTextAlignment(.center)
             Text(verbatim: room.inviteCode.formatted)
                 .font(Font.system(size: 44, weight: .heavy, design: .rounded))

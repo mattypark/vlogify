@@ -91,8 +91,8 @@ T = {
  "leave room": ("방 나가기", "ルームを退出", "離開房間", "rời phòng", "выйти из комнаты"),
  "leave this room?": ("이 방을 나갈까요?", "このルームを退出しますか？", "要離開此房間嗎？", "rời phòng này?", "выйти из комнаты?"),
  "let's go": ("시작하기", "はじめる", "開始吧", "bắt đầu thôi", "поехали"),
- "log": ("로그", "ログ", "日誌", "log", "лог"),
- "logs": ("로그", "ログ", "日誌", "logs", "логи"),
+ "log": ("로그", "ログ", "日誌", "nhật ký", "лог"),
+ "logs": ("로그", "ログ", "日誌", "nhật ký", "логи"),
  "make or join a room first.": ("먼저 방을 만들거나 참여하세요.", "まずルームを作るか参加してください。", "請先建立或加入房間。", "tạo hoặc vào một phòng trước nhé.", "сначала создай комнату или войди в неё."),
  "new": ("새로 만들기", "新規", "新增", "mới", "новое"),
  "new moment every hour,\nvlog it with your friends.": ("매시간 새로운 순간,\n친구들과 브이로그해요.", "1時間ごとに新しい瞬間を、\n友だちとVlogに。", "每小時一個新時刻，\n和朋友一起 vlog。", "mỗi giờ một khoảnh khắc mới,\nvlog cùng bạn bè.", "новый момент каждый час —\nвлог вместе с друзьями."),
@@ -181,9 +181,10 @@ T = {
  "your room": ("내 방", "自分のルーム", "你的房間", "phòng của bạn", "твоя комната"),
  "zip": ("zip", "zip", "zip", "zip", "zip"),
  "invite code": ("초대 코드", "招待コード", "邀請代碼", "mã mời", "код приглашения"),
+ "continue": ("계속", "続ける", "繼續", "tiếp tục", "далее"),
 }
 # Identical in every language: identifiers, placeholders, the brand.
-SAME = {"000000", "ABC-123", "you@example.com", "vlogify", "no camera in the simulator"}
+SAME = {"", "000000", "ABC-123", "you@example.com", "vlogify", "no camera in the simulator"}
 
 INFO = {
  "CFBundleDisplayName": ("vlogify",)*5,

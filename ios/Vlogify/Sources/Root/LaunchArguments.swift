@@ -36,6 +36,15 @@ enum LaunchArguments {
         #endif
     }
 
+    /// `-vlogifyLocale ko` forces the app language without touching UserDefaults.
+    static var locale: String? {
+        #if DEBUG
+        return value(after: "-vlogifyLocale")
+        #else
+        return nil
+        #endif
+    }
+
     static var permissions: String? {
         #if DEBUG
         return value(after: "-vlogifyPermissions")

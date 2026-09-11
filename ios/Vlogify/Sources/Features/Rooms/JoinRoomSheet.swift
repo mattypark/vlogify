@@ -46,7 +46,7 @@ struct JoinRoomSheet: View {
             if let preview {
                 HStack {
                     VStack(alignment: .leading, spacing: 2) {
-                        Text(verbatim: preview.room.name ?? String(localized: "untitled log"))
+                        Text(verbatim: preview.room.name ?? String(localized: "untitled log", bundle: .app))
                             .font(.vlogCardTitle).foregroundStyle(Color.chalk)
                         Text("\(preview.memberCount) of \(preview.room.capacity) in")
                             .font(.vlogCaption).foregroundStyle(Color.chalkSoft)
@@ -83,14 +83,14 @@ struct JoinRoomSheet: View {
         preview = nil
         guard InviteCode.normalize(input).count == InviteCode.length else { return }
         guard let code = InviteCode(input) else {
-            problem = String(localized: "that doesn't look like a code. check for a typo.")
+            problem = String(localized: "that doesn't look like a code. check for a typo.", bundle: .app)
             return
         }
         Task {
             do {
                 preview = try await state.backend.rooms.preview(code: code)
             } catch {
-                problem = String(localized: "no room with that code.")
+                problem = String(localized: "no room with that code.", bundle: .app)
             }
         }
     }
@@ -106,10 +106,10 @@ struct JoinRoomSheet: View {
                 dismiss()
                 joined(room)
             } catch ContractError.roomFull {
-                problem = String(localized: "that room is full.")
+                problem = String(localized: "that room is full.", bundle: .app)
                 Haptics.error()
             } catch {
-                problem = String(localized: "couldn't join. try again.")
+                problem = String(localized: "couldn't join. try again.", bundle: .app)
             }
         }
     }

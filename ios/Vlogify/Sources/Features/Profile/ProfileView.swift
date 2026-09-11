@@ -8,6 +8,7 @@ struct ProfileView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var name = ""
     @State private var showBlocked = false
+    @State private var showLanguage = false
     @State private var confirmDelete = false
     @State private var confirmSignOut = false
     @State private var deleting = false
@@ -28,16 +29,14 @@ struct ProfileView: View {
                 .listRowBackground(Color.surface)
 
                 Section {
-                    Button {
-                        if let url = URL(string: UIApplication.openSettingsURLString) { UIApplication.shared.open(url) }
-                    } label: {
-                        row("language", value: Locale.current.localizedString(forIdentifier: Locale.current.identifier) ?? "")
+                    Button { showLanguage = true } label: {
+                        row("language", value: state.language?.nativeName ?? "")
                     }
                     .accessibilityIdentifier("settings.language")
                     Button {
                         if let url = URL(string: UIApplication.openNotificationSettingsURLString) { UIApplication.shared.open(url) }
                     } label: {
-                        row("hourly pings", value: state.permissions.notifications == .granted ? String(localized: "on") : String(localized: "off"))
+                        row("hourly pings", value: state.permissions.notifications == .granted ? String(localized: "on", bundle: .app) : String(localized: "off", bundle: .app))
                     }
                     .accessibilityIdentifier("settings.pings")
                     Button { showBlocked = true } label: { row("blocked people", value: "") }
@@ -78,6 +77,7 @@ struct ProfileView: View {
         .presentationBackground(Color.ink)
         .onAppear { name = state.profile?.displayName ?? "" }
         .sheet(isPresented: $showBlocked) { BlockedUsersView() }
+        .sheet(isPresented: $showLanguage) { LanguageView(isChanging: true).presentationBackground(Color.ink) }
         .confirmationDialog("sign out?", isPresented: $confirmSignOut, titleVisibility: .visible) {
             Button("sign out", role: .destructive) { Task { await state.signOut(); MockSessionStore.save(nil); dismiss() } }
         }
@@ -113,7 +113,7 @@ struct ProfileView: View {
                 MockSessionStore.save(nil)
                 dismiss()
             } catch {
-                state.show(.error(String(localized: "couldn't delete right now. try again.")))
+                state.show(.error(String(localized: "couldn't delete right now. try again.", bundle: .app)))
             }
         }
     }

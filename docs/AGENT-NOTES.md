@@ -18,5 +18,7 @@ may append here; a person prunes it.
   the mock must be given the same frozen instant or "today" stops at real time.
 - `Color.mint` exists in SwiftUI. Palette tokens must not collide with system colours.
 - `-quiet xcodebuild` prints nothing on success; check the product, not the output.
+- In-app language: `Text` follows `.environment(\.locale)`, `String(localized:)` does NOT —
+  it needs `bundle: .app`. A `String(localized:)` without the bundle shows English.
 - `xcodebuild -exportLocalizations` needs `-scheme` when `-derivedDataPath` is given.
 - A simulator booted by a script must be shut down by that script: `mediaanalysisd`.

@@ -79,7 +79,7 @@ public actor MockBackend {
         for profile in [me, jiwoo, sam] { profiles[profile.id] = profile }
         activeSession = Session(userID: me.id, provider: .apple, issuedAt: created)
 
-        let solo = makeRoom(RoomDraft(name: "just me", type: .vlog, capacity: 1), owner: me.id, createdAt: created)
+        let solo = makeRoom(RoomDraft(name: nil, type: .vlog, capacity: 1), owner: me.id, createdAt: created)
         addMember(me, to: solo.id, at: created)
 
         guard scenario == .full else { return }

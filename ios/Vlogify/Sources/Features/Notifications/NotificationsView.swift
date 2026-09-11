@@ -25,7 +25,7 @@ struct NotificationsView: View {
                     List(pinged) { room in
                         HStack {
                             VStack(alignment: .leading, spacing: 2) {
-                                Text(verbatim: room.name ?? String(localized: "untitled log")).font(.vlogBody).foregroundStyle(Color.chalk)
+                                Text(verbatim: room.name ?? String(localized: "untitled log", bundle: .app)).font(.vlogBody).foregroundStyle(Color.chalk)
                                 Text("next ping in \(Clock.countdown(state.clock.secondsUntilPing(room: room.id)))")
                                     .font(.vlogCaption).foregroundStyle(Color.chalkSoft)
                             }

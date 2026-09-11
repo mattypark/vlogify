@@ -76,7 +76,7 @@ struct ReportSheet: View {
             try? await state.backend.safety.report(report)
             if alsoBlock { try? await state.backend.safety.block(userID: clip.memberID) }
             Haptics.success()
-            state.show(.info(String(localized: "thanks. we'll look at it.")))
+            state.show(.info(String(localized: "thanks. we'll look at it.", bundle: .app)))
             await state.loadRooms()
             dismiss()
         }

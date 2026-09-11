@@ -28,7 +28,7 @@ struct ClipTile: View {
             VStack {
                 Spacer()
                 HStack {
-                    Text(verbatim: isMe ? String(localized: "you") : member.profile.displayName)
+                    Text(verbatim: isMe ? String(localized: "you", bundle: .app) : member.profile.displayName)
                         .font(.vlogCaption)
                         .foregroundStyle(Color.chalk)
                         .padding(.horizontal, Space.xs)

@@ -10,7 +10,7 @@ final class AppState {
     enum Tab: String { case camera, logs }
 
     enum Gate: Equatable {
-        case welcome, permissions, profile, home
+        case language, welcome, permissions, profile, home
     }
 
     let backend: Backend
@@ -27,6 +27,9 @@ final class AppState {
     var toast: Toast?
     var pendingJoinCode: InviteCode?
     var isLoading = false
+    /// The chosen language, or nil on a first launch. Drives the environment locale.
+    var language: AppLanguage? = AppLanguage.current
+    var languageChosen = AppLanguage.current != nil
 
     /// Set once the permissions screen has been walked through. Persisted, because
     /// the screen is a one-time introduction, not a gate on every launch -- a denied
@@ -47,6 +50,7 @@ final class AppState {
     }
 
     var gate: Gate {
+        guard languageChosen else { return .language }
         guard session != nil else { return .welcome }
         guard permissionsIntroDone else { return .permissions }
         guard let profile, !profile.displayName.isEmpty else { return .profile }
@@ -54,6 +58,13 @@ final class AppState {
     }
 
     var isSignedIn: Bool { session != nil }
+
+    func setLanguage(_ language: AppLanguage) {
+        AppLanguage.current = language
+        self.language = language
+        // Pings are worded in the app language; re-plan so tonight's say the same.
+        scheduler.replan(rooms: rooms, clock: clock)
+    }
 
     // MARK: Session
 
@@ -107,7 +118,7 @@ final class AppState {
             }
             scheduler.replan(rooms: rooms, clock: clock)
         } catch {
-            show(.error(String(localized: "couldn't load your rooms.")))
+            show(.error(String(localized: "couldn't load your rooms.", bundle: .app)))
         }
     }
 

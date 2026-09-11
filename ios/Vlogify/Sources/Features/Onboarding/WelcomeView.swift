@@ -99,7 +99,7 @@ struct WelcomeView: View {
             } catch is ASAuthorizationError {
                 // Cancelled. Nothing to say.
             } catch {
-                state.show(.error(String(localized: "couldn't sign in. try again.")))
+                state.show(.error(String(localized: "couldn't sign in. try again.", bundle: .app)))
             }
         }
     }
@@ -119,7 +119,7 @@ struct WelcomeView: View {
             } catch is ASWebAuthenticationSessionError {
                 // Cancelled.
             } catch {
-                state.show(.error(String(localized: "couldn't sign in. try again.")))
+                state.show(.error(String(localized: "couldn't sign in. try again.", bundle: .app)))
             }
         }
     }

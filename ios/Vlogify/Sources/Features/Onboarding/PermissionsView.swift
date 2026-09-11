@@ -17,21 +17,21 @@ struct PermissionsView: View {
             DoodleSticker(.mascot, scale: 0.28)
                 .padding(.bottom, Space.xs)
             TypewriterText(text: "→ permissions", bold: true, color: .chalk)
-            TypewriterText(text: String(localized: "we need a few things first…"))
+            TypewriterText(text: String(localized: "we need a few things first…", bundle: .app))
                 .padding(.bottom, Space.sm)
 
             row(index: 0, name: "camera", status: permissions.camera,
-                detail: String(localized: "capture 2s clips to share with close friends."))
+                detail: String(localized: "capture 2s clips to share with close friends.", bundle: .app))
             if step >= 1 {
                 row(index: 1, name: "microphone", status: permissions.microphone,
-                    detail: String(localized: "record sound while capturing clips."))
+                    detail: String(localized: "record sound while capturing clips.", bundle: .app))
             }
             if step >= 2 {
                 row(index: 2, name: "notifications", status: permissions.notifications,
-                    detail: String(localized: "one nudge an hour, same moment as your friends."))
+                    detail: String(localized: "one nudge an hour, same moment as your friends.", bundle: .app))
             }
             if step >= 3 {
-                TypewriterText(text: String(localized: "clips are only visible to the room you post them in."))
+                TypewriterText(text: String(localized: "clips are only visible to the room you post them in.", bundle: .app))
                     .padding(.top, Space.sm)
             }
             Spacer()

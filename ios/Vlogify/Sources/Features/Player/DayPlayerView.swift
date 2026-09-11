@@ -101,7 +101,7 @@ struct DayPlayerView: View {
             self.player = player
             phase = .ready
         } catch {
-            phase = .failed(String(localized: "couldn't stitch the day. try again."))
+            phase = .failed(String(localized: "couldn't stitch the day. try again.", bundle: .app))
         }
     }
 
@@ -113,9 +113,9 @@ struct DayPlayerView: View {
             Haptics.success()
             phase = .saved
         } catch PhotosExporter.Failure.denied {
-            phase = .failed(String(localized: "allow photos access in settings to save."))
+            phase = .failed(String(localized: "allow photos access in settings to save.", bundle: .app))
         } catch {
-            phase = .failed(String(localized: "couldn't save to photos."))
+            phase = .failed(String(localized: "couldn't save to photos.", bundle: .app))
         }
     }
 }

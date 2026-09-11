@@ -104,10 +104,10 @@ struct EmailSignInSheet: View {
                     focus = .code
                 }
             } catch ContractError.invalidEmailCode {
-                problem = String(localized: "that code didn't match. check the email and try again.")
+                problem = String(localized: "that code didn't match. check the email and try again.", bundle: .app)
                 Haptics.error()
             } catch {
-                problem = String(localized: "something went wrong. try again in a moment.")
+                problem = String(localized: "something went wrong. try again in a moment.", bundle: .app)
             }
         }
     }

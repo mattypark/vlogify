@@ -43,11 +43,11 @@ struct EmptyHomeView: View {
                     Text("to start").font(.vlogBody).foregroundStyle(Color.chalk)
                 }
                 HStack(spacing: Space.xs) {
-                    Chip(text: String(localized: "create log"))
+                    Chip(text: String(localized: "create log", bundle: .app))
                     Text("(new group)").font(.vlogBody).foregroundStyle(Color.chalkSoft)
                 }
                 HStack(spacing: Space.xs) {
-                    Chip(text: String(localized: "join log"))
+                    Chip(text: String(localized: "join log", bundle: .app))
                     Text("(with a code)").font(.vlogBody).foregroundStyle(Color.chalkSoft)
                 }
             }
@@ -134,11 +134,11 @@ struct RoomCard: View {
     private var statusLine: String {
         if room.isSolo {
             let count = log?.clips.count ?? 0
-            return String(localized: "\(count) clips today")
+            return String(localized: "\(count) clips today", bundle: .app)
         }
         if state.hasPosted(in: room, slot: state.clock.currentSlot) {
-            return String(localized: "posted \(state.clock.currentSlot.label). next ping in \(Clock.countdown(state.clock.secondsUntilPing(room: room.id)))")
+            return String(localized: "posted \(state.clock.currentSlot.label). next ping in \(Clock.countdown(state.clock.secondsUntilPing(room: room.id)))", bundle: .app)
         }
-        return String(localized: "it's \(state.clock.currentSlot.label). add your clip.")
+        return String(localized: "it's \(state.clock.currentSlot.label). add your clip.", bundle: .app)
     }
 }

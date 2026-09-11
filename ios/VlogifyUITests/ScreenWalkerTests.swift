@@ -13,6 +13,20 @@ final class ScreenWalkerTests: XCTestCase {
 
     // MARK: Onboarding
 
+    func testLanguageIsAskedFirst() {
+        let app = XCUIApplication()
+        app.launchArguments += ["-vlogifyUITest", "-vlogifyDemo", "empty", "-vlogifyPermissions", "unasked"]
+        app.launch()
+        wait(for: app.any("screen.language"))
+        snap(app, "00-language")
+        app.buttons["language.ko"].tap()
+        snap(app, "00-language-ko")
+        app.buttons["language.continue"].tap()
+        wait(for: app.buttons["welcome.apple"])
+        XCTAssertTrue(app.buttons["welcome.email"].label.contains("이메일"), "welcome must be in Korean after choosing 한국어, got \(app.buttons["welcome.email"].label)")
+        snap(app, "00-welcome-after-ko")
+    }
+
     func testWelcomeAndEmailSignIn() {
         let app = XCUIApplication.vlogify(demo: "empty", permissions: "unasked")
         app.launch()
@@ -248,6 +262,7 @@ final class ScreenWalkerTests: XCTestCase {
             let app = XCUIApplication.vlogify(demo: "full", hour: 17, locale: locale)
             app.launch()
             wait(for: app.any("screen.home"))
+            XCTAssertFalse(app.buttons["bar.segment.logs"].label == "logs" && locale != "en", "\(locale) still shows English chrome")
             snap(app, "80-home-\(locale)")
             app.buttons["bar.plus"].tap()
             let create = app.buttons.element(boundBy: 0)

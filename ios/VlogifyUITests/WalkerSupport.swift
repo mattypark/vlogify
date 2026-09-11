@@ -9,7 +9,9 @@ extension XCUIApplication {
         app.launchArguments += ["-vlogifyUITest", "-vlogifyDemo", demo, "-vlogifyHour", String(hour),
                                 "-vlogifyPermissions", permissions]
         if let screen { app.launchArguments += ["-vlogifyScreen", screen] }
-        if let locale { app.launchArguments += ["-AppleLanguages", "(\(locale))", "-AppleLocale", locale] }
+        // A chosen language is state the app normally asks for on first launch; the
+        // walker passes it so every other test starts past that screen.
+        app.launchArguments += ["-vlogifyLocale", locale ?? "en"]
         return app
     }
 }

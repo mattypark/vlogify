@@ -113,7 +113,7 @@ struct NewRoomSheet: View {
                     invite = room
                 }
             } catch {
-                state.show(.error(String(localized: "couldn't create the room. try again.")))
+                state.show(.error(String(localized: "couldn't create the room. try again.", bundle: .app)))
             }
         }
     }

@@ -11,7 +11,7 @@ It may read `VlogifyContract` and must not change it without a DECISIONS.md entr
 - Every screen root gets `.screen("screen.x")`; every control an `accessibilityIdentifier`
   the walker can find. New screens get a walker test the same day.
 - No new colour, spacing or radius outside the tokens. No bundled fonts.
-- Strings are `Text("…")` / `String(localized:)` literals; run `scripts/build-strings.py`
+- Strings are `Text("…")` / `String(localized:"…", bundle: .app)` literals (the bundle argument is what makes the in-app language apply); run `scripts/build-strings.py`
   after adding one and fill the six columns.
 - Commit after every stage. Never push.
 

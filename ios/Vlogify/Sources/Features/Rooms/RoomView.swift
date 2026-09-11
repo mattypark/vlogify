@@ -116,7 +116,7 @@ struct RoomView: View {
             Spacer()
             if !isToday {
                 Button { day = nil } label: {
-                    Chip(text: String(localized: "back to today"))
+                    Chip(text: String(localized: "back to today", bundle: .app))
                 }
                 .buttonStyle(.plain)
                 .accessibilityIdentifier("room.today")
@@ -132,7 +132,7 @@ struct RoomView: View {
         }
         .padding(.top, Space.sm)
         .overlay(alignment: .bottomLeading) {
-            Text(verbatim: isToday ? String(localized: "today") : state.clock.formatted(shownDay))
+            Text(verbatim: isToday ? String(localized: "today", bundle: .app) : state.clock.formatted(shownDay))
                 .font(.vlogCaption).foregroundStyle(Color.chalkSoft)
                 .offset(y: Space.lg)
         }
@@ -169,7 +169,7 @@ struct RoomView: View {
                         state.tab = .camera
                         dismiss()
                     } label: {
-                        Chip(text: String(localized: "add clip"), selected: true)
+                        Chip(text: String(localized: "add clip", bundle: .app), selected: true)
                     }
                     .buttonStyle(.plain)
                     .accessibilityIdentifier("room.addClip")
@@ -229,7 +229,7 @@ struct RoomView: View {
 
     private func block(_ member: Membership) async {
         try? await state.backend.safety.block(userID: member.userID)
-        state.show(.info(String(localized: "\(member.profile.displayName) blocked.")))
+        state.show(.info(String(localized: "\(member.profile.displayName) blocked.", bundle: .app)))
         await load()
     }
 

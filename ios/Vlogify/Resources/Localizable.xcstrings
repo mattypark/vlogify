@@ -2,6 +2,46 @@
   "sourceLanguage": "en",
   "version": "1.0",
   "strings": {
+    "": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ""
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ""
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ""
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ""
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ""
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": ""
+          }
+        }
+      }
+    },
     "%@ blocked.": {
       "localizations": {
         "en": {
@@ -1238,6 +1278,46 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "закрыть"
+          }
+        }
+      }
+    },
+    "continue": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "continue"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "계속"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "続ける"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "繼續"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "tiếp tục"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "далее"
           }
         }
       }
@@ -3151,7 +3231,7 @@
         "vi": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "log"
+            "value": "nhật ký"
           }
         },
         "ru": {
@@ -3191,7 +3271,7 @@
         "vi": {
           "stringUnit": {
             "state": "needs_review",
-            "value": "logs"
+            "value": "nhật ký"
           }
         },
         "ru": {

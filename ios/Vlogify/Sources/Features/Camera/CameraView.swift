@@ -153,11 +153,11 @@ struct CameraView: View {
                 let file = try await camera.record(maxSeconds: limit ?? 30)
                 try await post(file, to: target)
                 Haptics.success()
-                state.show(.success(String(localized: "posted \(slot.label).")))
+                state.show(.success(String(localized: "posted \(slot.label).", bundle: .app)))
             } catch ContractError.slotAlreadyPosted {
-                state.show(.error(String(localized: "you already posted this hour.")))
+                state.show(.error(String(localized: "you already posted this hour.", bundle: .app)))
             } catch {
-                state.show(.error(String(localized: "couldn't save that clip. try again.")))
+                state.show(.error(String(localized: "couldn't save that clip. try again.", bundle: .app)))
             }
         }
     }

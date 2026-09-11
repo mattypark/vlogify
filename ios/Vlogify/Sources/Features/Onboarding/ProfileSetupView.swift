@@ -61,7 +61,7 @@ struct ProfileSetupView: View {
                 try await state.saveDisplayName(trimmed)
                 Haptics.success()
             } catch {
-                state.show(.error(String(localized: "couldn't save that. try again.")))
+                state.show(.error(String(localized: "couldn't save that. try again.", bundle: .app)))
             }
         }
     }

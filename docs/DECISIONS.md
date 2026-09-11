@@ -58,10 +58,15 @@ GoogleSignIn-iOS SPM package.
 Setlog offers it; Matthew asked for Apple + Google + email. The `AuthService` protocol
 is where it would go.
 
-## Six languages via `Localizable.xcstrings`, explicit snake_case wire keys
-A new house convention (chingo/fittie/plati are English-only). Every user-facing string
-is a `Text("…")` / `String(localized:)` literal so Xcode's extraction keeps the catalog
-honest. Wire types spell their JSON keys by hand because Foundation's key strategy
+## Six languages, chosen in the app, not in Settings
+First launch asks (`LanguageView`); the choice persists in `UserDefaults` and drives
+both the SwiftUI environment locale (for `Text`) and `Bundle.app` (for every
+`String(localized:bundle:)`), so nothing mixes. `AppleLanguages` is written too so
+system-drawn UI (the Apple button, alerts, keyboard) follows on the next launch.
+Rejected: the iOS per-app language setting — it lives three taps away in Settings and
+left the app half-translated whenever the two disagreed. Every user-facing string is a
+`Text("…")` / `String(localized:bundle: .app)` literal so Xcode's extraction keeps the
+catalog honest. Wire types spell their JSON keys by hand because Foundation's key strategy
 turns `roomID` into `room_id` on the way out and `roomId` on the way back.
 
 ## Rounded system faces, no bundled fonts
