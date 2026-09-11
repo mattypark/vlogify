@@ -100,7 +100,7 @@ struct RoomCard: View {
         Button(action: open) {
             VStack(alignment: .leading, spacing: Space.sm) {
                 HStack {
-                    Text(verbatim: room.name ?? String(localized: room.isSolo ? "just me" : "untitled log"))
+                    Text(verbatim: room.name ?? (room.isSolo ? String(localized: "just me", bundle: .app) : String(localized: "untitled log", bundle: .app)))
                         .font(.vlogCardTitle)
                         .foregroundStyle(Color.chalk)
                     Spacer()

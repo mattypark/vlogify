@@ -182,6 +182,8 @@ T = {
  "zip": ("zip", "zip", "zip", "zip", "zip"),
  "invite code": ("초대 코드", "招待コード", "邀請代碼", "mã mời", "код приглашения"),
  "continue": ("계속", "続ける", "繼續", "tiếp tục", "далее"),
+ "just me": ("나 혼자", "自分だけ", "只有我", "chỉ mình tôi", "только я"),
+ "pick a room": ("방 고르기", "ルームを選ぶ", "選擇房間", "chọn phòng", "выбери комнату"),
 }
 # Identical in every language: identifiers, placeholders, the brand.
 SAME = {"", "000000", "ABC-123", "you@example.com", "vlogify", "no camera in the simulator"}

@@ -40,7 +40,7 @@ struct CameraView: View {
         .onDisappear { camera.stop() }
         .confirmationDialog("post to", isPresented: $showPicker, titleVisibility: .visible) {
             ForEach(state.rooms) { room in
-                Button(room.name ?? String(localized: room.isSolo ? "just me" : "untitled log")) { target = room }
+                Button(room.name ?? (room.isSolo ? String(localized: "just me", bundle: .app) : String(localized: "untitled log", bundle: .app))) { target = room }
             }
         }
         .screen("screen.camera")
@@ -92,7 +92,7 @@ struct CameraView: View {
     private var roomPicker: some View {
         Button { if state.rooms.count > 1 { showPicker = true } } label: {
             HStack(spacing: Space.xxs) {
-                Text(verbatim: target?.name ?? String(localized: target?.isSolo == true ? "just me" : "pick a room"))
+                Text(verbatim: target?.name ?? (target?.isSolo == true ? String(localized: "just me", bundle: .app) : String(localized: "pick a room", bundle: .app)))
                 if state.rooms.count > 1 { Image(systemName: "chevron.down") }
             }
             .font(.vlogCaption).foregroundStyle(Color.paper)

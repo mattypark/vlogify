@@ -27,7 +27,7 @@ struct RoomView: View {
         // be a real view for the walker to find `screen.room`.
         ZStack { timeline }
             .background(Color.ink.ignoresSafeArea())
-            .navigationTitle(room.name ?? String(localized: room.isSolo ? "just me" : "untitled log"))
+            .navigationTitle(room.name ?? (room.isSolo ? String(localized: "just me", bundle: .app) : String(localized: "untitled log", bundle: .app)))
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color.ink, for: .navigationBar)
             .toolbar {
