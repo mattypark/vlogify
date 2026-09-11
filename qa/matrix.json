@@ -1,0 +1,9 @@
+{
+  "_comment": "The three devices the overnight walker runs on. iOS only until an Android target exists (there is no Android SDK on this Mac). Smallest current screen, the one most people carry, the largest.",
+  "devices": [
+    { "name": "iPhone 16e",      "type": "iPhone-16e" },
+    { "name": "iPhone 17 Pro",   "type": "iPhone-17-Pro" },
+    { "name": "iPhone 17 Pro Max", "type": "iPhone-17-Pro-Max" }
+  ],
+  "android": null
+}

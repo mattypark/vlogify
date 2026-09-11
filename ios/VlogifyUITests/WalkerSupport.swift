@@ -14,6 +14,15 @@ extension XCUIApplication {
     }
 }
 
+extension XCUIApplication {
+    /// Looks an identifier up regardless of element type. A `.screen()` container is
+    /// an Other on a plain stack but a ScrollView on a scroll view; the walker should
+    /// not care.
+    func any(_ identifier: String) -> XCUIElement {
+        descendants(matching: .any).matching(identifier: identifier).firstMatch
+    }
+}
+
 extension XCTestCase {
     /// Attaches a full-screen PNG under a stable name so the matrix script can export
     /// it as `screens/<name>.png`.
