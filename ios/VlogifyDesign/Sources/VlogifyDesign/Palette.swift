@@ -47,7 +47,7 @@ public enum Palette {
     /// The one live action: selection, the create check, the recording ring.
     public static let orchid = OKLCH(0.7500, 0.1700, 330)       // ~#E58BE8
     /// The wordmark. Only the wordmark.
-    public static let mint = OKLCH(0.8500, 0.1100, 175)         // ~#6FE0C6
+    public static let spearmint = OKLCH(0.8500, 0.1100, 175)         // ~#6FE0C6
     /// The shutter. A smiley you press.
     public static let sky = OKLCH(0.8000, 0.1200, 230)          // ~#5AC8FA
     /// The mascot, the stars, the moon. The doodle color.
@@ -60,13 +60,13 @@ public enum Palette {
 
     /// Text-safe versions of the accents on ink, derived rather than picked.
     public static let orchidInk = orchid.readable(meeting: 4.5, on: ink)
-    public static let mintInk = mint.readable(meeting: 4.5, on: ink)
+    public static let spearmintInk = spearmint.readable(meeting: 4.5, on: ink)
     public static let skyInk = sky.readable(meeting: 4.5, on: ink)
     public static let emberInk = ember.readable(meeting: 4.5, on: ink)
 
     /// Every accent that carries text on ink, for the contrast tests to iterate.
     public static let accentInks: [(name: String, color: OKLCH)] = [
-        ("orchid", orchidInk), ("mint", mintInk), ("sky", skyInk), ("ember", emberInk),
+        ("orchid", orchidInk), ("spearmint", spearmintInk), ("sky", skyInk), ("ember", emberInk),
     ]
 
     /// Twelve avatar discs, one per `avatarSeed % 12`. Evenly spaced hues at one
@@ -88,8 +88,8 @@ public extension Color {
     static let sootSoft = Color(Palette.sootSoft)
     static let orchid = Color(Palette.orchid)
     static let orchidInk = Color(Palette.orchidInk)
-    static let mint = Color(Palette.mint)
-    static let mintInk = Color(Palette.mintInk)
+    static let spearmint = Color(Palette.spearmint)
+    static let spearmintInk = Color(Palette.spearmintInk)
     static let sky = Color(Palette.sky)
     static let skyInk = Color(Palette.skyInk)
     static let butter = Color(Palette.butter)

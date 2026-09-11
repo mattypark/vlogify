@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesignPackageTests.xctest/Contents/MacOS/VlogifyDesignPackageTests'
+relocations:     []
+...

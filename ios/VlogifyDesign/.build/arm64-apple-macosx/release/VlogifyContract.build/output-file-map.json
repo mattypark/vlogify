@@ -1,0 +1,31 @@
+{
+  "": {
+    "dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyContract.build/VlogifyContract.d",
+    "object": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyContract.build/VlogifyContract.o",
+    "swift-dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyContract.build/primary.swiftdeps"
+  },
+  "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyContract/BackendConfig.swift": {
+    "object": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyContract.build/BackendConfig.swift.o",
+    "swiftmodule": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyContract.build/BackendConfig~partial.swiftmodule",
+    "swift-dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyContract.build/BackendConfig.swiftdeps",
+    "diagnostics": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyContract.build/BackendConfig.dia"
+  },
+  "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyContract/MockBackend.swift": {
+    "object": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyContract.build/MockBackend.swift.o",
+    "swiftmodule": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyContract.build/MockBackend~partial.swiftmodule",
+    "swift-dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyContract.build/MockBackend.swiftdeps",
+    "diagnostics": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyContract.build/MockBackend.dia"
+  },
+  "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyContract/Services.swift": {
+    "object": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyContract.build/Services.swift.o",
+    "swiftmodule": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyContract.build/Services~partial.swiftmodule",
+    "swift-dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyContract.build/Services.swiftdeps",
+    "diagnostics": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyContract.build/Services.dia"
+  },
+  "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyContract/WireTypes.swift": {
+    "object": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyContract.build/WireTypes.swift.o",
+    "swiftmodule": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyContract.build/WireTypes~partial.swiftmodule",
+    "swift-dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyContract.build/WireTypes.swiftdeps",
+    "diagnostics": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyContract.build/WireTypes.dia"
+  }
+}

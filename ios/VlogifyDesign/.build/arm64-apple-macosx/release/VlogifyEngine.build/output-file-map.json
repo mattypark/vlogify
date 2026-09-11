@@ -1,0 +1,37 @@
+{
+  "": {
+    "dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/VlogifyEngine.d",
+    "object": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/VlogifyEngine.o",
+    "swift-dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/primary.swiftdeps"
+  },
+  "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyEngine/DayClock.swift": {
+    "object": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/DayClock.swift.o",
+    "swiftmodule": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/DayClock~partial.swiftmodule",
+    "swift-dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/DayClock.swiftdeps",
+    "diagnostics": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/DayClock.dia"
+  },
+  "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyEngine/InviteCode.swift": {
+    "object": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/InviteCode.swift.o",
+    "swiftmodule": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/InviteCode~partial.swiftmodule",
+    "swift-dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/InviteCode.swiftdeps",
+    "diagnostics": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/InviteCode.dia"
+  },
+  "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyEngine/RoomRules.swift": {
+    "object": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/RoomRules.swift.o",
+    "swiftmodule": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/RoomRules~partial.swiftmodule",
+    "swift-dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/RoomRules.swiftdeps",
+    "diagnostics": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/RoomRules.dia"
+  },
+  "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyEngine/SlotPing.swift": {
+    "object": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/SlotPing.swift.o",
+    "swiftmodule": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/SlotPing~partial.swiftmodule",
+    "swift-dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/SlotPing.swiftdeps",
+    "diagnostics": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/SlotPing.dia"
+  },
+  "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyEngine/StitchPlan.swift": {
+    "object": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/StitchPlan.swift.o",
+    "swiftmodule": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/StitchPlan~partial.swiftmodule",
+    "swift-dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/StitchPlan.swiftdeps",
+    "diagnostics": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/release/VlogifyEngine.build/StitchPlan.dia"
+  }
+}

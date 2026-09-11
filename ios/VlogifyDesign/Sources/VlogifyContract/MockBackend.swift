@@ -430,8 +430,9 @@ extension MockBackend: PushService {
 }
 
 public extension MockBackend {
-    /// The app-facing bundle.
-    var backend: Backend {
+    /// The app-facing bundle. Nonisolated: it only captures `self`, which is the
+    /// whole point -- the same actor behind every protocol.
+    nonisolated var backend: Backend {
         Backend(auth: self, profile: self, rooms: self, clips: self, media: self,
                 presence: self, safety: self, push: self)
     }
