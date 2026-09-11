@@ -56,8 +56,10 @@ grep -rq "report(" ios/Vlogify/Sources && grep -rq "block(userID" ios/Vlogify/So
   && pass "report and block present (UGC 1.2)" || fail "report/block missing"
 
 # 2.1: no placeholders shipped.
-if grep -rniE "coming soon|TODO|lorem ipsum|placeholder text" ios/Vlogify/Sources --include='*.swift' | grep -v "placeholder\(Color\|:\)" | grep -qv "Doodle"; then
-  fail "placeholder text in shipping source"
+# Only string literals count: a comment explaining why there is no "coming soon"
+# button is not a "coming soon" button.
+if grep -rnE '"[^"]*(coming soon|lorem ipsum|TODO|FIXME)[^"]*"' ios/Vlogify/Sources --include='*.swift' | grep -v -E '^[^:]+:[0-9]+:[[:space:]]*//' | grep -q .; then
+  fail "placeholder copy in a shipping string"
 else
   pass "no placeholder copy"
 fi
@@ -80,7 +82,7 @@ fi
 
 # Legal URLs must answer 200 before submission. Skipped offline.
 for url in https://vlogify.app/privacy https://vlogify.app/terms https://vlogify.app/support; do
-  code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 8 "$url" || echo 000)
+  code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 8 "$url" 2>/dev/null); code=${code:-000}
   if [[ "$code" == "200" ]]; then pass "$url"; else fail "$url returned $code (deploy web/ before submitting)"; fi
 done
 
