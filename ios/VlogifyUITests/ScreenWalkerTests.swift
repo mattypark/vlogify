@@ -55,8 +55,9 @@ final class ScreenWalkerTests: XCTestCase {
         app.launch()
         wait(for: app.buttons["welcome.google"])
         app.buttons["welcome.google"].tap()
-        // Permissions are forced granted for this launch, so the intro is skipped.
-        wait(for: app.any("screen.profile"), 8)
+        // Permissions are forced granted and the mock profile has a name, so this
+        // lands straight on the empty home.
+        wait(for: app.any("home.empty"), 8)
         snap(app, "07-google-signed-in")
     }
 
@@ -104,7 +105,7 @@ final class ScreenWalkerTests: XCTestCase {
         wait(for: app.any("screen.newRoom"))
         snap(app, "21-new-room")
         app.textFields["newRoom.name"].tap()
-        app.textFields["newRoom.name"].typeText("walker room")
+        app.textFields["newRoom.name"].typeText("walker room\n")
         app.buttons["newRoom.size.4"].tap()
         app.buttons["newRoom.type.vlog"].tap()
         snap(app, "22-new-room-vlog")
@@ -222,6 +223,9 @@ final class ScreenWalkerTests: XCTestCase {
         app.buttons["report"].tap()
         wait(for: app.any("screen.report"))
         snap(app, "61-report")
+        // The sheet opens at the medium detent; the toggle is below the fold.
+        app.swipeUp()
+        wait(for: app.switches["report.block"])
         app.switches["report.block"].tap()
         app.buttons["report.send"].tap()
         wait(for: app.any("toast"))

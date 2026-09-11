@@ -20,6 +20,8 @@ struct NewRoomSheet: View {
     }
 
     var body: some View {
+        // The header stays put; the form scrolls. With the keyboard up on a small phone
+        // the create button used to be pushed off the top of the sheet.
         VStack(alignment: .leading, spacing: Space.lg) {
             HStack {
                 RoundButton(systemImage: "xmark", label: "close", size: Metrics.hitTarget + 4) { dismiss() }
@@ -32,7 +34,10 @@ struct NewRoomSheet: View {
                     .disabled(busy)
                     .accessibilityIdentifier("newRoom.create")
             }
+            ScrollView {
+            VStack(alignment: .leading, spacing: Space.lg) {
             TextField("room name (optional)", text: $name)
+                .submitLabel(.done)
                 .textInputAutocapitalization(.never)
                 .font(.vlogBody)
                 .foregroundStyle(Color.chalk)
@@ -65,7 +70,9 @@ struct NewRoomSheet: View {
                     .foregroundStyle(Color.chalkSoft)
                     .frame(maxWidth: .infinity)
             }
-            Spacer()
+            }
+            }
+            .scrollDismissesKeyboard(.interactively)
         }
         .padding(Space.gutter)
         .background(Color.ink.ignoresSafeArea())
