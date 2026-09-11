@@ -46,7 +46,7 @@ struct RoomBlock: View {
 
     /// A stable playful colour per room, so two rooms never look the same.
     private var fill: Color {
-        Color(Palette.playful(index: abs(room.id.hashValue % 7)).color).opacity(0.35)
+        Color(Palette.playful(index: abs(room.id.hashValue % 7)).wash)
     }
 
     private var statusLine: String {

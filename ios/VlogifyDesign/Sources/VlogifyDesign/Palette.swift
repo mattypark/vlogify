@@ -87,6 +87,11 @@ public enum Palette {
             Palette.soot.contrastRatio(against: color) >= Palette.paper.contrastRatio(against: color)
                 ? Palette.soot : Palette.paper
         }
+
+        /// The same hue as an opaque pastel, for big surfaces (room blocks). Opaque on
+        /// purpose: a translucent fill lets the sticker's hard shadow of the *content*
+        /// show through as ghosted text.
+        public var wash: OKLCH { OKLCH(0.93, 0.055, color.hue) }
     }
 
     /// The pool every playful thing draws from: chips, the tap burst, the outline picker.

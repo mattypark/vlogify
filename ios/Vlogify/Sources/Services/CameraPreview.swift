@@ -12,11 +12,11 @@ struct CameraPreview: View {
                 LinearGradient(colors: [Color(OKLCH(0.35, 0.03, 60)), Color(OKLCH(0.22, 0.02, 280))],
                                startPoint: .top, endPoint: .bottom)
                 VStack {
-                    Spacer()
                     Text("no camera in the simulator")
                         .font(.vlogCaption)
                         .foregroundStyle(Color.chalkSoft)
-                        .padding(.bottom, 150)
+                        .padding(.top, 110)
+                    Spacer()
                 }
             }
             .accessibilityIdentifier("camera.preview.simulated")
