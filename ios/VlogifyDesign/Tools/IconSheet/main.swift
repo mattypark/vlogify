@@ -3,7 +3,8 @@ import VlogifyDesign
 
 // Renders the 1024 app icon from the same mascot shape the welcome screen draws.
 // `swift run IconSheet out.png`. Opaque on purpose: App Review rejects an icon with
-// an alpha channel, and the butter cloud on ink is the brand.
+// an alpha channel. Sand on cool ink: the one warm counterpoint in the folk palette,
+// which is also the only pairing that still reads at 32pt.
 @MainActor
 func render() {
     let path = CommandLine.arguments.dropFirst().first ?? "icon-1024.png"

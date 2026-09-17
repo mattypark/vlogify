@@ -16,8 +16,8 @@ out = ["# Art slots — the brief for the artist", "",
 "the app picks it up; until then it draws a dashed footprint of the same size so nothing",
 "has to be re-laid-out later.", "",
 "Style: hand-drawn, thick rounded contours, two or three flat colours, transparent",
-"background, no shadows. The welcome page is paper (#F5F5F3); the home doodles sit on",
-"ink (#0C0C0E), so give those a light outline. The mascot is a cloud with two eyes and a",
+"background, no shadows. The welcome page is the cool ground (#F5F6F8); the home doodles sit on",
+"ink (#08111A), so give those a light outline. The mascot is a cloud with two eyes and a",
 "smile — it is also the app icon, so it must read at 32 × 32.", "",
 "| slot | size (pt) | where |", "|---|---|---|"]
 for n in names:
