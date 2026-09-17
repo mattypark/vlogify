@@ -5,11 +5,18 @@ set -uo pipefail
 
 cd "$(dirname "$0")/.."
 
+# --testflight downgrades the live-URL checks to warnings. TestFlight does not fetch
+# them; App Store submission does, and a support URL that 404s is the single most common
+# first-submission rejection, so the default stays hard.
+TESTFLIGHT=0
+[[ "${1:-}" == "--testflight" ]] && TESTFLIGHT=1
+
 FAILED=0
 pass() { printf "  ok    %s\n" "$1"; }
 fail() { printf "  FAIL  %s\n" "$1"; FAILED=1; }
+warn() { printf "  warn  %s\n" "$1"; }
 
-echo "vlogify pre-submit"
+echo "vlogify pre-submit${TESTFLIGHT:+ (testflight mode)}"
 
 [[ -f ios/Vlogify/PrivacyInfo.xcprivacy ]] \
   && pass "privacy manifest present" \
@@ -83,10 +90,22 @@ fi
 # Legal URLs must answer 200 before submission. Skipped offline.
 for url in https://vlogify.app/privacy https://vlogify.app/terms https://vlogify.app/support; do
   code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 8 "$url" 2>/dev/null); code=${code:-000}
-  if [[ "$code" == "200" ]]; then pass "$url"; else fail "$url returned $code (deploy web/ before submitting)"; fi
+  if [[ "$code" == "200" ]]; then
+    pass "$url"
+  elif [[ "$TESTFLIGHT" -eq 1 ]]; then
+    warn "$url returned $code -- fine for TestFlight, blocks App Store submission"
+  else
+    fail "$url returned $code (deploy web/ before submitting)"
+  fi
 done
 
-xcodebuild -version | head -1 | grep -qE "Xcode (26|27)" && pass "Xcode 26+ SDK" || fail "Xcode 26 SDK required since Apr 2026"
+# Captured first, not piped into head: under `pipefail`, head closing the pipe early
+# sends xcodebuild SIGPIPE and the check fails or passes on timing alone.
+XCODE_VERSION=$(xcodebuild -version 2>/dev/null | sed -n '1p')
+case "$XCODE_VERSION" in
+  "Xcode 26"*|"Xcode 27"*) pass "Xcode 26+ SDK ($XCODE_VERSION)" ;;
+  *) fail "Xcode 26 SDK required since Apr 2026 (found: ${XCODE_VERSION:-nothing})" ;;
+esac
 
 echo
 if [[ "$FAILED" -eq 0 ]]; then

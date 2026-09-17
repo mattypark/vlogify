@@ -27,7 +27,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [[ "$UPLOAD_ONLY" -eq 0 ]]; then
-  scripts/pre-submit.sh
+  scripts/pre-submit.sh --testflight
 
   (cd ios && xcodegen generate >/dev/null)
 
@@ -43,7 +43,8 @@ if [[ "$UPLOAD_ONLY" -eq 0 ]]; then
   xcodebuild archive \
     -project "$PROJECT" -scheme "$SCHEME" \
     -destination 'generic/platform=iOS' \
-    -archivePath "$ARCHIVE" | tail -1
+    -archivePath "$ARCHIVE" \
+    -allowProvisioningUpdates | tail -1
 
   cat > build/ExportOptions.plist <<PLIST
 <?xml version="1.0" encoding="UTF-8"?>
@@ -58,10 +59,15 @@ if [[ "$UPLOAD_ONLY" -eq 0 ]]; then
 </plist>
 PLIST
 
+  # -allowProvisioningUpdates is load-bearing. Without it the export dies with
+  # "No profiles for 'com.matthewpark.vlogify' were found": archiving signs with the team
+  # development profile, and the App Store distribution profile does not exist until
+  # something asks Xcode to create it. Verified 2026-09-17.
   xcodebuild -exportArchive \
     -archivePath "$ARCHIVE" \
     -exportOptionsPlist build/ExportOptions.plist \
-    -exportPath "$EXPORT" | tail -1
+    -exportPath "$EXPORT" \
+    -allowProvisioningUpdates | tail -1
 
   echo "exported: $(find "$EXPORT" -name '*.ipa' | head -1)"
 fi
