@@ -71,11 +71,11 @@ public enum Doodle: String, CaseIterable, Sendable {
     var placeholderColor: Color {
         switch self {
         case .mascot, .starHappy, .starSurprised, .sparkleSmall, .sparkleLarge, .moon, .sundae:
-            return .butter
-        case .shutterSmile: return .sky
-        case .plant, .turtle: return Color(OKLCH(0.75, 0.13, 145))
-        case .pizza, .orange, .flames: return .ember
-        case .tea, .ufo, .envelope: return Color(OKLCH(0.72, 0.14, 300))
+            return .sand
+        case .shutterSmile: return .blueLight
+        case .plant, .turtle: return .good
+        case .pizza, .orange, .flames: return .warn
+        case .tea, .ufo, .envelope: return .lilac
         case .glyphLog, .glyphStack, .glyphVlog: return .cardRaised
         }
     }
@@ -124,19 +124,19 @@ struct DoodlePlaceholder: View {
             switch doodle {
             case .mascot:
                 MascotShape().fill(doodle.placeholderColor)
-                    .overlay(MascotShape().stroke(Color.soot, lineWidth: max(2, w * 0.018)))
+                    .overlay(MascotShape().stroke(Color.text, lineWidth: max(2, w * 0.018)))
                     .overlay(Face(eyeSize: w * 0.13).offset(y: h * 0.02))
             case .shutterSmile:
                 Circle().fill(doodle.placeholderColor)
-                    .overlay(Circle().stroke(Color(OKLCH(0.45, 0.2, 265)), lineWidth: max(3, w * 0.05)))
+                    .overlay(Circle().stroke(Color.action, lineWidth: max(3, w * 0.05)))
                     .overlay(Face(eyeSize: w * 0.17).offset(y: -h * 0.03))
             case .starHappy, .starSurprised, .sparkleSmall, .sparkleLarge:
                 StarShape(points: doodle == .sparkleSmall || doodle == .sparkleLarge ? 4 : 5)
                     .fill(doodle.placeholderColor)
-                    .overlay(StarShape(points: 5).stroke(Color.soot, lineWidth: doodle.size.width > 40 ? 2 : 0))
+                    .overlay(StarShape(points: 5).stroke(Color.text, lineWidth: doodle.size.width > 40 ? 2 : 0))
             case .moon:
                 Circle().fill(doodle.placeholderColor)
-                    .overlay(Circle().fill(Color.paper).offset(x: -w * 0.28, y: -h * 0.12))
+                    .overlay(Circle().fill(Color.card).offset(x: -w * 0.28, y: -h * 0.12))
             case .glyphLog:
                 VStack(spacing: h * 0.06) {
                     ForEach(0..<3, id: \.self) { _ in glyphClip(width: w * 0.8, height: h * 0.26) }
@@ -157,7 +157,7 @@ struct DoodlePlaceholder: View {
     func glyphClip(width: CGFloat, height: CGFloat) -> some View {
         RoundedRectangle(cornerRadius: Radius.tile, style: .continuous)
             .fill(Color.cardRaised)
-            .overlay(Text("12:00").font(.system(size: 9, weight: .heavy, design: .rounded)).foregroundStyle(Color.soot))
+            .overlay(Text("12:00").font(.system(size: 9, weight: .heavy, design: .rounded)).foregroundStyle(Color.text))
             .frame(width: width, height: height)
     }
 }
@@ -172,15 +172,15 @@ struct Face: View {
                 eye
                 eye
             }
-            SmileShape().stroke(Color.soot, style: StrokeStyle(lineWidth: max(2, eyeSize * 0.16), lineCap: .round))
+            SmileShape().stroke(Color.text, style: StrokeStyle(lineWidth: max(2, eyeSize * 0.16), lineCap: .round))
                 .frame(width: eyeSize * 1.6, height: eyeSize * 0.6)
         }
     }
 
     var eye: some View {
-        Circle().fill(Color.paper)
-            .overlay(Circle().stroke(Color.soot, lineWidth: max(1.5, eyeSize * 0.12)))
-            .overlay(Circle().fill(Color.soot).frame(width: eyeSize * 0.5, height: eyeSize * 0.5).offset(x: eyeSize * 0.1))
+        Circle().fill(Color.card)
+            .overlay(Circle().stroke(Color.text, lineWidth: max(1.5, eyeSize * 0.12)))
+            .overlay(Circle().fill(Color.text).frame(width: eyeSize * 0.5, height: eyeSize * 0.5).offset(x: eyeSize * 0.1))
             .frame(width: eyeSize, height: eyeSize)
     }
 }

@@ -10,11 +10,11 @@ func render() {
     let view = ZStack {
         Color.ink
         MascotShape()
-            .fill(Color.butter)
+            .fill(Color.sand)
             .frame(width: 760, height: 660)
             .offset(y: 30)
         MascotShape()
-            .stroke(Color.soot, lineWidth: 18)
+            .stroke(Color.text, lineWidth: 18)
             .frame(width: 760, height: 660)
             .offset(y: 30)
         // Eyes and smile, big enough to read at 32pt.
@@ -24,7 +24,7 @@ func render() {
         }
         .offset(y: -20)
         SmilePath()
-            .stroke(Color.soot, style: StrokeStyle(lineWidth: 22, lineCap: .round))
+            .stroke(Color.text, style: StrokeStyle(lineWidth: 22, lineCap: .round))
             .frame(width: 180, height: 70)
             .offset(y: 120)
     }
@@ -47,9 +47,9 @@ func render() {
 }
 
 var eye: some View {
-    Circle().fill(Color.paper)
-        .overlay(Circle().stroke(Color.soot, lineWidth: 16))
-        .overlay(Circle().fill(Color.soot).frame(width: 64, height: 64).offset(x: 12))
+    Circle().fill(Color.card)
+        .overlay(Circle().stroke(Color.text, lineWidth: 16))
+        .overlay(Circle().fill(Color.text).frame(width: 64, height: 64).offset(x: 12))
         .frame(width: 130, height: 130)
 }
 

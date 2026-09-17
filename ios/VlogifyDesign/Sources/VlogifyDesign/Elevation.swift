@@ -12,11 +12,11 @@ public struct Elevation: Sendable {
     public let y: CGFloat
 
     /// Resting on the page — a note block with focus, a clip tile.
-    public static let low = Elevation(color: Color.soot.opacity(0.08), radius: 6, y: 2)
+    public static let low = Elevation(color: Color.text.opacity(0.08), radius: 6, y: 2)
     /// A card the user is meant to read as an object they could pick up.
-    public static let card = Elevation(color: Color.soot.opacity(0.14), radius: 16, y: 8)
+    public static let card = Elevation(color: Color.text.opacity(0.14), radius: 16, y: 8)
     /// A sheet over everything else.
-    public static let sheet = Elevation(color: Color.soot.opacity(0.16), radius: 28, y: 14)
+    public static let sheet = Elevation(color: Color.text.opacity(0.16), radius: 28, y: 14)
 }
 
 public extension View {

@@ -19,7 +19,7 @@ public struct Sticker: ViewModifier {
     public static let drop: CGFloat = 4
     public static let line: CGFloat = 3
 
-    public init(fill: Color, outline: Color = .soot, radius: CGFloat = Radius.card, pressed: Bool = false) {
+    public init(fill: Color, outline: Color = .text, radius: CGFloat = Radius.card, pressed: Bool = false) {
         self.fill = fill
         self.outline = outline
         self.radius = radius
@@ -47,7 +47,7 @@ public struct Sticker: ViewModifier {
 }
 
 public extension View {
-    func sticker(fill: Color, outline: Color = .soot, radius: CGFloat = Radius.card, pressed: Bool = false) -> some View {
+    func sticker(fill: Color, outline: Color = .text, radius: CGFloat = Radius.card, pressed: Bool = false) -> some View {
         modifier(Sticker(fill: fill, outline: outline, radius: radius, pressed: pressed))
     }
 
@@ -66,7 +66,7 @@ public struct StickerButtonStyle: ButtonStyle {
     private let outline: Color
     private let radius: CGFloat
 
-    public init(fill: Color, outline: Color = .soot, radius: CGFloat = Radius.card) {
+    public init(fill: Color, outline: Color = .text, radius: CGFloat = Radius.card) {
         self.fill = fill
         self.outline = outline
         self.radius = radius
@@ -86,7 +86,7 @@ public struct StickerCircleStyle: ButtonStyle {
     private let fill: Color
     private let outline: Color
 
-    public init(fill: Color, outline: Color = .soot) {
+    public init(fill: Color, outline: Color = .text) {
         self.fill = fill
         self.outline = outline
     }
