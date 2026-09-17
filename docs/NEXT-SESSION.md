@@ -20,8 +20,10 @@ the three new entries and marks the one it supersedes.
 
 ### Can it be submitted? Not yet. Three blockers, down from six
 
-1. **No build exists.** Nothing has ever been archived or uploaded; TestFlight is empty.
-   `scripts/testflight.sh` is written and `docs/TESTFLIGHT.md` has the ordered steps.
+1. **No build exists.** Nothing has ever been uploaded; TestFlight is empty. The
+   archive -> export chain itself is **verified working** as of 2026-09-17 and produces a
+   TestFlight-eligible ipa; only the upload credential is missing.
+   **`docs/SHIP-TESTFLIGHT.md` is the paste-ready brief for the session that ships it.**
 2. **No backend.** The app talks to `MockBackend`, so rooms do not sync between two
    phones, while the App Store description says they do — 2.3.1 (accurate metadata) and
    arguably 2.1. `docs/BACKEND-README.md` is the paste-ready brief. **This blocker is
