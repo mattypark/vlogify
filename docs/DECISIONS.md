@@ -73,9 +73,10 @@ pinned to `000000` for App Review.
 Setlog offers it; Matthew asked for Apple + Google + email. The `AuthService` protocol
 is where it would go.
 
-## Paper everywhere, no dark mode
+## Cool blue-white everywhere, no dark mode
 Setlog's welcome page is light and its app is black; Matthew wanted the welcome look
-carried through. The one dark surface is video. `preferredColorScheme(.light)` is set
+carried through. The ground moved from warm paper (`#F5F5F3`) to folk's `#F5F6F8` and the
+ink from soot to their blue-slate `#1F2A2F`; the rule did not change, only the temperature. The one dark surface is video. `preferredColorScheme(.light)` is set
 at the root; the palette has no dark variant to drift. Rejected: supporting both (twice
 the screenshots, twice the contrast tests, for a look he did not want).
 
@@ -91,9 +92,10 @@ left the app half-translated whenever the two disagreed. Every user-facing strin
 catalog honest. Wire types spell their JSON keys by hand because Foundation's key strategy
 turns `roomID` into `room_id` on the way out and `roomId` on the way back.
 
-## Rounded system faces, no bundled fonts
-Two families where Setlog has three. Nothing to license, nothing to fail to register.
-An artist's lettered wordmark lands as an image slot, not a font.
+## (superseded) Rounded system faces, no bundled fonts
+The original call was two *system* families and nothing bundled. The "Alive" commit broke
+it by bundling Bagel and Gloria; the folk redesign settles at one bundled face used as a
+logotype. See **One bundled face, and it is a logotype**.
 
 ## `stack` and `zip` are modelled, hidden, and unbuilt
 They exist in `RoomType`, the wire format and the mock so adding them is UI work, not
@@ -109,18 +111,49 @@ long edge and record landscape when the phone is turned.
 bad checksum, a wrong email code. Rejected: a stub that returns success (tests would
 pass against a backend that does not exist).
 
-## The sticker language, from chingo
-Every pressable thing is a sticker: flat fill, 3 pt soot outline, zero-blur hard shadow
-offset 4 pt, and pressing moves the block *into* its shadow (`Sticker.swift`, copied from
-chingo with the palette swapped). Never scale a sticker — the shadow slides out from
-under it. Bare glyphs inside something else use `SquashButtonStyle`. Seven playful fills
-(`Palette.playful`) so a row of chips never repeats a colour; each fill's ink is chosen
-by contrast and tested. Rejected: soft blurred elevation on buttons (reads as a pane).
+## The extruded language, from folk — replacing the sticker language, from chingo
+Every pressable thing sits on a plinth: a gradient lid over two tiers of progressively
+darker shades *of its own fill*, a gloss on the top edge, a soft ambient shadow, and a
+press that compresses the plinth instead of sliding (`Extruded.swift`). Never scale one —
+the plinth slides out from under the lid. Bare glyphs inside something else still use
+`SquashButtonStyle`. Seven fills (`Palette.playful`) so a row of chips never repeats a
+colour; each fill's ink is chosen by contrast and tested.
 
-## Three type voices
-Bagel Fat One for shouts and numbers, SF Pro Rounded for reading, Gloria Hallelujah for
-notes and empty states. Both bundled faces are OFL and asserted at launch in debug.
-Rejected: one face for everything (either generated-looking or unreadable).
+This replaces chingo's sticker: flat fill, 3 pt soot outline, zero-blur hard shadow offset
+4 pt down *and right*. That shadow was the loudest thing tying vlogify's look to another of
+Matthew's apps, which makes it a 4.1 conversation nobody needs. The type names
+(`StickerButtonStyle`, `.sticker(…)`, `.stickerRoom()`) were deliberately kept so the
+twenty call sites did not move — only what they draw changed.
+
+Tier tones are mixed from the fill (22 % and 38 % slate) rather than hardcoded. On folk's
+own `#0088FF` that lands within a couple of points of their `#0070D4` / `#005DB1`, so the
+relationship holds for every fill including white. Rejected: hardcoding folk's two blues
+(every non-blue button would have grown a blue shadow).
+
+## folk's blue is the action colour, and cannot be a fill
+`#0088FF` sits in the dead zone: slate on it is 4.17:1 and white 3.52:1, so neither ink
+clears AA and `PaletteTests.fillInks` rejects it. `#E7642B` fails the same way (4.37 /
+3.36). So `blue` and `orange` as folk ship them stay non-`Fill` tokens, and the seven
+playful fills use lighter siblings that do clear AA.
+
+The primary button keeps folk's exact gradient anyway, with a white label at 3.5:1 — AA for
+large text, which the 17 pt bold shout is, plus folk's `text-shadow: 0 1px #00285A59`.
+`ctaLabelClearsLargeAA` pins it to 3:1 so it is a measured threshold rather than a waiver.
+Rejected: deepening the bottom stop to `#0070D4` for a full 4.5:1 (correct by the letter,
+but it is no longer folk's button, and Matthew asked to copy that button exactly).
+
+## One bundled face, and it is a logotype
+Bagel Fat One sets the wordmark and nothing else. Shouts, hour numerals and the invite
+code are SF Pro Display Heavy; everything a person reads, notes included, is SF Pro Text.
+
+Gloria Hallelujah is gone: handwriting on a cool blue-white ground reads as two apps
+arguing, and a note looks like a note because of where it sits, not because of the
+letterforms. `Typography.hand` / `handSmall` kept their names so the seven note call sites
+did not move. `design: .rounded` went with the warm palette — folk's display face is a
+tight gothic and SF Pro Display Heavy is the closest thing already on the device.
+
+Rejected: bundling a new OFL gothic (one more face to license, register and fail to
+register); keeping Bagel for shouts (it is unmistakably the chingo voice).
 
 ## Notes are local, full stop
 `NotesStore` writes JSON to the app-group container and never touches `Backend`. No sync,
