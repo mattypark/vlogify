@@ -1,4 +1,14 @@
-# App Store Connect — creating the vlogify record
+# App Store Connect — the vlogify record
+
+**Status 2026-09-17: the record EXISTS.** App id `6811419336`, bundle
+`com.matthewpark.vlogify`, SKU `vlogify-v1`, version 1.0 `PREPARE_FOR_SUBMISSION`.
+Steps 1 and 2 below are done. Step 3 is done except beta review details (Apple requires
+`contactPhone`). Step 4 is still entirely open. Blockers to submission are listed in
+`docs/NEXT-SESSION.md`.
+
+---
+
+## (history) creating the record
 
 The asc-mcp build on this Mac cannot create apps or register bundle IDs (no such
 tools), so the record is created in the browser — by Claude driving Chrome with the
