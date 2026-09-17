@@ -66,7 +66,7 @@ struct CameraView: View {
             .padding(Space.md)
             if showRing {
                 VStack(spacing: Space.xs) {
-                    Text("pick your outline colour").font(.vlogCaption).foregroundStyle(Color.paper)
+                    Text("pick your outline colour").font(.vlogCaption).foregroundStyle(Color.chalk)
                     ColorRingPicker(compact: true)
                 }
                 .padding(Space.sm)
@@ -90,19 +90,19 @@ struct CameraView: View {
             Spacer()
             if state.rooms.isEmpty {
                 Text("make or join a room first.")
-                    .font(.vlogCaption).foregroundStyle(Color.paper)
+                    .font(.vlogCaption).foregroundStyle(Color.chalk)
                     .padding(.horizontal, Space.md).padding(.vertical, Space.xs)
                     .background(Color.ink.opacity(0.7), in: Capsule())
             } else if alreadyPosted {
                 Text("you already posted \(slot.label). next hour!")
-                    .font(.vlogCaption).foregroundStyle(Color.paper)
+                    .font(.vlogCaption).foregroundStyle(Color.chalk)
                     .padding(.horizontal, Space.md).padding(.vertical, Space.xs)
                     .background(Color.ink.opacity(0.7), in: Capsule())
                     .accessibilityIdentifier("camera.posted")
             } else if state.capture.isLandscape, !camera.isLandscape, !hintDismissed {
                 Button { hintDismissed = true } label: {
                     Text("rotate to capture")
-                        .font(.vlogCaption).foregroundStyle(Color.paper)
+                        .font(.vlogCaption).foregroundStyle(Color.chalk)
                         .padding(.horizontal, Space.md).padding(.vertical, Space.xs)
                         .background(Color.ink.opacity(0.7), in: Capsule())
                 }
@@ -121,7 +121,7 @@ struct CameraView: View {
                 Text(verbatim: target?.name ?? (target?.isSolo == true ? String(localized: "just me", bundle: .app) : String(localized: "pick a room", bundle: .app)))
                 if state.rooms.count > 1 { Image(systemName: "chevron.down") }
             }
-            .font(.vlogCaption).foregroundStyle(Color.paper)
+            .font(.vlogCaption).foregroundStyle(Color.chalk)
             .padding(.horizontal, Space.sm).padding(.vertical, Space.xs)
             .background(Color.ink.opacity(0.6), in: Capsule())
         }
@@ -137,7 +137,7 @@ struct CameraView: View {
         } label: {
             Text(verbatim: "Aa")
                 .font(state.capture.stampFont.font(size: 15))
-                .foregroundStyle(Color.paper)
+                .foregroundStyle(Color.chalk)
                 .padding(.horizontal, Space.sm).padding(.vertical, Space.xs)
                 .background(Color.ink.opacity(0.6), in: Capsule())
         }
@@ -157,7 +157,7 @@ struct CameraView: View {
                 Image(systemName: state.capture.isLandscape ? "rectangle" : "rectangle.portrait")
                 Text(state.capture.isLandscape ? "horizontal" : "vertical")
             }
-            .font(.vlogCaption).foregroundStyle(Color.paper)
+            .font(.vlogCaption).foregroundStyle(Color.chalk)
             .padding(.horizontal, Space.sm).padding(.vertical, Space.xs)
             .background(Color.ink.opacity(0.6), in: Capsule())
         }
@@ -177,7 +177,7 @@ struct CameraView: View {
             }
             .frame(width: Metrics.shutter, height: Metrics.shutter)
         }
-        .buttonStyle(StickerCircleStyle(fill: .sky))
+        .buttonStyle(StickerCircleStyle(fill: .blueLight))
         .rewardBeat(on: posted)
         .disabled(posting || state.rooms.isEmpty || alreadyPosted || state.permissions.isDenied)
         .opacity(alreadyPosted ? 0.4 : 1)
@@ -193,7 +193,7 @@ struct CameraView: View {
             Button("open settings") {
                 if let url = URL(string: UIApplication.openSettingsURLString) { UIApplication.shared.open(url) }
             }
-            .font(.vlogLabel).foregroundStyle(Color.orchidInk)
+            .font(.vlogLabel).foregroundStyle(Color.actionInk)
             .frame(height: Metrics.hitTarget)
         }
         .padding(Space.xl)

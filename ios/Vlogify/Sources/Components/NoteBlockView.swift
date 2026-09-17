@@ -23,7 +23,7 @@ struct NoteBlockView: View {
                 } label: {
                     Image(systemName: block.done ? "checkmark.square.fill" : "square")
                         .font(Font.system(size: 18, weight: .semibold))
-                        .foregroundStyle(block.done ? Color.spearmintInk : Color.textSoft)
+                        .foregroundStyle(block.done ? Color.goodInk : Color.textSoft)
                         .frame(width: 24, height: 24)
                 }
                 .buttonStyle(SquashButtonStyle())

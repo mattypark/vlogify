@@ -53,17 +53,17 @@ struct HomeView: View {
         @Bindable var state = state
         return BottomBar(tab: $state.tab) {
             if state.tab == .logs {
-                ChunkyRound(systemImage: "bell.fill", label: "notifications", fill: .butter) { showNotifications = true }
+                ChunkyRound(systemImage: "bell.fill", label: "notifications", fill: .sand) { showNotifications = true }
                     .accessibilityIdentifier("bar.bell")
             } else {
-                ChunkyRound(systemImage: camera.isTorchOn ? "bolt.fill" : "bolt.slash", label: "flash", fill: .butter) { camera.toggleTorch() }
+                ChunkyRound(systemImage: camera.isTorchOn ? "bolt.fill" : "bolt.slash", label: "flash", fill: .sand) { camera.toggleTorch() }
                     .accessibilityIdentifier("bar.flash")
             }
         } trailing: {
             if state.tab == .logs {
                 PlusMenu(onCreate: { showNewRoom = true }, onJoin: { showJoin = true })
             } else {
-                ChunkyRound(systemImage: "arrow.triangle.2.circlepath.camera", label: "flip camera", fill: .sky) { camera.flip() }
+                ChunkyRound(systemImage: "arrow.triangle.2.circlepath.camera", label: "flip camera", fill: .blueLight) { camera.flip() }
                     .accessibilityIdentifier("bar.flip")
             }
         }

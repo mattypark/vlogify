@@ -26,7 +26,7 @@ struct JoinRoomSheet: View {
             TextField("ABC-123", text: $input)
                 .textInputAutocapitalization(.characters)
                 .autocorrectionDisabled()
-                .font(Font.system(size: 32, weight: .heavy, design: .rounded))
+                .font(Font.system(size: 32, weight: .heavy))
                 .tracking(3)
                 .foregroundStyle(Color.text)
                 .multilineTextAlignment(.center)
@@ -41,7 +41,7 @@ struct JoinRoomSheet: View {
                 }
                 .accessibilityIdentifier("join.code")
             if let problem {
-                Text(verbatim: problem).font(.vlogCaption).foregroundStyle(Color.emberInk)
+                Text(verbatim: problem).font(.vlogCaption).foregroundStyle(Color.warnInk)
                     .accessibilityIdentifier("join.error")
             }
             if let preview {

@@ -13,7 +13,7 @@ struct WelcomeView: View {
 
     var body: some View {
         ZStack {
-            Color.paper.ignoresSafeArea()
+            Color.chalk.ignoresSafeArea()
             GeometryReader { proxy in
                 doodleField(in: proxy.size)
             }
@@ -24,7 +24,7 @@ struct WelcomeView: View {
                 Wordmark(onPaper: true, size: 34)
                 Text("new moment every hour,\nvlog it with your friends.")
                     .font(.vlogBody)
-                    .foregroundStyle(Color.soot)
+                    .foregroundStyle(Color.text)
                     .multilineTextAlignment(.center)
                     .padding(.top, Space.xs)
                 Spacer()
@@ -36,18 +36,17 @@ struct WelcomeView: View {
                         .signInWithAppleButtonStyle(.black)
                         .frame(height: 56)
                         .clipShape(Capsule())
-                        .overlay(Capsule().strokeBorder(Color.soot, lineWidth: Sticker.line))
-                        .compositingGroup()
-                        .shadow(color: Color.soot, radius: 0, x: Sticker.drop, y: Sticker.drop)
+                        .overlay(Capsule().strokeBorder(Color.text, lineWidth: Sticker.line))
+                        .sticker(fill: .text, shape: AnyShape(Capsule()))
                         .overlay(Capsule().fill(Color.black.opacity(0.001)).onTapGesture { signInWithApple() })
                         .stickerRoom()
                         .accessibilityIdentifier("welcome.apple")
-                    ChunkyButton(title: "Continue with Google", icon: "g.circle.fill", fill: .card, isLoading: busy == .google) { signInWithGoogle() }
+                    ChunkyButton(title: "Continue with Google", icon: "g.circle.fill", fill: .card, ink: .text, isLoading: busy == .google) { signInWithGoogle() }
                         .accessibilityIdentifier("welcome.google")
                     Button { showEmail = true } label: {
                         Text("Continue with email")
                             .font(.vlogLabel)
-                            .foregroundStyle(Color.soot)
+                            .foregroundStyle(Color.text)
                             .underline()
                             .frame(height: Metrics.hitTarget)
                     }
@@ -60,7 +59,7 @@ struct WelcomeView: View {
                         Button { skip() } label: {
                             Text("skip for now")
                                 .font(.vlogCaption)
-                                .foregroundStyle(Color.sootSoft)
+                                .foregroundStyle(Color.textSoft)
                                 .frame(height: Metrics.hitTarget)
                         }
                         .buttonStyle(.plain)

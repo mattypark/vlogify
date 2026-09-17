@@ -8,8 +8,10 @@ import VlogifyDesign
 struct ChunkyButton: View {
     let title: LocalizedStringKey
     var icon: String? = nil
-    var fill: Color = .orchid
-    var ink: Color = .soot
+    var fill: Color = .action
+    /// White by default, because the default fill is the action blue and slate on it is
+    /// 4.17:1. A light lid has to say so.
+    var ink: Color = .card
     var isLoading = false
     let action: () -> Void
 
@@ -24,6 +26,9 @@ struct ChunkyButton: View {
                 Text(title).font(.vlogShout)
             }
             .foregroundStyle(ink)
+            // folk's `text-shadow: 0 1px #00285A59`: on a coloured lid it is what keeps a
+            // white shout crisp. On a pale lid with slate text it would just look dirty.
+            .shadow(color: ink == .card ? Color.ink.opacity(0.35) : .clear, radius: 0, y: 1)
             .frame(maxWidth: .infinity)
             .frame(height: 56)
         }
@@ -37,7 +42,7 @@ struct ChunkyButton: View {
 struct ChunkyChip: View {
     let text: String
     var fill: Color = .card
-    var ink: Color = .soot
+    var ink: Color = .text
     var selected = false
     var height: CGFloat = 44
     let action: () -> Void
@@ -61,7 +66,7 @@ struct ChunkyRound: View {
     let label: LocalizedStringKey
     var size: CGFloat = Metrics.barButton
     var fill: Color = .card
-    var ink: Color = .soot
+    var ink: Color = .text
     let action: () -> Void
 
     var body: some View {

@@ -161,10 +161,10 @@ struct RoomView: View {
         VStack(alignment: .leading, spacing: Space.xs) {
             HStack {
                 Text(verbatim: row.slot.label)
-                    .font(Font.system(size: 20, weight: .heavy, design: .rounded))
-                    .foregroundStyle(row.isCurrent ? Color.orchidInk : Color.text)
+                    .font(Font.system(size: 20, weight: .heavy))
+                    .foregroundStyle(row.isCurrent ? Color.actionInk : Color.text)
                 if row.isCurrent {
-                    Text("now").font(.vlogCaption).foregroundStyle(Color.orchidInk)
+                    Text("now").font(.vlogCaption).foregroundStyle(Color.actionInk)
                 }
                 Spacer()
                 if row.isCurrent, !room.isSolo, !state.hasPosted(in: room, slot: row.slot) {

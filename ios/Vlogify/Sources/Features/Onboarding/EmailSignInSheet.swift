@@ -28,7 +28,7 @@ struct EmailSignInSheet: View {
                     TextField("000000", text: $code)
                         .keyboardType(.numberPad)
                         .textContentType(.oneTimeCode)
-                        .font(Font.system(size: 32, weight: .heavy, design: .rounded))
+                        .font(Font.system(size: 32, weight: .heavy))
                         .foregroundStyle(Color.text)
                         .focused($focus, equals: .code)
                         .onChange(of: code) { _, new in code = String(new.filter(\.isNumber).prefix(6)) }
@@ -50,7 +50,7 @@ struct EmailSignInSheet: View {
                 if let problem {
                     Text(verbatim: problem)
                         .font(.vlogCaption)
-                        .foregroundStyle(Color.emberInk)
+                        .foregroundStyle(Color.warnInk)
                         .accessibilityIdentifier("email.error")
                 }
                 Spacer()

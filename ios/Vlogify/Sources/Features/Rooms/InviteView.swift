@@ -20,10 +20,10 @@ struct InviteView: View {
             Text(verbatim: room.inviteCode.formatted)
                 .font(.vlogNumeral)
                 .tracking(3)
-                .foregroundStyle(Color.soot)
+                .foregroundStyle(Color.text)
                 .padding(.vertical, Space.lg)
                 .frame(maxWidth: .infinity)
-                .sticker(fill: .butter, radius: Radius.sheet)
+                .sticker(fill: .sand, radius: Radius.sheet)
                 .stickerRoom()
                 .accessibilityIdentifier("invite.code")
                 .accessibilityLabel(Text("invite code \(room.inviteCode.value)"))
@@ -39,11 +39,11 @@ struct InviteView: View {
                         Image(systemName: "square.and.arrow.up").font(Font.system(size: 18, weight: .bold))
                         Text("share").font(.vlogShout)
                     }
-                    .foregroundStyle(Color.soot)
+                    .foregroundStyle(Color.text)
                     .frame(maxWidth: .infinity)
                     .frame(height: 56)
                 }
-                .buttonStyle(StickerButtonStyle(fill: .orchid, radius: Radius.pill))
+                .buttonStyle(StickerButtonStyle(fill: .action, radius: Radius.pill))
                 .stickerRoom()
                 .accessibilityIdentifier("invite.share")
             }

@@ -17,16 +17,18 @@ struct PillButton: View {
 
     private var fill: Color {
         switch style {
-        case .filled: return .soot
+        case .filled: return .text
         case .outlined: return .card
-        case .accent: return .orchid
+        case .accent: return .action
         }
     }
 
     private var ink: Color {
         switch style {
-        case .filled: return .paper
-        case .outlined, .accent: return .soot
+        // White on both dark lids. Slate on the action blue is 4.17:1 -- under AA, and
+        // the whole reason `blue` is not a Fill.
+        case .filled, .accent: return .card
+        case .outlined: return .text
         }
     }
 }
@@ -40,10 +42,10 @@ struct Chip: View {
     var body: some View {
         Text(verbatim: text)
             .font(.vlogLabel)
-            .foregroundStyle(Color.soot)
+            .foregroundStyle(Color.text)
             .padding(.horizontal, Space.md)
             .padding(.vertical, Space.xs)
-            .sticker(fill: selected ? .orchid : .card, radius: Radius.pill)
+            .sticker(fill: selected ? .action : .card, radius: Radius.pill)
             .stickerRoom()
     }
 }
@@ -53,7 +55,7 @@ struct RoundButton: View {
     let systemImage: String
     let label: LocalizedStringKey
     var size: CGFloat = Metrics.barButton
-    var tint: Color = .soot
+    var tint: Color = .text
     var fill: Color = .card
     let action: () -> Void
 

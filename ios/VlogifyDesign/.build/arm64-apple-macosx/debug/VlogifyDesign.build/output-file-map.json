@@ -23,6 +23,13 @@
     "swift-dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Elevation.swiftdeps",
     "diagnostics": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Elevation.dia"
   },
+  "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Extruded.swift": {
+    "dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Extruded.d",
+    "object": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Extruded.swift.o",
+    "swiftmodule": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Extruded~partial.swiftmodule",
+    "swift-dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Extruded.swiftdeps",
+    "diagnostics": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Extruded.dia"
+  },
   "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Motion.swift": {
     "dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Motion.d",
     "object": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Motion.swift.o",
@@ -50,13 +57,6 @@
     "swiftmodule": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Spacing~partial.swiftmodule",
     "swift-dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Spacing.swiftdeps",
     "diagnostics": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Spacing.dia"
-  },
-  "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Sticker.swift": {
-    "dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Sticker.d",
-    "object": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Sticker.swift.o",
-    "swiftmodule": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Sticker~partial.swiftmodule",
-    "swift-dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Sticker.swiftdeps",
-    "diagnostics": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Sticker.dia"
   },
   "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Typography.swift": {
     "dependencies": "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Typography.d",

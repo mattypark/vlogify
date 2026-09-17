@@ -30,7 +30,7 @@ struct NewRoomSheet: View {
                 Text("new room").font(.vlogTitle).foregroundStyle(Color.text)
                 Spacer()
                 RoundButton(systemImage: "checkmark", label: "create", size: Metrics.hitTarget + 4,
-                            tint: .soot, fill: .orchid) { create() }
+                            tint: .text, fill: .action) { create() }
                     .disabled(busy)
                     .accessibilityIdentifier("newRoom.create")
             }

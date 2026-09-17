@@ -8,7 +8,7 @@ struct ToastView: View {
     var body: some View {
         Text(verbatim: toast.text)
             .font(.vlogLabel)
-            .foregroundStyle(toast.kind == .error ? Color.emberInk : Color.text)
+            .foregroundStyle(toast.kind == .error ? Color.warnInk : Color.text)
             .padding(.horizontal, Space.md)
             .padding(.vertical, Space.sm)
             .background(Color.card, in: Capsule())

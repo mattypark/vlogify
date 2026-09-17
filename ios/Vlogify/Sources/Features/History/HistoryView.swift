@@ -27,7 +27,7 @@ struct HistoryView: View {
                             HStack {
                                 Text(verbatim: state.clock.formatted(day)).font(.vlogBody).foregroundStyle(Color.text)
                                 Spacer()
-                                if day == state.clock.today { Text("today").font(.vlogCaption).foregroundStyle(Color.orchidInk) }
+                                if day == state.clock.today { Text("today").font(.vlogCaption).foregroundStyle(Color.actionInk) }
                                 Image(systemName: "chevron.right").font(.vlogCaption).foregroundStyle(Color.textSoft)
                             }
                         }

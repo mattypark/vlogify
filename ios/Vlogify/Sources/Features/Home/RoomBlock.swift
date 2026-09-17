@@ -24,7 +24,7 @@ struct RoomBlock: View {
                         HStack(spacing: -8) {
                             ForEach((log?.members ?? []).prefix(5)) { member in
                                 AvatarDisc(profile: member.profile, size: 24)
-                                    .overlay(Circle().stroke(Color.soot, lineWidth: 2))
+                                    .overlay(Circle().stroke(Color.text, lineWidth: 2))
                             }
                         }
                     }

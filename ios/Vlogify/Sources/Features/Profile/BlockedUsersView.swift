@@ -24,7 +24,7 @@ struct BlockedUsersView: View {
                                     people = (try? await state.backend.safety.blocked()) ?? []
                                 }
                             }
-                            .font(.vlogCaption).foregroundStyle(Color.orchidInk)
+                            .font(.vlogCaption).foregroundStyle(Color.actionInk)
                         }
                         .listRowBackground(Color.card)
                     }

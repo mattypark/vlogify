@@ -64,9 +64,9 @@ struct PermissionsView: View {
         HStack(alignment: .top, spacing: Space.xs) {
             Group {
                 if status == .granted {
-                    Text(verbatim: "✓").foregroundStyle(Color.spearmintInk)
+                    Text(verbatim: "✓").foregroundStyle(Color.goodInk)
                 } else if status == .denied {
-                    Text(verbatim: "✗").foregroundStyle(Color.emberInk)
+                    Text(verbatim: "✗").foregroundStyle(Color.warnInk)
                 } else {
                     Text(verbatim: " ")
                 }
@@ -82,7 +82,7 @@ struct PermissionsView: View {
                     Text(verbatim: name).font(.vlogMonoBold).foregroundStyle(status == .granted ? Color.textSoft : Color.text)
                     if status == .denied {
                         Button("open settings") { openSettings() }
-                            .font(.vlogMono).foregroundStyle(Color.emberInk).underline()
+                            .font(.vlogMono).foregroundStyle(Color.warnInk).underline()
                     }
                 }
             }

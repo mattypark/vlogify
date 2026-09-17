@@ -29,9 +29,9 @@ struct RoomTypeCard: View {
 
     private var fill: Color {
         switch type {
-        case .log: return .orchid
-        case .stack: return .tangerine
-        default: return .sky
+        case .log: return .action
+        case .stack: return .periwinkle
+        default: return .blueLight
         }
     }
 
@@ -67,12 +67,12 @@ struct SizePicker: View {
                 } label: {
                     Text(verbatim: RoomRules.capacityLabel(option, for: type))
                         .font(.vlogShout)
-                        .foregroundStyle(Color.soot)
+                        .foregroundStyle(Color.text)
                         .frame(minWidth: 48)
                         .frame(height: 48)
                         .padding(.horizontal, option == 20 ? Space.sm : 0)
                 }
-                .buttonStyle(StickerButtonStyle(fill: capacity == option ? .butter : .card, radius: Radius.pill))
+                .buttonStyle(StickerButtonStyle(fill: capacity == option ? .sand : .card, radius: Radius.pill))
                 .stickerRoom()
                 .accessibilityIdentifier("newRoom.size.\(option)")
                 .accessibilityAddTraits(capacity == option ? .isSelected : [])

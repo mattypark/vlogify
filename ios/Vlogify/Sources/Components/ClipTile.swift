@@ -30,7 +30,9 @@ struct ClipTile: View {
                 HStack {
                     Text(verbatim: isMe ? String(localized: "you", bundle: .app) : member.profile.displayName)
                         .font(.vlogCaption)
-                        .foregroundStyle(Color.text)
+                        // chalk, not text: this capsule is 60% ink, so the body colour
+                        // only ever read here by accident.
+                        .foregroundStyle(Color.chalk)
                         .padding(.horizontal, Space.xs)
                         .padding(.vertical, 3)
                         .background(Color.ink.opacity(0.6), in: Capsule())

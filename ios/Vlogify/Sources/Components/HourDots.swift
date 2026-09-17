@@ -29,7 +29,7 @@ struct HourDots: View {
 
     private func color(for slot: Slot) -> Color {
         if let log, let userID, log.clip(from: userID, in: slot) != nil { return .text }
-        if slot == currentSlot { return .orchid }
+        if slot == currentSlot { return .action }
         if slot < currentSlot { return .cardRaised }
         return .hairline.opacity(0.6)
     }

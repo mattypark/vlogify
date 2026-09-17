@@ -72,7 +72,7 @@ struct TapBurstLayer: ViewModifier {
         circle.addEllipse(in: CGRect(x: burst.point.x - radius, y: burst.point.y - radius,
                                      width: radius * 2, height: radius * 2))
         context.fill(circle, with: .color(burst.color.opacity(0.9 * fade)))
-        context.stroke(circle, with: .color(Color.soot.opacity(fade)), lineWidth: 3)
+        context.stroke(circle, with: .color(Color.text.opacity(fade)), lineWidth: 3)
 
         guard burst.stripes > 0 else { return }
         for index in 0..<burst.stripes {
@@ -90,7 +90,7 @@ struct TapBurstLayer: ViewModifier {
             stripe.addLine(to: end)
             context.stroke(stripe, with: .color(burst.color.opacity((1 - s) * 0.95)),
                            style: StrokeStyle(lineWidth: width, lineCap: .round))
-            context.stroke(stripe, with: .color(Color.soot.opacity((1 - s) * 0.5)),
+            context.stroke(stripe, with: .color(Color.text.opacity((1 - s) * 0.5)),
                            style: StrokeStyle(lineWidth: width + 2, lineCap: .round))
         }
     }

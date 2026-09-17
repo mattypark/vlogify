@@ -18,10 +18,10 @@ struct ColorRingPicker: View {
                 } label: {
                     Circle()
                         .fill(Color.avatar(seed: seed))
-                        .overlay(Circle().strokeBorder(Color.soot, lineWidth: Sticker.line))
+                        .overlay(Circle().strokeBorder(Color.text, lineWidth: Sticker.line))
                         .overlay {
                             if current % 12 == seed {
-                                Image(systemName: "checkmark").font(Font.system(size: compact ? 10 : 14, weight: .black)).foregroundStyle(Color.soot)
+                                Image(systemName: "checkmark").font(Font.system(size: compact ? 10 : 14, weight: .black)).foregroundStyle(Color.text)
                             }
                         }
                         .frame(width: compact ? 22 : 36, height: compact ? 22 : 36)

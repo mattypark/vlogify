@@ -30,7 +30,7 @@ struct NotificationsView: View {
                                     .font(.vlogCaption).foregroundStyle(Color.textSoft)
                             }
                             Spacer()
-                            Image(systemName: "bell").foregroundStyle(Color.orchidInk)
+                            Image(systemName: "bell").foregroundStyle(Color.actionInk)
                         }
                         .listRowBackground(Color.card)
                     }

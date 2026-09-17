@@ -72,10 +72,10 @@ targets:
               - vlogify
         UIBackgroundModes:
           - remote-notification
-        # Bare filenames. Both OFL; the game voice and the human voice.
+        # Bare filename. OFL. The wordmark, and nothing else -- everything that used to be
+        # a second or third voice is SF Pro now.
         UIAppFonts:
           - BagelFatOne-Regular.ttf
-          - GloriaHallelujah-Regular.ttf
     entitlements:
       path: Vlogify/Vlogify.entitlements
       properties:

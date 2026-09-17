@@ -9,8 +9,8 @@ struct SegmentToggle: View {
 
     var body: some View {
         HStack(spacing: 0) {
-            segment(.camera, "camera", fill: .sky)
-            segment(.logs, "logs", fill: .butter)
+            segment(.camera, "camera", fill: .blueLight)
+            segment(.logs, "logs", fill: .sand)
         }
         .padding(Space.xxs)
         .sticker(fill: .card, radius: Radius.pill)
@@ -26,13 +26,13 @@ struct SegmentToggle: View {
         } label: {
             Text(title)
                 .font(.vlogShout)
-                .foregroundStyle(Color.soot)
+                .foregroundStyle(Color.text)
                 .padding(.horizontal, Space.gutter)
                 .frame(height: Metrics.hitTarget)
                 .background {
                     if tab == value {
                         Capsule().fill(fill)
-                            .overlay(Capsule().strokeBorder(Color.soot, lineWidth: 2))
+                            .overlay(Capsule().strokeBorder(Color.text, lineWidth: Sticker.lineThin))
                             .matchedGeometryEffect(id: "segment", in: namespace)
                     }
                 }

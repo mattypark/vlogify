@@ -10,7 +10,7 @@ struct AvatarDisc: View {
 
     var body: some View {
         Text(verbatim: String(profile.displayName.prefix(2)).lowercased())
-            .font(Font.system(size: size * 0.4, weight: .bold, design: .rounded))
+            .font(Font.system(size: size * 0.4, weight: .bold))
             .foregroundStyle(Color.ink)
             .frame(width: size, height: size)
             .background(Color.avatar(seed: profile.avatarSeed), in: Circle())

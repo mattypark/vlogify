@@ -34,10 +34,10 @@ struct LanguageView: View {
                         HStack {
                             Text(verbatim: language.nativeName)
                                 .font(.vlogLabel)
-                                .foregroundStyle(Color.soot)
+                                .foregroundStyle(Color.text)
                             Spacer()
                             if picked == language {
-                                Image(systemName: "checkmark").font(Font.system(size: 16, weight: .black)).foregroundStyle(Color.soot)
+                                Image(systemName: "checkmark").font(Font.system(size: 16, weight: .black)).foregroundStyle(Color.text)
                             }
                         }
                         .padding(.horizontal, Space.md)

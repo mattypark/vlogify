@@ -18,8 +18,8 @@ struct HourStamp: View {
     var body: some View {
         Text(verbatim: label)
             .font(font.font(size: size))
-            .foregroundStyle(Color.paper)
-            .shadow(color: Color.soot, radius: 0, x: 2, y: 2)
+            .foregroundStyle(Color.chalk)
+            .shadow(color: Color.ink.opacity(0.55), radius: 6, y: 2)
             .fixedSize()
             .frame(width: Self.box, height: Self.box)
             .rotationEffect(.degrees(rotated ? -90 : 0))

@@ -57,7 +57,7 @@ import VlogifyDesign
 enum FontRegistration {
     static func assertBundled() {
         #if DEBUG
-        for name in [Typeface.bagel, Typeface.gloria] {
+        for name in [Typeface.bagel] {
             assert(UIFont(name: name, size: 12) != nil,
                    "Font \(name) is not in the bundle. Check UIAppFonts in project.yml and Resources/Fonts.")
         }

@@ -42,12 +42,9 @@ struct PlusMenu: View {
         } label: {
             Image(systemName: "plus")
                 .font(Font.system(size: 24, weight: .black))
-                .foregroundStyle(Color.soot)
+                .foregroundStyle(Color.card)
                 .frame(width: Metrics.barButton, height: Metrics.barButton)
-                .background { Circle().fill(Color.orchid) }
-                .overlay { Circle().strokeBorder(Color.soot, lineWidth: Sticker.line) }
-                .compositingGroup()
-                .shadow(color: Color.soot, radius: 0, x: Sticker.drop, y: Sticker.drop)
+                .sticker(fill: .action, shape: AnyShape(Circle()))
         }
         .stickerRoom()
         .accessibilityLabel(Text("new"))

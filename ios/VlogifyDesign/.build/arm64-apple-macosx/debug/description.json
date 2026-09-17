@@ -364,6 +364,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Extruded.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Motion.swift"
         },
         {
@@ -377,10 +381,6 @@
         {
           "kind" : "file",
           "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Spacing.swift"
-        },
-        {
-          "kind" : "file",
-          "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Sticker.swift"
         },
         {
           "kind" : "file",
@@ -406,11 +406,11 @@
         "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Blobs.swift.o",
         "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Doodles.swift.o",
         "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Elevation.swift.o",
+        "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Extruded.swift.o",
         "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Motion.swift.o",
         "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/OKLCH.swift.o",
         "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Palette.swift.o",
         "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Spacing.swift.o",
-        "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Sticker.swift.o",
         "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Typography.swift.o"
       ],
       "otherArguments" : [
@@ -478,6 +478,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Extruded.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Motion.swift.o"
         },
         {
@@ -494,10 +498,6 @@
         },
         {
           "kind" : "file",
-          "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Sticker.swift.o"
-        },
-        {
-          "kind" : "file",
           "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Typography.swift.o"
         },
         {
@@ -510,11 +510,11 @@
         "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Blobs.swift",
         "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Doodles.swift",
         "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Elevation.swift",
+        "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Extruded.swift",
         "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Motion.swift",
         "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/OKLCH.swift",
         "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Palette.swift",
         "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Spacing.swift",
-        "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Sticker.swift",
         "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Typography.swift"
       ],
       "tempsPath" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build",
@@ -1190,11 +1190,11 @@
       "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Blobs.swift",
       "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Doodles.swift",
       "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Elevation.swift",
+      "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Extruded.swift",
       "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Motion.swift",
       "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/OKLCH.swift",
       "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Palette.swift",
       "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Spacing.swift",
-      "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Sticker.swift",
       "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Typography.swift",
       "-I",
       "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/Modules",
@@ -1605,6 +1605,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Extruded.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Motion.swift.o"
         },
         {
@@ -1618,10 +1622,6 @@
         {
           "kind" : "file",
           "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Spacing.swift.o"
-        },
-        {
-          "kind" : "file",
-          "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Sticker.swift.o"
         },
         {
           "kind" : "file",
@@ -1715,6 +1715,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Extruded.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Motion.swift"
         },
         {
@@ -1728,10 +1732,6 @@
         {
           "kind" : "file",
           "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Spacing.swift"
-        },
-        {
-          "kind" : "file",
-          "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/Sources/VlogifyDesign/Sticker.swift"
         },
         {
           "kind" : "file",
@@ -1799,6 +1799,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Extruded.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Motion.swift.o"
         },
         {
@@ -1812,10 +1816,6 @@
         {
           "kind" : "file",
           "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Spacing.swift.o"
-        },
-        {
-          "kind" : "file",
-          "name" : "/Users/matthewpark/Downloads/current-projects/appscurrent/vlogify/ios/VlogifyDesign/.build/arm64-apple-macosx/debug/VlogifyDesign.build/Sticker.swift.o"
         },
         {
           "kind" : "file",

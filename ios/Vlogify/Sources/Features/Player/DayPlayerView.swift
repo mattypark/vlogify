@@ -77,11 +77,11 @@ struct DayPlayerView: View {
             .padding(.bottom, Space.md)
         case .saved:
             Text("saved to photos. post it anywhere.")
-                .font(.vlogLabel).foregroundStyle(Color.spearmintInk)
+                .font(.vlogLabel).foregroundStyle(Color.goodInk)
                 .frame(height: 56)
                 .accessibilityIdentifier("dayPlayer.saved")
         case .failed(let message):
-            Text(verbatim: message).font(.vlogCaption).foregroundStyle(Color.emberInk).frame(height: 56)
+            Text(verbatim: message).font(.vlogCaption).foregroundStyle(Color.warnInk).frame(height: 56)
                 .accessibilityIdentifier("dayPlayer.failed")
         }
     }
