@@ -1,10 +1,12 @@
 # App Store Connect — the vlogify record
 
-**Status 2026-09-17: the record EXISTS.** App id `6811419336`, bundle
+**Status 2026-09-17 (second pass): the record EXISTS.** App id `6811419336`, bundle
 `com.matthewpark.vlogify`, SKU `vlogify-v1`, version 1.0 `PREPARE_FOR_SUBMISSION`.
-Steps 1 and 2 below are done. Step 3 is done except beta review details (Apple requires
-`contactPhone`). Step 4 is still entirely open. Blockers to submission are listed in
-`docs/NEXT-SESSION.md`.
+Steps 1, 2 and 3 are **done**, beta review details included. Step 4 is still entirely
+open and needs a browser. Blockers to submission are listed in `docs/NEXT-SESSION.md`.
+
+Verified live rather than assumed: `builds_list` returns 0, `contentRightsDeclaration` is
+`null`, and the beta review block was blank in *every* field, not just `contactPhone`.
 
 ---
 
@@ -47,7 +49,8 @@ Paste the resulting app ID (a 10-digit number in the URL) back to the session.
   - support URL `https://vlogify.app/support` · marketing URL `https://vlogify.app` · privacy `https://vlogify.app/privacy`
   - promotional text: "a private room of friends. one 2-second clip an hour. your whole day, side by side."
 - `beta_app_create_localization` (en-US): description for testers, feedback `hello@vlogify.app`, privacy URL.
-- `beta_app_update_review_details`: demo account **required**, `review@vlogify.app` / `000000`, contact Matthew, notes from `docs/APP-STORE-CHECKLIST.md`.
+- `beta_app_update_review_details`: **done.** Demo account required, `review@vlogify.app` / `000000` -- which is real: `MockBackend.testEmail` and `testCode` are pinned in the build and no mail is sent. Contact Matthew Park / `matthew.parkk0@gmail.com` / `+15029998282`, notes expanded from `docs/APP-STORE-CHECKLIST.md`.
+- `beta_app_update_localization`: feedback email moved off `hello@vlogify.app`, which has no MX and would have bounced both tester feedback and Apple's own beta-review mail.
 - `export_compliance_create_declaration`: no proprietary or third-party cryptography beyond HTTPS; available in France.
 - `beta_groups_create` "friends" (internal off, public link off).
 
