@@ -7,6 +7,26 @@ struct VlogifyApp: App {
 
     init() {
         FontRegistration.assertBundled()
+        Self.applyHandToSystemChrome()
+    }
+
+    /// Navigation titles and bar buttons are drawn by UIKit, outside SwiftUI's font
+    /// environment; this gives them the same hand as everything else.
+    private static func applyHandToSystemChrome() {
+        guard let title = Typography.handUIFont(size: 22),
+              let large = Typography.handUIFont(size: 34),
+              let button = Typography.handUIFont(size: 19) else { return }
+        let bar = UINavigationBarAppearance()
+        bar.configureWithOpaqueBackground()
+        bar.backgroundColor = .white
+        bar.shadowColor = .clear
+        bar.titleTextAttributes = [.font: title]
+        bar.largeTitleTextAttributes = [.font: large]
+        UINavigationBar.appearance().standardAppearance = bar
+        UINavigationBar.appearance().scrollEdgeAppearance = bar
+        UINavigationBar.appearance().compactAppearance = bar
+        UIBarButtonItem.appearance().setTitleTextAttributes([.font: button], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([.font: button], for: .highlighted)
     }
 
     var body: some Scene {

@@ -44,9 +44,9 @@ struct ReportSheet: View {
             .navigationTitle("report")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) { Button("cancel") { dismiss() }.foregroundStyle(Color.text) }
+                ToolbarItem(placement: .cancellationAction) { Button("cancel") { dismiss() }.font(.vlogLabel).foregroundStyle(Color.text) }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("send") { send() }.disabled(busy).foregroundStyle(Color.actionInk)
+                    Button("send") { send() }.disabled(busy).font(.vlogLabel).foregroundStyle(Color.actionInk)
                         .accessibilityIdentifier("report.send")
                 }
             }

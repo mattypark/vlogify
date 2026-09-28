@@ -41,7 +41,7 @@ struct NotificationsView: View {
             .background(Color.ground.ignoresSafeArea())
             .navigationTitle("nudges")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("close") { dismiss() }.foregroundStyle(Color.text) } }
+            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("close") { dismiss() }.font(.vlogLabel).foregroundStyle(Color.text) } }
         }
         .presentationDetents([.medium])
         .presentationBackground(Color.ground)

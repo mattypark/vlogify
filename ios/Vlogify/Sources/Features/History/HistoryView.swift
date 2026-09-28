@@ -41,7 +41,7 @@ struct HistoryView: View {
             .background(Color.ground.ignoresSafeArea())
             .navigationTitle("history")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("close") { dismiss() }.foregroundStyle(Color.text) } }
+            .toolbar { ToolbarItem(placement: .cancellationAction) { Button("close") { dismiss() }.font(.vlogLabel).foregroundStyle(Color.text) } }
         }
         .presentationBackground(Color.ground)
         .task {

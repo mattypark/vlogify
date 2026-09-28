@@ -26,7 +26,7 @@ struct ProfileView: View {
                             .onSubmit { save() }
                             .accessibilityIdentifier("profile.nameField")
                     }
-                } header: { Text("you") }
+                } header: { Text("you").font(.vlogCaption) }
                 .listRowBackground(Color.card)
 
                 Section {
@@ -64,7 +64,7 @@ struct ProfileView: View {
                     Button { showBlocked = true } label: { row("blocked people", value: "") }
                         .accessibilityIdentifier("settings.blocked")
                     row("clips on this phone", value: ByteCountFormatter.string(fromByteCount: state.cache.sizeOnDisk, countStyle: .file))
-                } header: { Text("settings") }
+                } header: { Text("settings").font(.vlogCaption) }
                 .listRowBackground(Color.card)
 
                 Section {
@@ -75,7 +75,7 @@ struct ProfileView: View {
                     Link(destination: Legal.support) { row("help & support", value: "") }
                         .accessibilityIdentifier("legal.support")
                     row("version", value: Legal.version)
-                } header: { Text("about") }
+                } header: { Text("about").font(.vlogCaption) }
                 .listRowBackground(Color.card)
 
                 Section {
@@ -84,7 +84,7 @@ struct ProfileView: View {
                         .accessibilityIdentifier("account.signOut")
                     Button("delete account", role: .destructive) { confirmDelete = true }
                         .accessibilityIdentifier("account.delete")
-                } header: { Text("account") } footer: {
+                } header: { Text("account").font(.vlogCaption) } footer: {
                     Text("deleting removes your account, your clips, and the rooms you own. it cannot be undone.")
                 }
                 .listRowBackground(Color.card)
@@ -93,7 +93,7 @@ struct ProfileView: View {
             .background(Color.ground.ignoresSafeArea())
             .navigationTitle("profile")
             .navigationBarTitleDisplayMode(.inline)
-            .toolbar { ToolbarItem(placement: .confirmationAction) { Button("done") { save(); dismiss() }.foregroundStyle(Color.text) } }
+            .toolbar { ToolbarItem(placement: .confirmationAction) { Button("done") { save(); dismiss() }.font(.vlogLabel).foregroundStyle(Color.text) } }
         }
         .tint(Color.text)
         .presentationBackground(Color.ground)

@@ -30,7 +30,6 @@ struct RoomView: View {
             .background(Color.ground.ignoresSafeArea())
             .navigationTitle(room.name ?? (room.isSolo ? String(localized: "just me", bundle: .app) : String(localized: "untitled room", bundle: .app)))
             .navigationBarTitleDisplayMode(.inline)
-            .toolbarBackground(Color.ground, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
