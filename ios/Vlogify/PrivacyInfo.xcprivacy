@@ -11,13 +11,13 @@
 
          Name: the display name typed at profile setup (Sign in with Apple's name is only
          used to prefill it). User ID: the account identifier. Photos or Videos: the clips,
-         which are the product. Other User Content: the mark each person draws, shown to
+         which are the product. Audio Data: the sound recorded with each clip. Other User Content: the mark each person draws, shown to
          their rooms. No email address: sign-in is Sign in with Apple only, and the backend
          never stores the address Apple may pass. Nothing is used for tracking, and there
          is no analytics of any kind.
 
          The App Store Connect nutrition label must say the same thing: Data Linked to
-         You = Contact Info (Name), User Content (Photos or Videos, Other User Content),
+         You = Contact Info (Name), User Content (Photos or Videos, Audio Data, Other User Content),
          Identifiers (User ID), all App Functionality, none used for tracking. A manifest
          that disagrees with the label is an automatic rejection. -->
     <key>NSPrivacyCollectedDataTypes</key>
@@ -45,6 +45,16 @@
         <dict>
             <key>NSPrivacyCollectedDataType</key>
             <string>NSPrivacyCollectedDataTypePhotosorVideos</string>
+            <key>NSPrivacyCollectedDataTypeLinked</key>
+            <true/>
+            <key>NSPrivacyCollectedDataTypeTracking</key>
+            <false/>
+            <key>NSPrivacyCollectedDataTypePurposes</key>
+            <array><string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string></array>
+        </dict>
+        <dict>
+            <key>NSPrivacyCollectedDataType</key>
+            <string>NSPrivacyCollectedDataTypeAudioData</string>
             <key>NSPrivacyCollectedDataTypeLinked</key>
             <true/>
             <key>NSPrivacyCollectedDataTypeTracking</key>
