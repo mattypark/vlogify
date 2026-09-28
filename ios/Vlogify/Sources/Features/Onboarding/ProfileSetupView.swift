@@ -54,7 +54,7 @@ struct ProfileSetupView: View {
             Text("what do friends call you?")
                 .font(.vlogTitle)
                 .foregroundStyle(Color.text)
-            Text("it goes under your clips.")
+            Text("it goes under your clips. optional: you can skip it and change it later.")
                 .font(.vlogBody)
                 .foregroundStyle(Color.textSoft)
             TextField("your name", text: $name)
@@ -75,6 +75,20 @@ struct ProfileSetupView: View {
                 .disabled(trimmed.isEmpty)
                 .opacity(trimmed.isEmpty ? 0.4 : 1)
                 .accessibilityIdentifier("profile.next")
+            // A name is optional: Sign in with Apple may already have shared one, or the
+            // person may not want to (Guideline 4). The mark is who they are either way.
+            Button {
+                name = String(localized: "friend", bundle: .app)
+                toDraw()
+            } label: {
+                Text("skip")
+                    .font(.vlogLabel)
+                    .foregroundStyle(Color.textSoft)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: Metrics.hitTarget)
+            }
+            .buttonStyle(.plain)
+            .accessibilityIdentifier("profile.skipName")
         }
     }
 
