@@ -20,10 +20,10 @@ INSERT INTO profiles (id, display_name, avatar_seed, mark, created_at) VALUES
   ('demo-sam', 'sam', 11, 'AT2AgIGAgoGDg4OFgoiAinyLeYt1inGIbYRrgGp6a3RtbXJoeGSAYYhgkGKZZqBtpXWof6mKppagoJepjK-As3KyZK9Yp02cRo9CgENvSF9RUV1FbTx_OJI5pT-2ScNYzWvRf9CVyaq9vazMl9eA22faUNI7xCqxH5kZgA', '{{DAY1}}T00:00:00Z')
 ON CONFLICT(id) DO UPDATE SET display_name = excluded.display_name, avatar_seed = excluded.avatar_seed, mark = excluded.mark;
 
--- REV1EF is a valid code (check character F, verified against InviteCode.swift). Capacity 6:
+-- REV1EF is a valid code (check character F, verified against InviteCode.swift). Capacity 20:
 -- three demo people, the reviewer, and room to spare for a second reviewer device.
 INSERT INTO rooms (id, name, type, capacity, owner_id, invite_code, created_at) VALUES
-  ('demo-review-room', 'app review', 'log', 6, 'demo-matthew', 'REV1EF', '{{DAY1}}T00:00:00Z')
+  ('demo-review-room', 'app review', 'log', 20, 'demo-matthew', 'REV1EF', '{{DAY1}}T00:00:00Z')
 ON CONFLICT(id) DO UPDATE SET name = excluded.name, capacity = excluded.capacity, owner_id = excluded.owner_id,
   invite_code = excluded.invite_code;
 
