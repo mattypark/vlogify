@@ -8,10 +8,11 @@ import VlogifyEngine
 
 public protocol AuthService: Sendable {
     var session: Session? { get async }
-    /// `identityToken` and `nonce` come straight from `ASAuthorization`. The backend
-    /// verifies the token with Apple and returns a session; the app never sees the
-    /// verification.
-    func signInWithApple(identityToken: String, nonce: String, fullName: String?) async throws -> Session
+    /// `identityToken`, `nonce` and `authorizationCode` come straight from
+    /// `ASAuthorization`. The backend verifies the token with Apple and returns a
+    /// session; the app never sees the verification. The code is exchanged once for the
+    /// refresh token that account deletion revokes (5.1.1(v)).
+    func signInWithApple(identityToken: String, nonce: String, authorizationCode: String?, fullName: String?) async throws -> Session
     /// Google goes through the system browser, not a bundled SDK: the app opens this
     /// URL in `ASWebAuthenticationSession` and hands the callback back.
     func beginGoogleSignIn() async throws -> URL
@@ -28,8 +29,10 @@ public protocol AuthService: Sendable {
 public protocol ProfileService: Sendable {
     func me() async throws -> Profile
     func update(displayName: String) async throws -> Profile
-    /// The user's colour (avatar disc, tile outline, recording frame). 0...11.
+    /// The legacy colour index, 0...11. Kept for older builds; the mark replaced it.
     func update(avatarSeed: Int) async throws -> Profile
+    /// The person's drawn mark: their avatar, clip badge and signature on the export.
+    func update(mark: Mark) async throws -> Profile
 }
 
 public protocol RoomService: Sendable {
@@ -58,8 +61,8 @@ public protocol ClipService: Sendable {
 public protocol MediaStore: Sendable {
     func uploadURL(for clip: Clip) async throws -> SignedUpload
     func upload(fileURL: URL, to signed: SignedUpload) async throws
-    /// A playable URL. For the mock it is a file in the container; for R2 it is a
-    /// short-lived presigned GET.
+    /// A playable URL. For the mock it is a file in the container; for the Cloudflare
+    /// backend it is a short-lived URL the Worker signed itself.
     func downloadURL(storageKey: String) async throws -> URL
 }
 

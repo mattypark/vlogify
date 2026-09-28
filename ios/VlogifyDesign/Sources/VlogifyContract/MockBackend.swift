@@ -73,9 +73,9 @@ public actor MockBackend {
         guard scenario != .empty else { return }
 
         let created = now().addingTimeInterval(-86_400 * 12)
-        let me = Profile(id: Self.testUserID, displayName: "matthew", avatarSeed: 7, createdAt: created)
-        let jiwoo = Profile(id: "user-jiwoo", displayName: "jiwoo", avatarSeed: 2, createdAt: created)
-        let sam = Profile(id: "user-sam", displayName: "sam", avatarSeed: 11, createdAt: created)
+        let me = Profile(id: Self.testUserID, displayName: "matthew", avatarSeed: 7, createdAt: created, mark: .sample(0))
+        let jiwoo = Profile(id: "user-jiwoo", displayName: "jiwoo", avatarSeed: 2, createdAt: created, mark: .sample(1))
+        let sam = Profile(id: "user-sam", displayName: "sam", avatarSeed: 11, createdAt: created, mark: .sample(2))
         for profile in [me, jiwoo, sam] { profiles[profile.id] = profile }
         activeSession = Session(userID: me.id, provider: .apple, issuedAt: created)
 
@@ -117,7 +117,8 @@ public actor MockBackend {
     }
 
     func seedClip(room roomID: RoomID, member: UserID, slot: Slot) {
-        let id = "clip-\(roomID)-\(member)-\(slot.key)"
+        // No "/" in an id: ids go into URL paths on the real backend.
+        let id = "clip-\(roomID)-\(member)-\(slot.day)-\(slot.hour)"
         let storageKey = sampleClip?.lastPathComponent ?? "\(id).mov"
         clips[id] = Clip(id: id, roomID: roomID, memberID: member, day: slot.day, hour: slot.hour,
                          durationMs: 2_000, width: 1080, height: 1920, storageKey: storageKey,
@@ -172,7 +173,7 @@ extension MockBackend: AuthService {
         get async { currentSession }
     }
 
-    public func signInWithApple(identityToken: String, nonce: String, fullName: String?) async throws -> Session {
+    public func signInWithApple(identityToken: String, nonce: String, authorizationCode: String?, fullName: String?) async throws -> Session {
         signIn(as: Self.testUserID, name: fullName ?? "you", provider: .apple)
     }
 
@@ -232,6 +233,16 @@ extension MockBackend: ProfileService {
         return profile
     }
 
+    public func update(mark: Mark) async throws -> Profile {
+        let session = try requireSession()
+        guard !mark.isEmpty else { throw ContractError.unsupported }
+        guard var profile = profiles[session.userID] else { throw ContractError.notSignedIn }
+        profile.mark = mark
+        profiles[session.userID] = profile
+        propagate(profile, for: session.userID)
+        return profile
+    }
+
     func propagate(_ profile: Profile, for userID: UserID) {
         for roomID in memberships.keys {
             memberships[roomID] = memberships[roomID]?.map { membership in
@@ -248,14 +259,7 @@ extension MockBackend: ProfileService {
         guard var profile = profiles[session.userID] else { throw ContractError.notSignedIn }
         profile.displayName = displayName
         profiles[session.userID] = profile
-        for roomID in memberships.keys {
-            memberships[roomID] = memberships[roomID]?.map { membership in
-                guard membership.userID == session.userID else { return membership }
-                var updated = membership
-                updated.profile = profile
-                return updated
-            }
-        }
+        propagate(profile, for: session.userID)
         return profile
     }
 }
@@ -380,7 +384,9 @@ extension MockBackend: ClipService {
 
 extension MockBackend: MediaStore {
     public func uploadURL(for clip: Clip) async throws -> SignedUpload {
-        let key = "\(clip.roomID)/\(clip.day)/\(clip.hour)-\(clip.memberID).mov"
+        // The same layout the Worker mints: one object per clip id, so a vlog room's
+        // second clip in an hour never overwrites the first.
+        let key = "clips/\(clip.roomID)/\(clip.day)/\(clip.id).mov"
         return SignedUpload(url: clipsDirectory.appendingPathComponent(key), headers: [:],
                             storageKey: key, expiresAt: now().addingTimeInterval(600))
     }

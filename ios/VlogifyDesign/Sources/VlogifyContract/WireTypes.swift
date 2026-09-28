@@ -17,21 +17,37 @@ public struct Profile: Codable, Hashable, Sendable, Identifiable {
         case id
         case displayName = "display_name"
         case avatarSeed = "avatar_seed"
+        case mark
         case createdAt = "created_at"
     }
 
     public let id: UserID
     public var displayName: String
-    /// Two letters drawn on a coloured disc when there is no photo. The colour is
-    /// derived from the id so it is stable across devices.
+    /// A hue index, 0...11. Older builds drew it as the person's colour; it stays on the
+    /// wire so those builds keep drawing the same colour, and nothing remaps it.
     public var avatarSeed: Int
+    /// The doodle the person drew. Nil until they draw one, which onboarding asks for.
+    public var mark: Mark?
     public var createdAt: Date
 
-    public init(id: UserID, displayName: String, avatarSeed: Int, createdAt: Date) {
+    public init(id: UserID, displayName: String, avatarSeed: Int, createdAt: Date, mark: Mark? = nil) {
         self.id = id
         self.displayName = displayName
         self.avatarSeed = avatarSeed
         self.createdAt = createdAt
+        self.mark = mark
+    }
+
+    /// A mark the app cannot read is treated as no mark (the person is asked to draw
+    /// again) rather than failing the whole profile -- a room with one unreadable
+    /// member must still open.
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(UserID.self, forKey: .id)
+        displayName = try container.decode(String.self, forKey: .displayName)
+        avatarSeed = try container.decode(Int.self, forKey: .avatarSeed)
+        mark = try? container.decodeIfPresent(Mark.self, forKey: .mark)
+        createdAt = try container.decode(Date.self, forKey: .createdAt)
     }
 }
 
@@ -294,6 +310,11 @@ public enum ContractError: Error, Equatable, Sendable {
     case notOwner
     case notMember
     case invalidEmailCode
+    /// Too many attempts (invite codes); try again later.
+    case rateLimited
+    /// The backend does not offer this (Google and email sign-in until there is a
+    /// sending domain).
+    case unsupported
     case network
 }
 
