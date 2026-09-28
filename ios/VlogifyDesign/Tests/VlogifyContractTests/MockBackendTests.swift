@@ -122,3 +122,26 @@ struct MockBackendTests {
         #expect(event == .clipPosted(clip))
     }
 }
+
+struct MockIdempotencyTests {
+    @Test("Posting the same clip id twice returns the first post, not slotAlreadyPosted")
+    func retryIsIdempotent() async throws {
+        let dir = FileManager.default.temporaryDirectory.appendingPathComponent("idem-\(UUID().uuidString)")
+        let mock = MockBackend(clipsDirectory: dir)
+        await mock.seed(.full)
+        let rooms = try await mock.rooms()
+        let group = try #require(rooms.first { !$0.isSolo })
+        let slot = Slot(day: DayKey(year: 2031, month: 1, day: 2), hour: 9)
+        let clip = Clip(id: UUID().uuidString.lowercased(), roomID: group.id, memberID: MockBackend.testUserID,
+                        day: slot.day, hour: slot.hour, durationMs: 2_000, width: 1080, height: 1920,
+                        storageKey: "k", createdAt: Date())
+        let first = try await mock.post(clip)
+        let again = try await mock.post(clip)
+        #expect(first == again)
+        var other = clip
+        other = Clip(id: UUID().uuidString.lowercased(), roomID: clip.roomID, memberID: clip.memberID,
+                     day: clip.day, hour: clip.hour, durationMs: 2_000, width: 1080, height: 1920,
+                     storageKey: "k2", createdAt: Date())
+        await #expect(throws: ContractError.slotAlreadyPosted) { try await mock.post(other) }
+    }
+}

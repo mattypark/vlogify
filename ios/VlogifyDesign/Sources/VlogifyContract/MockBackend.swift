@@ -345,6 +345,9 @@ extension MockBackend: ClipService {
         let session = try requireSession()
         try requireMember(session.userID, of: clip.roomID)
         guard let room = rooms[clip.roomID] else { throw ContractError.roomNotFound }
+        // A retry of a post that already landed (the response was lost) gets the same
+        // clip back rather than "already posted": the upload queue depends on it.
+        if let existing = clips[clip.id], existing.memberID == session.userID { return existing }
         if let limit = RoomRules.clipLimit(for: room.type), Double(clip.durationMs) > limit * 1_000 + 250 {
             throw ContractError.clipTooLong
         }
