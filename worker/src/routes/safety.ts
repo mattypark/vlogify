@@ -5,7 +5,7 @@ import { profileJSON, type ProfileRow } from "../db";
 import type { AppEnv } from "../env";
 import { fail } from "../errors";
 import { background, readBody } from "../http";
-import { now, randomId } from "../util";
+import { iso, now, randomId } from "../util";
 
 export const safetyRoutes = new Hono<AppEnv>();
 
@@ -24,10 +24,16 @@ const WireReport = z.object({
 
 /// Guideline 1.2. A report hides the clip from the reporter at once (the day log filters it)
 /// and waits for a moderator: docs/MODERATION.md.
+const REPORTS_PER_HOUR = 20;
+
 safetyRoutes.post("/reports", async (c) => {
   const userId = c.get("userId");
   const report = await readBody(c, WireReport);
   if (!report.clip_id && !report.user_id) fail("bad_request", "report a clip or a person");
+  // Every report pings a person. Twenty an hour is far past honest use.
+  const recent = await c.env.DB.prepare("SELECT COUNT(*) AS n FROM reports WHERE reporter_id = ? AND created_at > ?")
+    .bind(userId, iso(new Date(Date.now() - 3_600_000))).first<{ n: number }>();
+  if ((recent?.n ?? 0) >= REPORTS_PER_HOUR) fail("rate_limited");
   let roomId: string | null = null;
   let storageKey: string | null = null;
   let subject = report.user_id ?? null;
