@@ -9,8 +9,8 @@ struct SegmentToggle: View {
 
     var body: some View {
         HStack(spacing: 0) {
-            segment(.camera, "camera", fill: .blueLight)
-            segment(.logs, "logs", fill: .sand)
+            segment(.camera, "camera", fill: .fog)
+            segment(.logs, "logs", fill: .fog)
         }
         .padding(Space.xxs)
         .sticker(fill: .card, radius: Radius.pill)

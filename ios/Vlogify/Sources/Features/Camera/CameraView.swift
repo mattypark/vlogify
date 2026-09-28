@@ -173,11 +173,11 @@ struct CameraView: View {
                     .stroke(Color.avatar(seed: state.profile?.avatarSeed ?? 0), style: StrokeStyle(lineWidth: 5, lineCap: .round))
                     .rotationEffect(.degrees(-90))
                     .padding(-6)
-                DoodleSticker(.shutterSmile, scale: 0.78)
+                Circle().fill(Color.recording).frame(width: 26, height: 26)
             }
             .frame(width: Metrics.shutter, height: Metrics.shutter)
         }
-        .buttonStyle(StickerCircleStyle(fill: .blueLight))
+        .buttonStyle(StickerCircleStyle(fill: .card))
         .rewardBeat(on: posted)
         .disabled(posting || state.rooms.isEmpty || alreadyPosted || state.permissions.isDenied)
         .opacity(alreadyPosted ? 0.4 : 1)

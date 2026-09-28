@@ -43,7 +43,7 @@ struct LanguageView: View {
                         .padding(.horizontal, Space.md)
                         .frame(height: 52)
                     }
-                    .buttonStyle(StickerButtonStyle(fill: picked == language ? Color(Palette.playful(index: AppLanguage.allCases.firstIndex(of: language) ?? 0).color) : .card, radius: Radius.row))
+                    .buttonStyle(StickerButtonStyle(fill: picked == language ? .fog : .card, radius: Radius.row))
                     .stickerRoom()
                     .accessibilityIdentifier("language.\(language.rawValue)")
                     .accessibilityAddTraits(picked == language ? .isSelected : [])

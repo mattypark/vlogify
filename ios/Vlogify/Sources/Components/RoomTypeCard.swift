@@ -30,16 +30,16 @@ struct RoomTypeCard: View {
     private var fill: Color {
         switch type {
         case .log: return .action
-        case .stack: return .periwinkle
-        default: return .blueLight
+        case .stack: return .fog
+        default: return .fog
         }
     }
 
     private var glyph: Doodle {
         switch type {
-        case .log: return .glyphLog
-        case .stack: return .glyphStack
-        default: return .glyphVlog
+        case .log: return .friends
+        case .stack: return .frames
+        default: return .page
         }
     }
 
@@ -72,7 +72,7 @@ struct SizePicker: View {
                         .frame(height: 48)
                         .padding(.horizontal, option == 20 ? Space.sm : 0)
                 }
-                .buttonStyle(StickerButtonStyle(fill: capacity == option ? .sand : .card, radius: Radius.pill))
+                .buttonStyle(StickerButtonStyle(fill: capacity == option ? .fog : .card, radius: Radius.pill))
                 .stickerRoom()
                 .accessibilityIdentifier("newRoom.size.\(option)")
                 .accessibilityAddTraits(capacity == option ? .isSelected : [])

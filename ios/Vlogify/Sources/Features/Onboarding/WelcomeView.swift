@@ -14,12 +14,9 @@ struct WelcomeView: View {
     var body: some View {
         ZStack {
             Color.chalk.ignoresSafeArea()
-            GeometryReader { proxy in
-                doodleField(in: proxy.size)
-            }
             VStack(spacing: 0) {
                 Spacer()
-                DoodleSticker(.mascot)
+                DoodleSticker(.camcorder, animated: true)
                     .padding(.bottom, Space.lg)
                 Wordmark(onPaper: true, size: 34)
                 Text("new moment every hour,\nvlog it with your friends.")
@@ -36,8 +33,7 @@ struct WelcomeView: View {
                         .signInWithAppleButtonStyle(.black)
                         .frame(height: 56)
                         .clipShape(Capsule())
-                        .overlay(Capsule().strokeBorder(Color.text, lineWidth: Sticker.line))
-                        .sticker(fill: .text, shape: AnyShape(Capsule()))
+                        .sticker(fill: .text, corner: .capsule)
                         .overlay(Capsule().fill(Color.black.opacity(0.001)).onTapGesture { signInWithApple() })
                         .stickerRoom()
                         .accessibilityIdentifier("welcome.apple")
@@ -73,27 +69,6 @@ struct WelcomeView: View {
         .tapBursts()
         .sheet(isPresented: $showEmail) { EmailSignInSheet() }
         .toastOverlay(state.toast)
-    }
-
-    /// The stickers, placed by hand. Positions are fractions of the screen so the
-    /// same scatter works on a 16e and a Pro Max.
-    private func doodleField(in size: CGSize) -> some View {
-        let w = size.width, h = size.height
-        return ZStack {
-            DoodleSticker(.sparkleSmall).position(x: w * 0.09, y: h * 0.12)
-            DoodleSticker(.starHappy).position(x: w * 0.28, y: h * 0.12)
-            DoodleSticker(.sparkleSmall).position(x: w * 0.54, y: h * 0.12)
-            DoodleSticker(.starSurprised).position(x: w * 0.74, y: h * 0.13)
-            DoodleSticker(.sparkleLarge).position(x: w * 0.9, y: h * 0.2)
-            DoodleSticker(.envelope).position(x: w * 0.13, y: h * 0.3)
-            DoodleSticker(.moon).position(x: w * 0.86, y: h * 0.3)
-            DoodleSticker(.pizza, scale: 0.7).position(x: w * 0.15, y: h * 0.51)
-            DoodleSticker(.orange, scale: 0.9).position(x: w * 0.44, y: h * 0.54)
-            DoodleSticker(.plant, scale: 0.55).position(x: w * 0.82, y: h * 0.52)
-            DoodleSticker(.tea, scale: 0.6).position(x: w * 0.14, y: h * 0.95)
-            DoodleSticker(.flames, scale: 0.7).position(x: w * 0.5, y: h * 0.965)
-            DoodleSticker(.sundae, scale: 0.6).position(x: w * 0.86, y: h * 0.95)
-        }
     }
 
     private func signInWithApple() {

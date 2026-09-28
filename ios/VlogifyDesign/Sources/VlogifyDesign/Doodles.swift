@@ -1,240 +1,258 @@
 import SwiftUI
 
-/// Every illustration in the app, as a slot.
+/// Every drawing in the app, drawn in code with the same pen as everything else.
 ///
-/// The artist has not drawn anything yet. Rather than bake in a placeholder that then
-/// has to be found and replaced, each drawing has a name, a home, and a size, and the
-/// view asks for the slot. If `Doodles/<name>.png` exists in the asset catalogue it is
-/// used; otherwise the slot draws a flat shape of the right footprint so the layout is
-/// real even while the art is not. `docs/ART-SLOTS.md` is generated from this list.
+/// There are no image assets and no artist slots: each doodle is a handful of strokes in
+/// a unit square, built from lines, arcs and curves with a little seeded tremor so no
+/// two lines are ruler-straight. The same `InkStrokes` renderer draws them and the marks
+/// people draw themselves, so a doodle and a person's mark sit on the page as the same
+/// kind of thing -- and every doodle can draw itself on screen, stroke by stroke.
+///
+/// The set is about recording: a clock, a phone buzzing, clips side by side, a camera,
+/// the nudge, the 4 AM moon, friends, a page. Arrows and marks for annotations.
 public enum Doodle: String, CaseIterable, Sendable {
-    // Welcome page
-    case mascot, starHappy, starSurprised, sparkleSmall, sparkleLarge, moon, envelope
-    case pizza, orange, plant, tea, flames, sundae
-    // Home
-    case turtle, ufo
-    // Room-type cards
-    case glyphLog, glyphStack, glyphVlog
-    // Camera
-    case shutterSmile
+    // Onboarding and empty states
+    case clock, phoneBuzz, frames, camcorder, bell, moon, friends, page
+    // Annotations
+    case arrowDownRight, arrowDownLeft, arrowDown, arrowUpLeft, arrowTurn
+    // Glyphs
+    case check, plus, cross, undo, sparkle, heart
 
-    /// The design size in points, at the place the doodle is used.
+    /// The design size in points.
     public var size: CGSize {
         switch self {
-        case .mascot: return CGSize(width: 180, height: 160)
-        case .starHappy, .starSurprised: return CGSize(width: 76, height: 76)
-        case .sparkleSmall: return CGSize(width: 24, height: 24)
-        case .sparkleLarge: return CGSize(width: 40, height: 40)
-        case .moon: return CGSize(width: 84, height: 84)
-        case .envelope: return CGSize(width: 70, height: 56)
-        case .pizza: return CGSize(width: 110, height: 96)
-        case .orange: return CGSize(width: 48, height: 52)
-        case .plant: return CGSize(width: 190, height: 170)
-        case .tea: return CGSize(width: 96, height: 140)
-        case .flames: return CGSize(width: 96, height: 60)
-        case .sundae: return CGSize(width: 90, height: 130)
-        case .turtle: return CGSize(width: 78, height: 44)
-        case .ufo: return CGSize(width: 110, height: 78)
-        case .glyphLog, .glyphStack, .glyphVlog: return CGSize(width: 64, height: 120)
-        case .shutterSmile: return CGSize(width: 84, height: 84)
+        case .clock, .bell, .moon, .camcorder: CGSize(width: 150, height: 150)
+        case .phoneBuzz: CGSize(width: 150, height: 170)
+        case .frames: CGSize(width: 220, height: 130)
+        case .friends: CGSize(width: 190, height: 120)
+        case .page: CGSize(width: 110, height: 140)
+        case .arrowDownRight, .arrowDownLeft, .arrowUpLeft: CGSize(width: 56, height: 48)
+        case .arrowDown: CGSize(width: 28, height: 56)
+        case .arrowTurn: CGSize(width: 44, height: 44)
+        case .check, .plus, .cross, .undo, .sparkle, .heart: CGSize(width: 24, height: 24)
         }
     }
 
-    /// Where it appears, for the artist's brief.
-    public var placement: String {
+    /// The strokes, in a unit square (y down), in the order a hand would draw them.
+    public var strokes: [[CGPoint]] {
+        var pen = DoodlePen(seed: rawValue)
         switch self {
-        case .mascot: return "Welcome, centre. The app icon too."
-        case .starHappy: return "Welcome, top-left of the mascot."
-        case .starSurprised: return "Welcome, top-right of the mascot."
-        case .sparkleSmall, .sparkleLarge: return "Welcome, scattered around the top."
-        case .moon: return "Welcome, right of the mascot, asleep."
-        case .envelope: return "Welcome, left of the mascot, with a heart."
-        case .pizza: return "Welcome, left, under the tagline."
-        case .orange: return "Welcome, centre, under the tagline."
-        case .plant: return "Welcome, right, under the tagline, in a pot."
-        case .tea: return "Welcome, bottom-left, a mug that says tea."
-        case .flames: return "Welcome, bottom-centre, three small flames."
-        case .sundae: return "Welcome, bottom-right."
-        case .turtle: return "Home, empty state, bottom-left, walking."
-        case .ufo: return "Home, empty state, bottom-right, an alien waving."
-        case .glyphLog: return "New room sheet: three stacked clips labelled 12:00."
-        case .glyphStack: return "New room sheet: one tall clip labelled 12:00."
-        case .glyphVlog: return "New room sheet: one small clip labelled 12:00."
-        case .shutterSmile: return "Camera: the shutter. A smiley face on a sky disc."
-        }
-    }
-
-    /// The asset name the artist's file must have.
-    public var assetName: String { "Doodles/\(rawValue)" }
-
-    /// The stand-in color while the art is missing.
-    var placeholderColor: Color {
-        switch self {
-        case .mascot, .starHappy, .starSurprised, .sparkleSmall, .sparkleLarge, .moon, .sundae:
-            return .sand
-        case .shutterSmile: return .blueLight
-        case .plant, .turtle: return .good
-        case .pizza, .orange, .flames: return .warn
-        case .tea, .ufo, .envelope: return .lilac
-        case .glyphLog, .glyphStack, .glyphVlog: return .cardRaised
+        case .clock:
+            return [
+                pen.arc(center: (0.5, 0.53), radius: 0.4, from: -100, to: 268),
+                pen.line((0.5, 0.53), (0.5, 0.3)),
+                pen.line((0.5, 0.53), (0.67, 0.61)),
+                pen.line((0.5, 0.17), (0.5, 0.22)),
+                pen.line((0.86, 0.53), (0.81, 0.53)),
+                pen.line((0.5, 0.89), (0.5, 0.84)),
+                pen.line((0.14, 0.53), (0.19, 0.53)),
+            ]
+        case .phoneBuzz:
+            return [
+                pen.roundedRect(x: 0.33, y: 0.1, w: 0.34, h: 0.8, r: 0.07),
+                pen.line((0.45, 0.17), (0.55, 0.17)),
+                pen.arc(center: (0.33, 0.5), radius: 0.12, from: 145, to: 215),
+                pen.arc(center: (0.33, 0.5), radius: 0.2, from: 150, to: 210),
+                pen.arc(center: (0.67, 0.5), radius: 0.12, from: -35, to: 35),
+                pen.arc(center: (0.67, 0.5), radius: 0.2, from: -30, to: 30),
+            ]
+        case .frames:
+            return [
+                pen.roundedRect(x: 0.04, y: 0.12, w: 0.28, h: 0.76, r: 0.04),
+                pen.roundedRect(x: 0.36, y: 0.12, w: 0.28, h: 0.76, r: 0.04),
+                pen.roundedRect(x: 0.68, y: 0.12, w: 0.28, h: 0.76, r: 0.04),
+                // A face, a little house, a heart: three friends' hours.
+                pen.arc(center: (0.18, 0.46), radius: 0.07, from: 0, to: 360),
+                pen.line((0.18, 0.53), (0.18, 0.7)),
+                pen.polyline([(0.42, 0.52), (0.5, 0.36), (0.58, 0.52)]),
+                pen.polyline([(0.44, 0.5), (0.44, 0.7), (0.56, 0.7), (0.56, 0.5)]),
+                pen.heart(center: (0.82, 0.52), size: 0.12),
+            ]
+        case .camcorder:
+            return [
+                pen.roundedRect(x: 0.1, y: 0.38, w: 0.56, h: 0.4, r: 0.06),
+                pen.polyline([(0.66, 0.5), (0.9, 0.38), (0.9, 0.78), (0.66, 0.66)]),
+                pen.arc(center: (0.26, 0.26), radius: 0.11, from: 0, to: 360),
+                pen.arc(center: (0.5, 0.26), radius: 0.11, from: 0, to: 360),
+                pen.arc(center: (0.2, 0.48), radius: 0.025, from: 0, to: 360),
+            ]
+        case .bell:
+            return [
+                pen.curve((0.26, 0.72), (0.34, 0.66), (0.28, 0.2), (0.5, 0.2)),
+                pen.curve((0.5, 0.2), (0.72, 0.2), (0.66, 0.66), (0.74, 0.72)),
+                pen.line((0.22, 0.73), (0.78, 0.73)),
+                pen.arc(center: (0.5, 0.8), radius: 0.05, from: 0, to: 360),
+                pen.line((0.5, 0.2), (0.5, 0.14)),
+                pen.arc(center: (0.5, 0.45), radius: 0.36, from: 200, to: 235),
+                pen.arc(center: (0.5, 0.45), radius: 0.36, from: -55, to: -20),
+            ]
+        case .moon:
+            return [
+                pen.arc(center: (0.48, 0.52), radius: 0.34, from: 55, to: 305),
+                pen.arc(center: (0.8, 0.52), radius: 0.306, from: 246, to: 114, clockwise: false),
+            ] + pen.sparkle(center: (0.8, 0.2), size: 0.08) + pen.sparkle(center: (0.9, 0.42), size: 0.05)
+        case .friends:
+            return [
+                pen.arc(center: (0.2, 0.4), radius: 0.1, from: 0, to: 360),
+                pen.arc(center: (0.2, 0.82), radius: 0.17, from: 190, to: 350),
+                pen.arc(center: (0.5, 0.32), radius: 0.12, from: 0, to: 360),
+                pen.arc(center: (0.5, 0.82), radius: 0.2, from: 190, to: 350),
+                pen.arc(center: (0.8, 0.4), radius: 0.1, from: 0, to: 360),
+                pen.arc(center: (0.8, 0.82), radius: 0.17, from: 190, to: 350),
+            ]
+        case .page:
+            return [
+                pen.polyline([(0.66, 0.1), (0.2, 0.1), (0.2, 0.9), (0.8, 0.9), (0.8, 0.24), (0.66, 0.1)]),
+                pen.polyline([(0.66, 0.1), (0.66, 0.24), (0.8, 0.24)]),
+                pen.line((0.3, 0.42), (0.7, 0.42)),
+                pen.line((0.3, 0.54), (0.7, 0.54)),
+                pen.line((0.3, 0.66), (0.55, 0.66)),
+            ]
+        case .arrowDownRight:
+            return pen.arrow(pen.curve((0.06, 0.12), (0.3, 0.1), (0.6, 0.3), (0.88, 0.86)))
+        case .arrowDownLeft:
+            return pen.arrow(pen.curve((0.94, 0.12), (0.7, 0.1), (0.4, 0.3), (0.12, 0.86)))
+        case .arrowUpLeft:
+            return pen.arrow(pen.curve((0.92, 0.9), (0.66, 0.9), (0.3, 0.72), (0.1, 0.16)))
+        case .arrowDown:
+            return pen.arrow(pen.curve((0.5, 0.04), (0.3, 0.3), (0.72, 0.6), (0.5, 0.94)))
+        case .arrowTurn:
+            return pen.arrow(pen.arc(center: (0.5, 0.5), radius: 0.36, from: -60, to: 230))
+        case .check:
+            return [pen.polyline([(0.14, 0.54), (0.4, 0.8), (0.88, 0.18)])]
+        case .plus:
+            return [pen.line((0.5, 0.12), (0.5, 0.88)), pen.line((0.12, 0.5), (0.88, 0.5))]
+        case .cross:
+            return [pen.line((0.18, 0.18), (0.82, 0.82)), pen.line((0.82, 0.18), (0.18, 0.82))]
+        case .undo:
+            return pen.arrow(pen.curve((0.84, 0.82), (0.9, 0.36), (0.5, 0.2), (0.12, 0.4)))
+        case .sparkle:
+            return pen.sparkle(center: (0.5, 0.5), size: 0.42)
+        case .heart:
+            return [pen.heart(center: (0.5, 0.52), size: 0.4)]
         }
     }
 }
 
-/// Draws a doodle slot: the artist's PNG if it is in the bundle, a flat placeholder
-/// of the same footprint if not.
+/// A doodle at its design size, optionally drawing itself.
 public struct DoodleSticker: View {
-    let doodle: Doodle
-    let scale: CGFloat
+    private let doodle: Doodle
+    private let scale: CGFloat
+    private let animated: Bool
+    private let lineWidth: CGFloat
+    private let color: Color
+    private let delay: Double
 
-    public init(_ doodle: Doodle, scale: CGFloat = 1) {
+    public init(_ doodle: Doodle, scale: CGFloat = 1, animated: Bool = false,
+                lineWidth: CGFloat = Pen.line, color: Color = .text, delay: Double = 0) {
         self.doodle = doodle
         self.scale = scale
+        self.animated = animated
+        self.lineWidth = lineWidth
+        self.color = color
+        self.delay = delay
     }
 
     public var body: some View {
-        let size = CGSize(width: doodle.size.width * scale, height: doodle.size.height * scale)
-        Group {
-            #if canImport(UIKit)
-            if let image = UIImage(named: doodle.assetName) {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFit()
-            } else {
-                DoodlePlaceholder(doodle: doodle)
-            }
-            #else
-            DoodlePlaceholder(doodle: doodle)
-            #endif
-        }
-        .frame(width: size.width, height: size.height)
-        .accessibilityHidden(true)
+        InkDrawing(doodle.strokes, color: color, lineWidth: lineWidth,
+                   duration: 0.5 + Double(doodle.strokes.count) * 0.12, delay: delay, animated: animated)
+            .frame(width: doodle.size.width * scale, height: doodle.size.height * scale)
     }
 }
 
-/// A recognisable stand-in, not a grey box: the mascot is a cloud with a face because
-/// the layout has to be judged with something cloud-shaped in it.
-struct DoodlePlaceholder: View {
-    let doodle: Doodle
+/// Builds hand-drawn strokes: densified so the tremor has points to move, and nudged by
+/// a seeded amount so the same doodle draws the same way on every launch.
+struct DoodlePen {
+    private var random: SplitMix
+    private let tremor = 0.006
 
-    var body: some View {
-        GeometryReader { proxy in
-            let w = proxy.size.width
-            let h = proxy.size.height
-            switch doodle {
-            case .mascot:
-                MascotShape().fill(doodle.placeholderColor)
-                    .overlay(MascotShape().stroke(Color.text, lineWidth: max(2, w * 0.018)))
-                    .overlay(Face(eyeSize: w * 0.13).offset(y: h * 0.02))
-            case .shutterSmile:
-                Circle().fill(doodle.placeholderColor)
-                    .overlay(Circle().stroke(Color.action, lineWidth: max(3, w * 0.05)))
-                    .overlay(Face(eyeSize: w * 0.17).offset(y: -h * 0.03))
-            case .starHappy, .starSurprised, .sparkleSmall, .sparkleLarge:
-                StarShape(points: doodle == .sparkleSmall || doodle == .sparkleLarge ? 4 : 5)
-                    .fill(doodle.placeholderColor)
-                    .overlay(StarShape(points: 5).stroke(Color.text, lineWidth: doodle.size.width > 40 ? 2 : 0))
-            case .moon:
-                Circle().fill(doodle.placeholderColor)
-                    .overlay(Circle().fill(Color.card).offset(x: -w * 0.28, y: -h * 0.12))
-            case .glyphLog:
-                VStack(spacing: h * 0.06) {
-                    ForEach(0..<3, id: \.self) { _ in glyphClip(width: w * 0.8, height: h * 0.26) }
-                }
-                .frame(width: w, height: h)
-            case .glyphStack:
-                glyphClip(width: w * 0.9, height: h * 0.96).frame(width: w, height: h)
-            case .glyphVlog:
-                glyphClip(width: w * 0.8, height: h * 0.34).frame(width: w, height: h)
-            default:
-                // A drop of paint, seeded by the slot name so it never reshuffles: the
-                // layout can be judged with something that looks like art in it.
-                PaintBlob(color: doodle.placeholderColor, seed: doodle.rawValue)
-            }
+    init(seed: String) {
+        var hash: UInt64 = 0xcbf2_9ce4_8422_2325
+        for byte in seed.utf8 { hash ^= UInt64(byte); hash = hash &* 0x0000_0100_0000_01b3 }
+        random = SplitMix(seed: hash)
+    }
+
+    private mutating func shake(_ x: Double, _ y: Double) -> CGPoint {
+        CGPoint(x: x + (random.next() - 0.5) * 2 * tremor, y: y + (random.next() - 0.5) * 2 * tremor)
+    }
+
+    mutating func line(_ a: (Double, Double), _ b: (Double, Double)) -> [CGPoint] {
+        let length = ((b.0 - a.0) * (b.0 - a.0) + (b.1 - a.1) * (b.1 - a.1)).squareRoot()
+        let steps = max(2, Int(length / 0.05))
+        return (0...steps).map { step in
+            let t = Double(step) / Double(steps)
+            return shake(a.0 + (b.0 - a.0) * t, a.1 + (b.1 - a.1) * t)
         }
     }
 
-    func glyphClip(width: CGFloat, height: CGFloat) -> some View {
-        RoundedRectangle(cornerRadius: Radius.tile, style: .continuous)
-            .fill(Color.cardRaised)
-            .overlay(Text("12:00").font(.system(size: 9, weight: .heavy, design: .rounded)).foregroundStyle(Color.text))
-            .frame(width: width, height: height)
+    mutating func polyline(_ points: [(Double, Double)]) -> [CGPoint] {
+        var result: [CGPoint] = []
+        for index in 0..<(points.count - 1) {
+            let segment = line(points[index], points[index + 1])
+            result.append(contentsOf: index == 0 ? segment : Array(segment.dropFirst()))
+        }
+        return result
     }
-}
 
-/// Two eyes and a smile. The whole personality budget.
-struct Face: View {
-    let eyeSize: CGFloat
-
-    var body: some View {
-        VStack(spacing: eyeSize * 0.2) {
-            HStack(spacing: eyeSize * 0.5) {
-                eye
-                eye
-            }
-            SmileShape().stroke(Color.text, style: StrokeStyle(lineWidth: max(2, eyeSize * 0.16), lineCap: .round))
-                .frame(width: eyeSize * 1.6, height: eyeSize * 0.6)
+    /// Degrees, 0 = east, clockwise on screen (y down).
+    mutating func arc(center: (Double, Double), radius: Double, from: Double, to: Double, clockwise: Bool = true) -> [CGPoint] {
+        var end = to
+        if clockwise, end < from { end += 360 }
+        if !clockwise, end > from { end -= 360 }
+        let span = abs(end - from)
+        let steps = max(6, Int(span / 9))
+        return (0...steps).map { step in
+            let angle = (from + (end - from) * Double(step) / Double(steps)) * .pi / 180
+            return shake(center.0 + cos(angle) * radius, center.1 + sin(angle) * radius)
         }
     }
 
-    var eye: some View {
-        Circle().fill(Color.card)
-            .overlay(Circle().stroke(Color.text, lineWidth: max(1.5, eyeSize * 0.12)))
-            .overlay(Circle().fill(Color.text).frame(width: eyeSize * 0.5, height: eyeSize * 0.5).offset(x: eyeSize * 0.1))
-            .frame(width: eyeSize, height: eyeSize)
-    }
-}
-
-public struct MascotShape: Shape {
-    public init() {}
-
-    public func path(in rect: CGRect) -> Path {
-        // A cloud: one closed outline of bumps, so fill and stroke agree.
-        let w = rect.width, h = rect.height
-        func p(_ x: CGFloat, _ y: CGFloat) -> CGPoint { CGPoint(x: rect.minX + w * x, y: rect.minY + h * y) }
-        var path = Path()
-        path.move(to: p(0.18, 0.78))
-        path.addQuadCurve(to: p(0.10, 0.52), control: p(0.00, 0.72))
-        path.addQuadCurve(to: p(0.30, 0.34), control: p(0.10, 0.30))
-        path.addQuadCurve(to: p(0.55, 0.16), control: p(0.34, 0.06))
-        path.addQuadCurve(to: p(0.80, 0.34), control: p(0.78, 0.08))
-        path.addQuadCurve(to: p(0.92, 0.60), control: p(1.02, 0.36))
-        path.addQuadCurve(to: p(0.74, 0.86), control: p(1.00, 0.86))
-        path.addQuadCurve(to: p(0.48, 0.90), control: p(0.62, 1.02))
-        path.addQuadCurve(to: p(0.18, 0.78), control: p(0.32, 1.00))
-        path.closeSubpath()
-        return path
-    }
-}
-
-public struct StarShape: Shape {
-    let points: Int
-
-    public init(points: Int) { self.points = points }
-
-    public func path(in rect: CGRect) -> Path {
-        var path = Path()
-        let center = CGPoint(x: rect.midX, y: rect.midY)
-        let outer = min(rect.width, rect.height) / 2
-        let inner = outer * (points == 4 ? 0.28 : 0.5)
-        for index in 0..<(points * 2) {
-            let angle = (Double(index) / Double(points * 2)) * 2 * .pi - .pi / 2
-            let radius = index.isMultiple(of: 2) ? outer : inner
-            let point = CGPoint(x: center.x + CGFloat(cos(angle)) * radius,
-                                y: center.y + CGFloat(sin(angle)) * radius)
-            if index == 0 { path.move(to: point) } else { path.addLine(to: point) }
+    mutating func curve(_ p0: (Double, Double), _ c1: (Double, Double), _ c2: (Double, Double), _ p3: (Double, Double)) -> [CGPoint] {
+        (0...22).map { step in
+            let t = Double(step) / 22, u = 1 - t
+            let x = u * u * u * p0.0 + 3 * u * u * t * c1.0 + 3 * u * t * t * c2.0 + t * t * t * p3.0
+            let y = u * u * u * p0.1 + 3 * u * u * t * c1.1 + 3 * u * t * t * c2.1 + t * t * t * p3.1
+            return shake(x, y)
         }
-        path.closeSubpath()
-        return path
     }
-}
 
-struct SmileShape: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-        path.move(to: CGPoint(x: rect.minX, y: rect.minY))
-        path.addQuadCurve(to: CGPoint(x: rect.maxX, y: rect.minY),
-                          control: CGPoint(x: rect.midX, y: rect.maxY * 1.6))
-        return path
+    mutating func roundedRect(x: Double, y: Double, w: Double, h: Double, r: Double) -> [CGPoint] {
+        var points: [CGPoint] = []
+        points += line((x + r, y), (x + w - r, y))
+        points += arc(center: (x + w - r, y + r), radius: r, from: -90, to: 0).dropFirst()
+        points += line((x + w, y + r), (x + w, y + h - r)).dropFirst()
+        points += arc(center: (x + w - r, y + h - r), radius: r, from: 0, to: 90).dropFirst()
+        points += line((x + w - r, y + h), (x + r, y + h)).dropFirst()
+        points += arc(center: (x + r, y + h - r), radius: r, from: 90, to: 180).dropFirst()
+        points += line((x, y + h - r), (x, y + r)).dropFirst()
+        points += arc(center: (x + r, y + r), radius: r, from: 180, to: 270).dropFirst()
+        // Run past the start, the way a hand closes a box.
+        points += line((x + r, y), (x + r + min(w * 0.18, 0.06), y + 0.008)).dropFirst()
+        return points
+    }
+
+    mutating func heart(center: (Double, Double), size s: Double) -> [CGPoint] {
+        let (cx, cy) = center
+        return curve((cx, cy + s), (cx - s * 1.6, cy - s * 0.1), (cx - s * 0.6, cy - s * 1.1), (cx, cy - s * 0.35))
+            + curve((cx, cy - s * 0.35), (cx + s * 0.6, cy - s * 1.1), (cx + s * 1.6, cy - s * 0.1), (cx, cy + s)).dropFirst()
+    }
+
+    mutating func sparkle(center: (Double, Double), size s: Double) -> [[CGPoint]] {
+        let (cx, cy) = center
+        return [line((cx, cy - s), (cx, cy + s)), line((cx - s, cy), (cx + s, cy))]
+    }
+
+    /// A stroke with an arrowhead at its end, pointing the way the stroke was going.
+    mutating func arrow(_ shaft: [CGPoint]) -> [[CGPoint]] {
+        guard shaft.count >= 2 else { return [shaft] }
+        let tip = shaft[shaft.count - 1]
+        let back = shaft[max(0, shaft.count - 4)]
+        let angle = atan2(Double(tip.y - back.y), Double(tip.x - back.x))
+        let length = 0.2
+        func barb(_ turn: Double) -> (Double, Double) {
+            (Double(tip.x) - cos(angle + turn) * length, Double(tip.y) - sin(angle + turn) * length)
+        }
+        let tipPair = (Double(tip.x), Double(tip.y))
+        return [shaft, polyline([barb(0.5), tipPair, barb(-0.5)])]
     }
 }

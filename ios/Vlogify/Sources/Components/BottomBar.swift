@@ -44,7 +44,7 @@ struct PlusMenu: View {
                 .font(Font.system(size: 24, weight: .black))
                 .foregroundStyle(Color.card)
                 .frame(width: Metrics.barButton, height: Metrics.barButton)
-                .sticker(fill: .action, shape: AnyShape(Circle()))
+                .sticker(fill: .action, corner: .circle)
         }
         .stickerRoom()
         .accessibilityLabel(Text("new"))

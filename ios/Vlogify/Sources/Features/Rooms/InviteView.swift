@@ -23,7 +23,7 @@ struct InviteView: View {
                 .foregroundStyle(Color.text)
                 .padding(.vertical, Space.lg)
                 .frame(maxWidth: .infinity)
-                .sticker(fill: .sand, radius: Radius.sheet)
+                .sticker(fill: .fog, radius: Radius.sheet)
                 .stickerRoom()
                 .accessibilityIdentifier("invite.code")
                 .accessibilityLabel(Text("invite code \(room.inviteCode.value)"))

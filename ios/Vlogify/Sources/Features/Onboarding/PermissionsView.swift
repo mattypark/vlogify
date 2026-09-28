@@ -14,7 +14,7 @@ struct PermissionsView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: Space.md) {
-            DoodleSticker(.mascot, scale: 0.28)
+            DoodleSticker(.bell, scale: 0.5, animated: true)
                 .padding(.bottom, Space.xs)
             TypewriterText(text: "→ permissions", bold: true, color: .text)
             TypewriterText(text: String(localized: "we need a few things first…", bundle: .app))

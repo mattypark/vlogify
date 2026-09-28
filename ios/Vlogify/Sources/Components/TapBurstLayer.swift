@@ -50,8 +50,8 @@ struct TapBurstLayer: ViewModifier {
     }
 
     private func add(at point: CGPoint) {
-        let fill = Palette.playful.randomElement() ?? Palette.playful[0]
-        bursts.append(Burst(point: point, color: Color(fill.color), born: Date(),
+        // Ink, always: a burst is a pen flick on the page, not confetti.
+        bursts.append(Burst(point: point, color: .fog, born: Date(),
                             spin: .random(in: 0..<360), stripes: reduceMotion ? 0 : Int.random(in: 8...10)))
         pulses += 1
         // Prune well after the last one has faded; the timeline pauses when empty.
