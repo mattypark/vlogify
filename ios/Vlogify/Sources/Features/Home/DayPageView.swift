@@ -61,8 +61,8 @@ struct DayPageView: View {
     }
 
     private var titleField: some View {
-        TextField("your day, side by side.", text: titleBinding, axis: .vertical)
-            .font(.custom(Typeface.bagel, size: 30, relativeTo: .largeTitle))
+        TextField("what happened today?", text: titleBinding, axis: .vertical)
+            .font(.vlogHandTitle)
             .foregroundStyle(Color.text)
             .focused($titleFocused)
             .lineLimit(1...3)
@@ -89,10 +89,11 @@ struct DayPageView: View {
         UserDefaults.standard.set(true, forKey: "seededFirstPage")
         state.notes.update(scope) { page in
             page.blocks = [
-                .init(kind: .text, text: String(localized: "tap + to start: create a log (new group) or join one with a code.", bundle: .app)),
-                .init(kind: .text, text: String(localized: "add a 2s clip every hour. see everyone's day come together.", bundle: .app)),
-                .init(kind: .text, text: String(localized: "solo logs don't have limits. day resets at 4AM.", bundle: .app)),
-                .init(kind: .todo, text: String(localized: "make my first room", bundle: .app)),
+                .init(kind: .text, text: String(localized: "this page is yours. nobody else sees what you write here.", bundle: .app)),
+                .init(kind: .text, text: String(localized: "tap + to start a room with friends, or join one with a code.", bundle: .app)),
+                .init(kind: .text, text: String(localized: "each hour your room gets a nudge at the same minute. film two seconds of whatever is in front of you.", bundle: .app)),
+                .init(kind: .text, text: String(localized: "a room just for you has no limits. days turn over at 4 am.", bundle: .app)),
+                .init(kind: .todo, text: String(localized: "start my first room", bundle: .app)),
             ]
         }
     }
