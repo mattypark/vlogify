@@ -16,7 +16,7 @@ pass() { printf "  ok    %s\n" "$1"; }
 fail() { printf "  FAIL  %s\n" "$1"; FAILED=1; }
 warn() { printf "  warn  %s\n" "$1"; }
 
-echo "vlogify pre-submit${TESTFLIGHT:+ (testflight mode)}"
+if [[ "$TESTFLIGHT" -eq 1 ]]; then echo "vlogify pre-submit (testflight mode)"; else echo "vlogify pre-submit"; fi
 
 [[ -f ios/Vlogify/PrivacyInfo.xcprivacy ]] \
   && pass "privacy manifest present" \
@@ -87,8 +87,11 @@ else
   fail "Localizable.xcstrings missing"
 fi
 
-# Legal URLs must answer 200 before submission. Skipped offline.
-for url in https://vlogify.app/privacy https://vlogify.app/terms https://vlogify.app/support; do
+# Legal URLs must answer 200 before submission: exactly the ones the app links (enum Legal).
+LEGAL_URLS=$(grep -oE 'static let (privacy|terms|support) = URL\(string: "[^"]+"' ios/Vlogify/Sources/Features/Profile/ProfileView.swift \
+  | grep -oE 'https://[^"]+')
+[[ -n "$LEGAL_URLS" ]] || fail "couldn't read the Legal URLs from ProfileView.swift"
+for url in $LEGAL_URLS; do
   code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 8 "$url" 2>/dev/null); code=${code:-000}
   if [[ "$code" == "200" ]]; then
     pass "$url"
@@ -111,7 +114,7 @@ echo
 if [[ "$FAILED" -eq 0 ]]; then
   echo "Mechanical checks pass. Now run the ios-app-store-readiness skill for the rest:"
   echo "  screenshots, description, keywords, age rating (13+, UGC), privacy nutrition label,"
-  echo "  demo account in the Sign-In Required fields (review@vlogify.app / 000000), an archive."
+  echo "  review notes (Sign in with Apple, then join code REV-1EF), an archive."
 else
   echo "Fix the failures above before archiving."
 fi
