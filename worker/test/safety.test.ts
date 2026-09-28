@@ -54,7 +54,7 @@ describe("blocking", () => {
 });
 
 describe("reports", () => {
-  it("stores the report with the reporter from the session and hides the clip from the reporter", async () => {
+  it("stores the report with the reporter from the session and hides the clip from the room", async () => {
     const { a, b, c, room, clipB } = await roomOfThree();
     const report = {
       reporter_id: "someone-else", clip_id: clipB.id, user_id: null, reason: "harassment", note: "not ok",
@@ -65,7 +65,8 @@ describe("reports", () => {
     expect(row).toMatchObject({ reporter_id: a.id, user_id: b.id, room_id: room.id, reason: "harassment", note: "not ok" });
 
     expect(ids((await body(await api(`/v1/rooms/${room.id}/days/${today()}`, a))).clips)).not.toContain(clipB.id);
-    expect(ids((await body(await api(`/v1/rooms/${room.id}/days/${today()}`, c))).clips)).toContain(clipB.id);
+    // Open reports hide the clip from the whole room until a moderator resolves them.
+    expect(ids((await body(await api(`/v1/rooms/${room.id}/days/${today()}`, c))).clips)).not.toContain(clipB.id);
   });
 
   it("a person can be reported without a clip; a report needs one or the other and a known reason", async () => {

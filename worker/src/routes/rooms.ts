@@ -101,8 +101,9 @@ roomRoutes.post("/:id/invite", async (c) => {
   return c.json({ invite_code: inviteCode });
 });
 
-/// One day of a room: the members and every posted clip, minus anyone blocked either way and
-/// any clip the viewer reported.
+/// One day of a room: the members and every posted clip, minus anyone blocked either way, any
+/// clip with an open report (hidden from the whole room until a moderator resolves it), and any
+/// clip the viewer reported, even after it was resolved.
 roomRoutes.get("/:id/days/:day", async (c) => {
   const userId = c.get("userId");
   const day = c.req.param("day");
@@ -113,7 +114,8 @@ roomRoutes.get("/:id/days/:day", async (c) => {
     `SELECT c.* FROM clips c
       WHERE c.room_id = ? AND c.day = ? AND c.status = 'posted'
         AND NOT ${blockedEitherWay("c.member_id")}
-        AND NOT EXISTS (SELECT 1 FROM reports r WHERE r.reporter_id = ? AND r.clip_id = c.id)
+        AND NOT EXISTS (SELECT 1 FROM reports r
+                         WHERE r.clip_id = c.id AND (r.resolved_at IS NULL OR r.reporter_id = ?))
       ORDER BY c.hour, c.created_at, c.id`,
   ).bind(room.id, day, userId, userId, userId).all<ClipRow>();
   return c.json({ room_id: room.id, day, members: members.map(membershipJSON), clips: results.map(clipJSON) });
