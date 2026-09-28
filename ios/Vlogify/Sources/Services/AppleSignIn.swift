@@ -7,12 +7,14 @@ import Foundation
 /// The nonce is generated here, hashed into the request, and the raw value returned
 /// with the token so the backend can prove the token was minted for this request.
 /// Apple sends the name exactly once, on first authorisation; it is only used to
-/// prefill the display name.
+/// prefill the display name. The authorization code is single-use and short-lived; the
+/// backend trades it for the refresh token that account deletion revokes.
 @MainActor
 final class AppleSignIn: NSObject, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     struct Result: Sendable {
         let identityToken: String
         let nonce: String
+        let authorizationCode: String?
         let fullName: String?
     }
 
@@ -43,7 +45,9 @@ final class AppleSignIn: NSObject, ASAuthorizationControllerDelegate, ASAuthoriz
         }
         let name = [credential.fullName?.givenName, credential.fullName?.familyName]
             .compactMap { $0 }.joined(separator: " ")
-        continuation?.resume(returning: Result(identityToken: token, nonce: nonce, fullName: name.isEmpty ? nil : name))
+        let code = credential.authorizationCode.flatMap { String(data: $0, encoding: .utf8) }
+        continuation?.resume(returning: Result(identityToken: token, nonce: nonce, authorizationCode: code,
+                                               fullName: name.isEmpty ? nil : name))
         continuation = nil
     }
 

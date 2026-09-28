@@ -52,7 +52,7 @@ struct WelcomeView: View {
                     }
                     .buttonStyle(.plain)
                     .accessibilityIdentifier("welcome.email")
-                    if BackendRoot.config == nil {
+                    if BackendRoot.usesMock {
                         // Only while the app runs on the mock: walks the whole
                         // onboarding without an email in the loop. Disappears the day
                         // a Secrets.xcconfig points at a real backend.
@@ -103,15 +103,16 @@ struct WelcomeView: View {
             defer { busy = nil }
             do {
                 let result: AppleSignIn.Result
-                if LaunchArguments.isUITesting || BackendRoot.config == nil {
+                if BackendRoot.usesMock {
                     // The mock does not verify tokens, and the Apple sheet cannot be
                     // driven by the walker: skip straight to the exchange.
-                    result = AppleSignIn.Result(identityToken: "mock", nonce: "mock", fullName: nil)
+                    result = AppleSignIn.Result(identityToken: "mock", nonce: "mock", authorizationCode: nil, fullName: nil)
                 } else {
                     result = try await apple.signIn()
                 }
                 let session = try await state.backend.auth.signInWithApple(
-                    identityToken: result.identityToken, nonce: result.nonce, fullName: result.fullName)
+                    identityToken: result.identityToken, nonce: result.nonce,
+                    authorizationCode: result.authorizationCode, fullName: result.fullName)
                 MockSessionStore.save(.solo)
                 Haptics.success()
                 await state.didSignIn(session)
@@ -126,7 +127,7 @@ struct WelcomeView: View {
     private func skip() {
         guard busy == nil else { return }
         Task {
-            let session = try? await state.backend.auth.signInWithApple(identityToken: "skip", nonce: "skip", fullName: nil)
+            let session = try? await state.backend.auth.signInWithApple(identityToken: "skip", nonce: "skip", authorizationCode: nil, fullName: nil)
             guard let session else { return }
             MockSessionStore.save(.solo)
             await state.didSignIn(session)
