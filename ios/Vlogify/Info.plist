@@ -50,6 +50,8 @@
 	<string>vlogify saves the finished day-vlog to your Photos when you tap export. It never reads your library.</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Yomogi-Regular.ttf</string>
+		<string>Gaegu-Regular.ttf</string>
 		<string>BagelFatOne-Regular.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>

@@ -70,9 +70,11 @@ targets:
               - vlogify
         UIBackgroundModes:
           - remote-notification
-        # Bare filename. OFL. The wordmark, and nothing else -- everything that used to be
-        # a second or third voice is SF Pro now.
+        # Bare filenames, all OFL (licences beside them in Resources/Fonts). Yomogi is the
+        # hand; Gaegu is cascaded in for Hangul; Bagel is one of the camera stamp faces.
         UIAppFonts:
+          - Yomogi-Regular.ttf
+          - Gaegu-Regular.ttf
           - BagelFatOne-Regular.ttf
     entitlements:
       path: Vlogify/Vlogify.entitlements
