@@ -242,3 +242,6 @@ the three-card new-room sheet. What replaced them, and why:
   the whole room; a person can be reported without a clip; age rating 13+ (override of the
   calculated 4+) to match the terms; the EU storefronts are off until trader status is
   decided; Mac/Vision Pro availability is off.
+- **The hand became the main font** (Matthew, same day, after seeing it on his phone): all
+  text is Yomogi; the camera hour is SF Pro Black so it reads over video. Onboarding
+  writes itself in line by line, and its buttons draw themselves.

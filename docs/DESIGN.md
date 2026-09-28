@@ -1,13 +1,13 @@
 # Design
 
-**Ink on paper.** Black pen (`#111`) on a white page, a pen hand for what is written on
-the page, and every outline drawn by hand. The only colour in the chrome is red, and only
+**Ink on paper.** Black pen (`#111`) on a white page, one pen hand for every word, and
+every outline drawn by hand. The only colour in the chrome is red, and only
 where it means something: recording, delete. Video is the colour. No dark mode — the one
 dark surface is video itself.
 
 Inspired by grug's line-drawn black-and-white NUX (before.click), not a copy of it: the
-handwriting is the *secondary* voice, the primary voice is plain SF Pro, and the drawings
-are vlogify's own (clocks, phones, cameras, clips side by side).
+drawings, words and the drawn mark are vlogify's own (clocks, phones, cameras, clips side
+by side).
 
 ## Tokens — `ios/VlogifyDesign/Sources/VlogifyDesign/`
 
@@ -16,9 +16,13 @@ are vlogify's own (clocks, phones, cameras, clips side by side).
   The `Color` role names (`.text`, `.ground`, `.card`, `.action`…) are kept so every view
   restyled without edits. `avatar(seed:)` hues are wire-bound and never remapped, though
   nothing draws them any more. `PaletteTests` pin AA/AAA and "only red has chroma".
-- **Typography.swift** — SF Pro for everything read or pressed. `Typography.handFont`
-  = Yomogi (OFL; Latin, Vietnamese, Cyrillic, Japanese) with Gaegu (OFL) cascaded for
-  Hangul: `hand`, `handSmall`, `annotation`, `handTitle`, `wordmark`, `hour`.
+- **Typography.swift** — the hand for everything: `Typography.handFont` = Yomogi (OFL;
+  Latin, Vietnamese, Cyrillic, Japanese) with Gaegu (OFL) cascaded for Hangul. One weight,
+  so hierarchy is size. Exceptions: the camera hour (SF Pro Black, read over video) and
+  the mono typewriter. UIKit chrome (nav titles, bar buttons) gets the hand via appearance.
+- **Motion in onboarding** — drawings trace themselves, then `HandwrittenText` writes each
+  line left to right, one after another, then buttons trace their outline in (`drawIn`).
+  Reduce Motion shows everything finished.
 - **Ink.swift** — the pen. `PenShape` (rounded rect / capsule / circle) wobbles off the
   ideal edge, never quite closes, and overshoots its start; seeded by size so it is stable.
   `InkStrokes` draws unit-square strokes (doodles and marks); `InkDrawing` traces them on
