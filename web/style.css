@@ -5,7 +5,8 @@
   --red: #e5484d;
   --font: -apple-system, "SF Pro Text", Inter, system-ui, sans-serif;
   --display: -apple-system, "SF Pro Display", Inter, system-ui, sans-serif;
-  --hand: "Yomogi", "Bradley Hand", "Segoe Print", cursive;
+  /* Faces already on the visitor's device: no font request leaves the page. */
+  --hand: "Bradley Hand", "Segoe Print", "Comic Sans MS", cursive;
 }
 * { box-sizing: border-box; }
 html { color-scheme: light; }
