@@ -115,6 +115,8 @@ struct CameraView: View {
                 Text(verbatim: target?.name ?? (target?.isSolo == true ? String(localized: "just me", bundle: .app) : String(localized: "pick a room", bundle: .app)))
                 if state.rooms.count > 1 { Image(systemName: "chevron.down") }
             }
+            .lineLimit(1)
+            .frame(maxWidth: 190, alignment: .leading)
             .font(.vlogCaption).foregroundStyle(Color.chalk)
             .padding(.horizontal, Space.sm).padding(.vertical, Space.xs)
             .background(Color.ink.opacity(0.6), in: Capsule())
@@ -163,15 +165,14 @@ struct CameraView: View {
             state.capture.toggle()
             hintDismissed = false
         } label: {
-            HStack(spacing: Space.xxs) {
-                Image(systemName: state.capture.isLandscape ? "rectangle" : "rectangle.portrait")
-                Text(state.capture.isLandscape ? "horizontal" : "vertical")
-            }
+            // Icon only: the room name next to it needs the width more.
+            Image(systemName: state.capture.isLandscape ? "rectangle" : "rectangle.portrait")
             .font(.vlogCaption).foregroundStyle(Color.chalk)
             .padding(.horizontal, Space.sm).padding(.vertical, Space.xs)
             .background(Color.ink.opacity(0.6), in: Capsule())
         }
         .buttonStyle(.plain)
+        .accessibilityLabel(Text(state.capture.isLandscape ? "horizontal" : "vertical"))
         .accessibilityIdentifier("camera.orientation")
     }
 
