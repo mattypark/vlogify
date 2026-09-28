@@ -12,20 +12,34 @@ struct HomeView: View {
     @State private var openRoom: Room?
     @State private var camera = CameraSession()
     @State private var showCoachMarks = false
+    @State private var showPlus = false
 
     var body: some View {
         @Bindable var state = state
         NavigationStack {
             VStack(spacing: 0) {
                 if state.tab == .logs {
-                    header
-                    DayPageView(openRoom: $openRoom)
+                    VStack(spacing: 0) {
+                        header
+                        DayPageView(openRoom: $openRoom)
+                    }
+                    // Over the page only: the bar stays crisp, so `+` can close it again
+                    // and the record button keeps its red.
+                    .overlay {
+                        if showPlus {
+                            PlusCard(onCreate: { showNewRoom = true }, onJoin: { showJoin = true }) {
+                                withAnimation(Motion.dismiss) { showPlus = false }
+                            }
+                            .transition(.opacity)
+                        }
+                    }
                 } else {
                     CameraView(camera: camera)
                 }
                 bar
             }
             .background(Color.ground.ignoresSafeArea())
+            .onChange(of: state.tab) { showPlus = false }
             .overlay { if showCoachMarks { CoachMarks { dismissCoachMarks() } } }
             .navigationDestination(item: $openRoom) { room in RoomView(room: room) }
         }
@@ -49,6 +63,7 @@ struct HomeView: View {
             case "join": showJoin = true
             case "profile": showProfile = true
             case "notifications": showNotifications = true
+            case "plus": showPlus = true
             default: break
             }
             #endif
@@ -88,7 +103,7 @@ struct HomeView: View {
         @Bindable var state = state
         return BottomBar(tab: $state.tab) {
             if state.tab == .logs {
-                PlusMenu(onCreate: { showNewRoom = true }, onJoin: { showJoin = true })
+                PlusButton { withAnimation(Motion.dismiss) { showPlus.toggle() } }
             } else {
                 DoodleRound(doodle: .arrowTurn, label: "flip camera", size: Metrics.barButton) { camera.flip() }
                     .accessibilityIdentifier("bar.flip")

@@ -21,10 +21,15 @@ struct NoteBlockView: View {
                     block.done.toggle()
                     Haptics.tap()
                 } label: {
-                    Image(systemName: block.done ? "checkmark.square.fill" : "square")
-                        .font(Font.system(size: 18, weight: .semibold))
-                        .foregroundStyle(block.done ? Color.goodInk : Color.textSoft)
-                        .frame(width: 24, height: 24)
+                    // A box drawn in the margin; ticking it draws the check.
+                    ZStack {
+                        PenShape(.radius(4), wobble: 0.8).stroke(Color.text, style: Ink.style(1.6))
+                        if block.done {
+                            DoodleSticker(.check, scale: 1, animated: true, lineWidth: 2.2)
+                        }
+                    }
+                    .frame(width: 22, height: 22)
+                    .frame(width: 24, height: 26)
                 }
                 .buttonStyle(SquashButtonStyle())
                 .accessibilityLabel(Text(block.done ? "done" : "to do"))

@@ -22,7 +22,11 @@ final class AppState {
     /// Clips on this phone the backend has not confirmed yet.
     let uploads: UploadQueue
     /// Local-only pages. Never touches `backend`.
-    let notes = NotesStore()
+    // A demo run writes its notes somewhere throwaway, like the mock backend does, so
+    // screenshots never show pages left over from an older build.
+    let notes = NotesStore(root: LaunchArguments.usesTemporaryStore
+        ? FileManager.default.temporaryDirectory.appendingPathComponent("vlogify-notes-\(ProcessInfo.processInfo.processIdentifier)")
+        : nil)
 
     var session: Session?
     var profile: Profile?

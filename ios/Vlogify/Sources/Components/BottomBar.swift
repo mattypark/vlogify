@@ -78,28 +78,74 @@ struct DoodleRound: View {
     }
 }
 
-/// The `+` menu. Create, join, a note -- and a zip, only when it is built.
-struct PlusMenu: View {
-    let onCreate: () -> Void
-    let onJoin: () -> Void
-    var onNote: () -> Void = {}
+/// The `+` on the bar. It looks exactly as it always has; what it opens is a drawn card
+/// (`PlusCard`) instead of a system menu.
+struct PlusButton: View {
+    let open: () -> Void
 
     var body: some View {
-        Menu {
-            Button(action: onCreate) { Label("start a room", systemImage: "plus.square") }
-            Button(action: onJoin) { Label("join with a code", systemImage: "number") }
-            Button(action: onNote) { Label("add a note", systemImage: "pencil.line") }
-            if FeatureFlags.zipPhotos {
-                Divider()
-                Button {} label: { Label("start a zip", systemImage: "bolt") }
-            }
+        Button {
+            Haptics.tap()
+            open()
         } label: {
             DoodleSticker(.plus, scale: 1.1, lineWidth: 2.2)
                 .frame(width: Metrics.barButton, height: Metrics.barButton)
                 .sticker(fill: .card, corner: .circle)
         }
+        .buttonStyle(SquashButtonStyle())
         .stickerRoom()
         .accessibilityLabel(Text("new"))
         .accessibilityIdentifier("bar.plus")
+    }
+}
+
+/// What `+` opens: a small card drawn above the button, its outline tracing in, then each
+/// choice written in with its glyph. Tap outside, or `+` again, to put it away.
+struct PlusCard: View {
+    let onCreate: () -> Void
+    let onJoin: () -> Void
+    let dismiss: () -> Void
+
+    var body: some View {
+        ZStack(alignment: .bottomTrailing) {
+            Color.ground.opacity(0.85)
+                .ignoresSafeArea()
+                .onTapGesture(perform: dismiss)
+                .accessibilityHidden(true)
+            VStack(alignment: .leading, spacing: 0) {
+                choice(.plus, String(localized: "start a room", bundle: .app), delay: 0.45, id: "plus.create", action: onCreate)
+                DrawnRule(seed: 5, delay: 0.6, animated: true)
+                    .padding(.horizontal, Space.xs)
+                choice(.hash, String(localized: "join with a code", bundle: .app), delay: 0.7, id: "plus.join", action: onJoin)
+            }
+            .padding(Space.xs)
+            .frame(width: 290)
+            .sticker(fill: .card, corner: .radius(Radius.card), drawIn: 0)
+            .padding(.trailing, Space.gutter)
+            // Sits just above the `+` on the bar below.
+            .padding(.bottom, Space.sm)
+        }
+        .accessibilityAddTraits(.isModal)
+        .accessibilityAction(.escape, dismiss)
+    }
+
+    private func choice(_ glyph: Doodle, _ text: String, delay: Double, id: String, action: @escaping () -> Void) -> some View {
+        Button {
+            dismiss()
+            action()
+        } label: {
+            HStack(spacing: Space.sm) {
+                DoodleSticker(glyph, scale: 1, animated: true, lineWidth: 2, delay: delay)
+                    .frame(width: 28, height: 28)
+                HandwrittenText(text: text, font: .vlogHand, delay: delay + 0.1, perLine: 0.35)
+                Spacer(minLength: 0)
+            }
+            .padding(.horizontal, Space.sm)
+            .frame(minHeight: Metrics.hitTarget + 8)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(InkPressStyle())
+        .accessibilityElement(children: .combine)
+        .accessibilityIdentifier(id)
     }
 }
