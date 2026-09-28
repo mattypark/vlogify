@@ -16,6 +16,7 @@ struct RoomView: View {
     @State private var showHistory = false
     @State private var showPlayer = false
     @State private var reporting: Clip?
+    @State private var reportingPerson: Membership?
     @State private var confirmLeave = false
     @State private var thumbnails: Thumbnails?
 
@@ -58,7 +59,12 @@ struct RoomView: View {
                 if let log { DayPlayerView(room: room, log: log) }
             }
             .fullScreenCover(item: $playing) { clip in ClipPlayerView(clip: clip) }
-            .sheet(item: $reporting) { clip in ReportSheet(clip: clip, member: log?.members.first { $0.userID == clip.memberID }) }
+            .sheet(item: $reporting, onDismiss: { Task { await load() } }) { clip in
+                ReportSheet(clip: clip, member: log?.members.first { $0.userID == clip.memberID })
+            }
+            .sheet(item: $reportingPerson, onDismiss: { Task { await load() } }) { member in
+                ReportSheet(clip: nil, member: member)
+            }
             .confirmationDialog(room.isSolo ? "delete this vlog?" : "leave this room?", isPresented: $confirmLeave, titleVisibility: .visible) {
                 Button(room.isSolo ? "delete" : "leave", role: .destructive) {
                     Task { await state.leaveRoom(room); dismiss() }
@@ -104,6 +110,10 @@ struct RoomView: View {
                     AvatarDisc(profile: member.profile)
                         .contextMenu {
                             if member.userID != state.session?.userID {
+                                Button { reportingPerson = member } label: {
+                                    Label("report \(member.profile.displayName)", systemImage: "flag")
+                                }
+                                .accessibilityIdentifier("room.reportMember")
                                 Button(role: .destructive) { reporting = nil; Task { await block(member) } } label: {
                                     Label("block \(member.profile.displayName)", systemImage: "hand.raised")
                                 }

@@ -2,12 +2,14 @@ import SwiftUI
 import VlogifyContract
 import VlogifyDesign
 
-/// Report a clip, and optionally block the person. Reports go to the backend queue
-/// (the mock counts them); blocking hides them from every screen immediately.
+/// Report a clip or a person, and optionally block them. Reports go to the moderation
+/// queue; a reported clip is hidden from the whole room at once, and blocking hides the
+/// person from every screen immediately.
 struct ReportSheet: View {
     @Environment(AppState.self) private var state
     @Environment(\.dismiss) private var dismiss
-    let clip: Clip
+    /// Nil when reporting a person rather than one of their clips.
+    let clip: Clip?
     let member: Membership?
     @State private var reason: ReportReason = .harassment
     @State private var note = ""
@@ -24,7 +26,7 @@ struct ReportSheet: View {
                     .pickerStyle(.inline)
                     .labelsHidden()
                     .accessibilityIdentifier("report.reason")
-                } header: { Text("what's wrong with this clip?") }
+                } header: { Text(clip == nil ? "what's wrong?" : "what's wrong with this clip?") }
                 .listRowBackground(Color.card)
                 Section {
                     TextField("anything else (optional)", text: $note, axis: .vertical)
@@ -67,16 +69,23 @@ struct ReportSheet: View {
     }
 
     private func send() {
-        guard let reporter = state.session?.userID else { return }
+        guard let reporter = state.session?.userID,
+              let subject = clip?.memberID ?? member?.userID else { return }
         busy = true
         Task {
             defer { busy = false }
-            let report = Report(reporterID: reporter, clipID: clip.id, userID: clip.memberID, reason: reason,
+            let report = Report(reporterID: reporter, clipID: clip?.id, userID: subject, reason: reason,
                                 note: note.isEmpty ? nil : note, createdAt: Date())
-            try? await state.backend.safety.report(report)
-            if alsoBlock { try? await state.backend.safety.block(userID: clip.memberID) }
+            do {
+                try await state.backend.safety.report(report)
+                if alsoBlock { try await state.backend.safety.block(userID: subject) }
+            } catch {
+                // Say so: a report that silently failed is worse than one never sent.
+                state.show(.error(String(localized: "couldn't send that. try again.", bundle: .app)))
+                return
+            }
             Haptics.success()
-            state.show(.info(String(localized: "thanks. we'll look at it.", bundle: .app)))
+            state.show(.info(String(localized: "thanks. we'll look at it within a day.", bundle: .app)))
             await state.loadRooms()
             dismiss()
         }
