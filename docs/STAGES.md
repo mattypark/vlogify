@@ -22,13 +22,23 @@ UI session, 2026-09-11. Each stage is a commit.
 - [x] **16 — Alive** — sticker buttons everywhere, seven playful fills, Bagel/Gloria voices, tap bursts on onboarding, paint-blob placeholders
 - [x] **17 — Pages** — local-only Notion-style day page (title, blocks, rooms as blocks, clip strip) + room notes
 - [x] **18 — Camera extras** — centred stamp, `Aa` font shuffle (burned into export), outline colour = profile colour (rings on tiles, frame, export)
-- [ ] **19 — App Store Connect record** — bundle id + app record (browser, with Matthew's OK before Create), then metadata via MCP
+- [x] **19 — App Store Connect record** — record `6811419336`, metadata via MCP, browser-only fields via Chrome
+
+2026-09-28, the ship day:
+
+- [x] **20 — Contract v2** — `Mark`, `Profile.mark`, Apple auth code, one Worker URL, UUID clip ids, upload queue
+- [x] **21 — Cloudflare relay** — Worker + D1 + R2 (7-day), `CloudflareBackend`, deploy + seed scripts, 73 tests
+- [x] **22 — Ink on paper** — palette, pen outlines, hand face, code-drawn doodles, new icon
+- [x] **23 — Draw your mark** — intro, permissions, name, mark canvas, coach marks
+- [x] **24 — De-Setlog** — bar, sentence new-room sheet, camera ring, tiles, copy, export signatures
+- [x] **25 — App Review hardening** — audit fixes, legal pages, privacy label, age rating
+- [ ] **26 — Submit** — attach build 3, Matthew presses Submit
 
 ## Open before launch (not this session)
 
-- [ ] Artist replaces the 19 art slots (`docs/ART-SLOTS.md`); mascot through `ip-as-logo`
+- [x] ~~Artist replaces the 19 art slots~~ — doodles are code now; the mark is the mascot
 - [ ] Native review of JA / zh-Hant / VI / RU strings (marked `needs_review` in the catalog)
-- [ ] Backend session: Supabase schema + RLS + edge functions + R2 + APNs (`nextsessions/backend-session.md`)
-- [ ] Deploy `web/` so privacy/terms/support return 200 (pre-submit checks this)
-- [ ] App Store record, age rating questionnaire, screenshots (`nextsessions/appstore-session.md`)
+- [x] Backend (Cloudflare relay, not Supabase)
+- [x] Legal pages live on the Worker
+- [x] App Store record, age rating, screenshots
 - [ ] Physical-device pass: real camera, Photos save, Sign in with Apple sheet
