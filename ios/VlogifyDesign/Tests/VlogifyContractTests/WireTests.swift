@@ -19,12 +19,28 @@ struct WireTests {
 
     @Test("Backend config is nil for empty, unsubstituted, or http values")
     func config() {
-        #expect(BackendConfig(supabaseURL: "", anonKey: "k", mediaBaseURL: "https://m") == nil)
-        #expect(BackendConfig(supabaseURL: "$(SUPABASE_URL)", anonKey: "k", mediaBaseURL: "https://m") == nil)
-        #expect(BackendConfig(supabaseURL: "http://evil.example", anonKey: "k", mediaBaseURL: "https://m") == nil)
-        #expect(BackendConfig(supabaseURL: "https://x.supabase.co", anonKey: "", mediaBaseURL: "https://m") == nil)
-        let config = BackendConfig(supabaseURL: " https://x.supabase.co ", anonKey: "anon", mediaBaseURL: "https://media.vlogify.app")
-        #expect(config?.supabaseURL.host == "x.supabase.co")
+        #expect(BackendConfig(apiBaseURL: "") == nil)
+        #expect(BackendConfig(apiBaseURL: nil) == nil)
+        #expect(BackendConfig(apiBaseURL: "$(VLOGIFY_API_URL)") == nil)
+        #expect(BackendConfig(apiBaseURL: "http://evil.example") == nil)
+        let config = BackendConfig(apiBaseURL: " https://vlogify.example.workers.dev ")
+        #expect(config?.apiBaseURL.host == "vlogify.example.workers.dev")
+    }
+
+    @Test("Profiles carry the mark, and an unreadable mark decodes as none")
+    func profileMark() throws {
+        let profile = Profile(id: "u", displayName: "sam", avatarSeed: 3,
+                              createdAt: Date(timeIntervalSince1970: 1_789_000_000), mark: .sample(1))
+        let data = try JSONEncoder.contract.encode(profile)
+        #expect(try JSONDecoder.contract.decode(Profile.self, from: data) == profile)
+
+        let broken = #"{"id":"u","display_name":"sam","avatar_seed":3,"mark":"!!","created_at":"2026-09-10T00:00:00Z"}"#
+        let decoded = try JSONDecoder.contract.decode(Profile.self, from: Data(broken.utf8))
+        #expect(decoded.mark == nil)
+        #expect(decoded.displayName == "sam")
+
+        let missing = #"{"id":"u","display_name":"sam","avatar_seed":3,"created_at":"2026-09-10T00:00:00Z"}"#
+        #expect(try JSONDecoder.contract.decode(Profile.self, from: Data(missing.utf8)).mark == nil)
     }
 
     @Test("A day log exposes posted slots in order")

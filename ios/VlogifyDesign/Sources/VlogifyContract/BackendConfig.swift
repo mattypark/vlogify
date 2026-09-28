@@ -3,28 +3,24 @@ import Foundation
 /// What counts as a configured backend.
 ///
 /// The presence of configuration is the switch, and its absence is a working state
-/// rather than a broken one: with no `Secrets.xcconfig` the app runs on `MockBackend`,
-/// which is the whole product minus other people's phones. A flag can disagree with
-/// reality; a URL cannot.
+/// rather than a broken one: with no API URL the app runs on `MockBackend`, which is
+/// the whole product minus other people's phones. A flag can disagree with reality; a
+/// URL cannot.
+///
+/// One value: the Cloudflare Worker's base URL. It is not a secret -- every request is
+/// authenticated by the session token, not by knowing where the Worker lives -- so it
+/// is committed in `Base.xcconfig` rather than hidden in `Secrets.xcconfig`.
 public struct BackendConfig: Equatable, Sendable {
-    public let supabaseURL: URL
-    public let anonKey: String
-    public let mediaBaseURL: URL
+    public let apiBaseURL: URL
 
-    public init?(supabaseURL rawURL: String?, anonKey rawKey: String?, mediaBaseURL rawMedia: String?) {
-        guard let url = BackendConfig.url(from: rawURL),
-              let key = BackendConfig.clean(rawKey),
-              let media = BackendConfig.url(from: rawMedia)
-        else { return nil }
-        supabaseURL = url
-        anonKey = key
-        mediaBaseURL = media
+    public init?(apiBaseURL rawURL: String?) {
+        guard let url = BackendConfig.url(from: rawURL) else { return nil }
+        apiBaseURL = url
     }
 
     /// Rejects the empty string, an unsubstituted `$(VAR)` (which is what Info.plist
-    /// carries when the xcconfig is absent), and anything that is not https --
-    /// localhost excepted in debug builds so the backend session can point at a local
-    /// Supabase.
+    /// carries when the xcconfig leaves it blank), and anything that is not https --
+    /// localhost excepted in debug builds so a `wrangler dev` Worker can be used.
     static func url(from raw: String?) -> URL? {
         guard let clean = clean(raw), let url = URL(string: clean), let host = url.host else { return nil }
         if url.scheme == "https" { return url }
