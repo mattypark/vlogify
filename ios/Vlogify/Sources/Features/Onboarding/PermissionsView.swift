@@ -4,7 +4,9 @@ import VlogifyDesign
 /// Two asks, each on its own page, each explained by a drawing and one line, and each
 /// firing the system prompt right there -- the moment the reason is on screen.
 ///
-/// "not now" is always there and never punished: a denied camera is explained again on
+/// One button, and it always leads to the system prompt: a custom screen before a
+/// permission request may explain, but may not offer a way around it (5.1.1(iv)). The
+/// system prompt is where "don't allow" lives, and a denied camera is explained again on
 /// the camera screen with a link to Settings. This screen runs once.
 struct PermissionsView: View {
     @Environment(AppState.self) private var state
@@ -37,19 +39,8 @@ struct PermissionsView: View {
                     .foregroundStyle(Color.textSoft)
             }
             Spacer()
-            VStack(spacing: Space.xs) {
-                PillButton(title: "sure", style: .filled, isLoading: busy) { ask() }
-                    .accessibilityIdentifier("permissions.continue")
-                Button { advance() } label: {
-                    Text("not now")
-                        .font(.vlogLabel)
-                        .foregroundStyle(Color.textSoft)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: Metrics.hitTarget)
-                }
-                .buttonStyle(.plain)
-                .accessibilityIdentifier("permissions.skip")
-            }
+            PillButton(title: "continue", style: .filled, isLoading: busy) { ask() }
+                .accessibilityIdentifier("permissions.continue")
         }
         .padding(.horizontal, Space.xl)
         .padding(.bottom, Space.lg)
