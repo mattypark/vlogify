@@ -54,9 +54,21 @@ function expiryFrom(c: Context<AppEnv>): number {
   return exp;
 }
 
-/// PUT /media/upload/:clipId -- streams the body into R2 at the key minted for that clip.
+/// The rest of the path after `prefix`, percent-decoded as one value. Clip ids may hold a "/"
+/// (the app builds them from the slot key), which arrives as %2F; a route parameter would
+/// depend on the router's decoding rules, this does not.
+export function pathTail(c: Context<AppEnv>, prefix: string): string {
+  const raw = new URL(c.req.url).pathname.slice(prefix.length);
+  try {
+    return decodeURIComponent(raw);
+  } catch {
+    fail("bad_request", "malformed path");
+  }
+}
+
+/// PUT /media/upload/<clip id> -- streams the body into R2 at the key minted for that clip.
 export async function handleUpload(c: Context<AppEnv>): Promise<Response> {
-  const clipId = c.req.param("clipId") ?? "";
+  const clipId = pathTail(c, "/media/upload/");
   const exp = expiryFrom(c);
   const row = await c.env.DB.prepare(
     "SELECT c.storage_key, r.type FROM clips c JOIN rooms r ON r.id = c.room_id WHERE c.id = ?",

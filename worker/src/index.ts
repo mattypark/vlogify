@@ -32,7 +32,7 @@ app.post("/v1/push/register", (c) => c.body(null, 204));
 app.delete("/v1/push/register", (c) => c.body(null, 204));
 
 // Media the Worker signed for itself: uploads in, playback out.
-app.put("/media/upload/:clipId", handleUpload);
+app.put("/media/upload/*", handleUpload);
 app.on(["GET", "HEAD"], "/media/*", handleDownload);
 
 // The site. /support is the Worker's only because the form posts to it.

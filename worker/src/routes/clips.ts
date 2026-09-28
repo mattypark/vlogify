@@ -4,17 +4,19 @@ import { blockedEitherWay, CLIP_PREFIX, clipJSON, deleteObjects, requireMemberRo
 import type { AppEnv, Env } from "../env";
 import { fail } from "../errors";
 import { originOf, readBody } from "../http";
-import { CLIP_CONTENT_TYPE, DOWNLOAD_TTL_SECONDS, signDownloadURL, signUploadURL, UPLOAD_TTL_SECONDS } from "../media";
+import { CLIP_CONTENT_TYPE, DOWNLOAD_TTL_SECONDS, pathTail, signDownloadURL, signUploadURL, UPLOAD_TTL_SECONDS } from "../media";
 import { capturesPerSlot, isClipTooLong, isDayInWindow, isValidHour } from "../rules";
 import { iso } from "../util";
 
 export const clipRoutes = new Hono<AppEnv>();
 export const mediaRoutes = new Hono<AppEnv>();
 
-/// `Clip` as WireTypes.swift encodes it. Clip ids are client UUIDs; they end up in URL paths
-/// and R2 keys, so only URL-safe characters.
+/// `Clip` as WireTypes.swift encodes it. Clip ids come from the phone and end up in R2 keys and
+/// (percent-encoded) in URL paths: letters, digits, "-", "_" and "/" -- the app builds ids from
+/// the slot key, which is "<day>/<hour>". No dots, so never "..".
+export const CLIP_ID = /^[A-Za-z0-9_\-/]{1,200}$/;
 export const WireClip = z.object({
-  id: z.string().regex(/^[A-Za-z0-9_-]{1,100}$/),
+  id: z.string().regex(CLIP_ID),
   room_id: z.string().min(1).max(100),
   member_id: z.string().max(100),
   day: z.string().max(10),
@@ -136,8 +138,8 @@ clipRoutes.post("/", async (c) => {
 });
 
 /// Deletes one of your own clips, row and R2 copy. Anyone else's (or an unknown id) is not_owner.
-clipRoutes.delete("/:id", async (c) => {
-  const row = await clipRow(c.env, c.req.param("id"));
+clipRoutes.delete("/*", async (c) => {
+  const row = await clipRow(c.env, pathTail(c, "/v1/clips/"));
   if (!row || row.member_id !== c.get("userId")) fail("not_owner");
   await c.env.DB.prepare("DELETE FROM clips WHERE id = ?").bind(row.id).run();
   await deleteObjects(c.env, [row.storage_key]);

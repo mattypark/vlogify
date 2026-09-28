@@ -35,6 +35,19 @@ describe("posting clips", () => {
     expect(await body(await api(`/v1/rooms/${room.id}/history`, owner))).toEqual([today()]);
   });
 
+  it("takes the ids the app actually builds, slash and all: <room>-<user>-<day>/<hour>-<epoch>", async () => {
+    const { owner, friend, room } = await logRoom();
+    const id = `${room.id}-${friend.id}-${today()}/14-1790000000`;
+    const { signed, upload, posted } = await uploadAndPost(friend, wireClip(room.id, friend, { id, hour: 14 }));
+    expect(signed.url).toContain(encodeURIComponent(id));
+    expect(upload!.status).toBe(204);
+    expect((await body(posted!)).id).toBe(id);
+    const sign = await api(`/v1/media/sign?key=${encodeURIComponent(signed.storage_key)}`, owner);
+    expect((await SELF.fetch((await body(sign)).url)).status).toBe(200);
+    expect((await api(`/v1/clips/${encodeURIComponent(id)}`, friend, { method: "DELETE" })).status).toBe(204);
+    expect(await env.CLIPS.head(signed.storage_key)).toBeNull();
+  });
+
   it("a pending clip is not in the day log", async () => {
     const { owner, room } = await logRoom();
     const clip = wireClip(room.id, owner, { hour: 5 });
