@@ -13,7 +13,7 @@ func render() {
     let path = CommandLine.arguments.dropFirst().first ?? "icon-1024.png"
     let view = ZStack {
         Color.ground
-        PenShape(.circle, seed: 7, wobble: 14)
+        PenShape(.circle, seed: 7, wobble: 10)
             .stroke(Color.text, style: StrokeStyle(lineWidth: 40, lineCap: .round, lineJoin: .round))
             .frame(width: 700, height: 700)
         BlobShape(seed: 11, points: 9, wobble: 0.08)
