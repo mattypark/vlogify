@@ -7,12 +7,15 @@
   <meta name="description" content="What vlogify collects, why, and how to delete it.">
   <meta property="og:title" content="privacy policy — vlogify">
   <meta property="og:description" content="What vlogify collects, why, and how to delete it.">
-  <meta property="og:image" content="https://vlogify.app/og.png">
+  <meta property="og:image" content="https://vlogify.matthew-parkk0.workers.dev/og.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="/favicon.png">
-  <link rel="canonical" href="https://vlogify.app/privacy">
+  <link rel="canonical" href="https://vlogify.matthew-parkk0.workers.dev/privacy">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yomogi&display=swap">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -26,33 +29,34 @@
       </nav>
     </header>
     <h1>privacy policy</h1>
-    <p class="meta">effective 11 September 2026</p>
-    <p>vlogify is a small app with a simple deal: your clips are seen by the people in your room and nobody else. This page says exactly what we hold, why, and how to make it go away.</p>
+    <p class="meta">effective 28 September 2026</p>
+    <p>vlogify has a simple deal: your clips are seen by the people in your room and nobody else, and they live on your phone. This page says exactly what we hold, why, for how long, and how to make it go away.</p>
     <h2>what we collect</h2>
     <ul>
-      <li><strong>Account identifier.</strong> Created when you sign in with Apple, Google, or an email code. Used to know which rooms are yours.</li>
-      <li><strong>Display name.</strong> The name you type at setup. Shown on your tiles to your room. Sign in with Apple’s name is only used to prefill it.</li>
-      <li><strong>Email address.</strong> Only if you sign in by email, and only to deliver the six-digit code. Codes are sent through Resend, our email provider, which sees your address for that purpose only.</li>
-      <li><strong>Profile colour.</strong> The outline colour you choose, shown to your rooms.</li>
-      <li><strong>Clips.</strong> The two-second videos you post, with the room, day and hour they belong to. Stored so the people in your room can watch them and so your day can be stitched.</li>
-      <li><strong>Reports and blocks.</strong> If you report a clip or block someone, we keep that so it sticks.</li>
+      <li><strong>Account identifier.</strong> Created when you sign in with Apple. We store a one-way hash of the identifier Apple gives us, never your Apple ID or email address.</li>
+      <li><strong>Display name.</strong> The name you type at setup, shown on your clips to your rooms. Sign in with Apple’s name is only used to prefill it.</li>
+      <li><strong>Your mark.</strong> The small drawing you make at setup. It is shown to your rooms as your avatar and on your clips.</li>
+      <li><strong>Clips.</strong> The two-second videos you post, with the room, day and hour they belong to.</li>
+      <li><strong>Reports and blocks.</strong> If you report a clip or block someone, we keep that so it sticks and so a person can review the report.</li>
+      <li><strong>Support messages.</strong> If you use the support form, the email address and message you send us.</li>
     </ul>
-    <p>We do not collect your location, contacts, camera roll, or analytics. There is no advertising and no tracking, and the app’s privacy manifest says the same thing.</p>
-    <h2>data we keep on your phone</h2>
-    <p><strong>Notes.</strong> Anything you type on the day page or on a room page stays on your phone. It is never uploaded, never shown to your friends, and never seen by us. It is included in your own iCloud backup like any app data, and it is deleted with the app or when you delete your account.</p>
-    <p><strong>Your colour and the time font.</strong> The outline colour you pick is part of your profile so friends can tell your clips from theirs; the time font is a phone-only preference.</p>
-    <p><strong>Clips before upload.</strong> A clip is saved to your phone first, then uploaded to your room. The local copy is a cache and is not backed up.</p>
+    <p>We do not collect your location, contacts, camera roll, or analytics. There is no advertising and no tracking, and the app’s privacy manifest says the same.</p>
+    <h2>your clips live on your phone</h2>
+    <p>Every clip is saved on your phone first. Our server is a relay: it holds a copy of a clip only so the people in your room can receive it, and deletes that copy automatically after <strong>seven days</strong>. Your friends’ phones keep the clips they received. The finished vlog is made on your phone and is saved only if you save it.</p>
+    <h2>data that never leaves your phone</h2>
+    <p><strong>Notes.</strong> Anything you type on the day page or a room page stays on your phone. It is never uploaded, never shown to your friends, and never seen by us.</p>
+    <p><strong>Preferences.</strong> The time font, orientation and language are phone-only settings.</p>
     <h2>who can see what</h2>
-    <p>Clips are visible only to members of the room they were posted in. Room owners can remove members; anyone can leave. Blocking someone hides their clips from you and yours from them everywhere.</p>
+    <p>Clips are visible only to members of the room they were posted in. Room owners can remove members; anyone can leave. Blocking someone hides their clips and profile from you, and yours from them.</p>
     <h2>where it lives</h2>
-    <p>Clips and account data are stored with our hosting providers (Supabase for account and room data, Cloudflare R2 for video) in encrypted storage, transferred over HTTPS, and never shared with anyone else except as required by law.</p>
+    <p>Account and room data are stored with Cloudflare (Workers, D1 and R2) and transferred over HTTPS. We do not sell or share your data with anyone, except as required by law.</p>
     <h2>deleting your data</h2>
-    <p>Profile → <strong>delete account</strong> removes your account, every clip you posted, the rooms you own, and revokes your Sign in with Apple token. It cannot be undone. If you cannot open the app, email <a href="mailto:hello@vlogify.app">hello@vlogify.app</a> from the address on the account and we will do it within 30 days.</p>
+    <p>Profile → <strong>delete account</strong> removes your account, every clip you posted, and the rooms you own, straight away. It cannot be undone. If you cannot open the app, send a request through the <a href="/support">support form</a> and we will delete it within 30 days.</p>
     <h2>children</h2>
-    <p>vlogify is rated 13+ and is not directed at children under 13. If you believe a child under 13 has an account, contact us and we will remove it.</p>
+    <p>vlogify is rated 13+ and is not directed at children under 13. If you believe a child under 13 has an account, tell us through the <a href="/support">support form</a> and we will remove it.</p>
     <h2>changes</h2>
     <p>If this policy changes in a way that matters, the app will tell you before it applies.</p>
-    <p>Questions: <a href="mailto:hello@vlogify.app">hello@vlogify.app</a></p>
+    <p>Questions: the <a href="/support">support form</a>.</p>
     <footer>
       © 2026 vlogify · <a href="/privacy">privacy</a> · <a href="/terms">terms</a> · <a href="/support">support</a>
     </footer>
