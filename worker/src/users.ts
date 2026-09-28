@@ -1,12 +1,14 @@
 import type { Env } from "./env";
+import { maskProfanity } from "./filter";
 import { now, prefixGraphemes, randomId } from "./util";
 
 /// The longest display name, in characters. What fits under an avatar on the smallest phone.
 export const DISPLAY_NAME_MAX = 20;
 export const AVATAR_SEEDS = 12;
 
+/// Trimmed, capped, and passed through the word filter: a name is shown to everyone in a room.
 export function cleanDisplayName(raw: string | null | undefined): string {
-  return prefixGraphemes((raw ?? "").trim(), DISPLAY_NAME_MAX);
+  return maskProfanity(prefixGraphemes((raw ?? "").trim(), DISPLAY_NAME_MAX));
 }
 
 /// Swift's `((seed % 12) + 12) % 12`, which is what the mock stores for any integer.

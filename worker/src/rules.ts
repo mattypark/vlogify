@@ -4,6 +4,7 @@
 // there disagree, one of the two has drifted.
 
 import { fromBase64url, prefixGraphemes } from "./util";
+import { maskProfanity } from "./filter";
 
 // MARK: - Room types and rules (RoomRules.swift)
 
@@ -41,10 +42,11 @@ export function isClipTooLong(type: RoomType, durationMs: number): boolean {
 
 export const MAX_NAME_LENGTH = 24;
 
+/// Room names are shown to everyone in the room, so they go through the word filter too.
 export function normalizedName(raw: string): string | null {
   const trimmed = raw.trim();
   if (!trimmed) return null;
-  return prefixGraphemes(trimmed, MAX_NAME_LENGTH);
+  return maskProfanity(prefixGraphemes(trimmed, MAX_NAME_LENGTH));
 }
 
 export function canJoin(memberCount: number, capacity: number): boolean {
