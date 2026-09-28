@@ -82,6 +82,46 @@
         }
       }
     },
+    "%@ is open. your two seconds?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ is open. your two seconds?"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 열렸어요. 2초 찍을래요?"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%@ がはじまったよ。2秒撮る？"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%@ 開放了。來拍你的兩秒？"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%@ đã mở. hai giây của bạn?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%@ открыт. твои две секунды?"
+          }
+        }
+      }
+    },
     "%@ missed this hour": {
       "localizations": {
         "en": {
@@ -162,6 +202,46 @@
         }
       }
     },
+    "%@. what's in front of you?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@. what's in front of you?"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@. 지금 눈앞엔 뭐가 있어요?"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%@。いま目の前には何がある？"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%@。你眼前有什麼？"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%@. trước mắt bạn là gì?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%@. что сейчас перед тобой?"
+          }
+        }
+      }
+    },
     "%lld clips today": {
       "localizations": {
         "en": {
@@ -198,6 +278,46 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "клипов сегодня: %lld"
+          }
+        }
+      }
+    },
+    "%lld friends": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld friends"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "친구 %lld명"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "友だち %lld 人"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%lld 位朋友"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%lld người bạn"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "друзей: %lld"
           }
         }
       }
@@ -562,6 +682,166 @@
         }
       }
     },
+    "a face, a star, a squiggle, your initial. it signs every clip you take.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a face, a star, a squiggle, your initial. it signs every clip you take."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "얼굴, 별, 낙서, 이니셜 뭐든요. 찍는 모든 클립에 서명이 돼요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "顔でも星でも、ぐるぐるでもイニシャルでも。撮るクリップ全部のサインになるよ。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "一張臉、一顆星、一團塗鴉或你的縮寫。它會簽在你拍的每段片段上。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "một khuôn mặt, ngôi sao, nét nguệch ngoạc, chữ cái đầu. nó ký lên mọi clip bạn quay."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "лицо, звезда, закорючка, твоя буква. это подпись на каждом твоём клипе."
+          }
+        }
+      }
+    },
+    "a new room": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a new room"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "새 방"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "新しいルーム"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "新房間"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "phòng mới"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "новая комната"
+          }
+        }
+      }
+    },
+    "a room called": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a room called"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "방 이름은"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ルームの名前は"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "房間名稱是"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "một phòng tên là"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "комната под названием"
+          }
+        }
+      }
+    },
+    "a room just for you has no limits. days turn over at 4 am.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "a room just for you has no limits. days turn over at 4 am."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "나만의 방은 제한이 없어요. 하루는 새벽 4시에 넘어가요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "自分だけのルームは制限なし。1日は朝4時に切り替わるよ。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "只屬於你的房間沒有限制。每天在凌晨 4 點換日。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "phòng chỉ cho riêng bạn thì không giới hạn. ngày mới bắt đầu lúc 4 giờ sáng."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "в комнате только для тебя нет ограничений. день сменяется в 4 утра."
+          }
+        }
+      }
+    },
     "about": {
       "localizations": {
         "en": {
@@ -882,6 +1162,46 @@
         }
       }
     },
+    "and then?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "and then?"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "그 다음엔?"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "それで？"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "然後呢？"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "rồi sao nữa?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "а потом?"
+          }
+        }
+      }
+    },
     "anyone with this code can join %@.": {
       "localizations": {
         "en": {
@@ -958,6 +1278,86 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "что-нибудь ещё (необязательно)"
+          }
+        }
+      }
+    },
+    "anything you like": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "anything you like"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아무거나"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "なんでもOK"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "隨你喜歡"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "tuỳ bạn"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "что угодно"
+          }
+        }
+      }
+    },
+    "at night it all lines up\ninto one vlog, side by side.\nyours to keep.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "at night it all lines up\ninto one vlog, side by side.\nyours to keep."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "밤이 되면 모두 나란히\n하나의 브이로그가 돼요.\n간직하는 건 당신 몫."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "夜になると全部が並んで\nひとつのVlogになる。\nあなたのものとして残るよ。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "到了晚上，全部並排\n成為一支 vlog。\n由你保存。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "đến tối, mọi thứ xếp cạnh nhau\nthành một vlog.\ncủa bạn để giữ."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "вечером всё выстраивается\nв один влог, бок о бок.\nон остаётся тебе."
           }
         }
       }
@@ -1078,6 +1478,46 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "заблокированные"
+          }
+        }
+      }
+    },
+    "by continuing you agree to the [terms](%@) and [privacy policy](%@).": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "by continuing you agree to the [terms](%@) and [privacy policy](%@)."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "계속하면 [이용약관](%@)과 [개인정보 처리방침](%@)에 동의하게 돼요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "続けると[利用規約](%@)と[プライバシーポリシー](%@)に同意したことになります。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "繼續即表示你同意[條款](%@)和[隱私權政策](%@)。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "tiếp tục nghĩa là bạn đồng ý với [điều khoản](%@) và [chính sách quyền riêng tư](%@)."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "продолжая, ты соглашаешься с [условиями](%@) и [политикой конфиденциальности](%@)."
           }
         }
       }
@@ -1358,6 +1798,46 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "клипы на этом телефоне"
+          }
+        }
+      }
+    },
+    "clips only go to the room you post them in.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "clips only go to the room you post them in."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "클립은 올린 방에만 보여요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "クリップは投稿したルームにだけ届くよ。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "片段只會出現在你發布的房間裡。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "clip chỉ đến phòng bạn đăng."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "клипы видны только в комнате, куда ты их выложил."
           }
         }
       }
@@ -1918,6 +2398,46 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "не удалось войти. попробуй ещё раз."
+          }
+        }
+      }
+    },
+    "couldn't start the room. try again.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "couldn't start the room. try again."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "방을 만들지 못했어요. 다시 해 주세요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ルームを作れませんでした。もう一度試してね。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "無法建立房間，請再試一次。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "không tạo được phòng. thử lại nhé."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "не удалось создать комнату. попробуй ещё раз."
           }
         }
       }
@@ -2522,6 +3042,366 @@
         }
       }
     },
+    "draw": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "draw"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "그려요"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "描いて"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "畫吧"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vẽ đi"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "рисуй"
+          }
+        }
+      }
+    },
+    "draw a new mark.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "draw a new mark."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "새 마크를 그려요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "新しいマークを描いて。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "畫一個新記號。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vẽ dấu mới."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "нарисуй новый знак."
+          }
+        }
+      }
+    },
+    "draw it again": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "draw it again"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다시 그리기"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "描き直す"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "重畫"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vẽ lại"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "нарисовать заново"
+          }
+        }
+      }
+    },
+    "draw your mark with one finger": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "draw your mark with one finger"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "한 손가락으로 마크를 그려요"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "指1本でマークを描いてね"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "用一根手指畫出你的記號"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vẽ dấu của bạn bằng một ngón tay"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "нарисуй свой знак одним пальцем"
+          }
+        }
+      }
+    },
+    "drawing area": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "drawing area"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "그리는 곳"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "描くところ"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "繪畫區域"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "khu vực vẽ"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "область рисования"
+          }
+        }
+      }
+    },
+    "each hour your room gets a nudge at the same minute. film two seconds of whatever is in front of you.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "each hour your room gets a nudge at the same minute. film two seconds of whatever is in front of you."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "매시간 방 모두가 같은 분에 알림을 받아요. 눈앞에 있는 걸 2초만 찍어요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "毎時、ルームのみんなに同じ分に通知が届くよ。目の前のものを2秒撮ろう。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "每小時，房間裡的人會在同一分鐘收到提醒。拍下眼前兩秒就好。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "mỗi giờ phòng bạn nhận một lời nhắc cùng một phút. quay hai giây những gì trước mắt."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "каждый час комната получает напоминание в одну и ту же минуту. сними две секунды того, что перед тобой."
+          }
+        }
+      }
+    },
+    "email": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "email"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "email"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "email"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "email"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "email"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "email"
+          }
+        }
+      }
+    },
+    "everyone in it gets the same nudge each hour. you'll get a code to send them.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "everyone in it gets the same nudge each hour. you'll get a code to send them."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "방 사람들 모두 매시간 같은 알림을 받아요. 친구에게 보낼 코드를 드릴게요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "参加者全員に毎時同じ通知が届くよ。送る用のコードも出るよ。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "裡面的每個人每小時都會收到同一個提醒。你會拿到一組代碼傳給他們。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "mọi người trong phòng nhận cùng một lời nhắc mỗi giờ. bạn sẽ có mã để gửi cho họ."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "все в комнате получают одно и то же напоминание каждый час. ты получишь код, чтобы отправить им."
+          }
+        }
+      }
+    },
+    "film as much as you like, whenever. only you see it.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "film as much as you like, whenever. only you see it."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "원할 때 원하는 만큼 찍어요. 나만 볼 수 있어요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "好きなときに好きなだけ撮ってね。見られるのはあなただけ。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "隨時想拍多少就拍多少，只有你看得到。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "quay bao nhiêu tuỳ thích, lúc nào cũng được. chỉ bạn thấy."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "снимай сколько хочешь и когда хочешь. видишь только ты."
+          }
+        }
+      }
+    },
     "flash": {
       "localizations": {
         "en": {
@@ -2562,6 +3442,86 @@
         }
       }
     },
+    "flash off": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "flash off"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "플래시 끔"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "フラッシュ オフ"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "閃光燈關閉"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "tắt đèn flash"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "вспышка выкл."
+          }
+        }
+      }
+    },
+    "flash on": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "flash on"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "플래시 켬"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "フラッシュ オン"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "閃光燈開啟"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "bật đèn flash"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "вспышка вкл."
+          }
+        }
+      }
+    },
     "flip camera": {
       "localizations": {
         "en": {
@@ -2598,6 +3558,206 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "переключить камеру"
+          }
+        }
+      }
+    },
+    "for me +": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "for me +"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "나 +"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "わたし +"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "我 +"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "mình +"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "я +"
+          }
+        }
+      }
+    },
+    "friends see this on your clips. you can redraw it any time in your profile.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "friends see this on your clips. you can redraw it any time in your profile."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "친구들은 당신 클립에서 이걸 봐요. 프로필에서 언제든 다시 그릴 수 있어요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "友だちはあなたのクリップでこれを見るよ。プロフィールからいつでも描き直せるよ。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "朋友會在你的片段上看到它。隨時可以在個人檔案重畫。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "bạn bè thấy dấu này trên clip của bạn. vẽ lại bất cứ lúc nào trong hồ sơ."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "друзья видят его на твоих клипах. перерисовать можно в профиле в любой момент."
+          }
+        }
+      }
+    },
+    "friends.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "friends."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "명의 친구."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "人の友だち。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "位朋友。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "người bạn."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "друзей."
+          }
+        }
+      }
+    },
+    "google": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "google"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "google"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "google"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "google"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "google"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "google"
+          }
+        }
+      }
+    },
+    "got %@. next nudge in %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "got %@. next nudge in %@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ 찍었어요. 다음 알림까지 %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%@ 撮れた。次の通知まで %@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%@ 拍好了。下一次提醒在 %@ 後"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "đã có %@. lời nhắc tiếp theo sau %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%@ есть. следующее напоминание через %@"
           }
         }
       }
@@ -2802,6 +3962,46 @@
         }
       }
     },
+    "hourly nudges": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "hourly nudges"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "매시간 알림"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "毎時の通知"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "每小時提醒"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "nhắc mỗi giờ"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "напоминания каждый час"
+          }
+        }
+      }
+    },
     "hourly pings": {
       "localizations": {
         "en": {
@@ -2958,6 +4158,46 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "пригласить друзей"
+          }
+        }
+      }
+    },
+    "it goes under your clips.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "it goes under your clips."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "클립 아래에 표시돼요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "クリップの下に表示されるよ。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "它會顯示在你的片段下方。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "tên sẽ hiện dưới clip của bạn."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "оно будет под твоими клипами."
           }
         }
       }
@@ -3162,6 +4402,46 @@
         }
       }
     },
+    "join with a code": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "join with a code"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "코드로 참여"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "コードで参加"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "用代碼加入"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vào bằng mã"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "войти по коду"
+          }
+        }
+      }
+    },
     "join with code": {
       "localizations": {
         "en": {
@@ -3198,6 +4478,46 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "войти по коду"
+          }
+        }
+      }
+    },
+    "just for me.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "just for me."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "나만을 위한."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "わたしだけの。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "只給我自己。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "chỉ cho mình."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "только для меня."
           }
         }
       }
@@ -3762,6 +5082,86 @@
         }
       }
     },
+    "meet %@.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "meet %@."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "안녕, %@."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "はじめまして、%@。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "你好，%@。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "chào %@."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "знакомься: %@."
+          }
+        }
+      }
+    },
+    "most of a day never gets filmed.\nthe walk, the lunch, the 11 pm kitchen.\nthose were the good parts.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "most of a day never gets filmed.\nthe walk, the lunch, the 11 pm kitchen.\nthose were the good parts."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "하루의 대부분은 찍히지 않아요.\n걷던 길, 점심, 밤 11시의 부엌.\n그게 좋은 순간들이었는데."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "1日のほとんどは撮られないまま。\n帰り道、お昼ごはん、夜11時の台所。\nそれがいい瞬間だったのに。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "一天的大部分都沒被拍下來。\n散步、午餐、晚上 11 點的廚房。\n那些才是美好的片刻。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "phần lớn một ngày chẳng ai quay lại.\nlúc đi bộ, bữa trưa, căn bếp lúc 11 giờ đêm.\nđó mới là những phần đẹp."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "большая часть дня никогда не попадает в кадр.\nпрогулка, обед, кухня в 11 вечера.\nа ведь это и было самое хорошее."
+          }
+        }
+      }
+    },
     "new": {
       "localizations": {
         "en": {
@@ -3882,6 +5282,46 @@
         }
       }
     },
+    "next": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "next"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다음"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "次へ"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "下一步"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "tiếp"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "дальше"
+          }
+        }
+      }
+    },
     "next day": {
       "localizations": {
         "en": {
@@ -3918,6 +5358,46 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "следующий день"
+          }
+        }
+      }
+    },
+    "next nudge in %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "next nudge in %@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다음 알림까지 %@"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "次の通知まで %@"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "下一次提醒在 %@ 後"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "lời nhắc tiếp theo sau %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "следующее напоминание через %@"
           }
         }
       }
@@ -3962,6 +5442,46 @@
         }
       }
     },
+    "no ads, no streaks, no \"you missed it\".": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "no ads, no streaks, no \"you missed it\"."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "광고도, 연속 기록도, \"놓쳤어요\"도 없어요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "広告も連続記録も「見逃したよ」もなし。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "沒有廣告、沒有連續紀錄、沒有「你錯過了」。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "không quảng cáo, không chuỗi ngày, không \"bạn đã bỏ lỡ\"."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "без рекламы, без серий, без «ты пропустил»."
+          }
+        }
+      }
+    },
     "no camera in the simulator": {
       "localizations": {
         "en": {
@@ -3998,6 +5518,46 @@
           "stringUnit": {
             "state": "translated",
             "value": "no camera in the simulator"
+          }
+        }
+      }
+    },
+    "no nudges yet. rooms with friends get one every hour.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "no nudges yet. rooms with friends get one every hour."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아직 알림이 없어요. 친구와 함께하는 방은 매시간 알림을 받아요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "まだ通知はないよ。友だちとのルームには毎時届くよ。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "還沒有提醒。和朋友一起的房間每小時都會收到一次。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "chưa có lời nhắc nào. phòng có bạn bè sẽ nhận mỗi giờ."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "напоминаний пока нет. комнаты с друзьями получают их каждый час."
           }
         }
       }
@@ -4162,6 +5722,46 @@
         }
       }
     },
+    "not now": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "not now"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "나중에"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "あとで"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "現在不要"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "để sau"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "не сейчас"
+          }
+        }
+      }
+    },
     "nothing this hour": {
       "localizations": {
         "en": {
@@ -4322,6 +5922,86 @@
         }
       }
     },
+    "now draw your mark.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "now draw your mark."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이제 당신의 마크를 그려요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "つぎはあなたのマークを描いて。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "現在畫出你的記號。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "giờ hãy vẽ dấu của bạn."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "теперь нарисуй свой знак."
+          }
+        }
+      }
+    },
+    "nudges": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "nudges"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "알림"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "通知"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "提醒"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "lời nhắc"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "напоминания"
+          }
+        }
+      }
+    },
     "nudity": {
       "localizations": {
         "en": {
@@ -4402,6 +6082,46 @@
         }
       }
     },
+    "okay": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "okay"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "좋아요"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "うん"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "好"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "được"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ок"
+          }
+        }
+      }
+    },
     "on": {
       "localizations": {
         "en": {
@@ -4438,6 +6158,46 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "вкл"
+          }
+        }
+      }
+    },
+    "once an hour, everyone in your room\ngets the same nudge.\ntwo seconds. one take. no redo.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "once an hour, everyone in your room\ngets the same nudge.\ntwo seconds. one take. no redo."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "한 시간에 한 번, 방 모두가\n같은 알림을 받아요.\n2초. 한 번. 다시 찍기 없음."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "1時間に1回、ルームのみんなに\n同じ通知が届く。\n2秒。1テイク。撮り直しなし。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "每小時一次，房間裡的每個人\n收到同一個提醒。\n兩秒。一次拍。不能重拍。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "mỗi giờ một lần, cả phòng bạn\nnhận cùng một lời nhắc.\nhai giây. một lần quay. không quay lại."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "раз в час все в твоей комнате\nполучают одно напоминание.\nдве секунды. один дубль. без пересъёмки."
           }
         }
       }
@@ -4482,6 +6242,86 @@
         }
       }
     },
+    "one nudge an hour.\nsame minute as your friends,\nso you all film the same moment.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "one nudge an hour.\nsame minute as your friends,\nso you all film the same moment."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "한 시간에 알림 하나.\n친구들과 같은 분에 와서,\n모두가 같은 순간을 찍어요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "1時間に1回の通知。\n友だちと同じ分に届くから、\nみんなで同じ瞬間を撮れる。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "每小時一次提醒。\n和朋友同一分鐘，\n大家拍下同一個時刻。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "mỗi giờ một lời nhắc.\ncùng phút với bạn bè,\nnên mọi người quay cùng một khoảnh khắc."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "одно напоминание в час.\nв ту же минуту, что и у друзей,\nчтобы вы снимали один и тот же момент."
+          }
+        }
+      }
+    },
+    "only you": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "only you"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "나만"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "わたしだけ"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "只有你"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "chỉ bạn"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "только ты"
+          }
+        }
+      }
+    },
     "open settings": {
       "localizations": {
         "en": {
@@ -4518,6 +6358,46 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "открыть настройки"
+          }
+        }
+      }
+    },
+    "page %lld of %lld": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "page %lld of %lld"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%lld / %lld 페이지"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%lld / %lld ページ"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "第 %lld / %lld 頁"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "trang %lld / %lld"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "страница %lld из %lld"
           }
         }
       }
@@ -5162,6 +7042,46 @@
         }
       }
     },
+    "redraw": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "redraw"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "다시 그리기"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "描き直す"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "重畫"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vẽ lại"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "перерисовать"
+          }
+        }
+      }
+    },
     "remove from room": {
       "localizations": {
         "en": {
@@ -5442,6 +7362,46 @@
         }
       }
     },
+    "save it": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "save it"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "저장"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "保存"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "儲存"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "lưu lại"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "сохранить"
+          }
+        }
+      }
+    },
     "save to photos": {
       "localizations": {
         "en": {
@@ -5478,6 +7438,46 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "сохранить в фото"
+          }
+        }
+      }
+    },
+    "saved on your phone. it'll post when you're back online.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "saved on your phone. it'll post when you're back online."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "휴대폰에 저장했어요. 다시 연결되면 올라가요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "スマホに保存したよ。オンラインに戻ったら投稿されるよ。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "已存到你的手機。恢復連線後就會發布。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "đã lưu trên điện thoại. sẽ đăng khi bạn có mạng lại."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "сохранено на телефоне. опубликуется, когда вернётся связь."
           }
         }
       }
@@ -6122,6 +8122,86 @@
         }
       }
     },
+    "start a\nroom": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "start a\nroom"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "방\n만들기"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ルームを\nつくる"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "開一個\n房間"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "tạo\nphòng"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "создать\nкомнату"
+          }
+        }
+      }
+    },
+    "start a room": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "start a room"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "방 만들기"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ルームをつくる"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "開一個房間"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "tạo phòng"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "создать комнату"
+          }
+        }
+      }
+    },
     "start a zip": {
       "localizations": {
         "en": {
@@ -6158,6 +8238,126 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "начать zip"
+          }
+        }
+      }
+    },
+    "start it": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "start it"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "시작하기"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "はじめる"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "開始"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "bắt đầu"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "начать"
+          }
+        }
+      }
+    },
+    "start my first room": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "start my first room"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "첫 방 만들기"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "最初のルームをつくる"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "開我的第一個房間"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "tạo phòng đầu tiên"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "создать первую комнату"
+          }
+        }
+      }
+    },
+    "start over": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "start over"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "처음부터"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "最初から"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "重來"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "làm lại"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "начать сначала"
           }
         }
       }
@@ -6202,6 +8402,46 @@
         }
       }
     },
+    "sure": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sure"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "좋아요"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "いいよ"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "好啊"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "được thôi"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "давай"
+          }
+        }
+      }
+    },
     "tap": {
       "localizations": {
         "en": {
@@ -6242,6 +8482,46 @@
         }
       }
     },
+    "tap + to start a room with friends, or join one with a code.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tap + to start a room with friends, or join one with a code."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+를 눌러 친구와 방을 만들거나, 코드로 참여해요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "＋をタップして友だちとルームをつくるか、コードで参加しよう。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "點 + 和朋友開一個房間，或用代碼加入。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "chạm + để tạo phòng với bạn bè, hoặc vào bằng mã."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "нажми +, чтобы создать комнату с друзьями или войти по коду."
+          }
+        }
+      }
+    },
     "tap + to start: create a log (new group) or join one with a code.": {
       "localizations": {
         "en": {
@@ -6278,6 +8558,86 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "нажми +: создай лог (новая группа) или войди по коду."
+          }
+        }
+      }
+    },
+    "tap anywhere": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tap anywhere"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "아무 데나 눌러요"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "どこかをタップ"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "點任何地方"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "chạm vào đâu cũng được"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "нажми где угодно"
+          }
+        }
+      }
+    },
+    "tap to film": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tap to film"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "눌러서 찍기"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "タップで撮影"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "點一下拍攝"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "chạm để quay"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "нажми, чтобы снять"
           }
         }
       }
@@ -6522,6 +8882,46 @@
         }
       }
     },
+    "that's me": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "that's me"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이게 나예요"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "これがわたし"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "這就是我"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "là mình đó"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "это я"
+          }
+        }
+      }
+    },
     "this is the name on your tiles.": {
       "localizations": {
         "en": {
@@ -6562,6 +8962,46 @@
         }
       }
     },
+    "this page is yours. nobody else sees what you write here.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "this page is yours. nobody else sees what you write here."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이 페이지는 당신 거예요. 여기 쓴 건 아무도 못 봐요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "このページはあなただけのもの。ここに書いたことは誰にも見えないよ。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "這一頁是你的。你寫在這裡的，別人都看不到。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "trang này là của bạn. không ai khác thấy những gì bạn viết ở đây."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "эта страница твоя. никто не видит, что ты здесь пишешь."
+          }
+        }
+      }
+    },
     "time font": {
       "localizations": {
         "en": {
@@ -6598,6 +9038,46 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "шрифт времени"
+          }
+        }
+      }
+    },
+    "tips: your day lives on the left, the camera is in the middle, start a room on the right. tap to close.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "tips: your day lives on the left, the camera is in the middle, start a room on the right. tap to close."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "팁: 왼쪽은 오늘 페이지, 가운데는 카메라, 오른쪽에서 방을 만들어요. 눌러서 닫기."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ヒント：左に今日のページ、真ん中にカメラ、右でルームをつくれるよ。タップで閉じる。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "提示：左邊是你的一天，中間是相機，右邊可以開房間。點一下關閉。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "mẹo: bên trái là ngày của bạn, giữa là camera, bên phải để tạo phòng. chạm để đóng."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "подсказка: слева твой день, в центре камера, справа создать комнату. нажми, чтобы закрыть."
           }
         }
       }
@@ -6722,6 +9202,46 @@
         }
       }
     },
+    "turn me sideways": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "turn me sideways"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "옆으로 돌려요"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "横にしてね"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "把我轉橫"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "xoay ngang nhé"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "поверни меня боком"
+          }
+        }
+      }
+    },
     "unblock": {
       "localizations": {
         "en": {
@@ -6762,6 +9282,46 @@
         }
       }
     },
+    "undo": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "undo"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "실행 취소"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "取り消す"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "復原"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "hoàn tác"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "отменить"
+          }
+        }
+      }
+    },
     "untitled log": {
       "localizations": {
         "en": {
@@ -6798,6 +9358,86 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "лог без названия"
+          }
+        }
+      }
+    },
+    "untitled room": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "untitled room"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "이름 없는 방"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "名前のないルーム"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "未命名房間"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "phòng chưa đặt tên"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "комната без названия"
+          }
+        }
+      }
+    },
+    "up to 19 friends": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "up to 19 friends"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "최대 19명의 친구"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "友だち最大19人"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "最多 19 位朋友"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "tối đa 19 người bạn"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "до 19 друзей"
           }
         }
       }
@@ -7242,6 +9882,46 @@
         }
       }
     },
+    "what happened today?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "what happened today?"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오늘 무슨 일이 있었어요?"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "今日は何があった？"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "今天發生了什麼？"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "hôm nay có gì?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "что сегодня было?"
+          }
+        }
+      }
+    },
     "what's wrong with this clip?": {
       "localizations": {
         "en": {
@@ -7278,6 +9958,46 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "что не так с этим клипом?"
+          }
+        }
+      }
+    },
+    "with friends": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "with friends"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "친구와"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "友だちと"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "和朋友"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "với bạn bè"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "с друзьями"
           }
         }
       }
@@ -7682,6 +10402,46 @@
         }
       }
     },
+    "your camera and mic,\nonly while you're filming.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "your camera and mic,\nonly while you're filming."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "카메라와 마이크,\n찍는 동안에만 써요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "カメラとマイク、\n撮っているあいだだけ。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "你的相機和麥克風，\n只在拍攝時使用。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "camera và mic của bạn,\nchỉ khi bạn đang quay."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "твоя камера и микрофон,\nтолько пока ты снимаешь."
+          }
+        }
+      }
+    },
     "your clips": {
       "localizations": {
         "en": {
@@ -7842,6 +10602,46 @@
         }
       }
     },
+    "your day\nlives here": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "your day\nlives here"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "오늘은\n여기 있어요"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "今日は\nここにあるよ"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "你的一天\n在這裡"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ngày của bạn\nở đây"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "твой день\nживёт здесь"
+          }
+        }
+      }
+    },
     "your day, side by side.": {
       "localizations": {
         "en": {
@@ -7918,6 +10718,46 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "твоя почта"
+          }
+        }
+      }
+    },
+    "your mark": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "your mark"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "나의 마크"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "わたしのマーク"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "我的記號"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "dấu của bạn"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "твой знак"
           }
         }
       }
