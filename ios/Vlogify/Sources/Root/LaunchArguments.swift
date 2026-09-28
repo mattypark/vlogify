@@ -66,7 +66,11 @@ enum LaunchArguments {
     /// True under the UI test runner, so animations that would race the walker are
     /// shortened and the camera is replaced by the sample clip.
     static var isUITesting: Bool {
-        CommandLine.arguments.contains("-vlogifyUITest")
+        #if DEBUG
+        return CommandLine.arguments.contains("-vlogifyUITest")
+        #else
+        return false
+        #endif
     }
 
     static var usesTemporaryStore: Bool { demo != nil }
