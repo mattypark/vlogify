@@ -47,7 +47,7 @@ struct JoinRoomSheet: View {
             if let preview {
                 HStack {
                     VStack(alignment: .leading, spacing: 2) {
-                        Text(verbatim: preview.room.name ?? String(localized: "untitled log", bundle: .app))
+                        Text(verbatim: preview.room.name ?? String(localized: "untitled room", bundle: .app))
                             .font(.vlogCardTitle).foregroundStyle(Color.text)
                         Text("\(preview.memberCount) of \(preview.room.capacity) in")
                             .font(.vlogCaption).foregroundStyle(Color.textSoft)

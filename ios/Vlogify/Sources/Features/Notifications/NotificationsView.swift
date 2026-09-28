@@ -16,8 +16,8 @@ struct NotificationsView: View {
             Group {
                 if pinged.isEmpty {
                     VStack(spacing: Space.sm) {
-                        Image(systemName: "bell.slash").font(Font.system(size: 32)).foregroundStyle(Color.textSoft)
-                        Text("no pings yet. logs with friends ping every hour.")
+                        DoodleSticker(.bell, scale: 0.6)
+                        Text("no nudges yet. rooms with friends get one every hour.")
                             .font(.vlogBody).foregroundStyle(Color.textSoft).multilineTextAlignment(.center)
                     }
                     .padding(Space.xl)
@@ -25,12 +25,12 @@ struct NotificationsView: View {
                     List(pinged) { room in
                         HStack {
                             VStack(alignment: .leading, spacing: 2) {
-                                Text(verbatim: room.name ?? String(localized: "untitled log", bundle: .app)).font(.vlogBody).foregroundStyle(Color.text)
-                                Text("next ping in \(Clock.countdown(state.clock.secondsUntilPing(room: room.id)))")
+                                Text(verbatim: room.name ?? String(localized: "untitled room", bundle: .app)).font(.vlogBody).foregroundStyle(Color.text)
+                                Text("next nudge in \(Clock.countdown(state.clock.secondsUntilPing(room: room.id)))")
                                     .font(.vlogCaption).foregroundStyle(Color.textSoft)
                             }
                             Spacer()
-                            Image(systemName: "bell").foregroundStyle(Color.actionInk)
+                            DoodleSticker(.bell, scale: 0.18, lineWidth: 1.4)
                         }
                         .listRowBackground(Color.card)
                     }
@@ -39,7 +39,7 @@ struct NotificationsView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.ground.ignoresSafeArea())
-            .navigationTitle("pings")
+            .navigationTitle("nudges")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { ToolbarItem(placement: .cancellationAction) { Button("close") { dismiss() }.foregroundStyle(Color.text) } }
         }

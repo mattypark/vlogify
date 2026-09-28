@@ -40,7 +40,7 @@ final class HourlyScheduler {
     private func schedule(room: Room, slot: Slot, at date: Date, timeZone: TimeZone) async {
         let content = UNMutableNotificationContent()
         content.title = room.name ?? String(localized: "your room", bundle: .app)
-        content.body = String(localized: "it's \(slot.label). add your 2s clip.", bundle: .app)
+        content.body = String(localized: "\(slot.label). what's in front of you?", bundle: .app)
         content.sound = .default
         content.userInfo = ["roomID": room.id, "slot": slot.key]
         content.threadIdentifier = room.id
