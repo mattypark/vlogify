@@ -147,8 +147,10 @@ clipRoutes.delete("/*", async (c) => {
 });
 
 /// A playback URL for a storage key, only for someone in the room that clip was posted to.
-/// Looked up by key, not prefix, so seeded `demo/` clips play the same way. A clips/ copy older
-/// than the lifecycle rule is reported gone without asking R2.
+/// Looked up by key, not prefix, so seeded `demo/` clips play the same way. A copy that is no
+/// longer in R2 is `gone` here, before any URL exists: the app's cache downloads whatever the
+/// URL returns, and a 410 body must never land on disk as a .mov. A clips/ copy older than
+/// the lifecycle rule is reported gone without asking R2.
 mediaRoutes.get("/sign", async (c) => {
   const userId = c.get("userId");
   const key = c.req.query("key") ?? "";
@@ -163,6 +165,7 @@ mediaRoutes.get("/sign", async (c) => {
   if (!row) fail("not_member");
   const ageMs = Date.now() - Date.parse(row.created_at);
   if (key.startsWith(CLIP_PREFIX) && ageMs > (ttlDays(c.env) + 1) * 86_400_000) fail("gone");
+  if (!(await c.env.CLIPS.head(key))) fail("gone");
 
   const exp = Math.floor(Date.now() / 1000) + DOWNLOAD_TTL_SECONDS;
   return c.json({ url: await signDownloadURL(c.env, originOf(c), key, exp), expires_at: iso(new Date(exp * 1000)) });

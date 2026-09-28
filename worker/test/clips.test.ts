@@ -203,6 +203,9 @@ describe("signed media URLs", () => {
 
     await env.CLIPS.delete(signed.storage_key);
     expect(await errorOf(await SELF.fetch(url))).toEqual({ status: 410, error: "gone" });
+    // And no new URL is minted for it: the app's cache would save the 410 body as the clip.
+    expect(await errorOf(await api(`/v1/media/sign?key=${encodeURIComponent(signed.storage_key)}`, owner)))
+      .toEqual({ status: 410, error: "gone" });
   });
 
   it("a demo/ key plays for members of the room its rows are in", async () => {

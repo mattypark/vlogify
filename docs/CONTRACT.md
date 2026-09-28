@@ -60,7 +60,7 @@ keys above.
 | `ClipService.day` | `GET /v1/rooms/:id/days/:day` | → `DayLog` |
 | `ClipService.history` | `GET /v1/rooms/:id/history` | → `[DayKey]`, newest first |
 | `ClipService.delete` | `DELETE /v1/clips/:id` | → 204 (own clip) |
-| `MediaStore.downloadURL` | `GET /v1/media/sign?key=` | → `{url, expires_at}`; the url is `GET /media/<key>?exp&sig` |
+| `MediaStore.downloadURL` | `GET /v1/media/sign?key=` | → `{url, expires_at}`; the url is `GET /media/<key>?exp&sig`. 410 `gone` (client: `.network`) once the R2 copy has expired |
 | `SafetyService.report` | `POST /v1/reports` | `Report` → 204 |
 | `SafetyService.block` / `unblock` | `POST /v1/blocks` `{user_id}` / `DELETE /v1/blocks/:userId` | → 204 |
 | `SafetyService.blocked` | `GET /v1/blocks` | → `[Profile]` |
