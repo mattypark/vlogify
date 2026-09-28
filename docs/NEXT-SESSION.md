@@ -25,15 +25,17 @@ Updated 2026-09-28, the night of the first App Store submission.
 - **Review room**: code **REV-1EF**, capacity 20, three demo members. Re-seed each day
   while in review: `scripts/seed-review-room.sh <yesterday> <today>`.
 
-## Before pressing Submit
+## Before the next build (Matthew is iterating on the design first)
 
-1. Attach **build 3** to version 1.0 (Distribution → 1.0 → Build → Add Build).
-2. Optional but recommended: create a Sign in with Apple key for
-   `com.matthewpark.vlogify` and set `APPLE_TEAM_ID` / `APPLE_KEY_ID` /
-   `APPLE_PRIVATE_KEY` on the Worker (commands at the end of `scripts/deploy-worker.sh`),
-   so account deletion revokes the Apple grant. Without it the app points people to
-   Settings (TN3194).
-3. Matthew presses **Add for Review → Submit**. Never via MCP.
+- **No build uploads, attaches or swaps without Matthew's explicit OK** for that build.
+- Version 1.0 has **build 3** attached. **Build 4** (hand font everywhere, write-in
+  animations, drawn-in buttons) is uploaded to App Store Connect but not attached. The next
+  build Matthew approves replaces both.
+- Screenshots on the listing already show the hand font (build 4 look); re-take them if
+  the design changes again.
+- When he says ship: attach the approved build, then Matthew presses **Add for Review →
+  Submit**. Optional first: Sign in with Apple key secrets on the Worker (commands at the
+  end of `scripts/deploy-worker.sh`) so account deletion revokes the Apple grant.
 
 ## Open after launch
 
