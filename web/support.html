@@ -7,12 +7,15 @@
   <meta name="description" content="Get help with vlogify: rooms, codes, pings, saving your day, deleting your account.">
   <meta property="og:title" content="help & support — vlogify">
   <meta property="og:description" content="Get help with vlogify: rooms, codes, pings, saving your day, deleting your account.">
-  <meta property="og:image" content="https://vlogify.app/og.png">
+  <meta property="og:image" content="https://vlogify.matthew-parkk0.workers.dev/og.png">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="/favicon.png">
-  <link rel="canonical" href="https://vlogify.app/support">
+  <link rel="canonical" href="https://vlogify.matthew-parkk0.workers.dev/support">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yomogi&display=swap">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -26,7 +29,14 @@
       </nav>
     </header>
     <h1>help &amp; support</h1>
-    <p class="meta">we answer within two days · <a href="mailto:hello@vlogify.app">hello@vlogify.app</a></p>
+    <p class="meta">we answer within two days</p>
+    <p class="notice" id="sent" hidden>got it. we'll write back to the address you gave.</p>
+    <p class="notice" id="error" hidden>that didn't go through. check the email and write at least a sentence.</p>
+    <script>
+      const q = new URLSearchParams(location.search);
+      if (q.has("sent")) document.getElementById("sent").hidden = false;
+      if (q.has("error")) document.getElementById("error").hidden = false;
+    </script>
     <h2>common questions</h2>
     <p><strong>My friend can’t join.</strong> The room is full, or the code has a typo. Codes never contain I, L, O or U. The owner can share a fresh code from the room’s menu.</p>
     <p><strong>I didn’t get a ping.</strong> Check Settings → Notifications → vlogify is allowed and no Focus is silencing it. Pings only come from logs with friends; solo vlogs never ping.</p>

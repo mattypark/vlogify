@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://vlogify.app/sitemap.xml
+Sitemap: https://vlogify.matthew-parkk0.workers.dev/sitemap.xml
