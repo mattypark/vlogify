@@ -1,0 +1,6 @@
+node_modules/
+.wrangler/
+# Local secrets for `wrangler dev`. .dev.vars.example IS committed.
+.dev.vars
+.dev.vars.*
+!.dev.vars.example
