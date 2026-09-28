@@ -33,7 +33,7 @@ if [[ "$UPLOAD_ONLY" -eq 0 ]]; then
 
   # Build number has to rise on every upload or App Store Connect rejects the build.
   # Marketing version stays put until Matthew says otherwise.
-  CURRENT=$(grep -m1 "CURRENT_PROJECT_VERSION" ios/project.yml | grep -oE '[0-9]+')
+  CURRENT=$(grep -m1 -E "CURRENT_PROJECT_VERSION: \"[0-9]+\"" ios/project.yml | grep -oE "[0-9]+")
   NEXT=$((CURRENT + 1))
   sed -i '' "s/CURRENT_PROJECT_VERSION: \"$CURRENT\"/CURRENT_PROJECT_VERSION: \"$NEXT\"/" ios/project.yml
   (cd ios && xcodegen generate >/dev/null)
@@ -82,8 +82,28 @@ if [[ "$UPLOAD" -eq 1 ]]; then
   elif [[ -n "${ASC_USERNAME:-}" && -n "${ASC_APP_PASSWORD:-}" ]]; then
     xcrun altool --upload-app -f "$IPA" -t ios \
       -u "$ASC_USERNAME" -p "$ASC_APP_PASSWORD"
+  elif [[ -d "$ARCHIVE" ]]; then
+    # No key in the environment: let Xcode upload with the Apple account it is already
+    # signed into (the same one that signs the archive). Nothing is read or stored here.
+    cat > build/ExportOptions-upload.plist <<PLIST
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>method</key><string>app-store-connect</string>
+  <key>teamID</key><string>R43H5332KH</string>
+  <key>uploadSymbols</key><true/>
+  <key>destination</key><string>upload</string>
+</dict>
+</plist>
+PLIST
+    xcodebuild -exportArchive \
+      -archivePath "$ARCHIVE" \
+      -exportOptionsPlist build/ExportOptions-upload.plist \
+      -exportPath build/upload \
+      -allowProvisioningUpdates
   else
-    echo "No App Store Connect credentials in the environment." >&2
+    echo "No App Store Connect credentials in the environment and no archive to hand Xcode." >&2
     echo "See docs/TESTFLIGHT.md." >&2
     exit 1
   fi
