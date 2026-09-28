@@ -108,7 +108,7 @@ struct ProfileView: View {
             Button("delete everything", role: .destructive) { deleteAccount() }
                 .accessibilityIdentifier("account.deleteConfirm")
         } message: {
-            Text("your clips, your rooms, and your sign-in are removed from vlogify's servers. friends keep their own clips.")
+            Text("your clips, your rooms, and your sign-in are removed from vlogify's servers. friends keep their own clips. to also stop using Sign in with Apple for vlogify, open Settings > your name > Sign in with Apple.")
         }
         .screen("screen.profile")
     }
