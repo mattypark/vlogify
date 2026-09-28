@@ -3,8 +3,9 @@ import VlogifyContract
 import VlogifyDesign
 import VlogifyEngine
 
-/// The preview in a rounded frame, the hour, the smiley shutter. Tap = two seconds,
-/// one take, posted.
+/// The preview inside a drawn frame, the hour in the pen hand, a drawn shutter. Tap =
+/// two seconds, one take, posted -- and while it records, a red pen line draws itself
+/// once around the shutter, taking exactly the two seconds.
 struct CameraView: View {
     @Environment(AppState.self) private var state
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -16,8 +17,6 @@ struct CameraView: View {
     @State private var posting = false
     @State private var posted = 0
     @State private var showPicker = false
-    /// The colour picker shows until the first clip is posted from this phone.
-    @State private var showRing = !UserDefaults.standard.bool(forKey: "pickedRing")
 
     var body: some View {
         VStack(spacing: Space.sm) {
@@ -30,8 +29,8 @@ struct CameraView: View {
                 overlay
             }
             .clipShape(RoundedRectangle(cornerRadius: Radius.frame, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: Radius.frame, style: .continuous)
-                .stroke(camera.isRecording ? Color.avatar(seed: state.profile?.avatarSeed ?? 0) : Color.clear, lineWidth: 5))
+            .overlay(PenShape(.radius(Radius.frame), wobble: 1.6)
+                .stroke(camera.isRecording ? Color.recording : Color.text, style: Ink.style(camera.isRecording ? 4 : Pen.line)))
             .padding(.horizontal, Space.xs)
             .padding(.top, Space.xs)
         }
@@ -43,7 +42,7 @@ struct CameraView: View {
         .onDisappear { camera.stop() }
         .confirmationDialog("post to", isPresented: $showPicker, titleVisibility: .visible) {
             ForEach(state.rooms) { room in
-                Button(room.name ?? (room.isSolo ? String(localized: "just me", bundle: .app) : String(localized: "untitled log", bundle: .app))) { target = room }
+                Button(room.name ?? (room.isSolo ? String(localized: "just me", bundle: .app) : String(localized: "untitled room", bundle: .app))) { target = room }
             }
         }
         .screen("screen.camera")
@@ -60,20 +59,11 @@ struct CameraView: View {
             HStack(spacing: Space.xs) {
                 roomPicker
                 Spacer()
+                torchButton
                 fontButton
                 orientationButton
             }
             .padding(Space.md)
-            if showRing {
-                VStack(spacing: Space.xs) {
-                    Text("pick your outline colour").font(.vlogCaption).foregroundStyle(Color.chalk)
-                    ColorRingPicker(compact: true)
-                }
-                .padding(Space.sm)
-                .background(Color.ink.opacity(0.6), in: RoundedRectangle(cornerRadius: Radius.row, style: .continuous))
-                .padding(.horizontal, Space.md)
-                .transition(.opacity)
-            }
             Spacer()
             // The stamp reads along the long edge of the *recording*. Tap it to flip
             // between horizontal and vertical; the hint and the stitch follow.
@@ -101,10 +91,14 @@ struct CameraView: View {
                     .accessibilityIdentifier("camera.posted")
             } else if state.capture.isLandscape, !camera.isLandscape, !hintDismissed {
                 Button { hintDismissed = true } label: {
-                    Text("rotate to capture")
-                        .font(.vlogCaption).foregroundStyle(Color.chalk)
-                        .padding(.horizontal, Space.md).padding(.vertical, Space.xs)
-                        .background(Color.ink.opacity(0.7), in: Capsule())
+                    HStack(spacing: Space.xs) {
+                        Text("turn me sideways")
+                            .font(.vlogAnnotation)
+                        DoodleSticker(.arrowTurn, scale: 0.6, animated: true, lineWidth: 2, color: .chalk)
+                    }
+                    .foregroundStyle(Color.chalk)
+                    .padding(.horizontal, Space.md).padding(.vertical, Space.xxs)
+                    .background(Color.ink.opacity(0.7), in: Capsule())
                 }
                 .buttonStyle(.plain)
                 .accessibilityIdentifier("camera.rotateHint")
@@ -127,6 +121,22 @@ struct CameraView: View {
         }
         .buttonStyle(.plain)
         .accessibilityIdentifier("camera.room")
+    }
+
+    private var torchButton: some View {
+        Button {
+            Haptics.tap()
+            camera.toggleTorch()
+        } label: {
+            Image(systemName: camera.isTorchOn ? "bolt.fill" : "bolt.slash")
+                .font(.vlogCaption)
+                .foregroundStyle(Color.chalk)
+                .padding(.horizontal, Space.sm).padding(.vertical, Space.xs)
+                .background(Color.ink.opacity(0.6), in: Capsule())
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(Text(camera.isTorchOn ? "flash on" : "flash off"))
+        .accessibilityIdentifier("camera.flash")
     }
 
     /// Cycles the stamp's face. The label is the face itself, so it previews.
@@ -168,12 +178,13 @@ struct CameraView: View {
     private var shutter: some View {
         Button { capture() } label: {
             ZStack {
-                Circle()
+                // The two seconds, drawn: a pen loop that starts where a hand would and
+                // closes (a little past) as the clip ends.
+                PenShape(.circle, seed: 3, wobble: 2)
                     .trim(from: 0, to: progress)
-                    .stroke(Color.avatar(seed: state.profile?.avatarSeed ?? 0), style: StrokeStyle(lineWidth: 5, lineCap: .round))
-                    .rotationEffect(.degrees(-90))
-                    .padding(-6)
-                Circle().fill(Color.recording).frame(width: 26, height: 26)
+                    .stroke(Color.recording, style: Ink.style(5))
+                    .padding(-9)
+                Circle().fill(Color.recording).frame(width: 30, height: 30)
             }
             .frame(width: Metrics.shutter, height: Metrics.shutter)
         }
@@ -187,7 +198,7 @@ struct CameraView: View {
 
     private var deniedView: some View {
         VStack(spacing: Space.md) {
-            Image(systemName: "camera.fill").font(Font.system(size: 36)).foregroundStyle(Color.textSoft)
+            DoodleSticker(.camcorder, scale: 0.7)
             Text("vlogify needs the camera and microphone to record a clip.")
                 .font(.vlogBody).foregroundStyle(Color.text).multilineTextAlignment(.center)
             Button("open settings") {
@@ -213,8 +224,6 @@ struct CameraView: View {
             do {
                 let file = try await camera.record(maxSeconds: limit ?? 30)
                 let sent = try await post(file, to: target)
-                UserDefaults.standard.set(true, forKey: "pickedRing")
-                withAnimation(Motion.dismiss) { showRing = false }
                 Haptics.success()
                 posted += 1
                 if sent {

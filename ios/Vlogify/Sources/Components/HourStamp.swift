@@ -11,7 +11,7 @@ struct HourStamp: View {
     let label: String
     var rotated = false
     var size: CGFloat = 44
-    var font: StampFont = .bagel
+    var font: StampFont = .hand
 
     static let box: CGFloat = 150
 

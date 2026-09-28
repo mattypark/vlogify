@@ -4,7 +4,7 @@ import VlogifyEngine
 
 /// Which way clips are shot, app-wide. Landscape by default: most people turn the
 /// phone, and landscape clips stack cleanly when a room stitches. Changing it moves
-/// the hour stamp, the "rotate to capture" hint, and the stitched layout together --
+/// the hour stamp, the "turn me sideways" hint, and the stitched layout together --
 /// never one without the others.
 @MainActor
 @Observable
@@ -25,7 +25,7 @@ final class CapturePreferences {
         orientation = UserDefaults.standard.string(forKey: Self.key)
             .flatMap(StitchPlan.Orientation.init(rawValue:)) ?? .landscape
         stampFont = UserDefaults.standard.string(forKey: Self.fontKey)
-            .flatMap(StampFont.init(rawValue:)) ?? .bagel
+            .flatMap(StampFont.init(rawValue:)) ?? .hand
     }
 
     func shuffleFont() {
@@ -41,13 +41,14 @@ final class CapturePreferences {
     }
 }
 
-/// The looks the hour can wear. System designs and one bundled face -- nothing to
-/// license, and every one resolves to a `CTFont` for the export.
+/// The looks the hour can wear. The pen hand by default, then system designs and one
+/// more bundled face -- every one resolves to a `CTFont` for the export.
 enum StampFont: String, CaseIterable, Sendable {
-    case bagel, rounded, serif, mono, condensed, wide, italic, heavy
+    case hand, bagel, rounded, serif, mono, condensed, wide, italic, heavy
 
     var label: String {
         switch self {
+        case .hand: return "Aa"
         case .bagel: return "Aa"
         case .rounded: return "Aa"
         case .serif: return "Aa"
@@ -61,6 +62,7 @@ enum StampFont: String, CaseIterable, Sendable {
 
     func font(size: CGFloat) -> Font {
         switch self {
+        case .hand: return Typography.handFont(size: size)
         case .bagel: return .custom(Typeface.bagel, size: size)
         case .rounded: return .system(size: size, weight: .heavy, design: .rounded)
         case .serif: return .system(size: size, weight: .black, design: .serif)
@@ -76,6 +78,7 @@ enum StampFont: String, CaseIterable, Sendable {
     func ctFont(size: CGFloat) -> CTFont {
         let ui: UIFont
         switch self {
+        case .hand: ui = Typography.handUIFont(size: size) ?? .systemFont(ofSize: size, weight: .medium)
         case .bagel: ui = UIFont(name: Typeface.bagel, size: size) ?? .systemFont(ofSize: size, weight: .black)
         case .rounded: ui = UIFont.systemFont(ofSize: size, weight: .heavy).withDesign(.rounded)
         case .serif: ui = UIFont.systemFont(ofSize: size, weight: .black).withDesign(.serif)

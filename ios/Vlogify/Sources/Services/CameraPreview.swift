@@ -9,8 +9,7 @@ struct CameraPreview: View {
     var body: some View {
         if camera.isSimulated {
             ZStack {
-                LinearGradient(colors: [Color(OKLCH(0.35, 0.03, 60)), Color(OKLCH(0.22, 0.02, 280))],
-                               startPoint: .top, endPoint: .bottom)
+                Color(OKLCH(0.24, 0, 0))
                 VStack {
                     Text("no camera in the simulator")
                         .font(.vlogCaption)
