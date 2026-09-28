@@ -27,7 +27,7 @@ struct RoomView: View {
         // be a real view for the walker to find `screen.room`.
         ZStack { timeline }
             .background(Color.ground.ignoresSafeArea())
-            .navigationTitle(room.name ?? (room.isSolo ? String(localized: "just me", bundle: .app) : String(localized: "untitled log", bundle: .app)))
+            .navigationTitle(room.name ?? (room.isSolo ? String(localized: "just me", bundle: .app) : String(localized: "untitled room", bundle: .app)))
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color.ground, for: .navigationBar)
             .toolbar {
@@ -161,10 +161,14 @@ struct RoomView: View {
         VStack(alignment: .leading, spacing: Space.xs) {
             HStack {
                 Text(verbatim: row.slot.label)
-                    .font(Font.system(size: 20, weight: .heavy))
-                    .foregroundStyle(row.isCurrent ? Color.actionInk : Color.text)
+                    .font(.vlogAnnotation)
+                    .foregroundStyle(Color.text)
                 if row.isCurrent {
-                    Text("now").font(.vlogCaption).foregroundStyle(Color.actionInk)
+                    Text("now")
+                        .font(.vlogHandSmall)
+                        .foregroundStyle(Color.card)
+                        .padding(.horizontal, Space.xs)
+                        .background(Color.recording, in: Capsule())
                 }
                 Spacer()
                 if row.isCurrent, !room.isSolo, !state.hasPosted(in: room, slot: row.slot) {

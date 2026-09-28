@@ -4,7 +4,8 @@ import VlogifyContract
 import VlogifyDesign
 
 /// One member's clip for one hour: a thumbnail that plays when tapped, or the
-/// member's disc on a dim surface when they missed it.
+/// member's mark, faint, on the page when they missed it. Every tile carries its
+/// owner's mark in the corner -- that is how you tell whose two seconds these were.
 struct ClipTile: View {
     let member: Membership
     let clip: Clip?
@@ -27,25 +28,28 @@ struct ClipTile: View {
             }
             VStack {
                 Spacer()
-                HStack {
+                HStack(spacing: Space.xxs) {
+                    if clip != nil {
+                        MarkView(mark: member.profile.mark, name: member.profile.displayName, size: 18, color: .text)
+                            .padding(3)
+                            .background(Color.card, in: Circle())
+                    }
                     Text(verbatim: isMe ? String(localized: "you", bundle: .app) : member.profile.displayName)
-                        .font(.vlogCaption)
-                        // chalk, not text: this capsule is 60% ink, so the body colour
-                        // only ever read here by accident.
-                        .foregroundStyle(Color.chalk)
+                        .font(.vlogHandSmall)
+                        .foregroundStyle(Color.text)
                         .padding(.horizontal, Space.xs)
-                        .padding(.vertical, 3)
-                        .background(Color.ink.opacity(0.6), in: Capsule())
+                        .padding(.vertical, 1)
+                        .background(Color.card.opacity(clip == nil ? 0 : 0.92), in: Capsule())
                     Spacer()
                 }
                 .padding(Space.xs)
             }
         }
         .frame(height: Metrics.tileHeight)
-        // The member's colour, as the outline. Yours is thicker: that is how you find
-        // yourself in a room of six.
-        .overlay(RoundedRectangle(cornerRadius: Radius.tile, style: .continuous)
-            .strokeBorder(clip == nil ? Color.hairline : Color.avatar(seed: member.profile.avatarSeed), lineWidth: isMe ? 4 : 2.5))
+        // A pen outline. Yours is drawn harder: that is how you find yourself in a room
+        // of six. A missed hour is a lighter pencil line.
+        .overlay(PenShape(.radius(Radius.tile), wobble: 1)
+            .stroke(clip == nil ? Color.hairline : Color.text, style: Ink.style(isMe ? 2.8 : 1.6)))
         .contentShape(RoundedRectangle(cornerRadius: Radius.tile, style: .continuous))
         .onTapGesture { if let clip { onPlay(clip) } }
         .accessibilityElement(children: .ignore)
