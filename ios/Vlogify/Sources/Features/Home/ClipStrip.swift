@@ -57,7 +57,7 @@ struct ClipStrip: View {
         }
         for d in days {
             for room in state.rooms {
-                guard let log = try? await state.backend.clips.day(roomID: room.id, day: d),
+                guard let log = (try? await state.backend.clips.day(roomID: room.id, day: d)).map(state.withPending),
                       let mine = log.members.first(where: { $0.userID == me }) else { continue }
                 for clip in log.clips where clip.memberID == me {
                     collected.append((d, clip, mine))

@@ -227,7 +227,7 @@ struct RoomView: View {
     }
 
     private func load() async {
-        log = try? await state.backend.clips.day(roomID: room.id, day: shownDay)
+        log = (try? await state.backend.clips.day(roomID: room.id, day: shownDay)).map(state.withPending)
     }
 
     private func block(_ member: Membership) async {

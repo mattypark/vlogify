@@ -212,12 +212,16 @@ struct CameraView: View {
             defer { posting = false; progress = 0 }
             do {
                 let file = try await camera.record(maxSeconds: limit ?? 30)
-                try await post(file, to: target)
+                let sent = try await post(file, to: target)
                 UserDefaults.standard.set(true, forKey: "pickedRing")
                 withAnimation(Motion.dismiss) { showRing = false }
                 Haptics.success()
                 posted += 1
-                state.show(.success(String(localized: "posted \(slot.label).", bundle: .app)))
+                if sent {
+                    state.show(.success(String(localized: "posted \(slot.label).", bundle: .app)))
+                } else {
+                    state.show(.info(String(localized: "saved on your phone. it'll post when you're back online.", bundle: .app)))
+                }
             } catch ContractError.slotAlreadyPosted {
                 state.show(.error(String(localized: "you already posted this hour.", bundle: .app)))
             } catch {
@@ -226,23 +230,31 @@ struct CameraView: View {
         }
     }
 
-    private func post(_ file: URL, to room: Room) async throws {
+    /// Local first, then the upload. Returns false when the clip is safe on the phone
+    /// but still queued: a dropped connection costs nothing, the queue retries on the
+    /// next foreground. A refusal the backend means (a rule, not the network) throws.
+    private func post(_ file: URL, to room: Room) async throws -> Bool {
         guard let session = state.session else { throw ContractError.notSignedIn }
         let asset = AVURLAsset(url: file)
         let duration = (try? await asset.load(.duration).seconds) ?? 2
         let size = (try? await asset.loadTracks(withMediaType: .video).first?.load(.naturalSize)) ?? CGSize(width: 1080, height: 1920)
-        let id = "\(room.id)-\(session.userID)-\(slot.key)-\(Int(Date().timeIntervalSince1970))"
-        var clip = Clip(id: id, roomID: room.id, memberID: session.userID, day: slot.day, hour: slot.hour,
-                        durationMs: Int(duration * 1000), width: Int(size.width), height: Int(size.height),
-                        storageKey: "", createdAt: Date())
-        // Local first, then the upload. A dropped connection here costs nothing:
-        // the tile is filled from the cache and the upload retries on foreground.
-        let local = try state.cache.store(recording: file, as: clip)
-        let signed = try await state.backend.media.uploadURL(for: clip)
-        clip.storageKey = signed.storageKey
-        try await state.backend.media.upload(fileURL: local, to: signed)
-        _ = try await state.backend.clips.post(clip)
+        // A plain UUID: ids travel in URL paths on the real backend.
+        let clip = Clip(id: UUID().uuidString.lowercased(), roomID: room.id, memberID: session.userID,
+                        day: slot.day, hour: slot.hour, durationMs: Int(duration * 1000),
+                        width: Int(size.width), height: Int(size.height), storageKey: "", createdAt: Date())
+        _ = try state.cache.store(recording: file, as: clip)
+        state.uploads.add(clip)
+        do {
+            _ = try await state.uploads.send(clip, backend: state.backend, cache: state.cache)
+        } catch let error as ContractError where UploadQueue.isPermanent(error) {
+            state.uploads.remove(clip.id)
+            throw error
+        } catch {
+            await state.loadRooms()
+            return false
+        }
         await state.loadRooms()
+        return true
     }
 }
 

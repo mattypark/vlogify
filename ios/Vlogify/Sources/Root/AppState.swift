@@ -19,6 +19,8 @@ final class AppState {
     let scheduler: HourlyScheduler
     let cache: LocalMediaCache
     let capture = CapturePreferences()
+    /// Clips on this phone the backend has not confirmed yet.
+    let uploads: UploadQueue
     /// Local-only pages. Never touches `backend`.
     let notes = NotesStore()
 
@@ -48,6 +50,7 @@ final class AppState {
         self.permissions = permissions
         self.scheduler = scheduler
         self.cache = cache
+        self.uploads = UploadQueue(cache: cache)
         self.permissionsIntroDone = UserDefaults.standard.bool(forKey: "permissionsIntroDone")
         if let forced = LaunchArguments.permissions { permissionsIntroDone = forced != "unasked" }
     }
@@ -123,6 +126,50 @@ final class AppState {
         await loadRooms()
     }
 
+    /// The drawn mark. Saved through the profile so room-mates see it on their phones.
+    func saveMark(_ mark: Mark) async throws {
+        profile = try await backend.profile.update(mark: mark)
+    }
+
+    // MARK: Foreground
+
+    /// Every return to the app: send what the camera queued while offline, refresh the
+    /// rooms, and pull today's clips from friends onto the phone while the backend still
+    /// holds them.
+    func foreground() async {
+        guard isSignedIn else { return }
+        _ = await uploads.flush(backend: backend, cache: cache)
+        await loadRooms()
+        await prefetchRecentClips()
+    }
+
+    /// Today's and yesterday's clips from every room, fetched once and kept. The backend
+    /// is a relay that forgets clips after a week; the phone is where they live.
+    func prefetchRecentClips() async {
+        let today = clock.today
+        let yesterday = DayClock.dayKey(for: DayClock.date(of: today, hour: 12, minute: 0, in: clock.timeZone)
+                                            .addingTimeInterval(-86_400), in: clock.timeZone)
+        for room in rooms {
+            for day in [today, yesterday] {
+                guard let log = try? await backend.clips.day(roomID: room.id, day: day) else { continue }
+                for clip in log.clips where !cache.has(clip) {
+                    _ = try? await cache.localURL(for: clip, media: backend.media)
+                }
+            }
+        }
+    }
+
+    /// A day log with this phone's not-yet-confirmed clips folded in, so a clip taken
+    /// offline shows in its room straight away.
+    func withPending(_ log: DayLog) -> DayLog {
+        let waiting = uploads.pending(in: log.roomID, day: log.day)
+            .filter { clip in !log.clips.contains { $0.id == clip.id } }
+        guard !waiting.isEmpty else { return log }
+        var merged = log
+        merged.clips = (log.clips + waiting).sorted { ($0.hour, $0.createdAt) < ($1.hour, $1.createdAt) }
+        return merged
+    }
+
     // MARK: Rooms
 
     func loadRooms() async {
@@ -131,7 +178,9 @@ final class AppState {
             rooms = try await backend.rooms.rooms()
             let today = clock.today
             for room in rooms {
-                roomProgress[room.id] = try? await backend.clips.day(roomID: room.id, day: today)
+                if let log = try? await backend.clips.day(roomID: room.id, day: today) {
+                    roomProgress[room.id] = withPending(log)
+                }
             }
             scheduler.replan(rooms: rooms, clock: clock)
         } catch {
