@@ -134,6 +134,23 @@ public enum Doodle: String, CaseIterable, Sendable {
     }
 }
 
+public extension Doodle {
+    /// The ink's own extent plus a pen's width of margin, so a tall arrow fills a tall
+    /// frame instead of being fitted as a unit square.
+    var box: CGRect {
+        let points = strokes.flatMap { $0 }
+        guard let first = points.first else { return CGRect(x: 0, y: 0, width: 1, height: 1) }
+        var minX = first.x, maxX = first.x, minY = first.y, maxY = first.y
+        for p in points {
+            minX = min(minX, p.x); maxX = max(maxX, p.x)
+            minY = min(minY, p.y); maxY = max(maxY, p.y)
+        }
+        let margin: CGFloat = 0.03
+        return CGRect(x: minX - margin, y: minY - margin,
+                      width: max(maxX - minX, 0.05) + margin * 2, height: max(maxY - minY, 0.05) + margin * 2)
+    }
+}
+
 /// A doodle at its design size, optionally drawing itself.
 public struct DoodleSticker: View {
     private let doodle: Doodle
@@ -154,7 +171,7 @@ public struct DoodleSticker: View {
     }
 
     public var body: some View {
-        InkDrawing(doodle.strokes, color: color, lineWidth: lineWidth,
+        InkDrawing(doodle.strokes, box: doodle.box, color: color, lineWidth: lineWidth,
                    duration: 0.5 + Double(doodle.strokes.count) * 0.12, delay: delay, animated: animated)
             .frame(width: doodle.size.width * scale, height: doodle.size.height * scale)
     }
