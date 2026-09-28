@@ -131,16 +131,22 @@ struct DayCompositor {
         // CoreAnimation's y axis is flipped relative to the video's.
         parent.isGeometryFlipped = true
 
-        // Each member's tile gets a border in their colour, for the whole day.
+        // Each member's tile is framed by a pen line and signed with their mark in the
+        // corner, for the whole day: the vlog reads like a sketchbook page of friends.
         for (index, member) in members.enumerated() {
             let tile = plan.tiles[index]
-            let ring = CALayer()
-            ring.frame = CGRect(x: tile.x * renderSize.width, y: tile.y * renderSize.height,
-                                width: tile.width * renderSize.width, height: tile.height * renderSize.height).insetBy(dx: 3, dy: 3)
-            ring.borderWidth = 6
-            ring.borderColor = UIColor(Color.avatar(seed: member.profile.avatarSeed)).cgColor
-            ring.cornerRadius = 12
-            parent.addSublayer(ring)
+            let rect = CGRect(x: tile.x * renderSize.width, y: tile.y * renderSize.height,
+                              width: tile.width * renderSize.width, height: tile.height * renderSize.height)
+            let frame = CAShapeLayer()
+            frame.path = PenShape(.radius(22), seed: UInt64(index + 1), wobble: 5)
+                .path(in: rect.insetBy(dx: 6, dy: 6)).cgPath
+            frame.fillColor = nil
+            frame.strokeColor = UIColor.white.cgColor
+            frame.lineWidth = 7
+            frame.lineCap = .round
+            frame.lineJoin = .round
+            parent.addSublayer(frame)
+            parent.addSublayer(signature(for: member.profile, in: rect))
         }
 
         for segment in segments {
@@ -169,17 +175,8 @@ struct DayCompositor {
 
             for (index, member) in members.enumerated() where log.clip(from: member.userID, in: segment.slot) == nil {
                 let tile = plan.tiles[index]
-                let disc = CATextLayer()
-                disc.string = String(member.profile.displayName.prefix(2)).lowercased()
-                disc.font = CTFontCreateWithName("HelveticaNeue-Bold" as CFString, 44, nil)
-                disc.fontSize = 44
-                disc.alignmentMode = .center
-                disc.contentsScale = 1
-                disc.foregroundColor = UIColor.white.cgColor
-                disc.backgroundColor = UIColor(Color.avatar(seed: member.profile.avatarSeed)).cgColor
-                disc.cornerRadius = 50
                 let center = CGPoint(x: (tile.x + tile.width / 2) * renderSize.width, y: (tile.y + tile.height / 2) * renderSize.height)
-                disc.frame = CGRect(x: center.x - 50, y: center.y - 50, width: 100, height: 100)
+                let disc = markLayer(member.profile, in: CGRect(x: center.x - 60, y: center.y - 60, width: 120, height: 120))
                 disc.opacity = 0
                 let show = CAKeyframeAnimation(keyPath: "opacity")
                 show.values = [0, 1, 1, 0]
@@ -193,6 +190,46 @@ struct DayCompositor {
             }
         }
         return AVVideoCompositionCoreAnimationTool(postProcessingAsVideoLayer: videoLayer, in: parent)
+    }
+
+    /// A person's mark in white on a dark disc: their signature in a tile's corner, or
+    /// standing in for them when they missed the hour. Initials in the pen hand if they
+    /// have not drawn one.
+    func markLayer(_ profile: Profile, in rect: CGRect) -> CALayer {
+        let disc = CALayer()
+        disc.frame = rect
+        disc.cornerRadius = rect.width / 2
+        disc.backgroundColor = UIColor.black.withAlphaComponent(0.55).cgColor
+        let inner = CGRect(origin: .zero, size: rect.size).insetBy(dx: rect.width * 0.2, dy: rect.height * 0.2)
+        if let mark = profile.mark, !mark.isEmpty {
+            let ink = CAShapeLayer()
+            ink.frame = CGRect(origin: .zero, size: rect.size)
+            ink.path = InkStrokes(mark.points, box: mark.fitBox).path(in: inner).cgPath
+            ink.fillColor = nil
+            ink.strokeColor = UIColor.white.cgColor
+            ink.lineWidth = max(3, rect.width / 22)
+            ink.lineCap = .round
+            ink.lineJoin = .round
+            disc.addSublayer(ink)
+        } else {
+            let initials = CATextLayer()
+            initials.string = String(profile.displayName.prefix(2)).lowercased()
+            let size = rect.height * 0.4
+            initials.font = StampFont.hand.ctFont(size: size)
+            initials.fontSize = size
+            initials.alignmentMode = .center
+            initials.contentsScale = 1
+            initials.foregroundColor = UIColor.white.cgColor
+            initials.frame = CGRect(x: 0, y: (rect.height - size * 1.25) / 2, width: rect.width, height: size * 1.25)
+            disc.addSublayer(initials)
+        }
+        return disc
+    }
+
+    /// The small signature in a tile's bottom-left corner.
+    func signature(for profile: Profile, in tile: CGRect) -> CALayer {
+        let side = min(tile.width, tile.height) * 0.16
+        return markLayer(profile, in: CGRect(x: tile.minX + 22, y: tile.maxY - side - 22, width: side, height: side))
     }
 }
 
