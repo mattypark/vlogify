@@ -144,9 +144,9 @@ struct ProfileView: View {
 
 /// Hosted legal pages. The App Store record links the same URLs.
 enum Legal {
-    static let privacy = URL(string: "https://vlogify.app/privacy")!
-    static let terms = URL(string: "https://vlogify.app/terms")!
-    static let support = URL(string: "https://vlogify.app/support")!
+    static let privacy = URL(string: "https://vlogify.matthew-parkk0.workers.dev/privacy")!
+    static let terms = URL(string: "https://vlogify.matthew-parkk0.workers.dev/terms")!
+    static let support = URL(string: "https://vlogify.matthew-parkk0.workers.dev/support")!
     static var version: String {
         let short = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0"
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
