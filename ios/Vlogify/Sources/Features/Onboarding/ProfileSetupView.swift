@@ -51,12 +51,9 @@ struct ProfileSetupView: View {
 
     private var nameStep: some View {
         Group {
-            Text("what do friends call you?")
-                .font(.vlogTitle)
-                .foregroundStyle(Color.text)
-            Text("it goes under your clips. optional: you can skip it and change it later.")
-                .font(.vlogBody)
-                .foregroundStyle(Color.textSoft)
+            HandwrittenText(text: String(localized: "what do friends call you?", bundle: .app), font: .vlogTitle, delay: 0.1)
+            HandwrittenText(text: String(localized: "it goes under your clips. optional: you can skip it and change it later.", bundle: .app),
+                            color: .textSoft, delay: 0.55)
             TextField("your name", text: $name)
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled()
@@ -71,7 +68,7 @@ struct ProfileSetupView: View {
                 .padding(.top, Space.xs)
                 .accessibilityIdentifier("profile.name")
             Spacer()
-            PillButton(title: "next", style: .filled) { toDraw() }
+            PillButton(title: "next", style: .filled, drawIn: 0.9) { toDraw() }
                 .disabled(trimmed.isEmpty)
                 .opacity(trimmed.isEmpty ? 0.4 : 1)
                 .accessibilityIdentifier("profile.next")
@@ -94,17 +91,13 @@ struct ProfileSetupView: View {
 
     private var drawStep: some View {
         Group {
-            Text("now draw your mark.")
-                .font(.vlogTitle)
-                .foregroundStyle(Color.text)
-            Text("a face, a star, a squiggle, your initial. it signs every clip you take.")
-                .font(.vlogBody)
-                .foregroundStyle(Color.textSoft)
-                .fixedSize(horizontal: false, vertical: true)
+            HandwrittenText(text: String(localized: "now draw your mark.", bundle: .app), font: .vlogTitle, delay: 0.1)
+            HandwrittenText(text: String(localized: "a face, a star, a squiggle, your initial. it signs every clip you take.", bundle: .app),
+                            color: .textSoft, delay: 0.55)
             MarkEditor(strokes: $strokes)
                 .padding(.top, Space.xs)
             Spacer(minLength: Space.xs)
-            PillButton(title: "that's me", style: .filled) {
+            PillButton(title: "that's me", style: .filled, drawIn: 1.0) {
                 Haptics.success()
                 step = .meet
             }
@@ -122,19 +115,16 @@ struct ProfileSetupView: View {
                 MarkView(mark: Mark(canvas: strokes), name: trimmed, size: 220, animated: true)
                 Spacer()
             }
-            Text("meet \(trimmed).")
-                .font(.vlogHandTitle)
-                .foregroundStyle(Color.text)
+            // The mark draws itself first; then it is introduced.
+            HandwrittenText(text: String(localized: "meet \(trimmed).", bundle: .app), font: .vlogHandTitle,
+                            alignment: .center, delay: 1.1)
                 .frame(maxWidth: .infinity)
                 .padding(.top, Space.lg)
-            Text("friends see this on your clips. you can redraw it any time in your profile.")
-                .font(.vlogBody)
-                .foregroundStyle(Color.textSoft)
-                .multilineTextAlignment(.center)
+            HandwrittenText(text: String(localized: "friends see this on your clips. you can redraw it any time in your profile.", bundle: .app),
+                            color: .textSoft, alignment: .center, delay: 1.6)
                 .frame(maxWidth: .infinity)
-                .fixedSize(horizontal: false, vertical: true)
             Spacer()
-            PillButton(title: "let's go", style: .filled, isLoading: busy) { save() }
+            PillButton(title: "let's go", style: .filled, isLoading: busy, drawIn: 2.1) { save() }
                 .accessibilityIdentifier("profile.save")
             Button { step = .draw } label: {
                 Text("draw it again")

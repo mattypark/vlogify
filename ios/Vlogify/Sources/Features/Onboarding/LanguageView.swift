@@ -20,12 +20,10 @@ struct LanguageView: View {
                         .accessibilityIdentifier("language.close")
                 }
             }
-            Text(verbatim: "choose your language")
-                .font(.vlogTitle).foregroundStyle(Color.text)
-            Text(verbatim: "언어 · 言語 · 語言 · ngôn ngữ · язык")
-                .font(.vlogCaption).foregroundStyle(Color.textSoft)
+            HandwrittenText(text: "choose your language", font: .vlogTitle, delay: 0.1)
+            HandwrittenText(text: "언어 · 言語 · 語言 · ngôn ngữ · язык", font: .vlogCaption, color: .textSoft, delay: 0.4)
             VStack(spacing: Space.xs) {
-                ForEach(AppLanguage.allCases) { language in
+                ForEach(Array(AppLanguage.allCases.enumerated()), id: \.element) { index, language in
                     Button {
                         Haptics.tap()
                         picked = language
@@ -37,13 +35,15 @@ struct LanguageView: View {
                                 .foregroundStyle(Color.text)
                             Spacer()
                             if picked == language {
-                                Image(systemName: "checkmark").font(Font.system(size: 16, weight: .black)).foregroundStyle(Color.text)
+                                DoodleSticker(.check, scale: 1.1, lineWidth: 2.4)
                             }
                         }
                         .padding(.horizontal, Space.md)
                         .frame(height: 52)
                     }
-                    .buttonStyle(StickerButtonStyle(fill: picked == language ? .fog : .card, radius: Radius.row))
+                    // Rows trace themselves in one after another, top to bottom.
+                    .buttonStyle(StickerButtonStyle(fill: picked == language ? .fog : .card, radius: Radius.row,
+                                                    drawIn: isChanging ? nil : 0.6 + Double(index) * 0.12))
                     .stickerRoom()
                     .accessibilityIdentifier("language.\(language.rawValue)")
                     .accessibilityAddTraits(picked == language ? .isSelected : [])
@@ -51,7 +51,7 @@ struct LanguageView: View {
             }
             Spacer()
             if !isChanging {
-                PillButton(title: "continue", style: .accent) {
+                PillButton(title: "continue", style: .accent, drawIn: 0.6 + Double(AppLanguage.allCases.count) * 0.12) {
                     state.setLanguage(picked)
                     state.languageChosen = true
                 }

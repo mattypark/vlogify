@@ -20,21 +20,30 @@ struct WelcomeView: View {
 
     private struct Page {
         let doodle: Doodle
-        let lines: LocalizedStringKey
+        let lines: String
         let next: LocalizedStringKey
     }
 
-    private let pages: [Page] = [
-        Page(doodle: .clock,
-             lines: "most of a day never gets filmed.\nthe walk, the lunch, the 11 pm kitchen.\nthose were the good parts.",
-             next: "okay"),
-        Page(doodle: .phoneBuzz,
-             lines: "once an hour, everyone in your room\ngets the same nudge.\ntwo seconds. one take. no redo.",
-             next: "and then?"),
-        Page(doodle: .frames,
-             lines: "at night it all lines up\ninto one vlog, side by side.\nyours to keep.",
-             next: ""),
-    ]
+    private var pages: [Page] {
+        [
+            Page(doodle: .clock,
+                 lines: String(localized: "most of a day never gets filmed.\nthe walk, the lunch,\nthe 11 pm kitchen.\nthose were the good parts.", bundle: .app),
+                 next: "okay"),
+            Page(doodle: .phoneBuzz,
+                 lines: String(localized: "once an hour, your whole room\ngets the same nudge.\ntwo seconds. one take.\nno redo.", bundle: .app),
+                 next: "and then?"),
+            Page(doodle: .frames,
+                 lines: String(localized: "at night it all lines up\ninto one vlog,\nside by side.\nyours to keep.", bundle: .app),
+                 next: ""),
+        ]
+    }
+
+    /// The drawing starts at once; the words start while it is still being drawn; the
+    /// button traces itself in as the last line finishes.
+    private static let textDelay = 0.8
+    private var buttonDelay: Double {
+        HandwrittenText.finish(of: pages[page].lines, delay: Self.textDelay) - 0.15
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -78,11 +87,13 @@ struct WelcomeView: View {
                 }
                 Spacer()
             }
-            Text(page.lines)
-                .font(.vlogBody.weight(.medium))
-                .lineSpacing(5)
-                .foregroundStyle(Color.text)
-                .fixedSize(horizontal: false, vertical: true)
+            // Written in each time its page arrives; kept in the layout (hidden) otherwise so
+            // pages never jump.
+            if self.page == index {
+                HandwrittenText(text: page.lines, delay: Self.textDelay)
+            } else {
+                Text(verbatim: page.lines).font(.vlogBody).hidden()
+            }
             Spacer()
         }
         .padding(.horizontal, Space.xl)
@@ -121,7 +132,9 @@ struct WelcomeView: View {
                         .frame(height: 56)
                         .frame(minWidth: 150)
                 }
-                .buttonStyle(StickerButtonStyle(fill: .card, corner: .capsule))
+                .buttonStyle(StickerButtonStyle(fill: .card, corner: .capsule, drawIn: buttonDelay))
+                // A new button per page, so each page draws its own in.
+                .id(page)
                 .accessibilityIdentifier("welcome.next")
                 Spacer()
             }
@@ -133,6 +146,10 @@ struct WelcomeView: View {
     }
 
     private var signIn: some View {
+        SignInBlock(delay: buttonDelay) { signInContent }
+    }
+
+    private var signInContent: some View {
         VStack(spacing: Space.sm) {
             // Apple's own button, unaltered (4.8 and the HIG both want it recognisable).
             SignInWithAppleButton(.continue) { _ in } onCompletion: { _ in }
@@ -225,5 +242,24 @@ struct WelcomeView: View {
                 state.show(.error(String(localized: "couldn't sign in. try again.", bundle: .app)))
             }
         }
+    }
+}
+
+/// Apple's button cannot be drawn by our pen, so the sign-in block fades in on the same
+/// beat the drawn buttons trace in on.
+private struct SignInBlock<Content: View>: View {
+    let delay: Double
+    @ViewBuilder let content: Content
+    @State private var shown = false
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    var body: some View {
+        content
+            .opacity(shown ? 1 : 0)
+            .offset(y: shown ? 0 : 8)
+            .onAppear {
+                guard !reduceMotion else { shown = true; return }
+                withAnimation(.easeOut(duration: 0.5).delay(delay)) { shown = true }
+            }
     }
 }

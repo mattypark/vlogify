@@ -14,6 +14,19 @@ struct PermissionsView: View {
     @State private var busy = false
 
     private var permissions: Permissions { state.permissions }
+    private static let textDelay = 0.8
+
+    private var lines: String {
+        step == 0
+            ? String(localized: "your camera and mic,\nonly while you're filming.", bundle: .app)
+            : String(localized: "one nudge an hour.\nsame minute as your friends,\nso you all film the same moment.", bundle: .app)
+    }
+
+    private var aside: String {
+        step == 0
+            ? String(localized: "clips only go to the room you post them in.", bundle: .app)
+            : String(localized: "no ads, no streaks, no \"you missed it\".", bundle: .app)
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: Space.xl) {
@@ -25,21 +38,16 @@ struct PermissionsView: View {
                 Spacer()
             }
             VStack(alignment: .leading, spacing: Space.sm) {
-                Text(step == 0
-                     ? "your camera and mic,\nonly while you're filming."
-                     : "one nudge an hour.\nsame minute as your friends,\nso you all film the same moment.")
-                    .font(.vlogBody.weight(.medium))
-                    .lineSpacing(5)
-                    .foregroundStyle(Color.text)
-                    .fixedSize(horizontal: false, vertical: true)
-                Text(step == 0
-                     ? "clips only go to the room you post them in."
-                     : "no ads, no streaks, no \"you missed it\".")
-                    .font(.vlogHandSmall)
-                    .foregroundStyle(Color.textSoft)
+                HandwrittenText(text: lines, delay: Self.textDelay)
+                HandwrittenText(text: aside, font: .vlogHandSmall, color: .textSoft,
+                                delay: HandwrittenText.finish(of: lines, delay: Self.textDelay))
             }
+            // Re-written when the step changes.
+            .id(step)
             Spacer()
-            PillButton(title: "continue", style: .filled, isLoading: busy) { ask() }
+            PillButton(title: "continue", style: .filled, isLoading: busy,
+                       drawIn: HandwrittenText.finish(of: lines, delay: Self.textDelay)) { ask() }
+                .id(step)
                 .accessibilityIdentifier("permissions.continue")
         }
         .padding(.horizontal, Space.xl)
