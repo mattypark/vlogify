@@ -2,18 +2,17 @@ import SwiftUI
 import VlogifyContract
 import VlogifyDesign
 
-/// Two lowercase letters on a colour drawn from the profile's seed. No photos: the
-/// clips are the faces.
+/// A person: their drawn mark inside a pen circle. No photos -- the clips are the faces,
+/// and the mark is how you tell whose clip is whose.
 struct AvatarDisc: View {
     let profile: Profile
     var size: CGFloat = Metrics.avatar
 
     var body: some View {
-        Text(verbatim: String(profile.displayName.prefix(2)).lowercased())
-            .font(Font.system(size: size * 0.4, weight: .bold))
-            .foregroundStyle(Color.ink)
+        MarkView(mark: profile.mark, name: profile.displayName, size: size * 0.74)
             .frame(width: size, height: size)
-            .background(Color.avatar(seed: profile.avatarSeed), in: Circle())
+            .background { PenShape(.circle, wobble: max(0.6, size / 40)).stroke(Color.text, style: Ink.style(size > 60 ? Pen.line : 1.3)) }
+            .accessibilityElement()
             .accessibilityLabel(Text(verbatim: profile.displayName))
     }
 }
