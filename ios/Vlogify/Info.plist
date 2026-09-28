@@ -42,18 +42,12 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
-	<key>MEDIA_BASE_URL</key>
-	<string>$(MEDIA_BASE_URL)</string>
 	<key>NSCameraUsageDescription</key>
 	<string>vlogify uses the camera to record the two-second clip you add to your room every hour.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>vlogify records sound with each clip so your friends hear the moment, not just see it.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>vlogify saves the finished day-vlog to your Photos when you tap export. It never reads your library.</string>
-	<key>SUPABASE_ANON_KEY</key>
-	<string>$(SUPABASE_ANON_KEY)</string>
-	<key>SUPABASE_URL</key>
-	<string>$(SUPABASE_URL)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>BagelFatOne-Regular.ttf</string>
@@ -71,5 +65,7 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>VLOGIFY_API_URL</key>
+	<string>$(VLOGIFY_API_URL)</string>
 </dict>
 </plist>

@@ -1,11 +1,14 @@
-// The build settings the app reads its backend from. Committed, and empty on purpose.
+// The build setting the app reads its backend from. Committed.
 //
-// Values come from Secrets.xcconfig, which is gitignored. The ? makes the include
-// optional: with no such file these stay empty, Info.plist gets empty strings, and the
-// app runs entirely on the on-device mock backend -- a working state, not a broken
-// one. That is what every screenshot in this repo was taken against.
-SUPABASE_URL =
-SUPABASE_ANON_KEY =
-MEDIA_BASE_URL =
+// VLOGIFY_API_URL is the Cloudflare Worker (worker/ at the repo root). It is not a
+// secret -- every request carries the session token -- so it lives here rather than in
+// a gitignored file. Blank means the app runs entirely on the on-device mock backend,
+// which is a working state, not a broken one.
+//
+// xcconfig treats // as a comment, so a URL cannot be written straight. $() is an empty
+// substitution placed BETWEEN the two slashes; the value that reaches Info.plist is the
+// full URL.
+VLOGIFY_API_URL =
 
+// Optional local override, gitignored: point a debug build at `wrangler dev`.
 #include? "Secrets.xcconfig"

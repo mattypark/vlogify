@@ -61,11 +61,9 @@ targets:
         NSCameraUsageDescription: "vlogify uses the camera to record the two-second clip you add to your room every hour."
         NSMicrophoneUsageDescription: "vlogify records sound with each clip so your friends hear the moment, not just see it."
         NSPhotoLibraryAddUsageDescription: "vlogify saves the finished day-vlog to your Photos when you tap export. It never reads your library."
-        # Populated from Secrets.xcconfig, which is gitignored. Absent means the app
-        # runs on the on-device mock backend, which is what this session ships.
-        SUPABASE_URL: $(SUPABASE_URL)
-        SUPABASE_ANON_KEY: $(SUPABASE_ANON_KEY)
-        MEDIA_BASE_URL: $(MEDIA_BASE_URL)
+        # The Cloudflare Worker, from Base.xcconfig (committed: a URL is not a secret).
+        # Blank means the app runs on the on-device mock backend.
+        VLOGIFY_API_URL: $(VLOGIFY_API_URL)
         # vlogify://join/<code> opens the join sheet with the code filled in.
         CFBundleURLTypes:
           - CFBundleURLSchemes:

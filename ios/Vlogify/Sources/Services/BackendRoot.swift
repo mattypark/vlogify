@@ -1,23 +1,25 @@
 import Foundation
 import VlogifyContract
 
-/// Picks the backend. The presence of `SUPABASE_URL` in Info.plist (threaded from
-/// Secrets.xcconfig) is the switch; absent is the mock, and the mock is a working app.
-///
-/// The backend session adds a `SupabaseBackend` conforming to the same protocols and
-/// returns it from `make()` when `config` is non-nil. Nothing above this file changes.
+/// Picks the backend. `VLOGIFY_API_URL` in Info.plist (from Base.xcconfig) is the
+/// switch; blank is the mock, and the mock is a working app. UI tests and `-vlogifyDemo`
+/// always get the mock, whatever the build points at, so screenshots and the walker
+/// never touch a live server.
 @MainActor
 enum BackendRoot {
     static var config: BackendConfig? {
         let info = Bundle.main.infoDictionary ?? [:]
-        return BackendConfig(supabaseURL: info["SUPABASE_URL"] as? String,
-                             anonKey: info["SUPABASE_ANON_KEY"] as? String,
-                             mediaBaseURL: info["MEDIA_BASE_URL"] as? String)
+        return BackendConfig(apiBaseURL: info["VLOGIFY_API_URL"] as? String)
+    }
+
+    /// True when this launch runs on the on-device mock.
+    static var usesMock: Bool {
+        config == nil || LaunchArguments.isUITesting || LaunchArguments.demo != nil
     }
 
     static func make(cache: LocalMediaCache, clock: Clock) async -> Backend {
-        if let config {
-            // Backend session: `return SupabaseBackend(config: config, cache: cache).backend`
+        if !usesMock, let config {
+            // Backend lane: `return CloudflareBackend(config: config, tokens: KeychainTokenStore()).backend`
             _ = config
         }
         let scenarioDir = LaunchArguments.usesTemporaryStore
