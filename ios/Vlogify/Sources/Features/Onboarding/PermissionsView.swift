@@ -1,112 +1,85 @@
 import SwiftUI
 import VlogifyDesign
 
-/// The terminal. Types out why it needs each permission, asks, ticks it off.
+/// Two asks, each on its own page, each explained by a drawing and one line, and each
+/// firing the system prompt right there -- the moment the reason is on screen.
 ///
-/// Denial is not a wall: a denied camera is explained again on the camera screen with
-/// a link to Settings. This screen runs once.
+/// "not now" is always there and never punished: a denied camera is explained again on
+/// the camera screen with a link to Settings. This screen runs once.
 struct PermissionsView: View {
     @Environment(AppState.self) private var state
     @State private var step = 0
-    @State private var lineDone = false
+    @State private var busy = false
 
     private var permissions: Permissions { state.permissions }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: Space.md) {
-            DoodleSticker(.bell, scale: 0.5, animated: true)
-                .padding(.bottom, Space.xs)
-            TypewriterText(text: "→ permissions", bold: true, color: .text)
-            TypewriterText(text: String(localized: "we need a few things first…", bundle: .app))
-                .padding(.bottom, Space.sm)
-
-            row(index: 0, name: "camera", status: permissions.camera,
-                detail: String(localized: "capture 2s clips to share with close friends.", bundle: .app))
-            if step >= 1 {
-                row(index: 1, name: "microphone", status: permissions.microphone,
-                    detail: String(localized: "record sound while capturing clips.", bundle: .app))
+        VStack(alignment: .leading, spacing: Space.xl) {
+            Spacer()
+            HStack {
+                Spacer()
+                DoodleSticker(step == 0 ? .camcorder : .bell, scale: 1.1, animated: true, lineWidth: Pen.bold)
+                    .id(step)
+                Spacer()
             }
-            if step >= 2 {
-                row(index: 2, name: "notifications", status: permissions.notifications,
-                    detail: String(localized: "one nudge an hour, same moment as your friends.", bundle: .app))
-            }
-            if step >= 3 {
-                TypewriterText(text: String(localized: "clips are only visible to the room you post them in.", bundle: .app))
-                    .padding(.top, Space.sm)
+            VStack(alignment: .leading, spacing: Space.sm) {
+                Text(step == 0
+                     ? "your camera and mic,\nonly while you're filming."
+                     : "one nudge an hour.\nsame minute as your friends,\nso you all film the same moment.")
+                    .font(.vlogBody.weight(.medium))
+                    .lineSpacing(5)
+                    .foregroundStyle(Color.text)
+                    .fixedSize(horizontal: false, vertical: true)
+                Text(step == 0
+                     ? "clips only go to the room you post them in."
+                     : "no ads, no streaks, no \"you missed it\".")
+                    .font(.vlogHandSmall)
+                    .foregroundStyle(Color.textSoft)
             }
             Spacer()
-            if lineDone {
-                Button {
-                    Haptics.tap()
-                    advance()
-                } label: {
-                    Text(step >= 3 ? "done →" : "continue →")
-                        .font(.vlogMonoBold)
-                        .foregroundStyle(Color.text)
-                        .underline()
+            VStack(spacing: Space.xs) {
+                PillButton(title: "sure", style: .filled, isLoading: busy) { ask() }
+                    .accessibilityIdentifier("permissions.continue")
+                Button { advance() } label: {
+                    Text("not now")
+                        .font(.vlogLabel)
+                        .foregroundStyle(Color.textSoft)
+                        .frame(maxWidth: .infinity)
                         .frame(height: Metrics.hitTarget)
                 }
                 .buttonStyle(.plain)
-                .accessibilityIdentifier("permissions.continue")
-                .transition(.opacity)
+                .accessibilityIdentifier("permissions.skip")
             }
         }
-        .padding(Space.gutter)
-        .padding(.top, Space.xl)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .padding(.horizontal, Space.xl)
+        .padding(.bottom, Space.lg)
         .background(Color.ground.ignoresSafeArea())
-        .tapBursts()
         .task { await permissions.refresh() }
+        .onAppear { if LaunchArguments.step == 1 { step = 1 } }
         .screen("screen.permissions")
     }
 
-    private func row(index: Int, name: String, status: Permissions.Status, detail: String) -> some View {
-        HStack(alignment: .top, spacing: Space.xs) {
-            Group {
-                if status == .granted {
-                    Text(verbatim: "✓").foregroundStyle(Color.goodInk)
-                } else if status == .denied {
-                    Text(verbatim: "✗").foregroundStyle(Color.warnInk)
-                } else {
-                    Text(verbatim: " ")
-                }
+    private func ask() {
+        guard !busy else { return }
+        busy = true
+        Haptics.tap()
+        Task {
+            defer { busy = false }
+            if step == 0 {
+                await permissions.requestCamera()
+                await permissions.requestMicrophone()
+            } else {
+                await permissions.requestNotifications()
             }
-            .font(.vlogMonoBold)
-            .frame(width: 16)
-            VStack(alignment: .leading, spacing: 2) {
-                if step == index {
-                    (Text(verbatim: name).font(.vlogMonoBold).foregroundStyle(Color.text)
-                     + Text(verbatim: " ").font(.vlogMono))
-                    TypewriterText(text: detail, onDone: { lineDone = true })
-                } else {
-                    Text(verbatim: name).font(.vlogMonoBold).foregroundStyle(status == .granted ? Color.textSoft : Color.text)
-                    if status == .denied {
-                        Button("open settings") { openSettings() }
-                            .font(.vlogMono).foregroundStyle(Color.warnInk).underline()
-                    }
-                }
-            }
+            advance()
         }
-        .accessibilityIdentifier("permissions.\(name)")
     }
 
     private func advance() {
-        lineDone = false
-        Task {
-            switch step {
-            case 0: await permissions.requestCamera()
-            case 1: await permissions.requestMicrophone()
-            case 2: await permissions.requestNotifications()
-            default:
-                state.permissionsIntroDone = true
-                return
-            }
-            withAnimation(Motion.shift) { step += 1 }
-            if step == 3 { lineDone = true }
+        if step == 0 {
+            withAnimation(Motion.shift) { step = 1 }
+        } else {
+            state.permissionsIntroDone = true
         }
-    }
-
-    private func openSettings() {
-        if let url = URL(string: UIApplication.openSettingsURLString) { UIApplication.shared.open(url) }
     }
 }
