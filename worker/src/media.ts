@@ -93,7 +93,16 @@ export async function handleUpload(c: Context<AppEnv>): Promise<Response> {
 
   const declared = (c.req.header("Content-Type") ?? "").split(";")[0]!.trim().toLowerCase();
   const contentType = UPLOAD_CONTENT_TYPES.has(declared) ? declared : CLIP_CONTENT_TYPE;
-  await c.env.CLIPS.put(row.storage_key, body, { httpMetadata: { contentType } });
+  // The cap above is on the declared length; this makes the declared length the truth. A body
+  // longer or shorter than Content-Length errors the stream and nothing is stored.
+  const counted = new FixedLengthStream(length);
+  const piping = body.pipeTo(counted.writable).catch(() => undefined);
+  try {
+    await c.env.CLIPS.put(row.storage_key, counted.readable, { httpMetadata: { contentType } });
+  } catch {
+    fail("bad_request", "body length does not match Content-Length");
+  }
+  await piping;
   return new Response(null, { status: 204 });
 }
 
