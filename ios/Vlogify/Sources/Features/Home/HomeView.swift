@@ -2,7 +2,7 @@ import SwiftUI
 import VlogifyContract
 import VlogifyDesign
 
-/// The app after sign-in: a header, the camera or the logs, and the pill bar.
+/// The app after sign-in: a header, today's page or the camera, and the bar.
 struct HomeView: View {
     @Environment(AppState.self) private var state
     @State private var showNewRoom = false
@@ -11,6 +11,7 @@ struct HomeView: View {
     @State private var showNotifications = false
     @State private var openRoom: Room?
     @State private var camera = CameraSession()
+    @State private var showCoachMarks = false
 
     var body: some View {
         @Bindable var state = state
@@ -25,6 +26,7 @@ struct HomeView: View {
                 bar
             }
             .background(Color.ground.ignoresSafeArea())
+            .overlay { if showCoachMarks { CoachMarks { dismissCoachMarks() } } }
             .navigationDestination(item: $openRoom) { room in RoomView(room: room) }
         }
         .tint(Color.text)
@@ -35,15 +37,34 @@ struct HomeView: View {
         .toastOverlay(state.toast)
         .onChange(of: state.pendingJoinCode) { _, code in if code != nil { showJoin = true } }
         .task { await state.loadRooms() }
+        .onAppear {
+            // First visit only: the page explains itself with handwriting and arrows.
+            showCoachMarks = LaunchArguments.screen == "coach"
+                || (!UserDefaults.standard.bool(forKey: CoachMarks.seenKey) && !LaunchArguments.isUITesting
+                    && LaunchArguments.demo == nil)
+        }
         .screen("screen.home")
     }
 
+    private func dismissCoachMarks() {
+        UserDefaults.standard.set(true, forKey: CoachMarks.seenKey)
+        withAnimation(Motion.dismiss) { showCoachMarks = false }
+    }
+
     private var header: some View {
-        HStack {
-            Wordmark()
+        HStack(spacing: Space.sm) {
+            Wordmark(size: 30)
             Spacer()
-            ChunkyRound(systemImage: "person.fill", label: "profile", size: Metrics.hitTarget + 4) { showProfile = true }
-                .accessibilityIdentifier("home.profile")
+            DoodleRound(doodle: .bell, label: "notifications") { showNotifications = true }
+                .accessibilityIdentifier("home.bell")
+            Button { showProfile = true } label: {
+                if let profile = state.profile {
+                    AvatarDisc(profile: profile, size: Metrics.hitTarget + 4)
+                }
+            }
+            .buttonStyle(SquashButtonStyle())
+            .accessibilityLabel(Text("profile"))
+            .accessibilityIdentifier("home.profile")
         }
         .padding(.horizontal, Space.gutter)
         .padding(.top, Space.sm)
@@ -53,17 +74,9 @@ struct HomeView: View {
         @Bindable var state = state
         return BottomBar(tab: $state.tab) {
             if state.tab == .logs {
-                ChunkyRound(systemImage: "bell.fill", label: "notifications", fill: .fog) { showNotifications = true }
-                    .accessibilityIdentifier("bar.bell")
-            } else {
-                ChunkyRound(systemImage: camera.isTorchOn ? "bolt.fill" : "bolt.slash", label: "flash", fill: .fog) { camera.toggleTorch() }
-                    .accessibilityIdentifier("bar.flash")
-            }
-        } trailing: {
-            if state.tab == .logs {
                 PlusMenu(onCreate: { showNewRoom = true }, onJoin: { showJoin = true })
             } else {
-                ChunkyRound(systemImage: "arrow.triangle.2.circlepath.camera", label: "flip camera", fill: .fog) { camera.flip() }
+                DoodleRound(doodle: .arrowTurn, label: "flip camera", size: Metrics.barButton) { camera.flip() }
                     .accessibilityIdentifier("bar.flip")
             }
         }
