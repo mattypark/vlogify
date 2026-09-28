@@ -21,6 +21,9 @@ public actor MockBackend {
         case full
         /// Signed in, one solo vlog only.
         case solo
+        /// Signed in for the first time: no name, no mark, no rooms. Onboarding's
+        /// profile steps.
+        case newcomer
     }
 
     let now: @Sendable () -> Date
@@ -71,6 +74,12 @@ public actor MockBackend {
         clips = [:]
         generator = SeededGenerator(seed: 0x5e7_106)
         guard scenario != .empty else { return }
+        if scenario == .newcomer {
+            let fresh = Profile(id: Self.testUserID, displayName: "", avatarSeed: 7, createdAt: now())
+            profiles[fresh.id] = fresh
+            activeSession = Session(userID: fresh.id, provider: .apple, issuedAt: now())
+            return
+        }
 
         let created = now().addingTimeInterval(-86_400 * 12)
         let me = Profile(id: Self.testUserID, displayName: "matthew", avatarSeed: 7, createdAt: created, mark: .sample(0))

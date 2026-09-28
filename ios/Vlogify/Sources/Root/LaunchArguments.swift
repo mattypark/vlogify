@@ -9,6 +9,7 @@ import VlogifyContract
 ///   -vlogifyScreen welcome|permissions|profile|home|camera|newRoom|join|room|player|history|settings|notifications
 ///   -vlogifyHour 17                   pretend it is this hour (4...27) for the timeline and camera
 ///   -vlogifyPermissions granted|denied|unasked
+///   -vlogifyStep 2                    open a multi-step screen (intro, permissions, profile) on that step
 ///   -vlogifyLocale ko                 forces a language without touching Settings
 enum LaunchArguments {
     static var demo: MockBackend.Scenario? {
@@ -40,6 +41,15 @@ enum LaunchArguments {
     static var locale: String? {
         #if DEBUG
         return value(after: "-vlogifyLocale")
+        #else
+        return nil
+        #endif
+    }
+
+    /// The step a multi-step onboarding screen opens on, for screenshots of every page.
+    static var step: Int? {
+        #if DEBUG
+        return value(after: "-vlogifyStep").flatMap(Int.init)
         #else
         return nil
         #endif
