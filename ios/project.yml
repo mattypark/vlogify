@@ -14,11 +14,11 @@ targets:
     type: application
     platform: iOS
     sources:
+      # Secrets.xcconfig.example documents the gitignored local override; it has no
+      # business shipping inside the app, so it is kept out of the target entirely.
       - path: Vlogify
-      # Excluded from the bundle: it documents the real Secrets.xcconfig, which is
-      # gitignored, and has no business shipping inside the app.
-      - path: Vlogify/Secrets.xcconfig.example
-        buildPhase: none
+        excludes:
+          - Secrets.xcconfig.example
     dependencies:
       - package: VlogifyDesign
       - package: VlogifyDesign
@@ -68,8 +68,6 @@ targets:
         CFBundleURLTypes:
           - CFBundleURLSchemes:
               - vlogify
-        UIBackgroundModes:
-          - remote-notification
         # Bare filenames, all OFL (licences beside them in Resources/Fonts). Yomogi is the
         # hand; Gaegu is cascaded in for Hangul; Bagel is one of the camera stamp faces.
         UIAppFonts:
