@@ -1,22 +1,15 @@
 import SwiftUI
 import VlogifyDesign
 
-/// The logo. Mint on ink, soot on paper. Lowercase, always.
+/// The logo: "vlogify", written by hand. Lowercase, always.
 struct Wordmark: View {
-    var onPaper = false
-    var size: CGFloat = 30
+    var onPaper = true
+    var size: CGFloat = 34
 
     var body: some View {
-        styled
-            .foregroundStyle(Color.text)
-            .accessibilityLabel("vlogify")
-    }
-
-    /// Built as a `Text` first so the tracking modifier, which only exists on `Text`,
-    /// resolves before the view modifiers do.
-    private var styled: Text {
         Text(verbatim: "vlogify")
-            .font(.custom(Typeface.bagel, size: size, relativeTo: .largeTitle))
-            .tracking(-0.5)
+            .font(Typography.handFont(size: size, relativeTo: .largeTitle))
+            .foregroundStyle(onPaper ? Color.text : Color.chalk)
+            .accessibilityLabel("vlogify")
     }
 }
