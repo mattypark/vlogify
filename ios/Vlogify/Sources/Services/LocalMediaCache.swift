@@ -6,8 +6,9 @@ import os
 ///
 /// A clip the user records is written here *first* and uploaded second, so a dropped
 /// connection at 5:03 PM costs nothing -- the tile fills locally, the upload retries
-/// on the next foreground. Friends' clips are pulled on view and cached under the
-/// same layout so the player never streams twice. The directory is in the app group
+/// on the next foreground. Friends' clips are pulled on view (and today's on every
+/// foreground) and cached under the same layout, so the player never streams twice and
+/// the clips outlive the backend's seven-day copy. The directory is in the app group
 /// container so a future widget can read today's tiles.
 final class LocalMediaCache: Sendable {
     let root: URL
@@ -25,9 +26,11 @@ final class LocalMediaCache: Sendable {
         try? url.setResourceValues(values)
     }
 
-    /// The canonical local path for a clip, uploaded or not.
+    /// The canonical local path for a clip, uploaded or not. Keyed by clip id: a vlog
+    /// room takes any number of clips in one hour, and an hour-member path made the
+    /// second overwrite the first.
     func url(for clip: Clip) -> URL {
-        root.appendingPathComponent("\(clip.roomID)/\(clip.day)/\(clip.hour)-\(clip.memberID).mov")
+        root.appendingPathComponent("\(clip.roomID)/\(clip.day)/\(clip.id).mov")
     }
 
     func has(_ clip: Clip) -> Bool {
