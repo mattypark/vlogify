@@ -17,6 +17,7 @@ public enum Doodle: String, CaseIterable, Sendable {
     case arrowDownRight, arrowDownLeft, arrowDown, arrowUpLeft, arrowTurn
     // Glyphs
     case check, plus, cross, undo, sparkle, heart
+    case arrowLeft, arrowRight, play, hash, pencil
 
     /// The design size in points.
     public var size: CGSize {
@@ -29,7 +30,8 @@ public enum Doodle: String, CaseIterable, Sendable {
         case .arrowDownRight, .arrowDownLeft, .arrowUpLeft: CGSize(width: 56, height: 48)
         case .arrowDown: CGSize(width: 28, height: 56)
         case .arrowTurn: CGSize(width: 44, height: 44)
-        case .check, .plus, .cross, .undo, .sparkle, .heart: CGSize(width: 24, height: 24)
+        case .arrowLeft, .arrowRight: CGSize(width: 40, height: 24)
+        case .check, .plus, .cross, .undo, .sparkle, .heart, .play, .hash, .pencil: CGSize(width: 24, height: 24)
         }
     }
 
@@ -130,7 +132,50 @@ public enum Doodle: String, CaseIterable, Sendable {
             return pen.sparkle(center: (0.5, 0.5), size: 0.42)
         case .heart:
             return [pen.heart(center: (0.5, 0.52), size: 0.4)]
+        case .arrowLeft:
+            return pen.arrow(pen.curve((0.94, 0.56), (0.7, 0.44), (0.36, 0.6), (0.06, 0.48)))
+        case .arrowRight:
+            return pen.arrow(pen.curve((0.06, 0.56), (0.3, 0.44), (0.64, 0.6), (0.94, 0.48)))
+        case .play:
+            return [pen.polyline([(0.28, 0.16), (0.28, 0.84), (0.82, 0.5), (0.26, 0.18)])]
+        case .hash:
+            return [
+                pen.line((0.4, 0.12), (0.32, 0.88)),
+                pen.line((0.7, 0.12), (0.62, 0.88)),
+                pen.line((0.14, 0.36), (0.88, 0.36)),
+                pen.line((0.12, 0.64), (0.86, 0.64)),
+            ]
+        case .pencil:
+            return [
+                pen.polyline([(0.2, 0.62), (0.66, 0.16), (0.84, 0.34), (0.38, 0.8), (0.14, 0.86), (0.2, 0.62)]),
+                pen.line((0.58, 0.24), (0.76, 0.42)),
+            ]
         }
+    }
+}
+
+public extension Doodle {
+    /// The clock with its hands at a real time -- the big drawing on the home page. The
+    /// face is the onboarding clock's own face, so the two read as the same drawing.
+    static func clock(hour: Int, minute: Int) -> [[CGPoint]] {
+        var pen = DoodlePen(seed: Doodle.clock.rawValue)
+        let center = (0.5, 0.53)
+        let face = pen.arc(center: center, radius: 0.4, from: -100, to: 268)
+        var hands = DoodlePen(seed: "clock.\(hour % 12).\(minute)")
+        func hand(degrees: Double, length: Double) -> [CGPoint] {
+            let angle = (degrees - 90) * .pi / 180
+            return hands.line(center, (center.0 + cos(angle) * length, center.1 + sin(angle) * length))
+        }
+        let minutes = Double(max(0, min(minute, 59)))
+        return [
+            face,
+            hand(degrees: (Double(hour % 12) + minutes / 60) * 30, length: 0.19),
+            hand(degrees: minutes * 6, length: 0.27),
+            pen.line((0.5, 0.17), (0.5, 0.22)),
+            pen.line((0.86, 0.53), (0.81, 0.53)),
+            pen.line((0.5, 0.89), (0.5, 0.84)),
+            pen.line((0.14, 0.53), (0.19, 0.53)),
+        ]
     }
 }
 

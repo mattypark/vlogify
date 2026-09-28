@@ -142,6 +142,18 @@ public struct StickerCircleStyle: ButtonStyle {
     }
 }
 
+/// Press feedback for a whole written line on the page (a room, a row): the ink lightens
+/// under the finger. No scale -- a full-width line that shrinks reads as a card.
+public struct InkPressStyle: ButtonStyle {
+    public init() {}
+
+    public func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .opacity(configuration.isPressed ? 0.5 : 1)
+            .animation(.easeOut(duration: 0.12), value: configuration.isPressed)
+    }
+}
+
 /// Press physics for bare glyphs sitting inside something else.
 public struct SquashButtonStyle: ButtonStyle {
     public init() {}
