@@ -14,17 +14,17 @@ struct RoomBlock: View {
         Button(action: open) {
             VStack(alignment: .leading, spacing: Space.sm) {
                 HStack {
-                    Text(verbatim: room.name ?? (room.isSolo ? String(localized: "just me", bundle: .app) : String(localized: "untitled log", bundle: .app)))
+                    Text(verbatim: room.name ?? (room.isSolo ? String(localized: "just me", bundle: .app) : String(localized: "untitled room", bundle: .app)))
                         .font(.vlogShout)
                         .foregroundStyle(Color.text)
                     Spacer()
                     if room.isSolo {
-                        Text("vlog").font(.vlogCaption).foregroundStyle(Color.textSoft)
+                        Text("only you").font(.vlogHandSmall).foregroundStyle(Color.textSoft)
                     } else {
                         HStack(spacing: -8) {
                             ForEach((log?.members ?? []).prefix(5)) { member in
-                                AvatarDisc(profile: member.profile, size: 24)
-                                    .overlay(Circle().stroke(Color.text, lineWidth: 2))
+                                AvatarDisc(profile: member.profile, size: 28)
+                                    .background(Circle().fill(Color.card))
                             }
                         }
                     }
@@ -44,18 +44,16 @@ struct RoomBlock: View {
         .accessibilityIdentifier("home.room.\(room.id)")
     }
 
-    /// A stable playful colour per room, so two rooms never look the same.
-    private var fill: Color {
-        Color.card
-    }
+    /// Paper. A room is its outline and its people.
+    private var fill: Color { .card }
 
     private var statusLine: String {
         if room.isSolo {
             return String(localized: "\(log?.clips.count ?? 0) clips today", bundle: .app)
         }
         if state.hasPosted(in: room, slot: state.clock.currentSlot) {
-            return String(localized: "posted \(state.clock.currentSlot.label). next ping in \(Clock.countdown(state.clock.secondsUntilPing(room: room.id)))", bundle: .app)
+            return String(localized: "got \(state.clock.currentSlot.label). next nudge in \(Clock.countdown(state.clock.secondsUntilPing(room: room.id)))", bundle: .app)
         }
-        return String(localized: "it's \(state.clock.currentSlot.label). add your clip.", bundle: .app)
+        return String(localized: "\(state.clock.currentSlot.label) is open. your two seconds?", bundle: .app)
     }
 }
