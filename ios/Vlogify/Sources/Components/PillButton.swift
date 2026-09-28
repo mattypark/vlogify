@@ -9,10 +9,12 @@ struct PillButton: View {
     var icon: String? = nil
     var style: Style = .filled
     var isLoading = false
+    /// Seconds before the outline traces itself in; nil appears finished.
+    var drawIn: Double? = nil
     let action: () -> Void
 
     var body: some View {
-        ChunkyButton(title: title, icon: icon, fill: fill, ink: ink, isLoading: isLoading, action: action)
+        ChunkyButton(title: title, icon: icon, fill: fill, ink: ink, isLoading: isLoading, drawIn: drawIn, action: action)
     }
 
     private var fill: Color {

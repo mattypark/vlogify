@@ -12,6 +12,8 @@ struct ChunkyButton: View {
     /// Paper on the default solid-pen fill. A paper button has to say so.
     var ink: Color = .card
     var isLoading = false
+    /// Seconds before the outline traces itself in; nil appears finished.
+    var drawIn: Double? = nil
     let action: () -> Void
 
     var body: some View {
@@ -28,7 +30,7 @@ struct ChunkyButton: View {
             .frame(maxWidth: .infinity)
             .frame(height: 56)
         }
-        .buttonStyle(StickerButtonStyle(fill: fill, radius: Radius.pill))
+        .buttonStyle(StickerButtonStyle(fill: fill, corner: .capsule, drawIn: drawIn))
         .disabled(isLoading)
         .stickerRoom()
     }
