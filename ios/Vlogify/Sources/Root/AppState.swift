@@ -62,7 +62,8 @@ final class AppState {
         // else to set up yet.
         guard languageChosen else { return .language }
         guard permissionsIntroDone else { return .permissions }
-        guard let profile, !profile.displayName.isEmpty else { return .profile }
+        // A name and a drawn mark: the mark is who you are on everyone's phone.
+        guard let profile, !profile.displayName.isEmpty, profile.mark != nil else { return .profile }
         return .home
     }
 
