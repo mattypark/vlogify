@@ -12,6 +12,7 @@ struct ProfileView: View {
     @State private var confirmDelete = false
     @State private var confirmSignOut = false
     @State private var deleting = false
+    @State private var redrawing = false
 
     var body: some View {
         NavigationStack {
@@ -36,7 +37,7 @@ struct ProfileView: View {
                     Button {
                         if let url = URL(string: UIApplication.openNotificationSettingsURLString) { UIApplication.shared.open(url) }
                     } label: {
-                        row("hourly pings", value: state.permissions.notifications == .granted ? String(localized: "on", bundle: .app) : String(localized: "off", bundle: .app))
+                        row("hourly nudges", value: state.permissions.notifications == .granted ? String(localized: "on", bundle: .app) : String(localized: "off", bundle: .app))
                     }
                     .accessibilityIdentifier("settings.pings")
                     Button { state.capture.shuffleFont() } label: {
@@ -47,11 +48,15 @@ struct ProfileView: View {
                         }
                     }
                     .accessibilityIdentifier("settings.font")
-                    VStack(alignment: .leading, spacing: Space.xs) {
-                        Text("your colour").font(.vlogBody).foregroundStyle(Color.text)
-                        ColorRingPicker()
+                    Button { redrawing = true } label: {
+                        HStack {
+                            Text("your mark").font(.vlogBody).foregroundStyle(Color.text)
+                            Spacer()
+                            MarkView(mark: state.profile?.mark, name: state.profile?.displayName ?? "", size: 30)
+                            Text("redraw").font(.vlogCaption).foregroundStyle(Color.textSoft)
+                        }
                     }
-                    .accessibilityIdentifier("settings.colour")
+                    .accessibilityIdentifier("settings.mark")
                     Button { state.capture.toggle() } label: {
                         row("recording", value: state.capture.isLandscape ? String(localized: "horizontal", bundle: .app) : String(localized: "vertical", bundle: .app))
                     }
@@ -94,6 +99,7 @@ struct ProfileView: View {
         .presentationBackground(Color.ground)
         .onAppear { name = state.profile?.displayName ?? "" }
         .sheet(isPresented: $showBlocked) { BlockedUsersView() }
+        .sheet(isPresented: $redrawing) { RedrawMarkSheet() }
         .sheet(isPresented: $showLanguage) { LanguageView(isChanging: true).presentationBackground(Color.ground) }
         .confirmationDialog("sign out?", isPresented: $confirmSignOut, titleVisibility: .visible) {
             Button("sign out", role: .destructive) { Task { await state.signOut(); MockSessionStore.save(nil); dismiss() } }
@@ -145,5 +151,51 @@ enum Legal {
         let short = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "0"
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "0"
         return "\(short) (\(build))"
+    }
+}
+
+/// Redraw your mark from Profile. Saving replaces it everywhere: your avatar, your
+/// clips' badges, and on your friends' phones the next time they refresh.
+struct RedrawMarkSheet: View {
+    @Environment(AppState.self) private var state
+    @Environment(\.dismiss) private var dismiss
+    @State private var strokes: [[CGPoint]] = []
+    @State private var busy = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: Space.md) {
+            HStack {
+                DoodleRound(doodle: .cross, label: "close") { dismiss() }
+                Spacer()
+            }
+            Text("draw a new mark.")
+                .font(.vlogTitle)
+                .foregroundStyle(Color.text)
+            MarkEditor(strokes: $strokes)
+            Spacer(minLength: Space.xs)
+            PillButton(title: "save it", style: .filled, isLoading: busy) { save() }
+                .disabled(strokes.isEmpty)
+                .opacity(strokes.isEmpty ? 0.4 : 1)
+                .accessibilityIdentifier("mark.save")
+        }
+        .padding(Space.gutter)
+        .background(Color.ground.ignoresSafeArea())
+        .presentationBackground(Color.ground)
+        .screen("screen.redrawMark")
+    }
+
+    private func save() {
+        busy = true
+        Task {
+            defer { busy = false }
+            do {
+                try await state.saveMark(Mark(canvas: strokes))
+                await state.loadRooms()
+                Haptics.success()
+                dismiss()
+            } catch {
+                state.show(.error(String(localized: "couldn't save that. try again.", bundle: .app)))
+            }
+        }
     }
 }
