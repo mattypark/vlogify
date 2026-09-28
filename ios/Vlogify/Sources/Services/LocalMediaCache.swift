@@ -54,7 +54,13 @@ final class LocalMediaCache: Sendable {
         if FileManager.default.fileExists(atPath: destination.path) { return destination }
         let remote = try await media.downloadURL(storageKey: clip.storageKey)
         if remote.isFileURL { return remote }
-        let (temp, _) = try await URLSession.shared.download(from: remote)
+        let (temp, response) = try await URLSession.shared.download(from: remote)
+        // An expired or refused download returns an error body, not a clip. Caching it
+        // under the clip's path would make the tile "have" a file that never plays.
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+            try? FileManager.default.removeItem(at: temp)
+            throw ContractError.network
+        }
         try FileManager.default.createDirectory(at: destination.deletingLastPathComponent(), withIntermediateDirectories: true)
         try? FileManager.default.removeItem(at: destination)
         try FileManager.default.moveItem(at: temp, to: destination)
