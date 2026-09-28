@@ -5,6 +5,8 @@
 xcuserdata/
 DerivedData/
 build/
+# SwiftPM's build folder for the local package. Dot-prefixed, so build/ above misses it.
+.build/
 .swiftpm/
 Package.resolved
 *.xcarchive
