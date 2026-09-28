@@ -52,6 +52,18 @@ function createdAt(clip: WireClip): string {
   return iso(Number.isFinite(parsed) ? new Date(parsed) : new Date());
 }
 
+/// Rooms with no per-hour limit (just-me vlogs) still stop at a day's worth of honest filming,
+/// so one account cannot turn the relay into free storage.
+const UNLIMITED_ROOM_DAILY_CAP = 300;
+
+async function overDailyCap(env: Env, room: RoomRow, userId: string, clip: WireClip): Promise<boolean> {
+  if (capturesPerSlot(room.type) !== null) return false;
+  const count = await env.DB.prepare(
+    "SELECT COUNT(*) AS n FROM clips WHERE room_id = ? AND member_id = ? AND day = ? AND id != ?",
+  ).bind(room.id, userId, clip.day, clip.id).first<{ n: number }>();
+  return (count?.n ?? 0) >= UNLIMITED_ROOM_DAILY_CAP;
+}
+
 /// Another posted clip of this member's in this slot, for room types with one per slot.
 async function slotTaken(env: Env, room: RoomRow, userId: string, clip: WireClip): Promise<boolean> {
   if (capturesPerSlot(room.type) === null) return false;
@@ -75,6 +87,7 @@ clipRoutes.post("/upload-url", async (c) => {
   const room = await requireMemberRoom(c.env, clip.room_id, userId);
   if (isClipTooLong(room.type, clip.duration_ms)) fail("clip_too_long");
   if (await slotTaken(c.env, room, userId, clip)) fail("slot_already_posted");
+  if (await overDailyCap(c.env, room, userId, clip)) fail("rate_limited");
 
   const key = storageKeyFor(room.id, clip.day, clip.id);
   const onePerSlot = capturesPerSlot(room.type) === null ? 0 : 1;
