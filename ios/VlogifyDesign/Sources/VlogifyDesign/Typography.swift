@@ -5,14 +5,14 @@ import UIKit
 
 /// Type roles.
 ///
-/// Two voices, and the second one is the secondary one:
-/// - **SF Pro -- everything you read and press.** Titles, body, buttons, the invite
-///   code. The app's own voice is plain.
-/// - **A pen hand -- everything written *on* the page.** Notes, annotations and the
-///   arrows' labels, the hour stamp, the wordmark, the hours down a room. Yomogi (OFL)
-///   covers Latin, Vietnamese, Cyrillic and Japanese; Gaegu (OFL) is cascaded in for
-///   Hangul, which Yomogi lacks. Traditional Chinese falls through to the system face
-///   for the few characters Yomogi's kanji do not cover.
+/// One voice: **the pen hand, for everything.** Titles, body, buttons, captions, the
+/// wordmark -- all written, like the drawings they sit next to. Yomogi (OFL) covers
+/// Latin, Vietnamese, Cyrillic and Japanese; Gaegu (OFL) is cascaded in for Hangul, which
+/// Yomogi lacks; the few Traditional Chinese characters Yomogi's kanji miss fall through to
+/// the system face. The hand has one weight, so hierarchy is size and space, never bold.
+///
+/// Two exceptions, both about reading at a glance: the hour on the camera is SF Pro at its
+/// heaviest (it sits on moving video and has to read in a second), and the typewriter mono.
 ///
 /// Bundled faces register through `UIAppFonts` and are asserted at launch in debug
 /// builds -- `Font.custom` falls back to the system face *silently* when a PostScript
@@ -30,34 +30,34 @@ public enum Typeface {
 public enum Typography {
     /// The wordmark: "vlogify", written.
     public static let wordmark = handFont(size: 36, relativeTo: .largeTitle)
-    /// The hour on the camera, by default. `StampFont` in the app can swap it.
-    public static let hour = handFont(size: 46, relativeTo: .largeTitle)
-    /// Button labels. Plain and firm; the outline around them is what is drawn.
-    public static let shout = Font.system(size: 17, weight: .semibold)
-    /// A big number: the invite code.
-    public static let numeral = Font.system(size: 38, weight: .bold, design: .monospaced)
+    /// The hour on the camera: full bold, because it is read over moving video.
+    public static let hour = Font.system(size: 48, weight: .black)
+    /// Button labels.
+    public static let shout = handFont(size: 22, relativeTo: .headline)
+    /// A big number: the invite code. The code alphabet has no I, L or O to confuse.
+    public static let numeral = handFont(size: 46, relativeTo: .largeTitle)
 
-    /// Sheet titles, the onboarding lines.
-    public static let title = Font.system(size: 24, weight: .bold)
+    /// Sheet titles, the onboarding questions.
+    public static let title = handFont(size: 30, relativeTo: .title)
     /// A room name on a card.
-    public static let cardTitle = Font.system(size: 17, weight: .semibold)
+    public static let cardTitle = handFont(size: 22, relativeTo: .headline)
     /// Body copy.
-    public static let body = Font.system(size: 16, weight: .regular)
+    public static let body = handFont(size: 20, relativeTo: .body)
     /// Buttons and pills that carry a sentence rather than a shout.
-    public static let label = Font.system(size: 16, weight: .medium)
+    public static let label = handFont(size: 20, relativeTo: .callout)
     /// Captions, hints, "you + 2 friends".
-    public static let caption = Font.system(size: 13, weight: .medium)
+    public static let caption = handFont(size: 16, relativeTo: .caption)
     /// The permissions typewriter.
     public static let mono = Font.system(size: 15, weight: .regular, design: .monospaced)
     public static let monoBold = Font.system(size: 15, weight: .bold, design: .monospaced)
 
     /// Notes, empty states, the little asides.
-    public static let hand = handFont(size: 19, relativeTo: .body)
-    public static let handSmall = handFont(size: 16, relativeTo: .footnote)
+    public static let hand = handFont(size: 20, relativeTo: .body)
+    public static let handSmall = handFont(size: 17, relativeTo: .footnote)
     /// Coach-mark annotations next to a drawn arrow.
-    public static let annotation = handFont(size: 21, relativeTo: .title3)
+    public static let annotation = handFont(size: 22, relativeTo: .title3)
     /// A big written line: "meet you."
-    public static let handTitle = handFont(size: 30, relativeTo: .title)
+    public static let handTitle = handFont(size: 32, relativeTo: .title)
 
     /// The hand face at a size, with Hangul cascaded to Gaegu and scaled with Dynamic
     /// Type from the given style.

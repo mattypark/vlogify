@@ -25,7 +25,7 @@ final class CapturePreferences {
         orientation = UserDefaults.standard.string(forKey: Self.key)
             .flatMap(StitchPlan.Orientation.init(rawValue:)) ?? .landscape
         stampFont = UserDefaults.standard.string(forKey: Self.fontKey)
-            .flatMap(StampFont.init(rawValue:)) ?? .hand
+            .flatMap(StampFont.init(rawValue:)) ?? .heavy
     }
 
     func shuffleFont() {
@@ -41,8 +41,9 @@ final class CapturePreferences {
     }
 }
 
-/// The looks the hour can wear. The pen hand by default, then system designs and one
-/// more bundled face -- every one resolves to a `CTFont` for the export.
+/// The looks the hour can wear. Full bold by default -- it is read over moving video --
+/// then the pen hand, system designs and one more bundled face. Every one resolves to a
+/// `CTFont` for the export.
 enum StampFont: String, CaseIterable, Sendable {
     case hand, bagel, rounded, serif, mono, condensed, wide, italic, heavy
 
