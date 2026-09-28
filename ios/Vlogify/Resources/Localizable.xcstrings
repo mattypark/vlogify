@@ -2362,6 +2362,46 @@
         }
       }
     },
+    "couldn't send that. try again.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "couldn't send that. try again."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "보내지 못했어요. 다시 해 주세요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "送信できませんでした。もう一度試してね。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "無法送出，請再試一次。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "không gửi được. thử lại nhé."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "не удалось отправить. попробуй ещё раз."
+          }
+        }
+      }
+    },
     "couldn't sign in. try again.": {
       "localizations": {
         "en": {
@@ -3602,6 +3642,46 @@
         }
       }
     },
+    "friend": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "friend"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "친구"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ともだち"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "朋友"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "bạn"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "друг"
+          }
+        }
+      }
+    },
     "friends see this on your clips. you can redraw it any time in your profile.": {
       "localizations": {
         "en": {
@@ -4198,6 +4278,46 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "оно будет под твоими клипами."
+          }
+        }
+      }
+    },
+    "it goes under your clips. optional: you can skip it and change it later.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "it goes under your clips. optional: you can skip it and change it later."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "클립 아래에 표시돼요. 선택 사항이라 건너뛰고 나중에 바꿔도 돼요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "クリップの下に表示されるよ。任意なのでスキップして後で変えてもOK。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "它會顯示在你的片段下方。可選填，可以先跳過，之後再改。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "tên hiện dưới clip của bạn. không bắt buộc: có thể bỏ qua và đổi sau."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "оно будет под твоими клипами. необязательно: можно пропустить и поменять позже."
           }
         }
       }
@@ -7162,6 +7282,46 @@
         }
       }
     },
+    "report %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "report %@"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@님 신고"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "%@ を報告"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "檢舉 %@"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "báo cáo %@"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "пожаловаться на %@"
+          }
+        }
+      }
+    },
     "right now": {
       "localizations": {
         "en": {
@@ -7838,6 +7998,46 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "выйти из аккаунта?"
+          }
+        }
+      }
+    },
+    "skip": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "skip"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "건너뛰기"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "スキップ"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "跳過"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "bỏ qua"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "пропустить"
           }
         }
       }
@@ -8718,6 +8918,46 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "условия"
+          }
+        }
+      }
+    },
+    "thanks. we'll look at it within a day.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "thanks. we'll look at it within a day."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "고마워요. 하루 안에 확인할게요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "ありがとう。1日以内に確認するね。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "謝謝，我們會在一天內處理。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "cảm ơn. chúng tôi sẽ xem trong vòng một ngày."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "спасибо. посмотрим в течение суток."
           }
         }
       }
@@ -9962,6 +10202,46 @@
         }
       }
     },
+    "what's wrong?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "what's wrong?"
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "무슨 문제인가요?"
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "どうしたの？"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "有什麼問題？"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "có vấn đề gì?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "что не так?"
+          }
+        }
+      }
+    },
     "with friends": {
       "localizations": {
         "en": {
@@ -10558,6 +10838,46 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "твои клипы, комнаты и вход будут удалены с серверов vlogify. клипы друзей останутся у них."
+          }
+        }
+      }
+    },
+    "your clips, your rooms, and your sign-in are removed from vlogify's servers. friends keep their own clips. to also stop using Sign in with Apple for vlogify, open Settings > your name > Sign in with Apple.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "your clips, your rooms, and your sign-in are removed from vlogify's servers. friends keep their own clips. to also stop using Sign in with Apple for vlogify, open Settings > your name > Sign in with Apple."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "클립, 방, 로그인 정보가 vlogify 서버에서 삭제돼요. 친구들은 자기 클립을 그대로 가져요. vlogify의 Apple로 로그인 사용도 멈추려면 설정 > 내 이름 > Apple로 로그인으로 가세요."
+          }
+        },
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "クリップ、ルーム、サインイン情報がvlogifyのサーバーから削除されます。友だちは自分のクリップを持ち続けます。vlogifyでのAppleでサインインもやめるには、設定 > あなたの名前 > Appleでサインイン を開いてください。"
+          }
+        },
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "你的片段、房間與登入資料會從 vlogify 的伺服器刪除。朋友會保留他們自己的片段。若也要停止在 vlogify 使用「以 Apple 登入」，請前往 設定 > 你的名字 > 以 Apple 登入。"
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "clip, phòng và thông tin đăng nhập của bạn sẽ bị xoá khỏi máy chủ vlogify. bạn bè vẫn giữ clip của họ. để ngừng dùng Đăng nhập bằng Apple cho vlogify, mở Cài đặt > tên của bạn > Đăng nhập bằng Apple."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "твои клипы, комнаты и данные входа удаляются с серверов vlogify. у друзей остаются их клипы. чтобы перестать входить в vlogify через Apple, открой Настройки > твоё имя > Вход с Apple."
           }
         }
       }

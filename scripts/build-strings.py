@@ -281,6 +281,14 @@ T = {
  "your camera and mic,\nonly while you're filming.": ("카메라와 마이크,\n찍는 동안에만 써요.", "カメラとマイク、\n撮っているあいだだけ。", "你的相機和麥克風，\n只在拍攝時使用。", "camera và mic của bạn,\nchỉ khi bạn đang quay.", "твоя камера и микрофон,\nтолько пока ты снимаешь."),
  "your day\nlives here": ("오늘은\n여기 있어요", "今日は\nここにあるよ", "你的一天\n在這裡", "ngày của bạn\nở đây", "твой день\nживёт здесь"),
  "your mark": ("나의 마크", "わたしのマーク", "我的記號", "dấu của bạn", "твой знак"),
+ "couldn't send that. try again.": ("보내지 못했어요. 다시 해 주세요.", "送信できませんでした。もう一度試してね。", "無法送出，請再試一次。", "không gửi được. thử lại nhé.", "не удалось отправить. попробуй ещё раз."),
+ "friend": ("친구", "ともだち", "朋友", "bạn", "друг"),
+ "it goes under your clips. optional: you can skip it and change it later.": ("클립 아래에 표시돼요. 선택 사항이라 건너뛰고 나중에 바꿔도 돼요.", "クリップの下に表示されるよ。任意なのでスキップして後で変えてもOK。", "它會顯示在你的片段下方。可選填，可以先跳過，之後再改。", "tên hiện dưới clip của bạn. không bắt buộc: có thể bỏ qua và đổi sau.", "оно будет под твоими клипами. необязательно: можно пропустить и поменять позже."),
+ "report %@": ("%@님 신고", "%@ を報告", "檢舉 %@", "báo cáo %@", "пожаловаться на %@"),
+ "skip": ("건너뛰기", "スキップ", "跳過", "bỏ qua", "пропустить"),
+ "thanks. we'll look at it within a day.": ("고마워요. 하루 안에 확인할게요.", "ありがとう。1日以内に確認するね。", "謝謝，我們會在一天內處理。", "cảm ơn. chúng tôi sẽ xem trong vòng một ngày.", "спасибо. посмотрим в течение суток."),
+ "what's wrong?": ("무슨 문제인가요?", "どうしたの？", "有什麼問題？", "có vấn đề gì?", "что не так?"),
+ "your clips, your rooms, and your sign-in are removed from vlogify's servers. friends keep their own clips. to also stop using Sign in with Apple for vlogify, open Settings > your name > Sign in with Apple.": ("클립, 방, 로그인 정보가 vlogify 서버에서 삭제돼요. 친구들은 자기 클립을 그대로 가져요. vlogify의 Apple로 로그인 사용도 멈추려면 설정 > 내 이름 > Apple로 로그인으로 가세요.", "クリップ、ルーム、サインイン情報がvlogifyのサーバーから削除されます。友だちは自分のクリップを持ち続けます。vlogifyでのAppleでサインインもやめるには、設定 > あなたの名前 > Appleでサインイン を開いてください。", "你的片段、房間與登入資料會從 vlogify 的伺服器刪除。朋友會保留他們自己的片段。若也要停止在 vlogify 使用「以 Apple 登入」，請前往 設定 > 你的名字 > 以 Apple 登入。", "clip, phòng và thông tin đăng nhập của bạn sẽ bị xoá khỏi máy chủ vlogify. bạn bè vẫn giữ clip của họ. để ngừng dùng Đăng nhập bằng Apple cho vlogify, mở Cài đặt > tên của bạn > Đăng nhập bằng Apple.", "твои клипы, комнаты и данные входа удаляются с серверов vlogify. у друзей остаются их клипы. чтобы перестать входить в vlogify через Apple, открой Настройки > твоё имя > Вход с Apple."),
 }
 # Identical in every language: identifiers, placeholders, the brand.
 SAME = {"google", "email", "", "000000", "ABC-123", "you@example.com", "vlogify", "no camera in the simulator"}
