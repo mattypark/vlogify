@@ -115,3 +115,13 @@ npx wrangler d1 execute vlogify --remote --command "UPDATE support_messages SET 
 The room `demo-review-room` and its three people (`demo-matthew`, `demo-jiwoo`,
 `demo-sam`) are seeded by `scripts/seed-review-room.sh`; nobody can sign in as them. Close
 the report; there is no one to ban.
+
+## What the app does on its own (2026-09-28)
+
+- A clip with an **open** report is hidden from everyone in its room at once; resolving the
+  report (`UPDATE reports SET resolved_at = …`) brings it back for everyone except the
+  person who reported it. Removing it for good: delete the clip row and its R2 object
+  (commands above), or ban the account.
+- Display names and room names go through `worker/src/filter.ts` (masking, not refusing).
+- Reports are limited to 20 an hour per person; the support form to 3 an hour per address.
+

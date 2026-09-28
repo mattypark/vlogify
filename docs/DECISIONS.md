@@ -217,3 +217,28 @@ a dozen routes; its Realtime was the draw and polling covers v1); presigned R2 U
 (needs R2 API tokens in Worker secrets and gives up per-request membership checks);
 keeping clips forever (cost and exposure grow with every day, for a product whose
 output is the exported vlog on the phone).
+
+## Ink on paper, and your own mark (2026-09-28)
+
+The folk blue-white look was replaced, and with it the last of what read as Setlog:
+the cloud mascot (also the icon), the thirteen welcome doodles in Setlog's positions,
+word-for-word lines ("new moment every hour…", "your day, side by side.", "add a 2s
+clip every hour…", "it's 5:00. add your 2s clip."), the bell · camera|logs · + bar, and
+the three-card new-room sheet. What replaced them, and why:
+
+- **Black pen on white paper, drawn outlines** (`Ink.swift`), grug-*inspired*: the
+  handwriting is secondary, SF Pro stays the primary voice, and the drawings are our own.
+  Rejected: copying grug's font-first voice (a second 4.1 problem).
+- **Everyone draws a mark.** It replaced the colour ring as identity and is the most
+  vlogify-specific thing in the app: avatar, clip badge, export signature, and the
+  onboarding "mascot" ("meet <name>."). `Profile.mark` on the wire, additive.
+- **Doodles are code**, not art slots: one pen for drawings and marks, animatable, no
+  artist dependency. `art-slots.py` / `ART-SLOTS.md` are obsolete.
+- **Words**: "nudge" not "ping", "room" not "log", our own onboarding and notification
+  copy; Setlog-era catalog keys dropped out when the catalog was rebuilt from source.
+- **App Review hardening** (audit before first submission): pre-permission screens have
+  one button that always reaches the system prompt; the name is optional after Sign in
+  with Apple; a word filter masks names and room names; an open report hides a clip from
+  the whole room; a person can be reported without a clip; age rating 13+ (override of the
+  calculated 4+) to match the terms; the EU storefronts are off until trader status is
+  decided; Mac/Vision Pro availability is off.
