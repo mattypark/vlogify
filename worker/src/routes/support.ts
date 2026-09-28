@@ -2,7 +2,7 @@ import type { Context } from "hono";
 import { alert } from "../alerts";
 import type { AppEnv } from "../env";
 import { background } from "../http";
-import { now, randomId } from "../util";
+import { iso, now, randomId } from "../util";
 
 const EMAIL = /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,63}$/;
 
@@ -27,6 +27,13 @@ export async function handleSupport(c: Context<AppEnv>): Promise<Response> {
   if (!EMAIL.test(email) || email.length > 254 || message.length < 10 || message.length > 5000) {
     return c.redirect("/support?error=1", 303);
   }
+  const since = (ms: number) => iso(new Date(Date.now() - ms));
+  const counts = await c.env.DB.prepare(
+    `SELECT (SELECT COUNT(*) FROM support_messages WHERE email = ? AND created_at > ?) AS mine,
+            (SELECT COUNT(*) FROM support_messages WHERE created_at > ?) AS everyone`,
+  ).bind(email, since(3_600_000), since(600_000)).first<{ mine: number; everyone: number }>();
+  if ((counts?.mine ?? 0) >= 3 || (counts?.everyone ?? 0) >= 30) return c.redirect("/support?sent=1", 303);
+
   const id = randomId();
   await c.env.DB.prepare("INSERT INTO support_messages (id, email, message, created_at) VALUES (?, ?, ?, ?)")
     .bind(id, email, message, now()).run();
