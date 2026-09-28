@@ -16,7 +16,7 @@ binding = "DB"
 database_name = "vlogify"
 # scripts/deploy-worker.sh swaps in the real id (`wrangler d1 create vlogify`); local dev and
 # the tests ignore it.
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "68a6ff00-c725-4437-afae-0b87a23a0ec9"
 migrations_dir = "migrations"
 
 [[r2_buckets]]
