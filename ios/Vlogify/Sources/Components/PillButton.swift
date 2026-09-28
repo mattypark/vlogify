@@ -25,8 +25,7 @@ struct PillButton: View {
 
     private var ink: Color {
         switch style {
-        // White on both dark lids. Slate on the action blue is 4.17:1 -- under AA, and
-        // the whole reason `blue` is not a Fill.
+        // Paper on the solid-pen fills.
         case .filled, .accent: return .card
         case .outlined: return .text
         }
@@ -42,7 +41,7 @@ struct Chip: View {
     var body: some View {
         Text(verbatim: text)
             .font(.vlogLabel)
-            .foregroundStyle(Color.text)
+            .foregroundStyle(selected ? Color.card : Color.text)
             .padding(.horizontal, Space.md)
             .padding(.vertical, Space.xs)
             .sticker(fill: selected ? .action : .card, radius: Radius.pill)
