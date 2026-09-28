@@ -19,8 +19,7 @@ enum BackendRoot {
 
     static func make(cache: LocalMediaCache, clock: Clock) async -> Backend {
         if !usesMock, let config {
-            // Backend lane: `return CloudflareBackend(config: config, tokens: KeychainTokenStore()).backend`
-            _ = config
+            return CloudflareBackend(config: config, tokens: KeychainTokenStore()).backend
         }
         let scenarioDir = LaunchArguments.usesTemporaryStore
             ? FileManager.default.temporaryDirectory.appendingPathComponent("vlogify-mock-\(ProcessInfo.processInfo.processIdentifier)")

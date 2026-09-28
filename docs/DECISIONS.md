@@ -177,3 +177,43 @@ The outline colour has to differentiate *you* from friends, so it rides on `Prof
 (already in the contract); `ProfileService.update(avatarSeed:)` was added — additive, the
 backend session implements it as a column update. The stamp font is burned into the video
 you export and needs no server.
+
+## Cloudflare relay replaces Supabase (2026-09-28)
+Supersedes "Supabase + Cloudflare R2" and "Email codes go out through Resend" above. The
+backend is one Cloudflare Worker (`worker/`): Hono for routes, D1 for metadata, R2 for
+bytes, and the `web/` site served from the same origin.
+
+- **A relay, not an archive.** Clips live on the phones -- the app already records into
+  its own cache first. The server only moves a clip between friends: the copy in R2
+  under `clips/` expires after 7 days by a bucket lifecycle rule (`CLIP_TTL_DAYS`). D1
+  rows stay, so history still lists every day; a gone object answers 410 and the app
+  plays its own copy. That keeps storage flat as rooms age and leaves the least
+  footage on a server that could leak or be subpoenaed.
+- **The Worker signs its own media URLs.** Uploads PUT to `/media/upload/<clip id>`,
+  playback GETs `/media/<key>`, each with an expiry and an HMAC (`MEDIA_SIGNING_KEY`)
+  over exactly what it may touch; the bytes stream through the `CLIPS` binding. No R2
+  access keys exist anywhere, so none can leak, and a download URL is only minted for
+  a member of the clip's room. Playback honours byte ranges because AVPlayer needs them.
+- **Apple-only sign-in until there is a domain.** Google needs an OAuth client and a
+  callback domain, email codes need a sending domain; neither exists tonight. Both
+  answer `unsupported` (501) and the client throws `ContractError.unsupported` without a
+  round trip. Apple identity tokens are verified against Apple's keys with the nonce;
+  only HMAC(`PEPPER`, sub) is stored; the authorization code is exchanged and the
+  refresh token sealed so account deletion can revoke it (when the Apple key secrets
+  are set).
+- **Presence is polling.** `PresenceService` fetches the room's day every 30 s and yields
+  what changed. A room changes a few times an hour; a Durable Object socket is the v2
+  answer if that ever feels slow.
+- **Pings stay local.** v1 schedules the hourly ping on each phone from `SlotPing`, which
+  every phone computes identically offline. No APNs, no device tokens on the server;
+  `/v1/push/register` is a 204 no-op kept for when APNs arrives.
+- **Same rules as the mock.** Capacity, the 2 s + 250 ms limit, one clip per slot (also a
+  partial unique index), owner-only remove/regenerate, blocks hiding both ways,
+  idempotent post on clip id. `worker/test/rules.test.ts` runs the Swift engine's own
+  vectors against the TypeScript port.
+
+Rejected: Supabase (a second vendor, RLS policy surface and an auth product for what is
+a dozen routes; its Realtime was the draw and polling covers v1); presigned R2 URLs
+(needs R2 API tokens in Worker secrets and gives up per-request membership checks);
+keeping clips forever (cost and exposure grow with every day, for a product whose
+output is the exported vlog on the phone).

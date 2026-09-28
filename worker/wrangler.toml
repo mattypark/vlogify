@@ -1,0 +1,44 @@
+# The vlogify relay. Clips live on phones; this Worker only moves them between friends.
+# D1 keeps the metadata, R2 keeps a copy of each clip under clips/ for seven days (a lifecycle
+# rule set by scripts/deploy-worker.sh), and the site in ../web is served from the same origin
+# so the App Store privacy and support URLs work before there is a domain.
+name = "vlogify"
+main = "src/index.ts"
+compatibility_date = "2026-08-20"
+compatibility_flags = ["nodejs_compat"]
+# The app talks to https://vlogify.<subdomain>.workers.dev. Per-version preview URLs would put
+# every old build on the internet too, so they're off.
+workers_dev = true
+preview_urls = false
+
+[[d1_databases]]
+binding = "DB"
+database_name = "vlogify"
+# scripts/deploy-worker.sh swaps in the real id (`wrangler d1 create vlogify`); local dev and
+# the tests ignore it.
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "CLIPS"
+bucket_name = "vlogify-clips"
+
+# The marketing / legal site. /privacy serves privacy.html; anything unknown gets 404.html.
+# The API paths go to the Worker first so a file in ../web can never shadow a route.
+[assets]
+directory = "../web"
+binding = "ASSETS"
+html_handling = "auto-trailing-slash"
+not_found_handling = "404-page"
+run_worker_first = ["/v1/*", "/media/*", "/health", "/support"]
+
+[vars]
+# Sign in with Apple audiences (comma-separated). Not secrets.
+APPLE_BUNDLE_IDS = "com.matthewpark.vlogify"
+# Must match the R2 lifecycle rule on clips/ (scripts/deploy-worker.sh).
+CLIP_TTL_DAYS = "7"
+
+# Secrets (wrangler secret put; names only, see .dev.vars.example):
+#   SESSION_SECRET, PEPPER, MEDIA_SIGNING_KEY, TOKEN_KEY           required
+#   APPLE_TEAM_ID, APPLE_KEY_ID, APPLE_PRIVATE_KEY                 optional: revoke on delete
+#   TG_BOT_TOKEN, TG_CHAT_ID                                       optional: report alerts
