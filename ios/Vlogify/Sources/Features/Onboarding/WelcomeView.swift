@@ -3,72 +3,170 @@ import SwiftUI
 import VlogifyContract
 import VlogifyDesign
 
-/// The one paper screen. Doodles around a mascot, the tagline, three ways in.
+/// The first thing anyone sees: three pages, one drawing each, a few plain lines, and
+/// one drawn button. The drawing traces itself when its page arrives. The last page is
+/// where you sign in.
+///
+/// Sign in with Apple is the way in. Google and email appear only while the app runs on
+/// the on-device mock (the walker uses them); the real backend offers Apple alone until
+/// there is a domain to send email codes from.
 struct WelcomeView: View {
     @Environment(AppState.self) private var state
+    @State private var page = 0
     @State private var showEmail = false
     @State private var busy: AuthProviderKind?
     private let apple = AppleSignIn()
     private let google = GoogleSignIn()
 
+    private struct Page {
+        let doodle: Doodle
+        let lines: LocalizedStringKey
+        let next: LocalizedStringKey
+    }
+
+    private let pages: [Page] = [
+        Page(doodle: .clock,
+             lines: "most of a day never gets filmed.\nthe walk, the lunch, the 11 pm kitchen.\nthose were the good parts.",
+             next: "okay"),
+        Page(doodle: .phoneBuzz,
+             lines: "once an hour, everyone in your room\ngets the same nudge.\ntwo seconds. one take. no redo.",
+             next: "and then?"),
+        Page(doodle: .frames,
+             lines: "at night it all lines up\ninto one vlog, side by side.\nyours to keep.",
+             next: ""),
+    ]
+
     var body: some View {
-        ZStack {
-            Color.chalk.ignoresSafeArea()
-            VStack(spacing: 0) {
+        VStack(spacing: 0) {
+            HStack {
+                Wordmark(size: 28)
                 Spacer()
-                DoodleSticker(.camcorder, animated: true)
-                    .padding(.bottom, Space.lg)
-                Wordmark(onPaper: true, size: 34)
-                Text("new moment every hour,\nvlog it with your friends.")
-                    .font(.vlogBody)
-                    .foregroundStyle(Color.text)
-                    .multilineTextAlignment(.center)
-                    .padding(.top, Space.xs)
-                Spacer()
-                Spacer()
-                VStack(spacing: Space.sm) {
-                    // Apple's own button (4.8 requires it), wearing the sticker outline
-                    // and shadow so it belongs to the page.
-                    SignInWithAppleButton(.continue) { _ in } onCompletion: { _ in }
-                        .signInWithAppleButtonStyle(.black)
-                        .frame(height: 56)
-                        .clipShape(Capsule())
-                        .sticker(fill: .text, corner: .capsule)
-                        .overlay(Capsule().fill(Color.black.opacity(0.001)).onTapGesture { signInWithApple() })
-                        .stickerRoom()
-                        .accessibilityIdentifier("welcome.apple")
-                    ChunkyButton(title: "Continue with Google", icon: "g.circle.fill", fill: .card, ink: .text, isLoading: busy == .google) { signInWithGoogle() }
-                        .accessibilityIdentifier("welcome.google")
-                    Button { showEmail = true } label: {
-                        Text("Continue with email")
-                            .font(.vlogLabel)
-                            .foregroundStyle(Color.text)
-                            .underline()
-                            .frame(height: Metrics.hitTarget)
-                    }
-                    .buttonStyle(.plain)
-                    .accessibilityIdentifier("welcome.email")
-                    if BackendRoot.usesMock {
-                        // Only while the app runs on the mock: walks the whole
-                        // onboarding without an email in the loop. Disappears the day
-                        // a Secrets.xcconfig points at a real backend.
-                        Button { skip() } label: {
-                            Text("skip for now")
-                                .font(.vlogCaption)
-                                .foregroundStyle(Color.textSoft)
-                                .frame(height: Metrics.hitTarget)
-                        }
-                        .buttonStyle(.plain)
-                        .accessibilityIdentifier("welcome.skip")
-                    }
-                }
-                .padding(.horizontal, Space.xl)
-                .padding(.bottom, Space.xxl)
+                dots
             }
+            .padding(.horizontal, Space.gutter)
+            .padding(.top, Space.md)
+
+            TabView(selection: $page) {
+                ForEach(pages.indices, id: \.self) { index in
+                    pageView(pages[index], index: index)
+                        .tag(index)
+                }
+            }
+            .tabViewStyle(.page(indexDisplayMode: .never))
+
+            footer
+                .padding(.horizontal, Space.xl)
+                .padding(.bottom, Space.lg)
         }
-        .tapBursts()
+        .background(Color.ground.ignoresSafeArea())
         .sheet(isPresented: $showEmail) { EmailSignInSheet() }
         .toastOverlay(state.toast)
+        .screen("screen.welcome")
+        .onAppear { if let step = LaunchArguments.step { page = min(max(step, 0), pages.count - 1) } }
+    }
+
+    private func pageView(_ page: Page, index: Int) -> some View {
+        VStack(alignment: .leading, spacing: Space.xl) {
+            Spacer()
+            HStack {
+                Spacer()
+                // Re-created when its page arrives, so it draws itself each time.
+                if self.page == index {
+                    DoodleSticker(page.doodle, scale: 1.15, animated: true, lineWidth: Pen.bold)
+                } else {
+                    Color.clear.frame(width: page.doodle.size.width * 1.15, height: page.doodle.size.height * 1.15)
+                }
+                Spacer()
+            }
+            Text(page.lines)
+                .font(.vlogBody.weight(.medium))
+                .lineSpacing(5)
+                .foregroundStyle(Color.text)
+                .fixedSize(horizontal: false, vertical: true)
+            Spacer()
+        }
+        .padding(.horizontal, Space.xl)
+    }
+
+    private var dots: some View {
+        HStack(spacing: Space.xs) {
+            ForEach(pages.indices, id: \.self) { index in
+                Group {
+                    if index == page {
+                        Circle().fill(Color.text)
+                    } else {
+                        PenShape(.circle, wobble: 0.4).stroke(Color.text, style: Ink.style(1.2))
+                    }
+                }
+                .frame(width: 8, height: 8)
+            }
+        }
+        .accessibilityElement()
+        .accessibilityLabel(Text("page \(page + 1) of \(pages.count)"))
+    }
+
+    @ViewBuilder
+    private var footer: some View {
+        if page < pages.count - 1 {
+            HStack {
+                Spacer()
+                Button {
+                    Haptics.tap()
+                    withAnimation(Motion.shift) { page += 1 }
+                } label: {
+                    Text(pages[page].next)
+                        .font(.vlogShout)
+                        .foregroundStyle(Color.text)
+                        .padding(.horizontal, Space.xl)
+                        .frame(height: 56)
+                        .frame(minWidth: 150)
+                }
+                .buttonStyle(StickerButtonStyle(fill: .card, corner: .capsule))
+                .accessibilityIdentifier("welcome.next")
+                Spacer()
+            }
+            .frame(height: 150, alignment: .top)
+        } else {
+            signIn
+                .frame(height: 150, alignment: .top)
+        }
+    }
+
+    private var signIn: some View {
+        VStack(spacing: Space.sm) {
+            // Apple's own button, unaltered (4.8 and the HIG both want it recognisable).
+            SignInWithAppleButton(.continue) { _ in } onCompletion: { _ in }
+                .signInWithAppleButtonStyle(.black)
+                .frame(height: 54)
+                .clipShape(Capsule())
+                .overlay(Capsule().fill(Color.black.opacity(0.001)).onTapGesture { signInWithApple() })
+                .overlay { if busy == .apple { ProgressView().tint(.white) } }
+                .accessibilityIdentifier("welcome.apple")
+            legal
+            if BackendRoot.usesMock {
+                // Only on the mock: the walker needs every door, and "skip" walks the
+                // whole onboarding with no account at all.
+                HStack(spacing: Space.lg) {
+                    Button("google") { signInWithGoogle() }
+                        .accessibilityIdentifier("welcome.google")
+                    Button("email") { showEmail = true }
+                        .accessibilityIdentifier("welcome.email")
+                    Button("skip for now") { skip() }
+                        .accessibilityIdentifier("welcome.skip")
+                }
+                .font(.vlogHandSmall)
+                .foregroundStyle(Color.textSoft)
+                .buttonStyle(.plain)
+            }
+        }
+    }
+
+    private var legal: some View {
+        Text("by continuing you agree to the [terms](\(Legal.terms.absoluteString)) and [privacy policy](\(Legal.privacy.absoluteString)).")
+            .font(.vlogCaption)
+            .foregroundStyle(Color.textSoft)
+            .tint(Color.text)
+            .multilineTextAlignment(.center)
     }
 
     private func signInWithApple() {
