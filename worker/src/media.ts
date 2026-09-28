@@ -71,12 +71,19 @@ export async function handleUpload(c: Context<AppEnv>): Promise<Response> {
   const clipId = pathTail(c, "/media/upload/");
   const exp = expiryFrom(c);
   const row = await c.env.DB.prepare(
-    "SELECT c.storage_key, r.type FROM clips c JOIN rooms r ON r.id = c.room_id WHERE c.id = ?",
-  ).bind(clipId).first<{ storage_key: string; type: RoomType }>();
+    "SELECT c.storage_key, c.status, r.type FROM clips c JOIN rooms r ON r.id = c.room_id WHERE c.id = ?",
+  ).bind(clipId).first<{ storage_key: string; status: "pending" | "posted"; type: RoomType }>();
   // An unknown clip id answers exactly like a bad signature: nothing to learn by guessing.
   if (!row) fail("bad_signature");
   const ok = await hmacVerify(c.env.MEDIA_SIGNING_KEY, uploadMessage(clipId, row.storage_key, exp), c.req.query("sig") ?? "");
   if (!ok) fail("bad_signature");
+  // A posted clip's bytes are what friends saw and what a report points at; they never change.
+  // The upload queue re-runs the whole flow when a response was lost, so this is a success
+  // that writes nothing rather than a refusal.
+  if (row.status === "posted") {
+    await c.req.raw.body?.cancel();
+    return new Response(null, { status: 204 });
+  }
 
   const length = Number(c.req.header("Content-Length"));
   if (!Number.isInteger(length) || length <= 0) fail("bad_request", "Content-Length required");

@@ -62,6 +62,16 @@ describe("posting clips", () => {
     const { posted } = await uploadAndPost(friend, first);
     const saved = await body(posted!);
 
+    // The upload queue's retry after a lost response: the whole flow again, same clip id.
+    const reminted = await api("/v1/clips/upload-url", friend, { json: { clip: first } });
+    expect(reminted.status).toBe(200);
+    const resigned = await body(reminted);
+    const swap = new Uint8Array([9, 9, 9, 9]);
+    expect((await SELF.fetch(resigned.url, { method: "PUT", headers: resigned.headers, body: swap })).status).toBe(204);
+    // ...but the posted bytes never change.
+    const stored = await env.CLIPS.get(saved.storage_key);
+    expect(new Uint8Array(await stored!.arrayBuffer())).toEqual(CLIP_BYTES);
+
     const again = await api("/v1/clips", friend, { json: { clip: { ...first, duration_ms: 1500 } } });
     expect(again.status).toBe(200);
     expect(await body(again)).toEqual(saved);
