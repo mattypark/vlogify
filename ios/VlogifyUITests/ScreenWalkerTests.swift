@@ -156,7 +156,7 @@ final class ScreenWalkerTests: XCTestCase {
         wait(for: app.any("screen.camera"))
         snap(app, "30-camera")
         app.buttons["camera.room"].tap()
-        let logRoom = app.buttons.matching(identifier: "lololol testing").firstMatch
+        let logRoom = app.buttons.matching(identifier: "sunday people").firstMatch
         if logRoom.waitForExistence(timeout: 3) { logRoom.tap() }
         wait(for: app.buttons["camera.shutter"])
         app.buttons["bar.flip"].tap()

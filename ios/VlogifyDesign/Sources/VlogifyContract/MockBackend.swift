@@ -93,7 +93,7 @@ public actor MockBackend {
 
         guard scenario == .full else { return }
 
-        let trio = makeRoom(RoomDraft(name: "lololol testing", type: .log, capacity: 3), owner: me.id, createdAt: created)
+        let trio = makeRoom(RoomDraft(name: "sunday people", type: .log, capacity: 3), owner: me.id, createdAt: created)
         for profile in [me, jiwoo, sam] { addMember(profile, to: trio.id, at: created) }
 
         // Clips through the current hour today, and two full-ish past days. Members

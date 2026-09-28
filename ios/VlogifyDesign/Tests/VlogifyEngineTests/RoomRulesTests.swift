@@ -32,7 +32,7 @@ struct RoomRulesTests {
     @Test("Names are trimmed, capped, and optional")
     func names() {
         #expect(RoomRules.normalizedName("   ") == nil)
-        #expect(RoomRules.normalizedName("  lololol testing ") == "lololol testing")
+        #expect(RoomRules.normalizedName("  sunday people ") == "sunday people")
         #expect(RoomRules.normalizedName(String(repeating: "a", count: 40))?.count == 24)
     }
 
