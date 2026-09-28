@@ -36,8 +36,22 @@ struct HomeView: View {
         .sheet(isPresented: $showNotifications) { NotificationsView() }
         .toastOverlay(state.toast)
         .onChange(of: state.pendingJoinCode) { _, code in if code != nil { showJoin = true } }
-        .task { await state.loadRooms() }
+        .task {
+            await state.loadRooms()
+            #if DEBUG
+            if LaunchArguments.screen == "room" { openRoom = state.rooms.first { !$0.isSolo } }
+            #endif
+        }
         .onAppear {
+            #if DEBUG
+            switch LaunchArguments.screen {
+            case "newRoom": showNewRoom = true
+            case "join": showJoin = true
+            case "profile": showProfile = true
+            case "notifications": showNotifications = true
+            default: break
+            }
+            #endif
             // First visit only: the page explains itself with handwriting and arrows.
             showCoachMarks = LaunchArguments.screen == "coach"
                 || (!UserDefaults.standard.bool(forKey: CoachMarks.seenKey) && !LaunchArguments.isUITesting
