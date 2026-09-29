@@ -16,7 +16,6 @@ struct CameraView: View {
     @State private var hintDismissed = false
     @State private var posting = false
     @State private var posted = 0
-    @State private var showPicker = false
 
     var body: some View {
         VStack(spacing: Space.sm) {
@@ -36,25 +35,61 @@ struct CameraView: View {
         }
         .task {
             await state.permissions.refresh()
-            if target == nil { target = state.capturableRooms.first ?? state.rooms.first }
             await camera.start()
         }
         .onDisappear { camera.stop() }
-        .confirmationDialog("post to", isPresented: $showPicker, titleVisibility: .visible) {
-            ForEach(state.rooms) { room in
-                Button(room.name ?? (room.isSolo ? String(localized: "just me", bundle: .app) : String(localized: "untitled room", bundle: .app))) { target = room }
-            }
-        }
         .screen("screen.camera")
     }
 
     private var slot: Slot { state.clock.currentSlot }
+
+    /// The room a clip goes to: the one picked, while it still exists, else the first that
+    /// can take a clip now. Derived rather than stored once on appear, so rooms that load
+    /// (or are made) after the camera opens are never missed.
+    private var room: Room? {
+        if let target, let picked = state.rooms.first(where: { $0.id == target.id }) { return picked }
+        return state.capturableRooms.first ?? state.rooms.first
+    }
+
     private var alreadyPosted: Bool {
-        guard let target else { return false }
-        return target.type != .vlog && state.hasPosted(in: target, slot: slot)
+        guard let room else { return false }
+        return room.type != .vlog && state.hasPosted(in: room, slot: slot)
+    }
+
+    /// Which way the hour turns when the recording is sideways, so it reads upright for
+    /// whoever watches: it follows the way the phone is actually turned. Until the phone
+    /// is turned it assumes top-to-the-left, the way a right hand turns a phone -- and the
+    /// hint's arrow points that way too.
+    private var sidewaysTurn: Double { camera.deviceOrientation == .landscapeRight ? -90 : 90 }
+
+    private func name(of room: Room) -> String {
+        room.name ?? (room.isSolo ? String(localized: "just me", bundle: .app) : String(localized: "untitled room", bundle: .app))
     }
 
     private var overlay: some View {
+        ZStack {
+            controls
+            // Dead centre of the preview, not of the space between the controls.
+            stamp
+        }
+    }
+
+    /// The stamp reads along the long edge of the *recording*. Tap it to flip between
+    /// horizontal and vertical; the hint and the stitch follow.
+    private var stamp: some View {
+        Button {
+            Haptics.tap()
+            state.capture.toggle()
+            hintDismissed = false
+        } label: {
+            HourStamp(label: slot.label, turn: state.capture.isLandscape ? sidewaysTurn : 0, font: state.capture.stampFont)
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(Text(state.capture.isLandscape ? "horizontal. tap for vertical" : "vertical. tap for horizontal"))
+        .accessibilityIdentifier("camera.stamp")
+    }
+
+    private var controls: some View {
         VStack {
             HStack(spacing: Space.xs) {
                 roomPicker
@@ -64,19 +99,6 @@ struct CameraView: View {
                 orientationButton
             }
             .padding(Space.md)
-            Spacer()
-            // The stamp reads along the long edge of the *recording*. Tap it to flip
-            // between horizontal and vertical; the hint and the stitch follow.
-            Button {
-                Haptics.tap()
-                state.capture.toggle()
-                hintDismissed = false
-            } label: {
-                HourStamp(label: slot.label, rotated: state.capture.isLandscape, font: state.capture.stampFont)
-            }
-            .buttonStyle(.plain)
-            .accessibilityLabel(Text(state.capture.isLandscape ? "horizontal. tap for vertical" : "vertical. tap for horizontal"))
-            .accessibilityIdentifier("camera.stamp")
             Spacer()
             if state.rooms.isEmpty {
                 Text("make or join a room first.")
@@ -95,6 +117,7 @@ struct CameraView: View {
                         Text("turn me sideways")
                             .font(.vlogAnnotation)
                         DoodleSticker(.arrowTurn, scale: 0.6, animated: true, lineWidth: 2, color: .chalk)
+                            .scaleEffect(x: sidewaysTurn > 0 ? -1 : 1)
                     }
                     .foregroundStyle(Color.chalk)
                     .padding(.horizontal, Space.md).padding(.vertical, Space.xxs)
@@ -109,11 +132,25 @@ struct CameraView: View {
         }
     }
 
+    /// Where the clip goes. A menu anchored on the pill, so a tap always opens it, even
+    /// with one room.
     private var roomPicker: some View {
-        Button { if state.rooms.count > 1 { showPicker = true } } label: {
+        Menu {
+            Section("post to") {
+                ForEach(state.rooms) { option in
+                    Button { target = option } label: {
+                        if option.id == room?.id {
+                            Label(name(of: option), systemImage: "checkmark")
+                        } else {
+                            Text(verbatim: name(of: option))
+                        }
+                    }
+                }
+            }
+        } label: {
             HStack(spacing: Space.xxs) {
-                Text(verbatim: target?.name ?? (target?.isSolo == true ? String(localized: "just me", bundle: .app) : String(localized: "pick a room", bundle: .app)))
-                if state.rooms.count > 1 { Image(systemName: "chevron.down") }
+                Text(verbatim: room.map(name(of:)) ?? String(localized: "pick a room", bundle: .app))
+                Image(systemName: "chevron.down")
             }
             .lineLimit(1)
             .frame(maxWidth: 190, alignment: .leading)
@@ -121,7 +158,7 @@ struct CameraView: View {
             .padding(.horizontal, Space.sm).padding(.vertical, Space.xs)
             .background(Color.ink.opacity(0.6), in: Capsule())
         }
-        .buttonStyle(.plain)
+        .disabled(state.rooms.isEmpty)
         .accessibilityIdentifier("camera.room")
     }
 
@@ -215,7 +252,7 @@ struct CameraView: View {
     }
 
     private func capture() {
-        guard let target, !posting else { return }
+        guard let target = room, !posting else { return }
         let limit = RoomRules.clipLimit(for: target.type)
         posting = true
         Haptics.shutter()
