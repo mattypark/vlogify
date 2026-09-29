@@ -4,13 +4,14 @@ import VlogifyEngine
 
 /// Which way clips are shot, app-wide. Landscape by default: most people turn the
 /// phone, and landscape clips stack cleanly when a room stitches. Changing it moves
-/// the hour stamp, the "turn me sideways" hint, and the stitched layout together --
-/// never one without the others.
+/// the "turn me sideways" hint and the stitched layout together -- never one without
+/// the other. The hour on the camera keeps its own saved angle for each.
 @MainActor
 @Observable
 final class CapturePreferences {
     private static let key = "captureOrientation"
     private static let fontKey = "stampFont"
+    private static let turnKey = "stampTurn."
 
     var orientation: StitchPlan.Orientation {
         didSet { UserDefaults.standard.set(orientation.rawValue, forKey: Self.key) }
@@ -21,11 +22,39 @@ final class CapturePreferences {
         didSet { UserDefaults.standard.set(stampFont.rawValue, forKey: Self.fontKey) }
     }
 
+    /// How far the hour on the camera is turned, in degrees clockwise, kept separately for
+    /// each way of shooting. Sideways starts at 270 (the numerals' tops face 9 o'clock);
+    /// upright starts level. Each tap on the hour adds a quarter turn, and the angle is
+    /// remembered. It only grows while the app runs, so every turn animates forwards.
+    private(set) var landscapeTurn: Double {
+        didSet { Self.save(landscapeTurn, for: .landscape) }
+    }
+    private(set) var portraitTurn: Double {
+        didSet { Self.save(portraitTurn, for: .portrait) }
+    }
+
     init() {
         orientation = UserDefaults.standard.string(forKey: Self.key)
             .flatMap(StitchPlan.Orientation.init(rawValue:)) ?? .landscape
         stampFont = UserDefaults.standard.string(forKey: Self.fontKey)
             .flatMap(StampFont.init(rawValue:)) ?? .heavy
+        landscapeTurn = Self.load(.landscape) ?? 270
+        portraitTurn = Self.load(.portrait) ?? 0
+    }
+
+    /// The angle for the way clips are shot right now.
+    var stampTurn: Double { isLandscape ? landscapeTurn : portraitTurn }
+
+    func turnStamp() {
+        if isLandscape { landscapeTurn += 90 } else { portraitTurn += 90 }
+    }
+
+    private static func load(_ orientation: StitchPlan.Orientation) -> Double? {
+        UserDefaults.standard.object(forKey: turnKey + orientation.rawValue) as? Double
+    }
+
+    private static func save(_ turn: Double, for orientation: StitchPlan.Orientation) {
+        UserDefaults.standard.set(turn.truncatingRemainder(dividingBy: 360), forKey: turnKey + orientation.rawValue)
     }
 
     func shuffleFont() {

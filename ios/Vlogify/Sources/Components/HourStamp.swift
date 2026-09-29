@@ -1,16 +1,15 @@
 import SwiftUI
 import VlogifyDesign
 
-/// The big hour on the camera and on a tile. On the camera it reads along the long
-/// edge of the phone: turned sideways, the numerals turn with the horizon -- a quarter
-/// turn one way or the other, whichever way the phone is actually held.
+/// The big hour on the camera and on a tile. On the camera it turns in quarter turns,
+/// however the person filming last left it (`CapturePreferences.stampTurn`).
 ///
 /// Laid out in a fixed square *before* rotating, then centred -- rotating an
 /// already-laid-out label leaves it visibly off-centre because the frame does not turn
 /// with it.
 struct HourStamp: View {
     let label: String
-    /// Degrees: 0 upright, 90 for a phone turned top-left, -90 for top-right.
+    /// Degrees clockwise: 0 upright, 270 tops facing 9 o'clock.
     var turn: Double = 0
     var size: CGFloat = 44
     var font: StampFont = .heavy

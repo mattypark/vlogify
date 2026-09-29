@@ -56,11 +56,12 @@ struct CameraView: View {
         return room.type != .vlog && state.hasPosted(in: room, slot: slot)
     }
 
-    /// Which way the hour turns when the recording is sideways, so it reads upright for
-    /// whoever watches: it follows the way the phone is actually turned. Until the phone
-    /// is turned it assumes top-to-the-left, the way a right hand turns a phone -- and the
-    /// hint's arrow points that way too.
-    private var sidewaysTurn: Double { camera.deviceOrientation == .landscapeRight ? -90 : 90 }
+    /// Whether the hour's tops face 3 o'clock, which reads upright once the phone is turned
+    /// top-to-the-left -- so the hint's arrow turns that way. Otherwise it turns clockwise.
+    private var stampFacesRight: Bool {
+        let turn = state.capture.stampTurn.truncatingRemainder(dividingBy: 360)
+        return turn == 90 || turn == -270
+    }
 
     private func name(of room: Room) -> String {
         room.name ?? (room.isSolo ? String(localized: "just me", bundle: .app) : String(localized: "untitled room", bundle: .app))
@@ -74,18 +75,19 @@ struct CameraView: View {
         }
     }
 
-    /// The stamp reads along the long edge of the *recording*. Tap it to flip between
-    /// horizontal and vertical; the hint and the stitch follow.
+    /// The hour, turned however you last left it. Each tap turns it a quarter clockwise and
+    /// the angle is kept, separately for sideways and upright. Horizontal/vertical is the
+    /// button top-right.
     private var stamp: some View {
         Button {
             Haptics.tap()
-            state.capture.toggle()
-            hintDismissed = false
+            state.capture.turnStamp()
         } label: {
-            HourStamp(label: slot.label, turn: state.capture.isLandscape ? sidewaysTurn : 0, font: state.capture.stampFont)
+            HourStamp(label: slot.label, turn: state.capture.stampTurn, font: state.capture.stampFont)
         }
         .buttonStyle(.plain)
-        .accessibilityLabel(Text(state.capture.isLandscape ? "horizontal. tap for vertical" : "vertical. tap for horizontal"))
+        .accessibilityLabel(Text(verbatim: slot.label))
+        .accessibilityHint(Text("turns the time a quarter turn"))
         .accessibilityIdentifier("camera.stamp")
     }
 
@@ -117,7 +119,7 @@ struct CameraView: View {
                         Text("turn me sideways")
                             .font(.vlogAnnotation)
                         DoodleSticker(.arrowTurn, scale: 0.6, animated: true, lineWidth: 2, color: .chalk)
-                            .scaleEffect(x: sidewaysTurn > 0 ? -1 : 1)
+                            .scaleEffect(x: stampFacesRight ? -1 : 1)
                     }
                     .foregroundStyle(Color.chalk)
                     .padding(.horizontal, Space.md).padding(.vertical, Space.xxs)
