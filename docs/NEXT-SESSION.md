@@ -59,7 +59,11 @@ Updated 2026-09-29, after build 5 (the drawn home + the camera fixes).
 Hour turned by tap (starts facing 9 o'clock, saved), "today" -> calendar / "back" on the
 camera, own "just me" vlog made automatically, friends-only new room. **The own-vlog change
 matters for review** (a fresh account could not record in build 5), so the build to attach
-to 1.0 is **build 6** -- upload it only when Matthew says "upload build 6".
+to 1.0 is **build 6**. **Uploaded 2026-09-29** (Matthew said "upload build 6"); final
+App Store screenshots for it are `build/screenshots/store/v6/` (#4 re-taken: friends-only
+new room). Review notes to paste are in the chat log of that session and in
+`nextsessions/app-store-ready-any-app.md` step 8's spirit: Sign in with Apple with any
+Apple ID -> own "just me" vlog -> + > join with a code > REV-1EF for the demo room.
 
 ## Design work still open
 
