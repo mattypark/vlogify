@@ -1,6 +1,6 @@
 # vlogify — next session brief
 
-Updated 2026-09-28, the night of the first App Store submission.
+Updated 2026-09-29, after build 5 (the drawn home + the camera fixes).
 
 ## Where it stands
 
@@ -25,17 +25,40 @@ Updated 2026-09-28, the night of the first App Store submission.
 - **Review room**: code **REV-1EF**, capacity 20, three demo members. Re-seed each day
   while in review: `scripts/seed-review-room.sh <yesterday> <today>`.
 
-## Before the next build (Matthew is iterating on the design first)
+## Build 5 (2026-09-29)
 
+- **Uploaded, processed (VALID), in the internal TestFlight group `team`.** Not yet
+  attached to version 1.0 -- build 3 still is. Attaching and swapping the screenshots are
+  browser-only (asc-mcp has no versions/screenshots tools, on purpose); the Chrome
+  extension was not connected when build 5 went up.
+- What's in it: home as a self-drawing notebook page (`docs/DESIGN.md`), the drawn `+`
+  card, and two camera fixes -- the hour is centred and turns the way the phone is held
+  (top-left by default), and the room a clip goes to is derived, so the "pick a room"
+  dead state (pill ignores taps, shutter does nothing) is gone. Builds 3 and 4 have that
+  bug; do not ship them.
+- New App Store screenshots: `build/screenshots/store/v5/appstore69-{1..5}.png`
+  (1320x2868) and `appstore65-{1..5}.png` (1284x2778). Order: room, home, mark, new room,
+  intro. Framing script lives in the session scratchpad; re-derive from
+  `build/screenshots/store/*.png` raw shots if needed.
+- **Before Matthew presses Submit:**
+  1. Version 1.0 -> Build -> swap build 3 for build 5. Replace the five screenshots.
+  2. He tests recording on his phone from TestFlight (both sideways directions, a room
+     with a friend). The simulator has no camera.
+  3. Re-seed the review room for the day it goes in (`scripts/seed-review-room.sh`,
+     writes production D1 -- ask first).
+  4. Strongly recommended: Sign in with Apple revoke secrets on the Worker
+     (APPLE_TEAM_ID / APPLE_KEY_ID / APPLE_PRIVATE_KEY, commands at the end of
+     `scripts/deploy-worker.sh`). Without them account deletion does not revoke the Apple
+     grant, which App Review cites.
+- Reports land in D1 with **no alert** (no TG_* secrets; Matthew declined for now). The
+  24-hour promise in `docs/MODERATION.md` means checking the queue daily.
 - **No build uploads, attaches or swaps without Matthew's explicit OK** for that build.
-- Version 1.0 has **build 3** attached. **Build 4** (hand font everywhere, write-in
-  animations, drawn-in buttons) is uploaded to App Store Connect but not attached. The next
-  build Matthew approves replaces both.
-- Screenshots on the listing already show the hand font (build 4 look); re-take them if
-  the design changes again.
-- When he says ship: attach the approved build, then Matthew presses **Add for Review →
-  Submit**. Optional first: Sign in with Apple key secrets on the Worker (commands at the
-  end of `scripts/deploy-worker.sh`) so account deletion revokes the Apple grant.
+
+## Design work still open
+
+Stage 2 of the drawn redesign (plan in the session log): room view, new room / join /
+invite, profile + blocked, notifications, history, players, report sheet -- same pen
+language as home, camera untouched except what Matthew asks for.
 
 ## Open after launch
 

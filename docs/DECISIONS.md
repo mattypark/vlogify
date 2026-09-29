@@ -245,3 +245,26 @@ the three-card new-room sheet. What replaced them, and why:
 - **The hand became the main font** (Matthew, same day, after seeing it on his phone): all
   text is Yomogi; the camera hour is SF Pro Black so it reads over video. Onboarding
   writes itself in line by line, and its buttons draw themselves.
+
+## Home draws itself; the camera hour follows the hand (2026-09-29)
+
+- **Home is a notebook page, drawn in like onboarding** (Matthew: the onboarding's rough,
+  self-drawing vibe is the point; the home after sign-in was dense, typed and boxed).
+  The big drawing is the onboarding clock at the real time -- it echoes the camera's hour
+  without touching the camera. Rooms are written entries, not sticker cards. Red stays
+  for record and delete only.
+- **The first page no longer seeds four explainer paragraphs** -- onboarding and the coach
+  marks explain; the page keeps one to-do. **"add a note" left the `+` menu**: it did
+  nothing.
+- **Draw-in once per launch and on turning the day**, not on every return from the
+  camera: the camera is one tap away all day, and replaying a 3-second animation each time
+  would be a tax.
+- **Camera hour turns with the hand.** It was fixed at -90 degrees, upside down for a phone
+  turned top-left (the right-hand way). It now follows the device orientation, defaults to
+  top-left, and sits at the true centre of the preview.
+- **The camera's room is derived, not stored on appear.** Storing it once left "pick a
+  room" with a dead pill and a dead shutter whenever rooms loaded after the camera opened;
+  a reviewer on a fresh account hits that path. The pill is a `Menu`, so it always opens.
+- Stage 2 (every other screen in the same language) waits for Matthew; build 5 ships the
+  new home with the old room/profile/sheets.
+

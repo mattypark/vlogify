@@ -20,17 +20,21 @@ by side).
   Latin, Vietnamese, Cyrillic, Japanese) with Gaegu (OFL) cascaded for Hangul. One weight,
   so hierarchy is size. Exceptions: the camera hour (SF Pro Black, read over video) and
   the mono typewriter. UIKit chrome (nav titles, bar buttons) gets the hand via appearance.
-- **Motion in onboarding** — drawings trace themselves, then `HandwrittenText` writes each
-  line left to right, one after another, then buttons trace their outline in (`drawIn`).
-  Reduce Motion shows everything finished.
+- **Motion** — drawings trace themselves, then `HandwrittenText` writes each line left to
+  right, one after another, then buttons trace their outline in (`drawIn`); `.writeIn`
+  reveals anything else the same way and `DrawnRule` rules a line in. Onboarding and
+  home both arrive like this. Reduce Motion shows everything finished.
 - **Ink.swift** — the pen. `PenShape` (rounded rect / capsule / circle) wobbles off the
   ideal edge, never quite closes, and overshoots its start; seeded by size so it is stable.
   `InkStrokes` draws unit-square strokes (doodles and marks); `InkDrawing` traces them on
   appear (Reduce Motion: finished drawing).
 - **Extruded.swift** — the `Sticker` API (`.sticker`, `StickerButtonStyle`…) now draws a
   pen outline on paper; press = fog wash + 0.97 scale. No plinth, gloss or shadow.
-- **Doodles.swift** — 19 drawings made of code strokes (clock, phoneBuzz, frames,
-  camcorder, bell, moon, friends, page, arrows, glyphs). No image assets, no artist slots.
+- **Doodles.swift** — 24 drawings made of code strokes (clock, phoneBuzz, frames,
+  camcorder, bell, moon, friends, page, arrows, glyphs) plus `Doodle.clock(hour:minute:)`,
+  the clock at a real time. No image assets, no artist slots.
+- **Rule.swift** — `PenLine` / `DrawnRule`: a line ruled by hand, used for rules and
+  underlines. `InkPressStyle` (Extruded.swift) is press feedback for a full-width line.
 
 ## The mark
 
@@ -44,12 +48,20 @@ Profile → your mark.
 - **Onboarding** — three self-drawing intro pages → Sign in with Apple → language →
   camera+mic and nudge asks (one "continue", straight to the system prompt) → name
   (optional) → "draw ↘" your mark → "meet <name>." → home with handwritten coach marks.
-- **Bar** — today (page doodle) · big drawn record button · `+`. Bell and your mark sit
-  top-right.
+- **Home** — a notebook page that draws itself in (first time per launch, and on turning
+  the day): the date written with a ruled underline and drawn arrows; the onboarding clock
+  at the real time with one written line under it ("it's 7 pm. two seconds?"), tap =
+  camera; rooms as written entries with a row of 24 hand-drawn hour circles (filled ink =
+  filmed, heavy ring = now, light ring = missed, dot = later) and a rule under each;
+  your own page; your clips as tilted polaroids.
+- **Bar** — today (page doodle) · big drawn record button · `+`. `+` opens a drawn card
+  (start a room / join with a code), not a system menu. Bell and your mark sit top-right.
 - **New room** — a sentence: "a room called ___ for me + (3) friends." with the number
   circled in pen.
 - **Camera** — drawn frame (red while recording), a red pen ring that draws itself over
-  the two seconds, hour in the hand, "turn me sideways ↻".
+  the two seconds, the hour dead centre of the preview. Sideways, the hour turns the way
+  the phone is actually held (top-left by default, and "turn me sideways ↺" points that
+  way); turning it the other way spins it round.
 - **Export** — each tile framed in a white pen line and signed with its owner's mark.
 - **Icon** — a hand-drawn record button: one pen loop, a red dot (`swift run IconSheet`).
 
