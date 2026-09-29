@@ -11,16 +11,20 @@ import VlogifyEngine
 struct DayPageView: View {
     @Environment(AppState.self) private var state
     @Binding var openRoom: Room?
-    @State private var day: DayKey?
+    /// The day on show; nil is today. Home owns it so the calendar can turn the page too.
+    @Binding var day: DayKey?
     @State private var playing: Clip?
     @State private var animated: Bool
+    /// A fresh page each time the day changes, so it writes itself in again.
+    @State private var pageID = UUID()
     @FocusState private var titleFocused: Bool
 
     /// Once per launch: the page writes itself in the first time it is seen.
     @MainActor private static var writtenThisLaunch = false
 
-    init(openRoom: Binding<Room?>) {
+    init(openRoom: Binding<Room?>, day: Binding<DayKey?>) {
         _openRoom = openRoom
+        _day = day
         _animated = State(initialValue: !Self.writtenThisLaunch && !LaunchArguments.isUITesting)
     }
 
@@ -75,14 +79,18 @@ struct DayPageView: View {
                     .padding(.top, Space.sm)
                     .id("page.clips")
             }
-            // A new page for a new day, so turning the page writes it in again.
-            .id(shownDay)
+            .id(pageID)
             .padding(.horizontal, Space.gutter)
             .padding(.top, Space.sm)
             .padding(.bottom, Space.xxl)
         }
         .scrollDismissesKeyboard(.interactively)
         .refreshable { await state.loadRooms() }
+        // Turning to another day -- by the arrows or the calendar -- writes the new page in.
+        .onChange(of: day) {
+            animated = !LaunchArguments.isUITesting
+            pageID = UUID()
+        }
         .onAppear {
             Self.writtenThisLaunch = true
             seedFirstDayIfEmpty()
@@ -147,7 +155,6 @@ struct DayPageView: View {
                                         .addingTimeInterval(86_400 * Double(delta)), in: state.clock.timeZone)
         guard target <= state.clock.today else { return }
         Haptics.tap()
-        animated = true
         withAnimation(Motion.shift) { day = target == state.clock.today ? nil : target }
     }
 

@@ -76,6 +76,19 @@ final class NotesStore {
         return !page.title.isEmpty || page.blocks.contains { !$0.text.isEmpty }
     }
 
+    /// Every day whose page has something typed on it, read from the files on disk.
+    func daysWithNotes() -> Set<DayKey> {
+        let names = (try? FileManager.default.contentsOfDirectory(atPath: root.path)) ?? []
+        var days = Set<DayKey>()
+        for name in names where name.hasPrefix("day-") && name.hasSuffix(".json") {
+            let parts = name.dropFirst(4).dropLast(5).split(separator: "-").compactMap { Int($0) }
+            guard parts.count == 3 else { continue }
+            let day = DayKey(year: parts[0], month: parts[1], day: parts[2])
+            if hasContent(.day(day)) { days.insert(day) }
+        }
+        return days
+    }
+
     func wipe() {
         pages = [:]
         try? FileManager.default.removeItem(at: root)

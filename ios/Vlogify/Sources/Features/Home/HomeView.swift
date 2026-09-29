@@ -1,6 +1,7 @@
 import SwiftUI
 import VlogifyContract
 import VlogifyDesign
+import VlogifyEngine
 
 /// The app after sign-in: a header, today's page or the camera, and the bar.
 struct HomeView: View {
@@ -13,6 +14,9 @@ struct HomeView: View {
     @State private var camera = CameraSession()
     @State private var showCoachMarks = false
     @State private var showPlus = false
+    @State private var showDays = false
+    /// The day home is showing; nil is today.
+    @State private var pageDay: DayKey?
 
     var body: some View {
         @Bindable var state = state
@@ -21,7 +25,7 @@ struct HomeView: View {
                 if state.tab == .logs {
                     VStack(spacing: 0) {
                         header
-                        DayPageView(openRoom: $openRoom)
+                        DayPageView(openRoom: $openRoom, day: $pageDay)
                     }
                     // Over the page only: the bar stays crisp, so `+` can close it again
                     // and the record button keeps its red.
@@ -48,6 +52,11 @@ struct HomeView: View {
         .sheet(isPresented: $showJoin) { JoinRoomSheet(joined: { openRoom = $0 }) }
         .sheet(isPresented: $showProfile) { ProfileView() }
         .sheet(isPresented: $showNotifications) { NotificationsView() }
+        .sheet(isPresented: $showDays) {
+            DaysSheet { picked in
+                withAnimation(Motion.shift) { pageDay = picked == state.clock.today ? nil : picked }
+            }
+        }
         .toastOverlay(state.toast)
         .onChange(of: state.pendingJoinCode) { _, code in if code != nil { showJoin = true } }
         .task {
@@ -64,6 +73,7 @@ struct HomeView: View {
             case "profile": showProfile = true
             case "notifications": showNotifications = true
             case "plus": showPlus = true
+            case "days": showDays = true
             default: break
             }
             #endif
@@ -101,7 +111,7 @@ struct HomeView: View {
 
     private var bar: some View {
         @Bindable var state = state
-        return BottomBar(tab: $state.tab) {
+        return BottomBar(tab: $state.tab, onToday: { showDays = true }) {
             if state.tab == .logs {
                 PlusButton { withAnimation(Motion.dismiss) { showPlus.toggle() } }
             } else {

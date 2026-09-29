@@ -1,32 +1,45 @@
 import SwiftUI
 import VlogifyDesign
 
-/// The bar: today's page on the left, the record button in the middle, one tool on the
-/// right (`+` on the page, flip on the camera). The record button is the biggest thing
-/// on the bar because filming is the point.
+/// The bar: "today" on the left, the record button in the middle, one tool on the right
+/// (`+` on the page, flip on the camera). On the page, "today" opens every past day on a
+/// drawn calendar; on the camera it becomes "back". The record button is the biggest
+/// thing on the bar because filming is the point.
 struct BottomBar<Trailing: View>: View {
     @Binding var tab: AppState.Tab
+    let onToday: () -> Void
     @ViewBuilder let trailing: Trailing
 
     var body: some View {
         HStack(alignment: .center) {
             Button {
                 Haptics.tap()
-                withAnimation(Motion.shift) { tab = .logs }
+                if tab == .camera {
+                    withAnimation(Motion.shift) { tab = .logs }
+                } else {
+                    onToday()
+                }
             } label: {
                 VStack(spacing: 2) {
-                    DoodleSticker(.page, scale: 0.24, lineWidth: 1.6)
-                    Text("today")
-                        .font(.vlogHandSmall)
-                        .foregroundStyle(Color.text)
+                    if tab == .camera {
+                        DoodleSticker(.arrowLeft, scale: 0.9, lineWidth: 2)
+                            .frame(height: 34)
+                        Text("back")
+                            .font(.vlogHandSmall)
+                            .foregroundStyle(Color.text)
+                    } else {
+                        DoodleSticker(.page, scale: 0.24, lineWidth: 1.6)
+                        Text("today")
+                            .font(.vlogHandSmall)
+                            .foregroundStyle(Color.text)
+                    }
                 }
                 .frame(width: Metrics.barButton + 8, height: Metrics.barButton)
-                .opacity(tab == .logs ? 1 : 0.5)
             }
             .buttonStyle(SquashButtonStyle())
-            .accessibilityLabel(Text("today"))
-            .accessibilityAddTraits(tab == .logs ? .isSelected : [])
-            .accessibilityIdentifier("bar.today")
+            .accessibilityLabel(Text(tab == .camera ? "back" : "today"))
+            .accessibilityHint(Text(tab == .camera ? "back to your page" : "shows your past days"))
+            .accessibilityIdentifier(tab == .camera ? "bar.back" : "bar.today")
 
             Spacer()
 
