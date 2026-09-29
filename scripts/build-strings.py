@@ -292,6 +292,11 @@ T = {
  "most of a day never gets filmed.\nthe walk, the lunch,\nthe 11 pm kitchen.\nthose were the good parts.": ("하루의 대부분은 찍히지 않아요.\n걷던 길, 점심,\n밤 11시의 부엌.\n그게 좋은 순간들이었는데.", "1日のほとんどは撮られないまま。\n帰り道、お昼ごはん、\n夜11時の台所。\nそれがいい瞬間だったのに。", "一天的大部分都沒被拍下來。\n散步、午餐、\n晚上 11 點的廚房。\n那些才是美好的片刻。", "phần lớn một ngày chẳng ai quay lại.\nlúc đi bộ, bữa trưa,\ncăn bếp lúc 11 giờ đêm.\nđó mới là những phần đẹp.", "большая часть дня не попадает в кадр.\nпрогулка, обед,\nкухня в 11 вечера.\nа ведь это и было лучшее."),
  "once an hour, your whole room\ngets the same nudge.\ntwo seconds. one take.\nno redo.": ("한 시간에 한 번, 방 모두가\n같은 알림을 받아요.\n2초. 한 번.\n다시 찍기 없음.", "1時間に1回、ルームのみんなに\n同じ通知が届く。\n2秒。1テイク。\n撮り直しなし。", "每小時一次，整個房間\n收到同一個提醒。\n兩秒。一次拍。\n不能重拍。", "mỗi giờ một lần, cả phòng\nnhận cùng một lời nhắc.\nhai giây. một lần quay.\nkhông quay lại.", "раз в час вся комната\nполучает одно напоминание.\nдве секунды. один дубль.\nбез пересъёмки."),
  "at night it all lines up\ninto one vlog,\nside by side.\nyours to keep.": ("밤이 되면 모두\n하나의 브이로그로,\n나란히 모여요.\n간직하는 건 당신 몫.", "夜になると全部が\nひとつのVlogに、\n並んでまとまる。\nあなたのものとして残るよ。", "到了晚上，全部\n成為一支 vlog，\n並排在一起。\n由你保存。", "đến tối, mọi thứ\nthành một vlog,\nxếp cạnh nhau.\ncủa bạn để giữ.", "вечером всё складывается\nв один влог,\nбок о бок.\nон остаётся тебе."),
+ # Home as a notebook page (2026-09-29). %@ is the hour in the reader's own clock style.
+ "it's %@.\ntwo seconds?": ("지금 %@.\n2초 찍을까요?", "いま%@。\n2秒、撮る？", "現在 %@。\n拍兩秒？", "bây giờ là %@.\nquay hai giây nhé?", "сейчас %@.\nдве секунды?"),
+ "got %@.\nsee you next hour.": ("%@ 완료.\n다음 시간에 봐요.", "%@、撮れた。\nまた次の時間に。", "%@ 拍好了。\n下個小時見。", "xong %@.\nhẹn giờ sau nhé.", "%@ — есть.\nдо следующего часа."),
+ "opens the camera": ("카메라를 열어요", "カメラを開きます", "開啟相機", "mở camera", "открывает камеру"),
+ "your clip, %@": ("내 클립, %@", "あなたのクリップ、%@", "你的片段，%@", "clip của bạn, %@", "твой клип, %@"),
 }
 # Identical in every language: identifiers, placeholders, the brand.
 SAME = {"google", "email", "", "000000", "ABC-123", "you@example.com", "vlogify", "no camera in the simulator"}

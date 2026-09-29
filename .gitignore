@@ -5,6 +5,8 @@
 xcuserdata/
 DerivedData/
 build/
+# Release builds for a physical phone (xcodebuild -derivedDataPath ios/build-device).
+build-device/
 # SwiftPM's build folder for the local package. Dot-prefixed, so build/ above misses it.
 .build/
 .swiftpm/

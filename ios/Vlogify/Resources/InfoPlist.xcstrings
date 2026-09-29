@@ -1,211 +1,206 @@
 {
-  "sourceLanguage" : "en",
-  "strings" : {
-    "CFBundleDisplayName" : {
-      "comment" : "Bundle display name",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "vlogify"
+  "sourceLanguage": "en",
+  "version": "1.0",
+  "strings": {
+    "CFBundleDisplayName": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vlogify"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "vlogify"
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vlogify"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "vlogify"
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vlogify"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "vlogify"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vlogify"
           }
         },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "vlogify"
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vlogify"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "vlogify"
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vlogify"
           }
         }
       }
     },
-    "CFBundleName" : {
-      "comment" : "Bundle name",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Vlogify"
+    "CFBundleName": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Vlogify"
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "vlogify"
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vlogify"
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "vlogify"
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vlogify"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "vlogify"
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vlogify"
           }
         },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "vlogify"
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vlogify"
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "vlogify"
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vlogify"
           }
         }
       }
     },
-    "NSCameraUsageDescription" : {
-      "comment" : "Privacy - Camera Usage Description",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "vlogify uses the camera to record the two-second clip you add to your room every hour."
+    "NSCameraUsageDescription": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vlogify uses the camera to record the two-second clip you add to your room every hour."
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "vlogifyは、1時間ごとにルームへ追加する2秒クリップを撮影するためにカメラを使用します。"
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vlogify는 매시간 방에 올릴 2초 클립을 찍기 위해 카메라를 사용해요."
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "vlogify는 매시간 방에 올릴 2초 클립을 찍기 위해 카메라를 사용해요."
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vlogifyは、1時間ごとにルームへ追加する2秒クリップを撮影するためにカメラを使用します。"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "vlogify использует камеру, чтобы записать 2-секундный клип, который ты добавляешь в комнату каждый час."
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vlogify 使用相機來錄製你每小時新增到房間的 2 秒片段。"
           }
         },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "vlogify dùng camera để quay clip 2 giây bạn thêm vào phòng mỗi giờ."
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vlogify dùng camera để quay clip 2 giây bạn thêm vào phòng mỗi giờ."
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "vlogify 使用相機來錄製你每小時新增到房間的 2 秒片段。"
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vlogify использует камеру, чтобы записать 2-секундный клип, который ты добавляешь в комнату каждый час."
           }
         }
       }
     },
-    "NSMicrophoneUsageDescription" : {
-      "comment" : "Privacy - Microphone Usage Description",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "vlogify records sound with each clip so your friends hear the moment, not just see it."
+    "NSMicrophoneUsageDescription": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vlogify records sound with each clip so your friends hear the moment, not just see it."
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "vlogifyは、友だちがその瞬間を見るだけでなく聞けるように、クリップと一緒に音声を録音します。"
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vlogify는 친구들이 그 순간을 보기만이 아니라 들을 수 있도록 클립과 함께 소리를 녹음해요."
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "vlogify는 친구들이 그 순간을 보기만이 아니라 들을 수 있도록 클립과 함께 소리를 녹음해요."
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vlogifyは、友だちがその瞬間を見るだけでなく聞けるように、クリップと一緒に音声を録音します。"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "vlogify записывает звук с каждым клипом, чтобы друзья слышали момент, а не только видели."
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vlogify 會隨每段片段錄製聲音，讓朋友不只看見、也聽見那一刻。"
           }
         },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "vlogify ghi âm cùng mỗi clip để bạn bè nghe được khoảnh khắc, không chỉ nhìn."
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vlogify ghi âm cùng mỗi clip để bạn bè nghe được khoảnh khắc, không chỉ nhìn."
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "vlogify 會隨每段片段錄製聲音，讓朋友不只看見、也聽見那一刻。"
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vlogify записывает звук с каждым клипом, чтобы друзья слышали момент, а не только видели."
           }
         }
       }
     },
-    "NSPhotoLibraryAddUsageDescription" : {
-      "comment" : "Privacy - Photo Library Additions Usage Description",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "vlogify saves the finished day-vlog to your Photos when you tap export. It never reads your library."
+    "NSPhotoLibraryAddUsageDescription": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "vlogify saves the finished day-vlog to your Photos when you tap export. It never reads your library."
           }
         },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "書き出しをタップすると完成した1日のVlogを写真に保存します。ライブラリを読み取ることはありません。"
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "내보내기를 누르면 완성된 하루 브이로그를 사진에 저장해요. 사진 보관함을 읽지는 않아요."
           }
         },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "내보내기를 누르면 완성된 하루 브이로그를 사진에 저장해요. 사진 보관함을 읽지는 않아요."
+        "ja": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "書き出しをタップすると完成した1日のVlogを写真に保存します。ライブラリを読み取ることはありません。"
           }
         },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "vlogify сохраняет готовый влог дня в Фото, когда ты нажимаешь «экспорт». Библиотеку он никогда не читает."
+        "zh-Hant": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "點按匯出時，vlogify 會將完成的一日 vlog 儲存到照片。它不會讀取你的圖庫。"
           }
         },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "vlogify lưu vlog cả ngày đã hoàn thành vào Ảnh khi bạn nhấn xuất. Không bao giờ đọc thư viện của bạn."
+        "vi": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vlogify lưu vlog cả ngày đã hoàn thành vào Ảnh khi bạn nhấn xuất. Không bao giờ đọc thư viện của bạn."
           }
         },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "點按匯出時，vlogify 會將完成的一日 vlog 儲存到照片。它不會讀取你的圖庫。"
+        "ru": {
+          "stringUnit": {
+            "state": "needs_review",
+            "value": "vlogify сохраняет готовый влог дня в Фото, когда ты нажимаешь «экспорт». Библиотеку он никогда не читает."
           }
         }
       }
     }
-  },
-  "version" : "1.0"
+  }
 }
