@@ -259,12 +259,18 @@ the three-card new-room sheet. What replaced them, and why:
 - **Draw-in once per launch and on turning the day**, not on every return from the
   camera: the camera is one tap away all day, and replaying a 3-second animation each time
   would be a tax.
-- **Camera hour turns with the hand.** It was fixed at -90 degrees, upside down for a phone
-  turned top-left (the right-hand way). It now follows the device orientation, defaults to
-  top-left, and sits at the true centre of the preview.
+- **Camera hour: Matthew turns it himself.** First it followed the device orientation;
+  on his phone that read wrong ("facing 3 when it should face 9"). Now it starts with the
+  tops facing 9 o'clock, each tap turns it 90°, and the angle is saved per
+  horizontal/vertical. Predictable beats clever here. It sits at the true centre.
 - **The camera's room is derived, not stored on appear.** Storing it once left "pick a
   room" with a dead pill and a dead shutter whenever rooms loaded after the camera opened;
   a reviewer on a fresh account hits that path. The pill is a `Menu`, so it always opens.
 - Stage 2 (every other screen in the same language) waits for Matthew; build 5 ships the
   new home with the old room/profile/sheets.
+- **Own vlog by default, rooms are multiplayer** (Matthew). A fresh account had no room,
+  so the camera refused to record -- the first thing a reviewer would hit. Every account
+  now gets "just me" automatically; the new-room sheet is friends only.
+- **"today" is a door to every past day**, via a drawn calendar, and becomes "back" on the
+  camera -- the same word on both screens read as a dead button.
 

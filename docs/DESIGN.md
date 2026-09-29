@@ -54,14 +54,18 @@ Profile → your mark.
   camera; rooms as written entries with a row of 24 hand-drawn hour circles (filled ink =
   filmed, heavy ring = now, light ring = missed, dot = later) and a rule under each;
   your own page; your clips as tilted polaroids.
-- **Bar** — today (page doodle) · big drawn record button · `+`. `+` opens a drawn card
+- **Bar** — today (page doodle) · big drawn record button · `+`. "today" opens **your days**:
+  a drawn month calendar (clip days circled, note days dotted, today inked in); tap a day
+  to turn home to it. On the camera the left button is "← back". `+` opens a drawn card
   (start a room / join with a code), not a system menu. Bell and your mark sit top-right.
+- **Rooms** — everyone has their own "just me" vlog, made automatically; a room is the
+  multiplayer thing (the new-room sheet is friends only).
 - **New room** — a sentence: "a room called ___ for me + (3) friends." with the number
   circled in pen.
 - **Camera** — drawn frame (red while recording), a red pen ring that draws itself over
-  the two seconds, the hour dead centre of the preview. Sideways, the hour turns the way
-  the phone is actually held (top-left by default, and "turn me sideways ↺" points that
-  way); turning it the other way spins it round.
+  the two seconds, the hour dead centre of the preview. Tap the hour to turn it 90°; the
+  angle is saved per horizontal/vertical (sideways starts with the tops facing 9 o'clock),
+  and "turn me sideways" points the way that makes it read upright.
 - **Export** — each tile framed in a white pen line and signed with its owner's mark.
 - **Icon** — a hand-drawn record button: one pen loop, a red dot (`swift run IconSheet`).
 

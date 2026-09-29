@@ -41,7 +41,7 @@ Updated 2026-09-29, after build 5 (the drawn home + the camera fixes).
   intro. Framing script lives in the session scratchpad; re-derive from
   `build/screenshots/store/*.png` raw shots if needed.
 - **Before Matthew presses Submit:**
-  1. Version 1.0 -> Build -> swap build 3 for build 5. Replace the five screenshots.
+  1. Version 1.0 -> Build -> swap build 3 for build 6 (see below). Replace the five screenshots.
   2. He tests recording on his phone from TestFlight (both sideways directions, a room
      with a friend). The simulator has no camera.
   3. Re-seed the review room for the day it goes in (`scripts/seed-review-room.sh`,
@@ -53,6 +53,13 @@ Updated 2026-09-29, after build 5 (the drawn home + the camera fixes).
 - Reports land in D1 with **no alert** (no TG_* secrets; Matthew declined for now). The
   24-hour promise in `docs/MODERATION.md` means checking the queue daily.
 - **No build uploads, attaches or swaps without Matthew's explicit OK** for that build.
+
+## After build 5 (not in any uploaded build yet)
+
+Hour turned by tap (starts facing 9 o'clock, saved), "today" -> calendar / "back" on the
+camera, own "just me" vlog made automatically, friends-only new room. **The own-vlog change
+matters for review** (a fresh account could not record in build 5), so the build to attach
+to 1.0 is **build 6** -- upload it only when Matthew says "upload build 6".
 
 ## Design work still open
 
