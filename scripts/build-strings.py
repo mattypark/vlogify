@@ -297,6 +297,17 @@ T = {
  "got %@.\nsee you next hour.": ("%@ 완료.\n다음 시간에 봐요.", "%@、撮れた。\nまた次の時間に。", "%@ 拍好了。\n下個小時見。", "xong %@.\nhẹn giờ sau nhé.", "%@ — есть.\nдо следующего часа."),
  "opens the camera": ("카메라를 열어요", "カメラを開きます", "開啟相機", "mở camera", "открывает камеру"),
  "your clip, %@": ("내 클립, %@", "あなたのクリップ、%@", "你的片段，%@", "clip của bạn, %@", "твой клип, %@"),
+ # Your days (calendar), camera back, hour turning (2026-09-29).
+ "your days": ("나의 날들", "あなたの日々", "你的日子", "những ngày của bạn", "твои дни"),
+ "%lld days filmed this month.": ("이번 달 %lld일 찍었어요.", "今月は%lld日撮りました。", "這個月拍了 %lld 天。", "tháng này đã quay %lld ngày.", "дней снято в этом месяце: %lld."),
+ "previous month": ("이전 달", "前の月", "上個月", "tháng trước", "предыдущий месяц"),
+ "next month": ("다음 달", "次の月", "下個月", "tháng sau", "следующий месяц"),
+ "clips": ("클립", "クリップ", "片段", "clip", "клипы"),
+ "notes": ("메모", "メモ", "筆記", "ghi chú", "заметки"),
+ "back": ("뒤로", "戻る", "返回", "quay lại", "назад"),
+ "back to your page": ("내 페이지로 돌아가기", "自分のページに戻る", "回到你的頁面", "về trang của bạn", "назад к своей странице"),
+ "shows your past days": ("지난 날들을 보여줘요", "過去の日を表示します", "顯示你過去的日子", "xem những ngày đã qua", "показывает прошлые дни"),
+ "turns the time a quarter turn": ("시간을 90도 돌려요", "時刻を90度回します", "把時間轉 90 度", "xoay giờ 90 độ", "поворачивает время на 90°"),
 }
 # Identical in every language: identifiers, placeholders, the brand.
 SAME = {"google", "email", "", "000000", "ABC-123", "you@example.com", "vlogify", "no camera in the simulator"}
