@@ -5,7 +5,8 @@ import VlogifyEngine
 
 /// A new room is a sentence you fill in: "a room called ___ for me + (3) friends." The
 /// blank is where you write the name; the number of friends is circled in pen, the way
-/// you would on paper. Two drawn choices above it decide which sentence it is.
+/// you would on paper. A room is always for friends: everyone already has their own
+/// "just me" vlog.
 struct NewRoomSheet: View {
     @Environment(AppState.self) private var state
     @Environment(\.dismiss) private var dismiss
@@ -30,14 +31,13 @@ struct NewRoomSheet: View {
             }
             ScrollView {
                 VStack(alignment: .leading, spacing: Space.xl) {
-                    HStack(spacing: Space.sm) {
-                        choice(.log, doodle: .friends, title: "with friends")
-                        choice(.vlog, doodle: .page, title: "just me")
+                    HStack {
+                        Spacer()
+                        DoodleSticker(.friends, scale: 0.9, animated: true, lineWidth: Pen.bold)
+                        Spacer()
                     }
                     sentence
-                    Text(type == .vlog
-                         ? "film as much as you like, whenever. only you see it."
-                         : "everyone in it gets the same nudge each hour. you'll get a code to send them.")
+                    Text("everyone in it gets the same nudge each hour. you'll get a code to send them.")
                         .font(.vlogBody)
                         .foregroundStyle(Color.textSoft)
                         .fixedSize(horizontal: false, vertical: true)
@@ -64,33 +64,6 @@ struct NewRoomSheet: View {
     }
 
     // MARK: Pieces
-
-    private func choice(_ candidate: RoomType, doodle: Doodle, title: LocalizedStringKey) -> some View {
-        Button {
-            Haptics.tap()
-            type = candidate
-            capacity = RoomRules.defaultCapacity(for: candidate)
-        } label: {
-            VStack(spacing: Space.xs) {
-                DoodleSticker(doodle, scale: 0.42, lineWidth: 1.8)
-                    .frame(height: 64)
-                Text(title)
-                    .font(.vlogLabel)
-                    .foregroundStyle(Color.text)
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical, Space.md)
-        }
-        .buttonStyle(StickerButtonStyle(fill: type == candidate ? .fog : .card, radius: Radius.card))
-        .overlay(alignment: .topTrailing) {
-            if type == candidate {
-                DoodleSticker(.check, scale: 1, lineWidth: 2.2)
-                    .padding(Space.sm)
-            }
-        }
-        .accessibilityAddTraits(type == candidate ? .isSelected : [])
-        .accessibilityIdentifier("newRoom.type.\(candidate.rawValue)")
-    }
 
     private var sentence: some View {
         VStack(alignment: .leading, spacing: Space.sm) {

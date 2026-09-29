@@ -1,5 +1,6 @@
 import Foundation
 import Observation
+import os
 import VlogifyContract
 import VlogifyEngine
 
@@ -36,6 +37,9 @@ final class AppState {
     var toast: Toast?
     var pendingJoinCode: InviteCode?
     var isLoading = false
+    /// Guards the one-time "just me" create against loadRooms running twice at once.
+    private var makingOwnVlog = false
+    private let logger = Logger(subsystem: "com.matthewpark.vlogify", category: "rooms")
     /// The chosen language, or nil on a first launch. Drives the environment locale.
     var language: AppLanguage? = AppLanguage.current
     var languageChosen = AppLanguage.current != nil
@@ -181,6 +185,7 @@ final class AppState {
         guard isSignedIn else { return }
         do {
             rooms = try await backend.rooms.rooms()
+            await ensureOwnVlog()
             let today = clock.today
             for room in rooms {
                 if let log = try? await backend.clips.day(roomID: room.id, day: today) {
@@ -190,6 +195,21 @@ final class AppState {
             scheduler.replan(rooms: rooms, clock: clock)
         } catch {
             show(.error(String(localized: "couldn't load your rooms.", bundle: .app)))
+        }
+    }
+
+    /// Everyone has their own vlog, "just me", so filming never waits on making a room.
+    /// Rooms are for adding friends. Made the first time the list comes back without one.
+    private func ensureOwnVlog() async {
+        guard !rooms.contains(where: \.isSolo), !makingOwnVlog else { return }
+        makingOwnVlog = true
+        defer { makingOwnVlog = false }
+        do {
+            let own = try await backend.rooms.create(RoomDraft(name: nil, type: .vlog, capacity: 1))
+            rooms.insert(own, at: 0)
+        } catch {
+            // The camera still says "make or join a room first"; the next load tries again.
+            logger.error("could not make the own vlog: \(error.localizedDescription)")
         }
     }
 
