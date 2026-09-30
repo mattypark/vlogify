@@ -1,33 +1,30 @@
 You're continuing work on vlogify, my SwiftUI app at ~/Downloads/current-projects/appscurrent/vlogify.
 
-This is a DESIGN ITERATION session, not a ship session. I want to change a lot before the
-next build. Do NOT archive, upload, attach or swap any build, and do NOT touch App Store
-Connect, unless I explicitly say "upload build N". Local builds, simulator runs and
-screenshots are fine and expected.
+**vlogify 1.0 (build 6) was submitted to App Review on 2026-09-30.** Read docs/NEXT-SESSION.md
+first (where things stand), then docs/DESIGN.md and the last section of docs/DECISIONS.md.
+Then check `git log -15`, `git status`, and `curl https://vlogify.matthew-parkk0.workers.dev/health`.
 
-Read first, in order: docs/NEXT-SESSION.md (where things stand), docs/DESIGN.md (ink on
-paper, the hand font everywhere, write-in animations, the drawn mark), docs/DECISIONS.md
-(last section). Then check: git log -15, git status, and
-curl https://vlogify.matthew-parkk0.workers.dev/health.
+What I'm here for (I'll say which):
 
-Current state, briefly:
-- The hand font (Yomogi + Gaegu for Korean) is the main font everywhere; the camera time
-  is SF Pro Black. Onboarding draws itself in: doodle traces, then each line writes
-  left-to-right (HandwrittenText), then buttons trace in (drawIn).
-- Backend is live on Cloudflare (Worker + D1 + R2). Deploying Worker changes is OK.
-- App Store Connect: version 1.0 is filled in with build 3 attached; build 4 (hand font +
-  animations) is uploaded but not attached. Nothing is submitted.
+- **"seed it"**: re-seed the App Review demo room so it has today's clips:
+  `scripts/seed-review-room.sh <yesterday> <today>` (dates as YYYY-MM-DD). It writes
+  production D1 + one R2 demo object; my saying "seed it" is the OK. Show me the clip counts
+  per day afterwards.
+- **"status"**: read the review state with asc-mcp (app `6811419336`, version 1.0) and
+  any App Store review messages. Quote Apple word for word; never summarise a rejection.
+- **A rejection**: I'll paste Apple's message. Map it to the guideline number, find the
+  cause in the code or the metadata, fix it, show me before/after, and draft my Resolution
+  Center reply. Don't upload a new build until I say "upload build N".
+- **Approved**: tell me what's live, then help me with the launch (the ship checklist in
+  docs/LAUNCH-CHECKLIST.md).
+- **More design**: stage 2 of the drawn redesign (room view, sheets, profile, players),
+  as in docs/NEXT-SESSION.md. Same loop: small steps, build, simulator screenshot sent to
+  me, commit. Camera stays as it is unless I ask.
 
-What I want to change this session:
-[describe the changes here: screens, animations, flows, copy, anything]
-
-How to work:
-1. Restate my changes as a short list and ask anything unclear, with a free-type option.
-2. Make them in small steps. Commit every viable change as Matthew Park (never push).
-3. After each visual change: build, run on the simulator, screenshot (or record and pull
-   frames for animations), and send me the images. Shut down any simulator you boot.
-4. When I'm happy, tell me what's ready and ASK before building/uploading anything.
-
-Rules: never push (I push). Never touch .env*, .dev.vars or Secrets.xcconfig. Never submit
-for review or touch pricing/availability; I press Submit. App Store Connect is a real
-account with 12 other apps: app id 6811419336 only, and only when I say so.
+Rules:
+- Never push (I push). Commit every viable change as Matthew Park <matthew.parkk0@gmail.com>.
+- Never touch .env*, .dev.vars, Secrets.xcconfig, or any key.
+- App Store Connect is a real account with 12 other apps: act on app id 6811419336
+  only. Never submit, never touch pricing or availability, never upload, attach or swap a
+  build without my "upload build N". I press Submit.
+- Shut down any simulator you boot.
