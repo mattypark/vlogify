@@ -65,6 +65,14 @@ new room). Review notes to paste are in the chat log of that session and in
 `nextsessions/app-store-ready-any-app.md` step 8's spirit: Sign in with Apple with any
 Apple ID -> own "just me" vlog -> + > join with a code > REV-1EF for the demo room.
 
+## Ready for Submit (2026-09-30)
+
+Version 1.0 has **build 6** attached (verified via API), Matthew's new screenshots are on
+the 6.9" slot, review notes updated (own "just me" vlog, no-room recording, the calendar),
+Sign-in required unticked, release automatic after approval. Review room seeded for
+2026-09-29 (full) and 2026-09-30 (morning). Matthew presses **Add for Review -> Submit**.
+While in review: re-seed each morning (`scripts/seed-review-room.sh <yesterday> <today>`).
+
 ## Design work still open
 
 Stage 2 of the drawn redesign (plan in the session log): room view, new room / join /
