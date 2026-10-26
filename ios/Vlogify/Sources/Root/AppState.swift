@@ -11,7 +11,7 @@ final class AppState {
     enum Tab: String { case camera, logs }
 
     enum Gate: Equatable {
-        case welcome, language, permissions, profile, home
+        case welcome, language, permissions, profile, rooms, home
     }
 
     let backend: Backend
@@ -51,6 +51,12 @@ final class AppState {
         didSet { UserDefaults.standard.set(permissionsIntroDone, forKey: "permissionsIntroDone") }
     }
 
+    /// Set once the "vlog with friends?" page has been answered. Someone who used the app
+    /// before that page existed (they have seen the home tips) never gets it.
+    var roomsIntroDone: Bool {
+        didSet { UserDefaults.standard.set(roomsIntroDone, forKey: "roomsIntroDone") }
+    }
+
     init(backend: Backend, clock: Clock, permissions: Permissions,
          scheduler: HourlyScheduler, cache: LocalMediaCache) {
         self.backend = backend
@@ -60,6 +66,10 @@ final class AppState {
         self.cache = cache
         self.uploads = UploadQueue(cache: cache)
         self.permissionsIntroDone = UserDefaults.standard.bool(forKey: "permissionsIntroDone")
+        self.roomsIntroDone = UserDefaults.standard.bool(forKey: "roomsIntroDone")
+            || UserDefaults.standard.bool(forKey: CoachMarks.legacySeenKey)
+        // Demo runs (screenshots, the walker) go straight to home unless they ask for the page.
+        if LaunchArguments.demo != nil { roomsIntroDone = LaunchArguments.screen != "roomsIntro" }
         if let forced = LaunchArguments.permissions { permissionsIntroDone = forced != "unasked" }
     }
 
@@ -72,6 +82,8 @@ final class AppState {
         guard permissionsIntroDone else { return .permissions }
         // A name and a drawn mark: the mark is who you are on everyone's phone.
         guard let profile, !profile.displayName.isEmpty, profile.mark != nil else { return .profile }
+        // Into a room with friends before the app opens. Anyone already in one skips it.
+        guard roomsIntroDone || rooms.contains(where: { !$0.isSolo }) else { return .rooms }
         return .home
     }
 
@@ -119,6 +131,7 @@ final class AppState {
         rooms = []
         roomProgress = [:]
         permissionsIntroDone = false
+        roomsIntroDone = false
     }
 
     func saveDisplayName(_ name: String) async throws {

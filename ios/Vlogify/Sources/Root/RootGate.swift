@@ -13,6 +13,7 @@ struct RootGate: View {
             case .language: LanguageView()
             case .permissions: PermissionsView()
             case .profile: ProfileSetupView()
+            case .rooms: RoomsIntroView()
             case .home: HomeView()
             }
         }

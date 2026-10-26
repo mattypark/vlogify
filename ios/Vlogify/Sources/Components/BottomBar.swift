@@ -40,6 +40,7 @@ struct BottomBar<Trailing: View>: View {
             .accessibilityLabel(Text(tab == .camera ? "back" : "today"))
             .accessibilityHint(Text(tab == .camera ? "back to your page" : "shows your past days"))
             .accessibilityIdentifier(tab == .camera ? "bar.back" : "bar.today")
+            .tourAnchor(.days)
 
             Spacer()
 
@@ -59,11 +60,13 @@ struct BottomBar<Trailing: View>: View {
             .accessibilityLabel(Text("camera"))
             .accessibilityAddTraits(tab == .camera ? .isSelected : [])
             .accessibilityIdentifier("bar.camera")
+            .tourAnchor(.record)
 
             Spacer()
 
             trailing
                 .frame(width: Metrics.barButton + 8)
+                .tourAnchor(.rooms)
         }
         .padding(.horizontal, Space.gutter)
         .padding(.top, Space.xs)

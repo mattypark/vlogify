@@ -44,7 +44,17 @@ struct HomeView: View {
             }
             .background(Color.ground.ignoresSafeArea())
             .onChange(of: state.tab) { showPlus = false }
-            .overlay { if showCoachMarks { CoachMarks { dismissCoachMarks() } } }
+            // Over everything, bar included: the tour points at the bar's own buttons.
+            .overlayPreferenceValue(TourAnchorKey.self) { anchors in
+                if showCoachMarks, state.tab == .logs {
+                    GeometryReader { proxy in
+                        CoachMarks(frames: anchors.mapValues { proxy[$0] }, variant: DesignVariant.tour) {
+                            dismissCoachMarks()
+                        }
+                    }
+                    .transition(.opacity)
+                }
+            }
             .navigationDestination(item: $openRoom) { room in RoomView(room: room) }
         }
         .tint(Color.text)
@@ -77,6 +87,9 @@ struct HomeView: View {
             default: break
             }
             #endif
+            // A friend's link opened before sign-in (or before onboarding was done) is
+            // still waiting: `onChange` above only sees codes that arrive from here on.
+            if state.pendingJoinCode != nil { showJoin = true }
             // First visit only: the page explains itself with handwriting and arrows.
             showCoachMarks = LaunchArguments.screen == "coach"
                 || (!UserDefaults.standard.bool(forKey: CoachMarks.seenKey) && !LaunchArguments.isUITesting
