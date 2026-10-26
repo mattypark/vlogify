@@ -7,7 +7,10 @@ import VlogifyEngine
 struct RoomView: View {
     @Environment(AppState.self) private var state
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.scenePhase) private var scenePhase
     let room: Room
+
+    private static let refreshInterval: Double = 20
 
     @State private var day: DayKey?
     @State private var log: DayLog?
@@ -49,7 +52,18 @@ struct RoomView: View {
                     .accessibilityIdentifier("room.menu")
                 }
             }
-            .task(id: shownDay) { await load() }
+            .task(id: shownDay) {
+                await load()
+                // Today is live: friends' clips land while the page is open.
+                while isToday, !Task.isCancelled {
+                    try? await Task.sleep(for: .seconds(Self.refreshInterval))
+                    guard !Task.isCancelled else { return }
+                    await load()
+                }
+            }
+            .onChange(of: scenePhase) { _, phase in
+                if phase == .active { Task { await load() } }
+            }
             .sheet(isPresented: $showInvite) { InviteView(room: room) }
             .sheet(isPresented: $showHistory) {
                 HistoryView(room: room) { picked in day = picked; showHistory = false }
@@ -96,6 +110,7 @@ struct RoomView: View {
                 .padding(.horizontal, Space.gutter)
                 .padding(.bottom, Space.xxl)
             }
+            .refreshable { await load() }
             .onChange(of: log?.day) { _, _ in
                 if isToday { withAnimation { proxy.scrollTo(state.clock.currentSlot.hour, anchor: .center) } }
             }
