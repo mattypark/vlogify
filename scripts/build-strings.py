@@ -308,6 +308,24 @@ T = {
  "back to your page": ("내 페이지로 돌아가기", "自分のページに戻る", "回到你的頁面", "về trang của bạn", "назад к своей странице"),
  "shows your past days": ("지난 날들을 보여줘요", "過去の日を表示します", "顯示你過去的日子", "xem những ngày đã qua", "показывает прошлые дни"),
  "turns the time a quarter turn": ("시간을 90도 돌려요", "時刻を90度回します", "把時間轉 90 度", "xoay giờ 90 độ", "поворачивает время на 90°"),
+ # 2026-10-25: tap to start/stop, the rooms page in onboarding, the bar tour
+ "hold to film": ("꾹 눌러서 찍기", "長押しで撮影", "按住拍攝", "giữ để quay", "держи, чтобы снимать"),
+ "tap to start · tap to stop": ("눌러서 시작 · 다시 눌러서 멈춤", "タップで開始・もう一度で停止", "點一下開始 · 再點一下停止", "chạm để bắt đầu · chạm để dừng", "нажми — старт · ещё раз — стоп"),
+ "let go to stop": ("떼면 멈춰요", "離すと停止", "放開就停止", "thả tay để dừng", "отпусти, чтобы остановить"),
+ "tap to stop": ("눌러서 멈춤", "タップで停止", "點一下停止", "chạm để dừng", "нажми, чтобы остановить"),
+ "stop recording": ("녹화 멈추기", "録画を停止", "停止錄影", "dừng quay", "остановить запись"),
+ "vlog with friends?": ("친구들이랑 브이로그할래요?", "友だちとVlogする？", "要和朋友一起 vlog 嗎？", "vlog cùng bạn bè nhé?", "влог с друзьями?"),
+ "a room is you + friends.\neveryone films the same hour,\nand the day plays back as one.": ("방은 나 + 친구들이에요.\n모두 같은 시간에 찍고,\n하루가 하나로 재생돼요.", "ルームはあなた＋友だち。\nみんな同じ時間に撮って、\n1日がひとつにつながる。", "房間就是你 + 朋友。\n大家在同一個小時拍，\n一天會合成一段播放。", "phòng là bạn + bạn bè.\nmọi người quay cùng một giờ,\nvà cả ngày phát lại thành một.", "комната — это ты и друзья.\nвсе снимают в один и тот же час,\nи день собирается в одно видео."),
+ "a friend sent you their room.\none tap and you're in.": ("친구가 방을 보냈어요.\n한 번만 누르면 들어가요.", "友だちがルームを送ってくれた。\nタップひとつで参加。", "朋友傳了他們的房間給你。\n點一下就加入。", "bạn bè đã gửi phòng cho bạn.\nchạm một lần là vào.", "друг прислал тебе свою комнату.\nодно касание — и ты внутри."),
+ "join %@": ("%@ 참여하기", "%@ に参加", "加入 %@", "vào %@", "войти в %@"),
+ "join a friend's room": ("친구 방 들어가기", "友だちのルームに参加", "加入朋友的房間", "vào phòng của bạn", "войти в комнату друга"),
+ "just me for now": ("지금은 나 혼자", "今はひとりで", "先自己就好", "giờ chỉ mình tôi", "пока только я"),
+ "this is the record button.\ntap it to film.": ("여기가 녹화 버튼이에요.\n누르면 찍혀요.", "これが録画ボタン。\nタップで撮影。", "這是錄影按鈕。\n點一下就拍。", "đây là nút quay.\nchạm để quay.", "это кнопка записи.\nнажми, чтобы снять."),
+ "every day you film\nis kept here.": ("찍은 하루하루가\n여기 모여요.", "撮った毎日は\nここに残る。", "你拍的每一天\n都存在這裡。", "mỗi ngày bạn quay\nđều được giữ ở đây.", "каждый снятый день\nхранится здесь."),
+ "rooms live here.\nstart one, or join friends.": ("방은 여기 있어요.\n만들거나 친구 방에 들어가요.", "ルームはここ。\nつくるか、友だちのに参加。", "房間在這裡。\n開一個，或加入朋友的。", "phòng ở đây.\ntạo phòng, hoặc vào phòng của bạn.", "комнаты здесь.\nсоздай свою или войди к друзьям."),
+ "tap for the next one": ("눌러서 다음 보기", "タップで次へ", "點一下看下一個", "chạm để xem tiếp", "нажми — дальше"),
+ "tap anywhere to start": ("아무 데나 눌러서 시작", "どこかをタップして始める", "點任何地方開始", "chạm vào đâu cũng được để bắt đầu", "нажми где угодно, чтобы начать"),
+ "tips: the record button is in the middle, your days are kept on the left, rooms are on the right. tap to close.": ("팁: 녹화 버튼은 가운데, 지난 하루는 왼쪽, 방은 오른쪽에 있어요. 눌러서 닫아요.", "ヒント：録画ボタンは真ん中、日々は左、ルームは右。タップで閉じる。", "提示：錄影按鈕在中間，你的日子在左邊，房間在右邊。點一下關閉。", "mẹo: nút quay ở giữa, các ngày của bạn ở bên trái, phòng ở bên phải. chạm để đóng.", "подсказка: кнопка записи посередине, твои дни слева, комнаты справа. нажми, чтобы закрыть."),
 }
 # Identical in every language: identifiers, placeholders, the brand.
 SAME = {"google", "email", "", "000000", "ABC-123", "you@example.com", "vlogify", "no camera in the simulator"}
