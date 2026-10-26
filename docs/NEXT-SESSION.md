@@ -74,6 +74,18 @@ Sign-in required unticked, release automatic after approval. Review room seeded 
 Next session: paste `nextsessions/after-submit.md`.
 While in review: re-seed each morning (`scripts/seed-review-room.sh <yesterday> <today>`).
 
+## 1.0 LIVE; 1.0.1 (build 7) SUBMITTED (2026-10-25, 01:44Z)
+
+1.0 (build 6) is on the App Store. 1.0.1 build 7 was uploaded, attached and submitted for
+review at Matthew's "send to the apple store" (ASC version `6ad171fc-…`, submission
+`c949f0f1-…`, release automatic after approval, TestFlight notify off). In it: room clips
+stay inside their tiles; rooms refresh live; your own vlog records tap-to-start /
+tap-to-stop with a timer (A/B: `-debug.record.variant b` = hold); onboarding ends on
+"vlog with friends?" (join / start / just me); first-visit tour of the bar
+(`-debug.tour.variant b` = cascade). Release always runs the A sides; both A/Bs are on the
+A/B board awaiting his pick. Review notes updated for the new onboarding (REV-1EF still
+the demo room).
+
 ## Design work still open
 
 Stage 2 of the drawn redesign (plan in the session log): room view, new room / join /
