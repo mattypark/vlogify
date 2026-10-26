@@ -3,9 +3,11 @@ import VlogifyContract
 import VlogifyDesign
 import VlogifyEngine
 
-/// The preview inside a drawn frame, the hour in the pen hand, a drawn shutter. Tap =
-/// two seconds, one take, posted -- and while it records, a red pen line draws itself
-/// once around the shutter, taking exactly the two seconds.
+/// The preview inside a drawn frame, the hour in the pen hand, a drawn shutter. In a
+/// friends' room, tap = two seconds, one take, posted -- and a red pen line draws itself
+/// once around the shutter, taking exactly the two seconds. In your own vlog a clip is
+/// as long as you want: tap to start, tap to stop (B: hold to film), with a running
+/// clock so it is never a guess when it ends.
 struct CameraView: View {
     @Environment(AppState.self) private var state
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
@@ -16,6 +18,12 @@ struct CameraView: View {
     @State private var hintDismissed = false
     @State private var posting = false
     @State private var posted = 0
+
+    /// The longest an open-ended clip runs before it stops by itself. The ring fills
+    /// towards it, so the limit is visible rather than a surprise.
+    private static let openEndedCap: Double = 60
+    /// A tap-length hold still makes a watchable clip.
+    private static let shortestClip: Double = 0.8
 
     var body: some View {
         VStack(spacing: Space.sm) {
@@ -36,6 +44,13 @@ struct CameraView: View {
         .task {
             await state.permissions.refresh()
             await camera.start()
+            #if DEBUG
+            // Screenshots of the recording state: the shutter can't be tapped from a script.
+            if LaunchArguments.screen == "cameraRecording" {
+                try? await Task.sleep(for: .seconds(1))
+                capture()
+            }
+            #endif
         }
         .onDisappear { camera.stop() }
         .screen("screen.camera")
@@ -62,6 +77,14 @@ struct CameraView: View {
         let turn = state.capture.stampTurn.truncatingRemainder(dividingBy: 360)
         return turn == 90 || turn == -270
     }
+
+    /// Your own vlog: no fixed length, so the person decides when it ends.
+    private var isOpenEnded: Bool {
+        guard let room else { return false }
+        return RoomRules.clipLimit(for: room.type) == nil
+    }
+
+    private var holdToFilm: Bool { isOpenEnded && DesignVariant.record == .b }
 
     private func name(of room: Room) -> String {
         room.name ?? (room.isSolo ? String(localized: "just me", bundle: .app) : String(localized: "untitled room", bundle: .app))
@@ -127,6 +150,15 @@ struct CameraView: View {
                 }
                 .buttonStyle(.plain)
                 .accessibilityIdentifier("camera.rotateHint")
+            }
+            if camera.isRecording {
+                recordingClock
+            } else if isOpenEnded, !alreadyPosted, !state.rooms.isEmpty {
+                Text(holdToFilm ? "hold to film" : "tap to start · tap to stop")
+                    .font(.vlogCaption).foregroundStyle(Color.chalk)
+                    .padding(.horizontal, Space.md).padding(.vertical, Space.xxs)
+                    .background(Color.ink.opacity(0.6), in: Capsule())
+                    .accessibilityIdentifier("camera.howTo")
             }
             shutter
                 .padding(.bottom, Space.lg)
@@ -215,24 +247,81 @@ struct CameraView: View {
         .accessibilityIdentifier("camera.orientation")
     }
 
-    private var shutter: some View {
-        Button { capture() } label: {
-            ZStack {
-                // The two seconds, drawn: a pen loop that starts where a hand would and
-                // closes (a little past) as the clip ends.
-                PenShape(.circle, seed: 3, wobble: 2)
-                    .trim(from: 0, to: progress)
-                    .stroke(Color.recording, style: Ink.style(5))
-                    .padding(-9)
-                Circle().fill(Color.recording).frame(width: 30, height: 30)
+    /// A red dot and the seconds so far, ticking from the moment frames land, plus how
+    /// it ends: on its own (two seconds), at a tap, or when you let go.
+    private var recordingClock: some View {
+        TimelineView(.periodic(from: .now, by: 0.1)) { context in
+            let elapsed = camera.recordingStartedAt.map { context.date.timeIntervalSince($0) } ?? 0
+            HStack(spacing: Space.xs) {
+                Circle().fill(Color.recording).frame(width: 10, height: 10)
+                Text(verbatim: Self.clockText(elapsed))
+                    .font(Font.system(size: 17, weight: .bold).monospacedDigit())
+                if isOpenEnded {
+                    Text(holdToFilm ? "let go to stop" : "tap to stop")
+                        .font(.vlogCaption)
+                }
             }
-            .frame(width: Metrics.shutter, height: Metrics.shutter)
+            .foregroundStyle(Color.chalk)
+            .padding(.horizontal, Space.md).padding(.vertical, Space.xxs)
+            .background(Color.ink.opacity(0.75), in: Capsule())
         }
-        .buttonStyle(StickerCircleStyle(fill: .card))
+        .accessibilityElement(children: .combine)
+        .accessibilityIdentifier("camera.clock")
+    }
+
+    private static func clockText(_ seconds: Double) -> String {
+        let whole = max(0, Int(seconds))
+        return String(format: "%d:%02d", whole / 60, whole % 60)
+    }
+
+    private var shutterDisabled: Bool {
+        // An open-ended clip has to stay tappable (and holdable) while it records; a
+        // double start is already refused by `capture()`.
+        (posting && !isOpenEnded) || state.rooms.isEmpty || alreadyPosted || state.permissions.isDenied
+    }
+
+    private var shutterFace: some View {
+        ZStack {
+            // The clip's length, drawn: a pen loop that starts where a hand would and
+            // closes as the clip ends -- two seconds in a room, the cap in your vlog.
+            PenShape(.circle, seed: 3, wobble: 2)
+                .trim(from: 0, to: progress)
+                .stroke(Color.recording, style: Ink.style(5))
+                .padding(-9)
+            // Recording an open-ended clip, the dot becomes a stop square.
+            RoundedRectangle(cornerRadius: isOpenEnded && camera.isRecording ? 6 : 15, style: .continuous)
+                .fill(Color.recording)
+                .frame(width: isOpenEnded && camera.isRecording ? 26 : 30, height: isOpenEnded && camera.isRecording ? 26 : 30)
+                .animation(Motion.respecting(Motion.tap, reduceMotion: reduceMotion), value: camera.isRecording)
+        }
+        .frame(width: Metrics.shutter, height: Metrics.shutter)
+    }
+
+    @ViewBuilder
+    private var shutter: some View {
+        Group {
+            if holdToFilm {
+                // Down starts it, up ends it. Not a Button: a button only fires on release.
+                shutterFace
+                    .sticker(fill: .card, corner: .circle, pressed: camera.isRecording)
+                    .contentShape(Circle())
+                    .onLongPressGesture(minimumDuration: 600, maximumDistance: 80, perform: {}) { pressing in
+                        guard !shutterDisabled else { return }
+                        if pressing { capture() } else { finish() }
+                    }
+                    .accessibilityAddTraits(.isButton)
+                    .accessibilityAction { camera.isRecording ? finish() : capture() }
+            } else {
+                Button {
+                    if isOpenEnded, camera.isRecording { finish() } else { capture() }
+                } label: { shutterFace }
+                .buttonStyle(StickerCircleStyle(fill: .card))
+            }
+        }
         .rewardBeat(on: posted)
-        .disabled(posting || state.rooms.isEmpty || alreadyPosted || state.permissions.isDenied)
+        .disabled(shutterDisabled)
         .opacity(alreadyPosted ? 0.4 : 1)
-        .accessibilityLabel(Text(camera.isRecording ? "recording" : "record"))
+        .accessibilityLabel(Text(camera.isRecording ? (isOpenEnded ? "stop recording" : "recording") : "record"))
         .accessibilityIdentifier("camera.shutter")
     }
 
@@ -256,13 +345,19 @@ struct CameraView: View {
     private func capture() {
         guard let target = room, !posting else { return }
         let limit = RoomRules.clipLimit(for: target.type)
+        let length = limit ?? Self.openEndedCap
         posting = true
         Haptics.shutter()
-        withAnimation(Motion.respecting(Motion.ring, reduceMotion: reduceMotion)) { progress = 1 }
+        withAnimation(Motion.respecting(limit == nil ? .linear(duration: length) : Motion.ring, reduceMotion: reduceMotion)) {
+            progress = 1
+        }
         Task {
-            defer { posting = false; progress = 0 }
+            defer {
+                posting = false
+                withAnimation(Motion.respecting(Motion.dismiss, reduceMotion: reduceMotion)) { progress = 0 }
+            }
             do {
-                let file = try await camera.record(maxSeconds: limit ?? 30)
+                let file = try await camera.record(maxSeconds: length)
                 let sent = try await post(file, to: target)
                 Haptics.success()
                 posted += 1
@@ -276,6 +371,22 @@ struct CameraView: View {
             } catch {
                 state.show(.error(String(localized: "couldn't save that clip. try again.", bundle: .app)))
             }
+        }
+    }
+
+    /// Ends an open-ended clip. A stop in the first instant waits out the shortest clip,
+    /// so a quick tap (or a too-short hold) still leaves something to watch.
+    private func finish() {
+        guard posting else { return }
+        Haptics.tap()
+        Task {
+            // A release can beat the recorder starting up; wait for it rather than lose
+            // the stop and run to the cap.
+            for _ in 0..<40 where camera.recordingStartedAt == nil { try? await Task.sleep(for: .milliseconds(50)) }
+            let elapsed = camera.recordingStartedAt.map { Date().timeIntervalSince($0) } ?? 0
+            let wait = max(0, Self.shortestClip - elapsed)
+            if wait > 0 { try? await Task.sleep(for: .seconds(wait)) }
+            camera.stopRecording()
         }
     }
 

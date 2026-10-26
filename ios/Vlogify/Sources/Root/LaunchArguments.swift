@@ -6,7 +6,7 @@ import VlogifyContract
 /// by hand.
 ///
 ///   -vlogifyDemo full|empty|solo      seed the mock backend (default: whatever is persisted)
-///   -vlogifyScreen welcome|permissions|profile|home|homeEnd|plus|days|camera|newRoom|join|room|player|history|settings|notifications
+///   -vlogifyScreen welcome|permissions|profile|roomsIntro|coach|home|homeEnd|plus|days|camera|cameraRecording|newRoom|join|room|player|history|settings|notifications
 ///   -vlogifyHour 17                   pretend it is this hour (4...27) for the timeline and camera
 ///   -vlogifyPermissions granted|denied|unasked
 ///   -vlogifyStep 2                    open a multi-step screen (intro, permissions, profile) on that step

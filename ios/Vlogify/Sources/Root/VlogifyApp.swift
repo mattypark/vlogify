@@ -63,7 +63,7 @@ extension LaunchArguments {
     @MainActor
     static func apply(to state: AppState) {
         #if DEBUG
-        if screen == "camera" { state.tab = .camera }
+        if screen == "camera" || screen == "cameraRecording" { state.tab = .camera }
         if screen == "logs" { state.tab = .logs }
         #endif
     }

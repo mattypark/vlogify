@@ -25,6 +25,11 @@ final class CameraSession {
     var isTorchOn = false
     var isRunning = false
     var isRecording = false
+    /// When frames actually started landing in the file, for the on-screen timer. Nil
+    /// until the output says so: `isRecording` turns on a beat earlier, at the tap.
+    var recordingStartedAt: Date?
+    /// Set by `stopRecording()`; the simulated recorder watches it.
+    private var stopRequested = false
     /// Physical orientation, for the hour stamp and the rotate hint. The UI itself
     /// never rotates.
     var deviceOrientation: UIDeviceOrientation = .portrait
@@ -121,12 +126,19 @@ final class CameraSession {
         device.unlockForConfiguration()
     }
 
-    /// Records to a temporary file. `maxSeconds` nil means until `stopRecording()`.
+    /// Records to a temporary file. `maxSeconds` nil means until `stopRecording()`;
+    /// with a limit, `stopRecording()` can still end it early.
     func record(maxSeconds: Double?) async throws -> URL {
         isRecording = true
-        defer { isRecording = false }
+        stopRequested = false
+        recordingStartedAt = nil
+        defer { isRecording = false; recordingStartedAt = nil }
         if isSimulated {
-            try await Task.sleep(for: .seconds(min(maxSeconds ?? 2, 2)))
+            recordingStartedAt = Date()
+            let limit = maxSeconds ?? 60
+            while !stopRequested, Date().timeIntervalSince(recordingStartedAt ?? Date()) < limit {
+                try await Task.sleep(for: .milliseconds(50))
+            }
             guard let sample = SampleClip.url else { throw CameraError.noSample }
             let copy = FileManager.default.temporaryDirectory.appendingPathComponent("rec-\(UUID().uuidString).mov")
             try FileManager.default.copyItem(at: sample, to: copy)
@@ -144,16 +156,23 @@ final class CameraSession {
         }
         let url = FileManager.default.temporaryDirectory.appendingPathComponent("rec-\(UUID().uuidString).mov")
         let delegate = RecordingDelegate()
+        delegate.onStart = { [weak self] in
+            Task { @MainActor in self?.recordingStartedAt = Date() }
+        }
         return try await withCheckedThrowingContinuation { continuation in
             delegate.continuation = continuation
             output.startRecording(to: url, recordingDelegate: delegate)
             self.activeDelegate = delegate
+            // A stop that arrived while the output was still starting up.
+            if stopRequested { output.stopRecording() }
         }
     }
 
     private var activeDelegate: RecordingDelegate?
 
     func stopRecording() {
+        guard isRecording else { return }
+        stopRequested = true
         guard !isSimulated else { return }
         output.stopRecording()
     }
@@ -168,6 +187,12 @@ enum CameraError: Error {
 /// an error with `AVErrorRecordingSuccessfullyFinishedKey` true, which is a success.
 private final class RecordingDelegate: NSObject, AVCaptureFileOutputRecordingDelegate, @unchecked Sendable {
     var continuation: CheckedContinuation<URL, Error>?
+    var onStart: (() -> Void)?
+
+    func fileOutput(_ output: AVCaptureFileOutput, didStartRecordingTo fileURL: URL,
+                    from connections: [AVCaptureConnection]) {
+        onStart?()
+    }
 
     func fileOutput(_ output: AVCaptureFileOutput, didFinishRecordingTo outputFileURL: URL,
                     from connections: [AVCaptureConnection], error: Error?) {
