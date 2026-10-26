@@ -65,14 +65,16 @@ struct ClipThumbnail: View {
     @State private var image: UIImage?
 
     var body: some View {
-        Group {
-            if let image {
-                Image(uiImage: image).resizable().scaledToFill()
-            } else {
-                Color.cardRaised
+        // The frame comes from the tile, never from the picture: a filled image reports
+        // its own (taller) size, and laid out at that size it spills over the hour rows.
+        Color.cardRaised
+            .overlay {
+                if let image {
+                    Image(uiImage: image).resizable().scaledToFill()
+                }
             }
-        }
-        .task(id: clip.id) { image = await thumbnails.image(for: clip) }
+            .clipped()
+            .task(id: clip.id) { image = await thumbnails.image(for: clip) }
     }
 }
 
